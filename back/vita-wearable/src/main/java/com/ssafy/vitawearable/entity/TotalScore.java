@@ -22,7 +22,7 @@ public class TotalScore {
     @JoinColumn(name = "user_id")
     private Users users;
 
-    private int totalScoreWeight;
+    private float totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;

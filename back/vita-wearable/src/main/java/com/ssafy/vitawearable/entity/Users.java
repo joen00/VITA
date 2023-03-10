@@ -23,8 +23,8 @@ public class Users {
     private String userNickname;
     private int userAge;
     private String userSex;
-    private int userHeight;
-    private int userWeight;
+    private float userHeight;
+    private float userWeight;
     private int userScore;
     private String userPhoneType;
     private Boolean userPublic;
