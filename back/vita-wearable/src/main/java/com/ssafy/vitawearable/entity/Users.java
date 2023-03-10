@@ -1,9 +1,8 @@
-package com.ssafy.vitawearable.Entity;
+package com.ssafy.vitawearable.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
