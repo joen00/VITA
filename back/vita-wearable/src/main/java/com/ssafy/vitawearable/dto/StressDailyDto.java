@@ -1,4 +1,4 @@
 package com.ssafy.vitawearable.dto;
 
-public class StressDto {
+public class StressDailyDto {
 }
