@@ -3,14 +3,11 @@ package com.ssafy.vitawearable.controller;
 import com.ssafy.vitawearable.dto.StressDailyDto;
 import com.ssafy.vitawearable.dto.StressMonthlyDto;
 import com.ssafy.vitawearable.dto.StressWeeklyDto;
-import com.ssafy.vitawearable.entity.DailyWearable;
-import com.ssafy.vitawearable.entity.MonthlyWearable;
-import com.ssafy.vitawearable.entity.WeeklyWearable;
-import com.ssafy.vitawearable.repo.*;
+import com.ssafy.vitawearable.service.Wearable;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,52 +16,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@Api("웨어러블 스트레스 컨트롤러 API")
 @RequestMapping("/wearable/user/stress")
 public class StressController {
-    private final ApiAverageRepo apiAverageRepo;
-    private final DailyWearableRepo dailyWearableRepo;
-    private final MonthlyWearableRepo monthlyWearableRepo;
-    private final UserAverageRepo userAverageRepo;
-    private final WeeklyWearableRepo weeklyWearableRepo;
+    private final Wearable wearable;
 
     // 스트레스 달별 데이터
+    @ApiOperation(
+            value = "스트레스 월별 데이터 요청",
+            notes = "userId를 통해 스트레스 월별 데이터를 json 형태로 반환한다",
+            response = StressMonthlyDto.class,
+            responseContainer = "List"
+    )
     @GetMapping("/monthly")
-    public ResponseEntity<List<StressMonthlyDto>> stressMonthly(@RequestHeader String userId) {
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        List<MonthlyWearable> monthlyStress = monthlyWearableRepo.findByUsers_UserId(userId);
-        List<StressMonthlyDto> stressMonthlyDtoList = monthlyStress.stream()
-                .map(monthly -> mapper.map(monthly, StressMonthlyDto.class)).collect(Collectors.toList());
-        return new ResponseEntity<>(stressMonthlyDtoList, HttpStatus.valueOf(200));
+    public ResponseEntity<List<StressMonthlyDto>> stressMonthly(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearable.stressMonthly(userId), HttpStatus.valueOf(200));
     }
 
     // 스트레스 주간 데이터
+    @ApiOperation(
+            value = "스트레스 주별 데이터 요청",
+            notes = "userId를 통해 스트레스 주별 데이터를 json 형태로 반환한다",
+            response = StressWeeklyDto.class,
+            responseContainer = "List"
+    )
     @GetMapping("/weekly")
-    public ResponseEntity<List<StressWeeklyDto>> stressWeekly(@RequestHeader String userId) {
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
-        List<StressWeeklyDto> stressWeeklyDtoList = weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, StressWeeklyDto.class)).collect(Collectors.toList());
-        return new ResponseEntity<>(stressWeeklyDtoList,HttpStatus.valueOf(200));
+    public ResponseEntity<List<StressWeeklyDto>> stressWeekly(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearable.stressWeekly(userId), HttpStatus.valueOf(200));
     }
 
     // 스트레스 일간 데이터
+    @ApiOperation(
+            value = "스트레스 일별 데이터 요청",
+            notes = "userId를 통해 스트레스 일별 데이터를 json 형태로 반환한다",
+            response = StressDailyDto.class,
+            responseContainer = "List"
+    )
     @GetMapping("/daily")
-    public ResponseEntity<List<StressDailyDto>> stressDaily(@RequestHeader String userId) {
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
-        List<StressDailyDto> stressDailyDtoList = dailyWearables.stream()
-                .map(daily -> mapper.map(daily, StressDailyDto.class)).collect(Collectors.toList());
-        return new ResponseEntity<>(stressDailyDtoList,HttpStatus.valueOf(200));
+    public ResponseEntity<List<StressDailyDto>> stressDaily(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearable.stressDaily(userId), HttpStatus.valueOf(200));
     }
 }

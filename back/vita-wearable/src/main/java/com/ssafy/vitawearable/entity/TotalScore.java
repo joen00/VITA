@@ -22,6 +22,9 @@ public class TotalScore {
     @JoinColumn(name = "user_id")
     private Users users;
 
+    private int year;
+    private int month;
+    private int day;
     private float totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
@@ -31,5 +34,4 @@ public class TotalScore {
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private ZonedDateTime createdDate;
-
 }
