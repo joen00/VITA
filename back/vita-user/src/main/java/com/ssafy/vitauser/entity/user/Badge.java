@@ -1,4 +1,4 @@
-package com.ssafy.vitauser.entity;
+package com.ssafy.vitauser.entity.user;
 
 import lombok.AccessLevel;
 import lombok.Getter;
