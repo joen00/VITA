@@ -1,71 +1,65 @@
 <template>
-  <div>
-  <button v-on:click="weekWalk">1주</button>
-  <button v-on:click="monthWalk">1개월</button>
-  <button v-on:click="yearWalk">1년</button>
-  <!-- <WearableWalkChart :key="componentKey" v-bind:data="data" /> -->
-  <WearableWalkChart v-bind:data="data" />
-</div>
-</template>
-
-<script>
-import axios from 'axios'
-import WearableWalkChart from "./WearableWalkChart.vue";
+    <div>
+      <h1> 수면 </h1>
+      <h3>나의 수면 기록을 보여줘요.</h3>
+      <button v-on:click="weekSleep">1주</button>
+      <button v-on:click="monthSleep">1개월</button>
+      <button v-on:click="yearSleep">1년</button>
+      {{data}}
+    </div>
+  </template>
   
-var api_url = 'http://localhost:8080/wearable/user/step'
-
-export default {
-  name: 'WearableWalk',
-  data () {
+  <script>
+  import axios from 'axios'
+  
+  var api_url = 'http://localhost:8080/wearable/user/sleep'
+  
+  export default {
+    name: 'WearableSleep',
+    props: {
+      msg: String
+    },
+    data () {
       return {
-        data: null,
-        // componentKey: 0,
+        data: null
     }
-  },
-  components: {
-    WearableWalkChart
-  },
-  methods: {
-      weekWalk() {
+   },
+    methods: {
+      weekSleep() {
         axios.get(api_url + '/daily' , {
       headers: {'Content-Type': 'application/json',
                 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
       }).then(res => {
-        console.log(res.data)
         this.data = res.data;
       })
-      // this.componentKey += 1;  
+  
       },
-      monthWalk() {
+      monthSleep() {
         axios.get(api_url + '/weekly' , {
       headers: {'Content-Type': 'application/json',
                 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
       }).then(res => {
         this.data = res.data;
       })
-      // this.componentKey += 1;  
+  
       },
-      yearWalk() {
+      yearSleep() {
         axios.get(api_url + '/monthly' , {
       headers: {'Content-Type': 'application/json',
                 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
       }).then(res => {
         this.data = res.data;
       })
-      // this.componentKey += 1;  
+  
       },
     },
     created() {
-      this.weekWalk();
-    },
-};
-</script>
-
-<style scoped>
-#chartdiv {
-  width: 40rem;
-  height: 400px;
-  margin-top: 10rem;
-  margin: auto;
-}
-</style>
+      this.weekSleep();
+    }
+  }
+  </script>
+  
+  <style>
+  
+  </style>
+  
