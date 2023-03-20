@@ -1,9 +1,6 @@
 package com.ssafy.vitawearable.service;
 
 import com.ssafy.vitawearable.dto.*;
-import com.ssafy.vitawearable.entity.TotalScore;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public interface Wearable {
     List<EnergyDailyDto> energyDaily(String userId);
 
     // 활동량 이전과 비교
-//    List<String> energyPast(String userId);
+    List<EnergyPastNowDto> energyPastNow(String userId);
 
     // 심박수 달별
     List<RhrMonthlyDto> rhrMonthly(String userId);
@@ -56,11 +53,14 @@ public interface Wearable {
     // 무게 일별
     List<WeightDailyDto> weightDaily(String userId);
 
-    // 총합 점수 평균 반환
+    // 활동량 이전과 비교
+    WeightPastNowDto weightPastNow(String userId);
 
+    // 총합 점수 평균 반환
+    List<TotalScoreDto> totalScore(String userId);
 
     // 연도별 데일리 종합 점수 반환
-
+    List<DailyTotalScore> yearTotalScore(String userId, int year);
 
     // jwt 토큰에서 userId 추출
     String getUserId(String token);
@@ -70,10 +70,6 @@ public interface Wearable {
     ApiAverageDto apiTotalAverage();
 
     ApiAverageDto apiCustomAverage(int userAge, String userSex);
-
-    List<TotalScoreDto> totalScore(String userId);
-
-    List<DailyTotalScore> yearTotalScore(String userId, int year);
 
 //    List<FriendDto> friendList(String userId);
 //

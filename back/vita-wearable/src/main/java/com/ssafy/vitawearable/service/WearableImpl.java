@@ -160,6 +160,12 @@ public class WearableImpl implements Wearable {
 
     }
 
+    public WeightPastNowDto weightPastNow(String userId) {
+        WeightPastNowDto weightPastNowDto = new WeightPastNowDto();
+        weightPastNowDto = weeklyWearableRepo.findByUsers_UserId(userId).get(0);
+
+    }
+
     // 모든 총합 점수 반환
     public List<TotalScoreDto> totalScore(String userId) {
         List<TotalScore> totalScoreList = totalScoreRepo.findByUsers_UserId(userId);
@@ -209,6 +215,8 @@ public class WearableImpl implements Wearable {
                 .filter(i -> i.getSex().equals(userSex) && i.getAge() == userAge).collect(Collectors.toList()).get(0);
         return mapper.map(apiAverage, ApiAverageDto.class);
     }
+
+
 
 //    @Override
 //    public List<FriendDto> friendList(String userId) {
