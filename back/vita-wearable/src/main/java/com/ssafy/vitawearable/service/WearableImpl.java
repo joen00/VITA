@@ -160,11 +160,11 @@ public class WearableImpl implements Wearable {
 
     }
 
-    public WeightPastNowDto weightPastNow(String userId) {
-        WeightPastNowDto weightPastNowDto = new WeightPastNowDto();
-        weightPastNowDto = weeklyWearableRepo.findByUsers_UserId(userId).get(0);
-
-    }
+//    public WeightPastNowDto weightPastNow(String userId) {
+//        WeightPastNowDto weightPastNowDto = new WeightPastNowDto();
+//        weightPastNowDto = weeklyWearableRepo.findByUsers_UserId(userId).get(0);
+//
+//    }
 
     // 모든 총합 점수 반환
     public List<TotalScoreDto> totalScore(String userId) {

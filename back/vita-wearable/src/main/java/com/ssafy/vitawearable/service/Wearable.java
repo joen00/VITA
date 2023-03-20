@@ -15,7 +15,7 @@ public interface Wearable {
     List<EnergyDailyDto> energyDaily(String userId);
 
     // 활동량 이전과 비교
-    List<EnergyPastNowDto> energyPastNow(String userId);
+//    List<EnergyPastNowDto> energyPastNow(String userId);
 
     // 심박수 달별
     List<RhrMonthlyDto> rhrMonthly(String userId);
@@ -54,7 +54,7 @@ public interface Wearable {
     List<WeightDailyDto> weightDaily(String userId);
 
     // 활동량 이전과 비교
-    WeightPastNowDto weightPastNow(String userId);
+//    WeightPastNowDto weightPastNow(String userId);
 
     // 총합 점수 평균 반환
     List<TotalScoreDto> totalScore(String userId);
