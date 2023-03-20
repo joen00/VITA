@@ -5,6 +5,16 @@ import com.ssafy.vitawearable.dto.*;
 import java.util.List;
 
 public interface Wearable {
+    // 걸음수 달별
+    List<StepMonthlyDto> stepMonthly(String userId);
+
+    // 걸음수 주별
+    List<StepWeeklyDto> stepWeekly(String userId);
+
+    // 걸음수 일별
+    List<StepDailyDto> stepDaily(String userId);
+
+
     // 활동량 달별
     List<EnergyMonthlyDto> energyMonthly(String userId);
 

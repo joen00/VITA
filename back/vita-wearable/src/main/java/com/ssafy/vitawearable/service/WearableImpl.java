@@ -29,6 +29,30 @@ public class WearableImpl implements Wearable {
 //    private final UsersRepo usersRepo;
     private final ModelMapper mapper = new ModelMapper();
 
+    // 걸음수 달별
+    @Override
+    public List<StepMonthlyDto> stepMonthly(String userId) {
+        List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUsers_UserId(userId);
+        return monthlyEnergy.stream()
+                .map(monthly -> mapper.map(monthly, StepMonthlyDto.class)).collect(Collectors.toList());
+    }
+
+    // 걸음수 주별
+    @Override
+    public List<StepWeeklyDto> stepWeekly(String userId) {
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        return weeklyWearable.stream()
+                .map(weekly -> mapper.map(weekly, StepWeeklyDto.class)).collect(Collectors.toList());
+    }
+
+    // 걸음수 일별
+    @Override
+    public List<StepDailyDto> stepDaily(String userId) {
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        return dailyWearables.stream()
+                .map(daily -> mapper.map(daily, StepDailyDto.class)).collect(Collectors.toList());
+    }
+
     // 활동량 달별
     @Override
     public List<EnergyMonthlyDto> energyMonthly(String userId) {
@@ -239,9 +263,9 @@ public class WearableImpl implements Wearable {
 //                .build()
 //                .parseClaimsJws(token)
 //                .getBody();
-
+        String secretKey = "youcantrevealthesecretkey1234012300040hjbvjhbjhvhjbjkbhjvjbjkn";
         Claims claims = Jwts.parserBuilder()
-                .setSigningKey(DatatypeConverter.parseBase64Binary("youcantrevealthesecretkey1234012300040hjbvjhbjhvhjbjkbhjvjbjkn"))
+                .setSigningKey(secretKey.getBytes())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
