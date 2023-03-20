@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FriendRepo extends JpaRepository<Friend,Long> {
-    List<Friend> findByUsers_UserId(String userId);
-}
+//public interface FriendRepo extends JpaRepository<Friend,Long> {
+//    List<Friend> findByUsers_UserId(String userId);
+//}

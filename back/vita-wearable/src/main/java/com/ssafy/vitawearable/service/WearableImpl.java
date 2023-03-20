@@ -25,8 +25,8 @@ public class WearableImpl implements Wearable {
     private final UserAverageRepo userAverageRepo;
     private final WeeklyWearableRepo weeklyWearableRepo;
     private final TotalScoreRepo totalScoreRepo;
-    private final FriendRepo friendRepo;
-    private final UsersRepo usersRepo;
+//    private final FriendRepo friendRepo;
+//    private final UsersRepo usersRepo;
     private final ModelMapper mapper = new ModelMapper();
 
     // 활동량 달별
@@ -232,14 +232,14 @@ public class WearableImpl implements Wearable {
 //                .parseClaimsJws(token)
 //                .getBody();
 
-//        Claims claims = Jwts.parserBuilder()
-//                .setSigningKey(DatatypeConverter.parseBase64Binary("4C8kum4L8kumxyKWYLM78sKWYLM78KdXrzbBjDCFyfX"))
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
-//
-//        return claims.getSubject();
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(DatatypeConverter.parseBase64Binary("youcantrevealthesecretkey1234012300040hjbvjhbjhvhjbjkbhjvjbjkn"))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
 
-        return "2703629614";
+        return claims.getSubject();
+
+//        return "2703629614";
     }
 }

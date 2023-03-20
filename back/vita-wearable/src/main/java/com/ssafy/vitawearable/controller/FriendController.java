@@ -24,30 +24,30 @@ public class FriendController {
     private final Wearable wearable;
 
     // 친구 목록 리스트
-    @ApiOperation(
-            value = "심박수 월별 데이터 요청",
-            notes = "userId를 통해 심박수 월별 데이터를 json 형태로 반환한다",
-            response = RhrMonthlyDto.class,
-            responseContainer = "List"
-    )
-    @GetMapping("")
-    public ResponseEntity<List<FriendDto>> friendList(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
-        return new ResponseEntity<>(wearable.friendList(userId), HttpStatus.valueOf(200));
-    }
+//    @ApiOperation(
+//            value = "심박수 월별 데이터 요청",
+//            notes = "userId를 통해 심박수 월별 데이터를 json 형태로 반환한다",
+//            response = RhrMonthlyDto.class,
+//            responseContainer = "List"
+//    )
+//    @GetMapping("")
+//    public ResponseEntity<List<FriendDto>> friendList(@RequestHeader("token") String token) {
+//        String userId = wearable.getUserId(token);
+//        return new ResponseEntity<>(wearable.friendList(userId), HttpStatus.valueOf(200));
+//    }
 
     // 친구들의 평균 데이터 리스트
-    @ApiOperation(
-            value = "심박수 주별 데이터 요청",
-            notes = "userId를 통해 심박수 주별 데이터를 json 형태로 반환한다",
-            response = RhrWeeklyDto.class,
-            responseContainer = "List"
-    )
-    @GetMapping("/all")
-    public ResponseEntity<List<UserAverageDto>> friendAverage(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
-        return new ResponseEntity<>(wearable.friendAverage(userId), HttpStatus.valueOf(200));
-    }
+//    @ApiOperation(
+//            value = "심박수 주별 데이터 요청",
+//            notes = "userId를 통해 심박수 주별 데이터를 json 형태로 반환한다",
+//            response = RhrWeeklyDto.class,
+//            responseContainer = "List"
+//    )
+//    @GetMapping("/all")
+//    public ResponseEntity<List<UserAverageDto>> friendAverage(@RequestHeader("token") String token) {
+//        String userId = wearable.getUserId(token);
+//        return new ResponseEntity<>(wearable.friendAverage(userId), HttpStatus.valueOf(200));
+//    }
 
     // 해당 유저 평균 데이터
     @ApiOperation(
