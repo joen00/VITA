@@ -8,6 +8,7 @@ import SymptomView from '../views/SymptomView.vue'
 import DiseaseView from '../views/DiseaseView.vue'
 import FriendListView from '../views/friend/FriendListView.vue'
 import FileUploadView from '../views/mypage/FileUploadView.vue'
+import WearableFriendView from '../views/wearable/WearableFriendView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,7 +57,11 @@ const routes = [
     name: "friendlist",
     component: FriendListView,
   },
-
+  {
+    path: '/wearablefriend',
+    name: 'wearablefriend',
+    component: WearableFriendView
+  },
 
 ]
 
