@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 import WearableView from '../views/WearableView.vue'
 import MypageView from '../views/MypageView.vue'
 import MainView from '../views/MainView.vue'
-import FriendView from '../views/FriendView.vue'
+import FriendView from '../views/friend/FriendView.vue'
 import SymptomView from '../views/SymptomView.vue'
 import DiseaseView from '../views/DiseaseView.vue'
-
+import FriendListView from '../views/friend/FriendListView.vue'
+import FileUploadView from '../views/mypage/FileUploadView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,6 +15,11 @@ const routes = [
     path: '/',
     name: 'main',
     component: MainView
+  },
+  {
+    path: '/fileupload',
+    name: 'fileupload',
+    component: FileUploadView
   },
   {
     path: '/mypage',
@@ -45,6 +51,12 @@ const routes = [
     name: "disease",
     component: DiseaseView,
   },
+  {
+    path: "/friendlist",
+    name: "friendlist",
+    component: FriendListView,
+  },
+
 
 ]
 
