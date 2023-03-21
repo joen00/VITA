@@ -1,10 +1,13 @@
 package com.ssafy.vitawearable.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -18,8 +21,9 @@ public class MonthlyWearable {
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Users.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users users;
-    private int year;
-    private int month;
+    @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private ZonedDateTime date;
     private Float monthlyWearableWeight;
     private Float monthlyWearableMuscle;
     private Float monthlyWearableFat;
