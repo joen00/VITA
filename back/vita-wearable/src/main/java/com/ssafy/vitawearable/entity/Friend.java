@@ -18,12 +18,12 @@ public class Friend {
     private Long friendId;
     private String friendStatus;
 
-    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Users.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_sending_user_id")
-    private Users friendSendingUser;
+    private User friendSendingUser;
 
-    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Users.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_receiving_user_id")
-    private Users friendReceivingUser;
+    private User friendReceivingUser;
 }
 

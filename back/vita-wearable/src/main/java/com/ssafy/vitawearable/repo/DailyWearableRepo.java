@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DailyWearableRepo extends JpaRepository<DailyWearable,Long> {
-    List<DailyWearable> findByUsers_UserId(String userId);
+    List<DailyWearable> findByUser_UserId(String userId);
 }

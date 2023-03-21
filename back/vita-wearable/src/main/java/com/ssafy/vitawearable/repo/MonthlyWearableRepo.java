@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface MonthlyWearableRepo extends JpaRepository<MonthlyWearable,Long> {
-    List<MonthlyWearable> findByUsers_UserId(String userId);
+    List<MonthlyWearable> findByUser_UserId(String userId);
 }

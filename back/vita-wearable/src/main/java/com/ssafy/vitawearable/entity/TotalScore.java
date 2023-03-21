@@ -18,14 +18,13 @@ public class TotalScore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long totalScoreId;
 
-    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Users.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users users;
-
-    private int year;
-    private int month;
-    private int day;
-    private float totalScoreWeight;
+    private User user;
+    @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private ZonedDateTime date;
+    private int totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;

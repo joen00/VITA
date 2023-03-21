@@ -14,8 +14,8 @@ import java.time.ZonedDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "users")
-public class Users {
+@Table(name = "user")
+public class User {
 
     @Id
     private String userId;

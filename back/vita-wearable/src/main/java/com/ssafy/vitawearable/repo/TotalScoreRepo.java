@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TotalScoreRepo extends JpaRepository<TotalScore,Long> {
-    List<TotalScore> findByUsers_UserId(String userId);
+    List<TotalScore> findByUser_UserId(String userId);
 }

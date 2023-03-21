@@ -19,9 +19,9 @@ public class DailyWearable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dailyWearableId;
-    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Users.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users users;
+    private User user;
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private ZonedDateTime date;
@@ -29,7 +29,7 @@ public class DailyWearable {
     private Float dailyWearableMuscle;
     private Float dailyWearableFat;
     private int dailyWearableStep;
-    private Long dailyWearableEnergy;
+    private int dailyWearableEnergy;
     private int dailyWearableRhr;
     private int dailyWearableStress;
     private Long dailyWearableSleep;

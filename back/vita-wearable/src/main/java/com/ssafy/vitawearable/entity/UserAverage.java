@@ -16,11 +16,9 @@ public class UserAverage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userAverageId;
 
-    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = Users.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users users;
-    private int age;
-    private String sex;
+    private User user;
     private int userAverageStep;
     private int userAverageStepDay;
     private int userAverageEnergy;

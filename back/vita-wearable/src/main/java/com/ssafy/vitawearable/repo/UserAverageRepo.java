@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface UserAverageRepo extends JpaRepository<UserAverage,Long> {
-    List<UserAverage> findByUsers_UserId(String userId);
+    List<UserAverage> findByUser_UserId(String userId);
 }

@@ -32,7 +32,7 @@ public class WearableImpl implements Wearable {
     // 걸음수 달별
     @Override
     public List<StepMonthlyDto> stepMonthly(String userId) {
-        List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUsers_UserId(userId);
+        List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyEnergy.stream()
                 .map(monthly -> mapper.map(monthly, StepMonthlyDto.class)).collect(Collectors.toList());
     }
@@ -40,7 +40,7 @@ public class WearableImpl implements Wearable {
     // 걸음수 주별
     @Override
     public List<StepWeeklyDto> stepWeekly(String userId) {
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, StepWeeklyDto.class)).collect(Collectors.toList());
     }
@@ -48,7 +48,7 @@ public class WearableImpl implements Wearable {
     // 걸음수 일별
     @Override
     public List<StepDailyDto> stepDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, StepDailyDto.class)).collect(Collectors.toList());
     }
@@ -56,7 +56,7 @@ public class WearableImpl implements Wearable {
     // 활동량 달별
     @Override
     public List<EnergyMonthlyDto> energyMonthly(String userId) {
-        List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUsers_UserId(userId);
+        List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyEnergy.stream()
                 .map(monthly -> mapper.map(monthly, EnergyMonthlyDto.class)).collect(Collectors.toList());
     }
@@ -64,7 +64,7 @@ public class WearableImpl implements Wearable {
     // 활동량 주별
     @Override
     public List<EnergyWeeklyDto> energyWeekly(String userId) {
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, EnergyWeeklyDto.class)).collect(Collectors.toList());
     }
@@ -72,7 +72,7 @@ public class WearableImpl implements Wearable {
     // 활동량 일별
     @Override
     public List<EnergyDailyDto> energyDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, EnergyDailyDto.class)).collect(Collectors.toList());
     }
@@ -80,7 +80,7 @@ public class WearableImpl implements Wearable {
     // 심박수 달별
     @Override
     public List<RhrMonthlyDto> rhrMonthly(String userId) {
-        List<MonthlyWearable> monthlyRhr = monthlyWearableRepo.findByUsers_UserId(userId);
+        List<MonthlyWearable> monthlyRhr = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyRhr.stream()
                 .map(monthly -> mapper.map(monthly, RhrMonthlyDto.class)).collect(Collectors.toList());
     }
@@ -88,7 +88,7 @@ public class WearableImpl implements Wearable {
     // 심박수 주별
     @Override
     public List<RhrWeeklyDto> rhrWeekly(String userId) {
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, RhrWeeklyDto.class)).collect(Collectors.toList());
 
@@ -97,7 +97,7 @@ public class WearableImpl implements Wearable {
     // 심박수 일별
     @Override
     public List<RhrDailyDto> rhrDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, RhrDailyDto.class)).collect(Collectors.toList());
 
@@ -106,7 +106,7 @@ public class WearableImpl implements Wearable {
     // 수면 달별
     @Override
     public List<SleepMonthlyDto> sleepMonthly(String userId) {
-        List<MonthlyWearable> monthlySleep = monthlyWearableRepo.findByUsers_UserId(userId);
+        List<MonthlyWearable> monthlySleep = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlySleep.stream()
                 .map(monthly -> mapper.map(monthly, SleepMonthlyDto.class)).collect(Collectors.toList());
 
@@ -115,7 +115,7 @@ public class WearableImpl implements Wearable {
     // 수면 주별
     @Override
     public List<SleepWeeklyDto> sleepWeekly(String userId) {
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, SleepWeeklyDto.class)).collect(Collectors.toList());
 
@@ -124,7 +124,7 @@ public class WearableImpl implements Wearable {
     // 수면 일별
     @Override
     public List<SleepDailyDto> sleepDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, SleepDailyDto.class)).collect(Collectors.toList());
 
@@ -133,7 +133,7 @@ public class WearableImpl implements Wearable {
     // 스트레스 달별
     @Override
     public List<StressMonthlyDto> stressMonthly(String userId) {
-        List<MonthlyWearable> monthlyStress = monthlyWearableRepo.findByUsers_UserId(userId);
+        List<MonthlyWearable> monthlyStress = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyStress.stream()
                 .map(monthly -> mapper.map(monthly, StressMonthlyDto.class)).collect(Collectors.toList());
 
@@ -142,7 +142,7 @@ public class WearableImpl implements Wearable {
     // 스트레스 주별
     @Override
     public List<StressWeeklyDto> stressWeekly(String userId) {
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, StressWeeklyDto.class)).collect(Collectors.toList());
 
@@ -151,7 +151,7 @@ public class WearableImpl implements Wearable {
     // 스트레스 일별
     @Override
     public List<StressDailyDto> stressDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, StressDailyDto.class)).collect(Collectors.toList());
 
@@ -160,7 +160,7 @@ public class WearableImpl implements Wearable {
     // 무게 달별
     @Override
     public List<WeightMonthlyDto> weightMonthly(String userId) {
-        List<MonthlyWearable> monthlyWeight = monthlyWearableRepo.findByUsers_UserId(userId);
+        List<MonthlyWearable> monthlyWeight = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyWeight.stream()
                 .map(monthly -> mapper.map(monthly, WeightMonthlyDto.class)).collect(Collectors.toList());
 
@@ -169,7 +169,7 @@ public class WearableImpl implements Wearable {
     // 무게 주별
     @Override
     public List<WeightWeeklyDto> weightWeekly(String userId) {
-        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUsers_UserId(userId);
+        List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, WeightWeeklyDto.class)).collect(Collectors.toList());
 
@@ -178,7 +178,7 @@ public class WearableImpl implements Wearable {
     // 무게 일별
     @Override
     public List<WeightDailyDto> weightDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, WeightDailyDto.class)).collect(Collectors.toList());
 
@@ -186,20 +186,20 @@ public class WearableImpl implements Wearable {
 
 //    public WeightPastNowDto weightPastNow(String userId) {
 //        WeightPastNowDto weightPastNowDto = new WeightPastNowDto();
-//        weightPastNowDto = weeklyWearableRepo.findByUsers_UserId(userId).get(0);
+//        weightPastNowDto = weeklyWearableRepo.findByUser_UserId(userId).get(0);
 //
 //    }
 
     // 모든 총합 점수 반환
     public List<TotalScoreDto> totalScore(String userId) {
-        List<TotalScore> totalScoreList = totalScoreRepo.findByUsers_UserId(userId);
+        List<TotalScore> totalScoreList = totalScoreRepo.findByUser_UserId(userId);
         return totalScoreList.stream()
                 .map(totalScore -> mapper.map(totalScore, TotalScoreDto.class)).collect(Collectors.toList());
     }
 
     // 연도별 데일리 종합 점수 반환
     public List<DailyTotalScore> yearTotalScore(String userId, int year) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUsers_UserId(userId);
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .filter(daily -> daily.getDate().getYear() == year)
                 .map(daily -> mapper.map(daily, DailyTotalScore.class))
@@ -210,7 +210,7 @@ public class WearableImpl implements Wearable {
     // 해당 유저 평균값 구하기
     @Override
     public UserAverageDto userAverage(String userId) {
-        UserAverage userAverage = userAverageRepo.findByUsers_UserId(userId).get(0);
+        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(0);
         return mapper.map(userAverage, UserAverageDto.class);
     }
 
