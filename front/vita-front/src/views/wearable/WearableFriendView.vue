@@ -1,188 +1,114 @@
 <template>
-    <div class="text-center">
-      <div class="container">
-        <!-- <div id="header">
+  <div class="text-center">
+    <div class="container">
+      <div id="header">
         <div id="header-title">마이 헬스 데이터 with 프렌즈</div>
         <div id="header-content">친구들과 나의 건강 데이터를 비교해보세요.</div>
-        <div id="header-content1">친구의 프로필을 클릭하고 비교하기 버튼을 누르면 친구의 건강 데이터가 실시간으로 그래프에 반영된답니다. </div>
-        <div id="header-content2">* 친구는 한 번에 최대 4명까지만 추가 가능합니다. </div>
-            
-        <div id="wfriendlist"> -->
-          <!-- <div style="width:90%; height:150px">
-   
-            <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
-               
-                <slideritem v-for="(item,index) in someList" :key="index" :style="item.style">{{item.html}}</slideritem>
-   
-                <div slot="loading">loading...</div>
-            </slider>
-          </div> -->
-          <hooper :infiniteScroll="true" :itemsToShow="9" :centerMode="true">
-            <Slide>
-              <div class="useritem"></div>
-            </Slide>
-            <Slide>
-              <div class="useritem"></div>
-            </Slide>
-            <Slide>
-              <div class="useritem"></div>
-            </Slide>
-            <Slide>
-              <div class="useritem"></div>
-            </Slide>
-            <Slide>
-              <div class="useritem"></div>
-            </Slide>
-            <Slide>
-              <div class="useritem"></div>
-            </Slide>
-            <hooper-navigation slot="hooper-addons"></hooper-navigation>
-            <hooper-pagination slot="hooper-addons"></hooper-pagination>
-          </hooper>
+        <div id="header-content1">
+          친구의 프로필을 클릭하고 비교하기 버튼을 누르면 친구의 건강 데이터가
+          실시간으로 그래프에 반영된답니다.
         </div>
-       <!-- </div>
-      </div> -->
+        <div id="header-content2">
+          * 친구는 한 번에 최대 4명까지만 추가 가능합니다.
+        </div>
+
+        <div id="wfriendlist">
+          <div id="wfriendlistin">
+            <hooper :itemsToSlide="true" :itemsToShow="9" :centerMode="true">
+              <slide v-for="slide in slides" :key="slide.id" class="slide">
+                <button class="useritem" style="border: none">
+                  <b-avatar
+                    variant="info"
+                    src="https://placekitten.com/300/300"
+                    style="width: 50px; height: 50px; margin-top: -1.5rem"
+                  ></b-avatar>
+                  <br />
+                  <p
+                    style="
+                      margin-top: -4.5rem;
+                      font-weight: 600;
+                      font-size: 1rem;
+                    "
+                  >
+                    {{ slide.name }}
+                  </p>
+                </button>
+              </slide>
+              <hooper-navigation slot="hooper-addons"></hooper-navigation>
+              <hooper-pagination slot="hooper-addons"></hooper-pagination>
+            </hooper>
+          </div>
+
+          <b-button
+            style="
+              float: right;
+              margin: 1rem;
+              font-weight: 600;
+              font-size: 1rem;
+            "
+            >비교하기</b-button
+          >
+
+          <div
+            style="
+              clear: right;
+              float: right;
+              font-size: 0.7rem;
+              margin-right: 1rem;
+            "
+          >
+            친구와의 비교는 최근 1년 동안의 데이터를 기준으로 평균을 계산해
+            비교해줍니다.
+          </div>
+          <!-- 여기서 부터 걸음수 컴포넌트 등장 -->
+          <div style="clear: both"></div>
+          <fwearable-walk></fwearable-walk>
+        </div>
+      </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
 import {
   Hooper,
   Slide,
   Pagination as HooperPagination,
-  Navigation as HooperNavigation
-} from 'hooper';
-import 'hooper/dist/hooper.css';
+  Navigation as HooperNavigation,
+} from "hooper";
+import "hooper/dist/hooper.css";
+import FwearableWalk from "@/components/wearable_friend/FwearableWalk.vue";
+
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Hooper,
     Slide,
     HooperPagination,
-    HooperNavigation
+    HooperNavigation,
+    FwearableWalk,
   },
   data() {
     return {
-      hooperSettings: {
-        itemsToShow: 2,
-        centerMode: true
-      }
+      slides: [
+        { id: 1, name: "김뿡" },
+        { id: 2, name: "김뿡" },
+        { id: 3, name: "김뿡" },
+        { id: 4, name: "김뿡" },
+        { id: 5, name: "김뿡" },
+        { id: 6, name: "김뿡" },
+        { id: 7, name: "김뿡" },
+        { id: 8, name: "김뿡" },
+      ],
     };
-  }
-}
-
-
-
-// import { slider, slideritem } from 'vue-concise-slider'
-//   export default {
-//     el: '#app',
-// data () {
-//    return {
-//      someList : [
-//        {
-//          html: 'slider1',
-//          style: {
-//            'background': '#4abf8a',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },
-//        {
-//          html: 'slider2',
-//          style: {
-//            'background': '#4bbfc3',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },
-//        {
-//          html: 'slider3',
-//          style: {
-//            'background': '#7baabe',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },
-//        {
-//          html: 'slider4',
-//          style: {
-//            'background': '#7caabe',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },
-//        {
-//          html: 'slider5',
-//          style: {
-//            'background': '#4abf8a',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },
-//        {
-//          html: 'slider6',
-//          style: {
-//            'background': '#4bbfc3',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },
-//        {
-//          html: 'slider6',
-//          style: {
-//            'background': '#4bbfc3',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },{
-//          html: 'slider6',
-//          style: {
-//            'background': '#4bbfc3',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        },{
-//          html: 'slider6',
-//          style: {
-//            'background': '#4bbfc3',
-//            'width': '10%',
-//            'height' : '10%',
-//            'margin-right': '2%'
-//          }
-//        }
-//      ],
-//      //Slider configuration [obj]
-//      options: {
-//        currentPage: 0,
-//        tracking: false,
-//        thresholdDistance: 100,
-//        thresholdTime: 300,
-//        infinite: 4,
-//        slidesToScroll: 2,
-//        loop: true,
-//      }
-//    }
-//  },
-//  components: {
-//    slider,
-//    slideritem
-//  }
-//   };
-
-  </script>
+  },
+};
+</script>
   
   <style>
-  /* ----------------------------------------- */
-#header-content1{
-    font-family: "Inter";
+/* ----------------------------------------- */
+#header-content1 {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 1rem;
@@ -191,27 +117,49 @@ export default {
   margin-top: 1rem;
   color: #47474b;
 }
-#header-content2{
-font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 15px;
-line-height: 24px;
-color: #909090;
-margin-bottom: 3rem;
+#header-content2 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  color: #909090;
+  margin-bottom: 3rem;
 }
-#wfriendlist{
-    box-sizing: border-box;
-width: 100%;
-height: 180px;
 
-background: #FFFFFF;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 30px;
+#wfriendlist {
+  box-sizing: border-box;
+  width: 100%;
+  height: 180px;
+
+  background: #a0cfee;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  /* line-height: 100px; */
 }
-.useritem{
+.useritem {
   width: 100px;
-  height: 200px;
-  background-color: #47474b;
+  height: 100px;
+  background-color: #ffffff;
+  line-height: 100px;
+  border-radius: 20%;
 }
-  </style>
+
+.hooper {
+  height: 25vh;
+}
+.slide {
+  height: 100px;
+  padding: 30px;
+  line-height: 100px;
+}
+.hooper-indicator {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: darkgrey;
+}
+/* .hooper-slide.is-current {
+  transform: scale(1.2);
+} */
+</style>
