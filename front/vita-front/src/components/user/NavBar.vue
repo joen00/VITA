@@ -68,7 +68,7 @@ export default {
 .bp-header-container {
   color: #fff;
   width: 100%;
-  height: 50px;
+  height: 10px;
   position: absolute;
   z-index: 1;
 }
@@ -124,7 +124,7 @@ export default {
 .bp-header-container .bp-header .bp-account .account-button {
   background: transparent;
   cursor: pointer;
-  padding: 16.5px 8px;
+  padding: 4px 4px;
   margin-right: 15px;
   width: 100px;
   border: 1px solid blueviolet;
@@ -164,7 +164,7 @@ export default {
 }
 @media screen and (min-width: 768px) {
   .bp-header-container {
-    height: 70px;
+    height: 50px;
   }
   .bp-header-container .bp-header .bp-nav .nav-list .nav-list-item .nav-list-item-link {
     padding: 25px;
@@ -173,10 +173,10 @@ export default {
     padding: 21px 15px;
   }
   .bp-header-container .bp-header .bp-account .account-button {
-    padding: 26.5px 15px;
+    padding: 10px 10px;
   }
   .bp-header-container .bp-header .bp-account .account-button.loggedin {
-    padding: 21px 15px;
+    padding: 10px 10px;
   }
   .bp-header-container .account-dropdown {
     top: 70px;
