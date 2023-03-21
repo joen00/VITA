@@ -80,7 +80,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 0,
                 0,
                 0,
-                null
+                null,
+                "public"
         );
 
         return userRepository.saveAndFlush(user);
