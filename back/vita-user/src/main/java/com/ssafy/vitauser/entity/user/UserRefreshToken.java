@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
-@Table(name = "refresh_token")
+@Table(name = "user_refresh_token")
 public class UserRefreshToken {
     @JsonIgnore
     @Id

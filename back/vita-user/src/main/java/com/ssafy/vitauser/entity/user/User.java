@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
     @Id
     @Column(length = 100, unique = true)
@@ -90,7 +90,8 @@ public class User {
             float userHeight,
             float userWeight,
             int userScore,
-            String userPhoneType
+            String userPhoneType,
+            String user_public
     ) {
         this.userId = userId;
         this.userName = userName;
