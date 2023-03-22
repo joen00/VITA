@@ -7,7 +7,7 @@
       </div>
       <div id="fwWalk">
           <div id="fwWalkLeft">
-            <div id="chartdiv"></div>
+            <div id="fwenergychartdiv"></div>
           </div>
           <div id="fwWalkRight">
             <div id="fwWalkrank">
@@ -46,16 +46,8 @@ export default {
   },
   mounted() {
     am5.ready(() => {
-      // Create root element
-      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-      var root = am5.Root.new("chartdiv");
-
-      // Set themes
-      // https://www.amcharts.com/docs/v5/concepts/themes/
+      var root = am5.Root.new("fwenergychartdiv");
       root.setThemes([am5themes_Animated.new(root)]);
-
-      // Create chart
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/
       var chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panX: false,
@@ -211,7 +203,7 @@ export default {
   /* background-color: aqua; */
 }
 
-#chartdiv {
+#fwenergychartdiv {
   width: 90%;
   height: 500px;
   background-color: rgb(253, 254, 255);

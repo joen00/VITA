@@ -1,4 +1,5 @@
 <template>
+  <div id="backgroundcolor">
   <div class="text-center">
     <div class="container">
       <div id="header">
@@ -42,7 +43,7 @@
           <b-button
             style="
               float: right;
-              margin: 1rem;
+              margin: 2.5rem;
               font-weight: 600;
               font-size: 1rem;
             "
@@ -53,6 +54,7 @@
             style="
               clear: right;
               float: right;
+              margin-top: -2rem;
               font-size: 0.7rem;
               margin-right: 1rem;
             "
@@ -63,10 +65,12 @@
           <!-- 여기서 부터 걸음수 컴포넌트 등장 -->
           <div style="clear: both"></div>
           <fwearable-walk></fwearable-walk>
+          <fwearable-energy></fwearable-energy>
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
   
   <script>
@@ -78,7 +82,7 @@ import {
 } from "hooper";
 import "hooper/dist/hooper.css";
 import FwearableWalk from "@/components/wearable_friend/FwearableWalk.vue";
-
+import FwearableEnergy from "@/components/wearable_friend/FwearableEnergy.vue";
 export default {
   name: "App",
   components: {
@@ -87,6 +91,7 @@ export default {
     HooperPagination,
     HooperNavigation,
     FwearableWalk,
+    FwearableEnergy
   },
   data() {
     return {
@@ -105,7 +110,28 @@ export default {
 };
 </script>
   
-  <style>
+<style>
+#backgroundcolor {
+  /* background-image: url("../assets/background.png"); */
+  background: linear-gradient(
+      146.55deg,
+      rgba(174, 162, 220, 0.2) -70.09%,
+      rgba(140, 112, 253, 0) 55.52%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(243, 255, 228, 0.2) -26.8%,
+      rgba(178, 215, 149, 0.012) 16.1%,
+      rgba(220, 243, 253, 0) 131.6%
+    ),
+    linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
+  height: 1000vh;
+  overflow: hidden;
+  margin:0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 /* ----------------------------------------- */
 #header-content1 {
   font-family: "Inter";
@@ -146,7 +172,7 @@ export default {
 }
 
 .hooper {
-  height: 25vh;
+  height: 21vh;
 }
 .slide {
   height: 100px;
