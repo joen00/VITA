@@ -62,7 +62,7 @@ import FriendAddModal from "@/components/friend/FriendAddModal.vue";
 import axios from "axios";
 
 const SERVER_URL = "http://localhost:8080/friend";
-const MY_USER_ID = "1";
+const MY_USER_ID = 1;
 export default {
   name: "FriendListView",
   components: {
