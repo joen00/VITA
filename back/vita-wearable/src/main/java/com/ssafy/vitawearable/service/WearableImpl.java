@@ -192,9 +192,19 @@ public class WearableImpl implements Wearable {
 
     // 모든 총합 점수 반환
     public List<TotalScoreDto> totalScore(String userId) {
+        mapper.getConfiguration().setAmbiguityIgnored(true);
         List<TotalScore> totalScoreList = totalScoreRepo.findByUser_UserId(userId);
-        return totalScoreList.stream()
-                .map(totalScore -> mapper.map(totalScore, TotalScoreDto.class)).collect(Collectors.toList());
+        List<TotalScoreDto> totalScoreDtoList = totalScoreList.stream()
+                .map(totalScore -> mapper.map(totalScore, TotalScoreDto.class))
+                .collect(Collectors.toList());
+        // totalScore 구하기
+        for (TotalScoreDto t:totalScoreDtoList) {
+            int totalScore = t.getTotalScoreEnergy() + t.getTotalScoreWeight() +
+                    t.getTotalScoreSleep() + t.getTotalScoreRhr() +
+                    t.getTotalScoreStep() + t.getTotalScoreStress();
+            t.setTotalScore(totalScore/6);
+        }
+        return totalScoreDtoList;
     }
 
     // 연도별 데일리 종합 점수 반환
