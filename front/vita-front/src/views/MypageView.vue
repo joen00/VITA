@@ -106,14 +106,12 @@ export default {
   }
 }
 
-
 </script>
 
 <style scoped>
 .text-center {
   /* background-image: url("../assets/background.png"); */
   background: linear-gradient(146.55deg, rgba(174, 162, 220, 0.2) -70.09%, rgba(140, 112, 253, 0) 55.52%), linear-gradient(0deg, rgba(243, 255, 228, 0.2) -26.8%, rgba(178, 215, 149, 0.012) 16.1%, rgba(220, 243, 253, 0) 131.6%), linear-gradient(239.1deg, #E2FAFF -29.57%, rgba(222, 243, 248, 0) 131.52%);
-  margin-top: 1rem;
   width: 100%;
   height: 42.5rem;
 }
@@ -141,7 +139,7 @@ export default {
   color: #47474B;
 }
 .container {
-height: 100%;
+  height: 100%;
 }
 .left {
   margin-top: 1rem;

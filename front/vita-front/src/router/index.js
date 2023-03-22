@@ -6,7 +6,7 @@ import MainView from '../views/MainView.vue'
 import FriendView from '../views/FriendView.vue'
 import SymptomView from '../views/SymptomView.vue'
 import DiseaseView from '../views/DiseaseView.vue'
-import IndexPage from '@/components/user/Index'
+import IndexPage from '@/components/common/Index'
 import OauthRedirect from '@/components/user/oauth/Redirect'
 import ExtraInfoFormView from '../views/ExtraInfoFormView.vue'
 

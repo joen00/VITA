@@ -35,12 +35,11 @@ export default {
 .bp-main-continer .main-top-section {
   width: 100%;
   height: 320px;
-  padding-top: 5rem;
 }
 
 @media screen and (min-width: 768px) {
   .bp-main-continer .main-top-section .slogan-container {
-    padding-top: 70px;
+    /* padding-top: 70px; */
   }
 }
 </style>
