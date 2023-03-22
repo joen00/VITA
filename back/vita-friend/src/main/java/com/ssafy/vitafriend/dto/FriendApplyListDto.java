@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class FriendApplyListDto {
+    public String userId;
     public String userNickname;
     public String userImg;
 }

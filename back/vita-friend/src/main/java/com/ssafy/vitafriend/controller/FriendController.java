@@ -30,9 +30,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequestMapping("/friend")
 @Api(value = "비타프렌즈 API")
-//@CrossOrigin(origins = "http://localhost:8081")
 public class FriendController {
-
     @Autowired
     private ModelMapper modelMapper;
 
