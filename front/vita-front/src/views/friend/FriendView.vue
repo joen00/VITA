@@ -3,8 +3,7 @@
   <div class="text-center">
     <div class="container">
       <div class="header">
-        <div class="header-title">랭킹</div>
-        <div class="header-content">친구들의 순위를 확인해보세요.</div>
+        <VueHeader :headerTitle="headerTitle" :headerContent="headerContent"/>
       </div>
       <div class="left">
         <b-button
@@ -49,10 +48,13 @@
 
 <script>
 import FriendWalk from "@/components/friend/FriendWalk.vue";
+import VueHeader from "@/components/common/VueHeader.vue";
+
 export default {
   name: "FriendView",
   components: {
     FriendWalk,
+    VueHeader
   },
   data: () => ({
     Totalranks: [
@@ -62,37 +64,14 @@ export default {
       { id: 3, name: "차광배", score: "30" },
       { id: 3, name: "차광배", score: "30" },
     ],
+    headerTitle: "랭킹",
+    headerContent: "친구들의 순위를 확인해보세요."
   }),
 };
 </script>
 
 <style>
 /* ----------------------------------------- */
-#friendviewback {
-  /* background-image: url("../assets/background.png"); */
-  background: linear-gradient(
-      146.55deg,
-      rgba(174, 162, 220, 0.2) -70.09%,
-      rgba(140, 112, 253, 0) 55.52%
-    ),
-    linear-gradient(
-      0deg,
-      rgba(243, 255, 228, 0.2) -26.8%,
-      rgba(178, 215, 149, 0.012) 16.1%,
-      rgba(220, 243, 253, 0) 131.6%
-    ),
-    linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
-  /* margin-top: 1rem;
-  width: 100%;
-  height: 42.5rem;
-  background-size: cover; */
-  height: 100vh;
-  overflow: hidden;
-  margin:0 auto;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 .header {
   width: 100%;
   height: 16%;
