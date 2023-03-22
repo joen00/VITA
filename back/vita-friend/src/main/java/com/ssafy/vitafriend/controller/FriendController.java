@@ -9,6 +9,7 @@ import com.ssafy.vitafriend.dto.UserInfoDto;
 import com.ssafy.vitafriend.entity.User;
 import com.ssafy.vitafriend.service.FriendService;
 import com.ssafy.vitafriend.service.UsersService;
+import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,8 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/friend")
-@CrossOrigin(origins = "http://localhost:8081")
+@Api(value = "비타프렌즈 API")
+//@CrossOrigin(origins = "http://localhost:8081")
 public class FriendController {
 
     @Autowired
@@ -41,12 +44,15 @@ public class FriendController {
 
     // 테스트
     @GetMapping("/hello")
+    @ApiOperation(value = "테스트", notes = "테스트")
     public ResponseEntity<?> hello() {
         return new ResponseEntity<String>("hello", HttpStatus.OK);
     }
 
     // 친구 목록 GET
     @GetMapping
+    @ApiOperation(value = "친구목록 조회", notes = "자신이 가지고 있는 친구목록을 조회합니다.")
+    @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
     public ResponseEntity<?> friendList(@RequestHeader HttpHeaders headers) {
         try {
             // 친구를 담을 리스트를 <친구리스트 부모 클래스 형>으로 선언
@@ -74,20 +80,44 @@ public class FriendController {
         }
     }
 
+    // 친구 요청 수락 POST
+    @PostMapping("/apply")
+    @ApiOperation(value = "친구 신청 보내기", notes = "친구 신청을 보냅니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
+            @ApiImplicitParam(name = "user_nickname", value = "친구 신청을 보낼 사용자의 닉네임", dataType = "String", paramType = "body", example = "홍길동")
+    })
+    public void applyFriend(@RequestHeader HttpHeaders headers, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
+        System.out.println(req);
+        friendService.applyFriend(headers.getFirst("userID"), req.get("user_nickname"));
+    }
+
     // 친구요청 수락하기 PUT
     @PutMapping
+    @ApiOperation(value = "친구요청 수락", notes = "친구요청을 수락합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
+            @ApiImplicitParam(name = "receivingUserId", value = "수락할 사람의 userID", dataType = "String", paramType = "header", example = "2")
+    })
     public void acceptFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
         friendService.acceptFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
     }
 
     // 친구요청 거절 및 친구 삭제 DELETE
     @DeleteMapping
+    @ApiOperation(value = "친구요청 거절 및 친구삭제", notes = "친구요청을 거절하거나 친구목록에서 삭제합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
+            @ApiImplicitParam(name = "receivingUserId", value = "요청을 받을 사람의 userID", dataType = "String", paramType = "header", example = "2")
+    })
     public void rejectOrDeleteFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
         friendService.rejectOrDeleteFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
     }
 
     // 친구 신청온 리스트 GET
+    @ApiOperation(value = "친구 신청 받은 리스트", notes = "친구 신청을 받은 목록을 조회합니다. 프론트에서 수락, 거절 버튼이 뜨는 목록에 해당")
     @GetMapping("/applyList")
+    @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
     public ResponseEntity<?> applyingFriendList(@RequestHeader HttpHeaders headers) {
         try {
             List<FriendReceivingListDto> applyingFriendList = friendService.getApplyingFriendList(headers.getFirst("userID"));
@@ -104,6 +134,11 @@ public class FriendController {
    
     // 친구 신청 검색(친구로 등록이 안되어 있는 유저만 모두 보여주기) GET
     @GetMapping("/apply/{nickname}")
+    @ApiOperation(value = "친구 검색", notes = "아직 친구로 등록되지 않은 사용자 목록을 조회합니다.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
+            @ApiImplicitParam(name = "nickname", value = "검색할 닉네임", dataType = "String", paramType = "path", example = "홍길동")
+    })
     public ResponseEntity<?> searchFriendList(@RequestHeader HttpHeaders headers, @PathVariable("nickname") String nickname) {
         try {
 
@@ -127,15 +162,10 @@ public class FriendController {
 
     }
 
-    //
-    @PostMapping("/apply")
-    public void applyFriend(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws Exception {
-        System.out.println(req);
-        friendService.applyFriend(headers.getFirst("userID"), req.get("user_nickname"));
-    }
-
     // 친구 랭킹 GET
     @GetMapping("/rank")
+    @ApiOperation(value = "종합점수 조회", notes = "친구들의 종합점수 목록을 조회합니다.")
+    @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
     public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers) {
         try {
             // 친구를 담을 리스트를 <친구리스트 부모 클래스 형>으로 선언

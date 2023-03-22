@@ -23,13 +23,7 @@ public class User {
     private String userId;
     private String userImg;
     private String userNickname;
-    private int userAge;
-    private String userSex;
-    private float userHeight;
-    private float userWeight;
     private int userScore;
-    private String userPhoneType;
-    private boolean userPublic;
 
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")

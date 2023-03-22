@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 
-    @Query(value = "SELECT DISTINCT u.user_id, u.user_nickname, u.user_img, f.friend_status FROM users u " +
+    @Query(value = "SELECT DISTINCT u.user_id, u.user_nickname, u.user_img, f.friend_status FROM user u " +
             "LEFT OUTER JOIN friend f ON (u.user_id = f.friend_sending_user_id OR u.user_id = f.friend_receiving_user_id) " +
             "AND (f.friend_sending_user_id = ?1 OR f.friend_receiving_user_id = ?1) AND f.friend_status = 'accepted' " +
             "WHERE u.user_nickname LIKE %?2% "
