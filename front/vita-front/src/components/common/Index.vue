@@ -15,7 +15,7 @@
 
 <script>
 import NavBar from './NavBar'
-import LoginModal from './LoginModal'
+import LoginModal from '../user/LoginModal'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -44,7 +44,7 @@ export default {
   computed: {
     ...mapGetters(['token']),
     stickyMode () {
-      return !(this.isScrollTop && this.$route.path === '/')
+      return !(this.isScrollTop)
     }
   }
 }

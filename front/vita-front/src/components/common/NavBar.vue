@@ -29,7 +29,14 @@ export default {
   data () {
     return {
       isOpenAccountDropdown: false,
-      menu: []
+      menu: [
+        { path: "/", name: "Main" },
+        { path: "/mypage", name: "MyPage" },
+        { path: "/friend", name: "Friend" },
+        { path: "/wearable", name: "Wearable" },
+        { path: "/symptom", name: "Symptom" },
+        { path: "/disease", name: "Disease" }
+      ]
     }
   },
   created () {
@@ -67,6 +74,7 @@ export default {
 <style scoped>
 .bp-header-container {
   color: #fff;
+  background: #47474B;
   width: 100%;
   height: 10px;
   position: absolute;
@@ -99,12 +107,13 @@ export default {
 }
 .bp-header-container .bp-header .bp-nav .nav-list .nav-list-item .nav-list-item-link {
   margin: auto;
-  line-height: 20px;
+  line-height: 5px;
   padding: 15px;
   cursor: pointer;
+  color: #fff;
 }
 .bp-header-container .bp-header .bp-nav .nav-list .nav-list-item .nav-list-item-link:hover {
-  color: var(--theme-ui-colors-link-color, #8a4baf);
+  color: var(--theme-ui-colors-link-color, rgb(111, 174, 201));
 }
 .bp-header-container .bp-header .bp-search {
   flex: 0;
@@ -120,18 +129,24 @@ export default {
 }
 .bp-header-container .bp-header .bp-account {
   height: 100%;
+  display: flex;
+  align-items: center;
 }
 .bp-header-container .bp-header .bp-account .account-button {
-  background: transparent;
+  background: #3592ba;
+  color: #fff;
   cursor: pointer;
-  padding: 4px 4px;
   margin-right: 15px;
-  width: 100px;
-  border: 1px solid blueviolet;
+  font-size: smaller;
+  width: 90px;
+  height: 50%;
+  border: 1px solid #3592ba;
   border-radius: 5px;
 }
 .bp-header-container .bp-header .bp-account .account-button:hover {
-  color: #8a4baf;
+  /* color: #8a4baf; */
+  background: #d4ecf7;
+  color: #106285;
 }
 .bp-header-container .account-dropdown {
   width: 100px;
@@ -156,9 +171,7 @@ export default {
 }
 .bp-header-container.sticky {
   top: 0;
-  color: #000;
-  position: fixed;
-  background: #fff;
+  /* position: fixed; */
   border-bottom: 1px solid #d6d6d6;
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, .02);
 }
@@ -173,7 +186,7 @@ export default {
     padding: 21px 15px;
   }
   .bp-header-container .bp-header .bp-account .account-button {
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
   }
   .bp-header-container .bp-header .bp-account .account-button.loggedin {
     padding: 10px 10px;
