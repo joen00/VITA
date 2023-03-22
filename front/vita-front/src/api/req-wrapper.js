@@ -2,8 +2,9 @@ import axios from 'axios'
 import store from '../store/index'
 import handler from './res-handler'
 
-const URI_PREPENDER = '/api/v1'
-const wrap = (url) => `${URI_PREPENDER}${url}`
+// const URI_PREPENDER = '/api/v1'
+// const wrap = (url) => `${URI_PREPENDER}${url}`
+const wrap = (url) => `${url}`
 const appendAuth = (config) => {
   const token = store.getters.token
   if (token) {
