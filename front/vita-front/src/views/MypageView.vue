@@ -80,9 +80,10 @@ export default {
   },
   data: () => ({
     nickname: `뿡뿡 아영`,
+    gender: "female",
     UserInfo: [
       { attr: 'weight', data: 30.0 + 'kg', desc: '체중' },
-      { attr: 'gender', data: 'female' ? '여자' : '남자', desc: '성별' },
+      { attr: 'gender', data: '여자', desc: '성별' },
       { attr: 'age', data: 30 + '살', desc: '나이' },
       { attr: 'height', data: 130 + 'cm', desc: '키' },
     ],
