@@ -12,9 +12,16 @@ export default {
     const flag = this.$route.query.extraInfoFlag
     console.log('flag', flag)
 
+    const userNickname = this.$route.query.userNickname
+    console.log('userNickname', userNickname)
+
     if (token) {
       this.setToken(token)
       this.fetchUser()
+    }
+
+    if (userNickname) { 
+      this.setUserNickname(userNickname)
     }
 
     // 추가 정보 미기입시 추가정보 페이지로 replace
@@ -27,7 +34,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchUser']),
-    ...mapMutations(['setToken'])
+    ...mapMutations(['setToken','setUserNickname'])
   }
 }
 </script>

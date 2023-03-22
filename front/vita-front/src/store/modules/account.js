@@ -3,11 +3,13 @@ import accountApi from '@/api/account'
 export default {
   state: {
     user: null,
-    token: null
+    token: null,
+    userNickname : null,
   },
   getters: {
     user: state => state.user,
-    token: state => state.token
+    token: state => state.token,
+    userNickname: state => state.userNickname
   },
   actions: {
     fetchUser ({state, commit}, callback) {
@@ -27,6 +29,9 @@ export default {
     },
     setUser (state, user) {
       state.user = user
+    },
+    setUserNickname(state, userNickname) { 
+      state.userNickname = userNickname
     }
   }
 }

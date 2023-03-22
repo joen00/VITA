@@ -12,6 +12,7 @@ import WearableFriendView from '../views/wearable/WearableFriendView.vue'
 import IndexPage from '@/components/common/Index'
 import OauthRedirect from '@/components/user/oauth/Redirect'
 import ExtraInfoFormView from '../views/ExtraInfoFormView.vue'
+import WearableApiView from '../views/wearable/WearableApiView.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
       name: 'wearablefriend',
       component: WearableFriendView
       },
+      {
+        path: '/wearableapi',
+        name: 'wearableapi',
+        component: WearableApiView
+        },
       {
         path: "/friend",
         name: "friend",
