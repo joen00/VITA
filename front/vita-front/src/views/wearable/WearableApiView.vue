@@ -20,7 +20,7 @@
             <!-- <div style="clear: both"></div> -->
         </div>
         <div class="body">
-            <b-container class="bv-example-row container h-30" id="chart-container">
+            <b-container class="bv-example-row container" id="chart-container">
                 <b-row>
                     <b-col><awearable-walk></awearable-walk></b-col>
                     <b-col><awearable-energy></awearable-energy></b-col>

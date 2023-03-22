@@ -4,10 +4,15 @@
             <div id="AwalkLeft">
                 <div id="AwalkTitle">걸음수</div>
                 <div id="AwalkDesc">나의 걸음수와 사람들의 평균을 비교해보세요.</div>
-                <div id="AwalkAdvice"></div>
+                <div id="AwalkAdvice">
+                  <div id="AwalkAdviceSpeechBubble">
+                    <img id="img-doctor" src="@/assets/Doctor.png">
+                    <div id="advice">평균보다 높은 심박수입니다. 안정을 취하세요!!</div>
+                  </div>
+                </div>
             </div>
             <div id="AwalkRight">
-                <div id="chartdiv"></div>
+                <div id="chartdiv-api-walk"></div>
             </div>
         </div>
     </div>
@@ -28,7 +33,7 @@
     },
     mounted() {
       am5.ready(() => {
-        var root = am5.Root.new("chartdiv");
+        var root = am5.Root.new("chartdiv-api-walk");
   
         root.setThemes([am5themes_Animated.new(root)]);
         // Create chart
@@ -146,7 +151,7 @@
     float: left;
     /* background-color: bisque; */
   }
-  #chartdiv {
+  #chartdiv-api-walk {
     width: 90%;
     height: 100%;
     background-color: rgb(253, 254, 255);
@@ -166,5 +171,24 @@
     font-weight: 700;
     font-size: 12px;
     color: #47474B;
+  }
+  #AwalkAdvice {
+    margin-top: 20px;
+  }
+  #AwalkAdviceSpeechBubble {
+    background-image: url("@/assets/SpeechBubble.png");
+    background-repeat : no-repeat;
+    background-size : cover;
+    max-height: 100%;
+    max-width: 100%;
+    padding: 30px;
+  }
+  #img-doctor {
+    width: 50px;
+    height: 50px;
+    float: left;
+  }
+  #advice {
+    text-align: center;
   }
 </style>

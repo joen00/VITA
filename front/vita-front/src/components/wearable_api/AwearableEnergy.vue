@@ -7,7 +7,7 @@
                 <div id="AenergyAdvice"></div>
             </div>
             <div id="AenergyRight">
-                <div id="chartdiv"></div>
+                <div id="chartdiv-api-energy"></div>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
     },
     mounted() {
       am5.ready(() => {
-        var root = am5.Root.new("chartdiv");
+        var root = am5.Root.new("chartdiv-api-energy");
   
         root.setThemes([am5themes_Animated.new(root)]);
         // Create chart
@@ -104,11 +104,11 @@
         var data = [
             {
                 target: "나",
-                value: 2025
+                value: 100
             }, 
             {
                 target: "평균",
-                value: 2200
+                value: 300
             }
         ];
 
@@ -146,7 +146,7 @@
     float: left;
     /* background-color: bisque; */
   }
-  #chartdiv {
+  #chartdiv-api-energy {
     width: 90%;
     height: 100%;
     background-color: rgb(253, 254, 255);
