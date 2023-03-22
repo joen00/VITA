@@ -1,4 +1,5 @@
 <template>
+  <div id="friendviewback">
   <div class="text-center">
     <div class="container">
       <div class="header">
@@ -43,6 +44,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -66,7 +68,7 @@ export default {
 
 <style>
 /* ----------------------------------------- */
-.text-center {
+#friendviewback {
   /* background-image: url("../assets/background.png"); */
   background: linear-gradient(
       146.55deg,
@@ -80,9 +82,16 @@ export default {
       rgba(220, 243, 253, 0) 131.6%
     ),
     linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
-  margin-top: 1rem;
+  /* margin-top: 1rem;
   width: 100%;
   height: 42.5rem;
+  background-size: cover; */
+  height: 100vh;
+  overflow: hidden;
+  margin:0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .header {
   width: 100%;
