@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.vitauser.oauth.entity.ProviderType;
 import com.ssafy.vitauser.oauth.entity.RoleType;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -75,6 +72,7 @@ public class User {
     private String userPhoneType;
     private String userPublic;
 
+    @Builder
     public User(
             @NotNull @Size(max = 100) String userId,
             @NotNull @Size(max = 30) String userName,
@@ -112,4 +110,9 @@ public class User {
         this.userPhoneType = userPhoneType;
         this.userPublic = userPublic;
     }
+
+
+
+
+
 }

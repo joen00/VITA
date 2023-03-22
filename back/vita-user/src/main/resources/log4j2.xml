@@ -8,9 +8,9 @@
             <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8"/>
         </Console>
     </Appenders>
-    <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="ConsoleLog" />
-        </Root>
-    </Loggers>
+<!--    <Loggers>-->
+<!--        <Root level="debug">-->
+<!--            <AppenderRef ref="ConsoleLog" />-->
+<!--        </Root>-->
+<!--    </Loggers>-->
 </Configuration>

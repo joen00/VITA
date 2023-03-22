@@ -3,9 +3,9 @@ spring:
   # 데이터 소스 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/vita?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
+    url: jdbc:mysql://j8b106.p.ssafy.io:3306/vita?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: vita
+    password: Vita500!
     hikari:
       pool-name: jpa-hikari-pool
       maximum-pool-size: 5
@@ -15,6 +15,10 @@ spring:
       driver-class-name: ${spring.datasource.driver-class-name}
       data-source-properties:
         rewriteBatchedStatements: true
+  # Swagger 설정
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   # JPA 설정
   jpa:
     generate-ddl: true

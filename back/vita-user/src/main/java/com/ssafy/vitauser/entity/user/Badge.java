@@ -1,6 +1,7 @@
 package com.ssafy.vitauser.entity.user;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,4 +17,11 @@ public class Badge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long badgeId;
     private String badgeName;
+
+    @Builder
+    public Badge(Long badgeId, String badgeName){
+        this.badgeId = badgeId;
+        this.badgeName = badgeName;
+    }
+
 }
