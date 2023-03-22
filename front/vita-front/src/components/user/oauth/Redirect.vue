@@ -1,0 +1,33 @@
+<template lang="pug">
+</template>
+
+<script>
+import { mapMutations, mapActions } from 'vuex'
+
+export default {
+  created () {
+    const token = this.$route.query.token
+    console.log('token', token)
+
+    const flag = this.$route.query.extraInfoFlag
+    console.log('flag', flag)
+
+    if (token) {
+      this.setToken(token)
+      this.fetchUser()
+    }
+
+    // 추가 정보 미기입시 추가정보 페이지로 replace
+    if (flag == 'false') {
+      this.$router.replace('/extraInfoForm')
+    }
+    else {
+      this.$router.replace('/')
+    }
+  },
+  methods: {
+    ...mapActions(['fetchUser']),
+    ...mapMutations(['setToken'])
+  }
+}
+</script>
