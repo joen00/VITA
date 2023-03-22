@@ -2,7 +2,7 @@
   <div>
     <b-modal id="modal-scrollable" scrollable title="친구 추가">
       <div id="modal-middle">
-        <b-form-input
+        <b-form-input v-model="inputValue" @keyup="getSearchFriendList(inputValue)"
           id="modal-nick-search"
           placeholder="닉네임을 입력하세요."
         ></b-form-input>
@@ -12,10 +12,10 @@
         <div id="list-div" v-for="lists in searchlist" :key="lists.id">
           <b-avatar
             variant="info"
-            src="https://placekitten.com/300/300"
+            :src="lists.user_img"
           ></b-avatar>
-          <span style="font-weight: 600">{{ lists.name }} </span>
-          <button id="btn-delete-friend">친구 신청</button>
+          <span style="font-weight: 600">{{ lists.user_nickname }} </span>
+          <button id="btn-delete-friend" @click="requestFriend(lists.user_nickname)">친구 신청</button>
         </div>
       </div>
     </b-modal>
@@ -23,15 +23,53 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+const SERVER_URL = "http://localhost:8080/friend";
+const MY_USER_ID = 1;
+
 export default {
   name: "FriendAddModal",
   data: () => ({
     searchlist: [
-      { id: 1, name: "김광배" },
-      { id: 2, name: "이광배" },
-      { id: 3, name: "차광배" },
+      // { id: 1, name: "김광배" },
+      // { id: 2, name: "이광배" },
+      // { id: 3, name: "차광배" },
     ],
+    inputValue: "",
   }),
+  methods: {
+    getSearchFriendList(inputValue) {
+      console.log(inputValue)
+      axios
+        .get(SERVER_URL + `/apply/` + `${inputValue}`, {
+          headers: {
+            userID: MY_USER_ID,
+          },
+        })
+        .then((response) => {
+          console.log(response)
+          this.searchlist = []
+          response.data.map((data) => {
+            this.searchlist.push(data);
+          });
+        })
+        .catch(this.searchlist = []);
+    },
+    requestFriend(user_nickname) {
+      axios
+        .post(SERVER_URL + `/apply`, { user_nickname: user_nickname },{
+          headers: {
+            userID: MY_USER_ID
+          },
+        }).then((response) => {
+          console.log(response)
+        })
+    },
+  },
+  created() {
+    this.getSearchFriendList();
+  }
 };
 </script>
 

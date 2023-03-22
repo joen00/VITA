@@ -27,28 +27,30 @@
             :key="lists.id"
           >
             <span style="font-weight: 600">
-              {{ lists.id }}
+              {{ lists.user_id }}
             </span>
             <b-avatar
               variant="info"
-              src="https://placekitten.com/300/300"
+              :src="lists.user_img"
             ></b-avatar>
-            <span style="font-weight: 600">{{ lists.name }} </span>
-            <button id="btn-post-add">수락</button>
-            <button id="btn-post-delete">거절</button>
+            <span style="font-weight: 600">{{ lists.user_nickname }} </span>
+            <button id="btn-post-add" @click="acceptFriend(lists.user_id)">수락</button>
+            <button id="btn-post-delete" @click="deleteOrRejectFriend(lists.user_id)">거절</button>
           </div>
         </div>
 
         <div id="list-div" v-for="lists in friendlist" :key="lists.id">
           <span style="font-weight: 600">
-            {{ lists.id }}
+            {{ lists.user_id }}
             <b-avatar
               variant="info"
-              src="https://placekitten.com/300/300"
+              :src="lists.user_img"
             ></b-avatar
           ></span>
-          <span style="font-weight: 600">{{ lists.name }} </span>
-          <button id="btn-delete-friend">친구 삭제</button>
+          <span style="font-weight: 600">{{ lists.user_nickname }} </span>
+          <button id="btn-delete-friend" @click="deleteOrRejectFriend(lists.user_id)">
+            친구 삭제
+          </button>
         </div>
       </div>
     </div>
@@ -57,6 +59,10 @@
 
 <script>
 import FriendAddModal from "@/components/friend/FriendAddModal.vue";
+import axios from "axios";
+
+const SERVER_URL = "http://localhost:8080/friend";
+const MY_USER_ID = 1;
 export default {
   name: "FriendListView",
   components: {
@@ -64,15 +70,80 @@ export default {
   },
   data: () => ({
     friendlist: [
-      { id: 1, name: "김광배", score: "10" },
-      { id: 2, name: "이광배", score: "20" },
-      { id: 3, name: "차광배", score: "30" },
+      // { id: 1, name: "김광배", score: "10" },
+      // { id: 2, name: "이광배", score: "20" },
+      // { id: 3, name: "차광배", score: "30" },
     ],
     friendpostlist: [
-      { id: 1, name: "김광배", score: "10" },
-      { id: 2, name: "이광배", score: "20" },
+      // { id: 1, name: "김광배", score: "10" },
+      // { id: 2, name: "이광배", score: "20" },
     ],
   }),
+  methods: {
+    getFriendList() {
+      axios
+        .get(SERVER_URL, {
+          headers: {
+            userID: MY_USER_ID,
+          },
+        })
+        .then((response) => {
+          console.log(response)
+          response.data.map((data) => {
+            this.friendlist.push(data);
+          });
+        });
+    },
+    deleteOrRejectFriend(user_id) {
+      axios
+        .delete(SERVER_URL, {
+          headers: {
+            sendingUserId: MY_USER_ID,
+            receivingUserId: user_id,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.friendpostlist = []
+          this.getFriendPostList();
+          this.friendlist = []
+          this.getFriendList();
+        });
+    },
+    getFriendPostList() {
+      axios
+        .get(SERVER_URL + `/applyList`, {
+          headers: {
+            userID: MY_USER_ID,
+          },
+        })
+        .then((response) => {
+          console.log(response)
+          response.data.map((data) => {
+            this.friendpostlist.push(data);
+          });
+        });
+    },
+    acceptFriend(sendingUserId) {
+      axios
+        .put(SERVER_URL, null ,{
+          headers: {
+            sendingUserId: sendingUserId,
+            receivingUserId: MY_USER_ID
+          },
+        }).then((response) => {
+          console.log(response)
+          this.friendpostlist = []
+          this.getFriendPostList();
+          this.friendlist = []
+          this.getFriendList();
+        })
+    }
+  },
+  created() {
+    this.getFriendList();
+    this.getFriendPostList();
+  },
 };
 </script>
 
