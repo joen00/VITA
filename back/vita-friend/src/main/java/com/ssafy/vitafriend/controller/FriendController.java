@@ -6,7 +6,7 @@ import com.ssafy.vitafriend.dto.FriendSearchMapping;
 import com.ssafy.vitafriend.dto.FriendSendingListDto;
 import com.ssafy.vitafriend.dto.FriendRankDto;
 import com.ssafy.vitafriend.dto.UserInfoDto;
-import com.ssafy.vitafriend.entity.Users;
+import com.ssafy.vitafriend.entity.User;
 import com.ssafy.vitafriend.service.FriendService;
 import com.ssafy.vitafriend.service.UsersService;
 import lombok.AllArgsConstructor;
@@ -139,7 +139,7 @@ public class FriendController {
     public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers) {
         try {
             // 친구를 담을 리스트를 <친구리스트 부모 클래스 형>으로 선언
-            Users myInfo = usersService.findByUserId(headers.getFirst("userID"));
+            User myInfo = usersService.findByUserId(headers.getFirst("userID"));
 
             // 랭킹에 나도 포함 시킴, modelMapper로 타입 맞춰서 넣기
             List<UserInfoDto> rankFriendList = new ArrayList<>();

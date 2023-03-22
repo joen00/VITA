@@ -1,10 +1,10 @@
 package com.ssafy.vitafriend.service;
 
-import com.ssafy.vitafriend.entity.Users;
+import com.ssafy.vitafriend.entity.User;
 
 import java.util.List;
 
 public interface UsersService {
-    Users findByUserId(String userId);
-    List<Users> findAll();
+    User findByUserId(String userId);
+    List<User> findAll();
 }

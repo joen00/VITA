@@ -1,6 +1,6 @@
 package com.ssafy.vitafriend.service;
 
-import com.ssafy.vitafriend.entity.Users;
+import com.ssafy.vitafriend.entity.User;
 import com.ssafy.vitafriend.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
 
     @Override
-    public Users findByUserId(String userId) {
+    public User findByUserId(String userId) {
         return usersRepository.findByUserId(userId);
     }
 
     @Override
-    public List<Users> findAll() {
+    public List<User> findAll() {
         return usersRepository.findAll();
     }
 }
