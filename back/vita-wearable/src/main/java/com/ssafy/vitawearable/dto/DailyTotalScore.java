@@ -1,7 +1,12 @@
 package com.ssafy.vitawearable.dto;
 
-import java.time.ZonedDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.ZonedDateTime;
+@Getter
+@Setter
+// 일일 총합 점수 Dto
 public class DailyTotalScore {
     private int dailyWearableScore;
     private ZonedDateTime date;

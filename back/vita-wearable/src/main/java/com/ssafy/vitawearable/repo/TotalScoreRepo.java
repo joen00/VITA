@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TotalScoreRepo extends JpaRepository<TotalScore,Long> {
+    // userId로 해당 유저 총합 점수 리스트 추출
     List<TotalScore> findByUser_UserId(String userId);
 }

@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+// 월간 체중 데이터 Dto
 public class WeightMonthlyDto {
     private Float monthlyWearableWeight;
     private Float monthlyWearableMuscle;

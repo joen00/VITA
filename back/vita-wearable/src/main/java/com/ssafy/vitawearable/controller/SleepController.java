@@ -1,9 +1,8 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.SleepDailyDto;
-import com.ssafy.vitawearable.dto.SleepMonthlyDto;
-import com.ssafy.vitawearable.dto.SleepWeeklyDto;
+import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
+import com.ssafy.vitawearable.service.WearablePast;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +23,7 @@ import java.util.List;
 @RequestMapping("/wearable/user/sleep")
 public class SleepController {
     private final Wearable wearable;
+    private final WearablePast wearablePast;
 
     // 수면 달별 데이터
     @ApiOperation(
@@ -62,5 +62,17 @@ public class SleepController {
     public ResponseEntity<List<SleepDailyDto>> sleepDaily(@RequestHeader("token") String token) {
         String userId = wearable.getUserId(token);
         return new ResponseEntity<>(wearable.sleepDaily(userId), HttpStatus.valueOf(200));
+    }
+
+    // 수면 과거 비교 데이터
+    @ApiOperation(
+            value = "수면 과거,현재 데이터 요청",
+            notes = "userId를 통해 수면 과거,현재 데이터를 json 형태로 반환한다",
+            response = SleepPastAndNowDto.class
+    )
+    @GetMapping("/past")
+    public ResponseEntity<SleepPastAndNowDto> stepPast(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearablePast.sleepPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }

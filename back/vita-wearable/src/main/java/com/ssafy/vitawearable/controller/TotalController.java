@@ -1,9 +1,13 @@
 package com.ssafy.vitawearable.controller;
 
+import com.ssafy.vitawearable.dto.DailyTotalScore;
+import com.ssafy.vitawearable.dto.SleepPastAndNowDto;
 import com.ssafy.vitawearable.dto.TotalScoreDto;
 import com.ssafy.vitawearable.entity.TotalScore;
 import com.ssafy.vitawearable.repo.TotalScoreRepo;
+import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,22 +21,33 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/wearable")
 public class TotalController {
-    private final TotalScoreRepo totalScoreRepo;
     private final Wearable wearable;
+    private final Score score;
 
-    // 종합 점수 반환(최근것을 왼쪽에, 나머지 5개를 오른쪽에 배치)
+    // 종합 점수 반환(프론트에선 최근것을 왼쪽에, 나머지 5개를 오른쪽에 배치)
+    @ApiOperation(
+            value = "종합 점수 반환 요청",
+            notes = "userId를 해당 유저 종합 점수를 json 형태로 반환한다",
+            response = TotalScoreDto.class,
+            responseContainer = "List"
+    )
     @GetMapping("/score")
     public ResponseEntity<List<TotalScoreDto>> totalScore(@RequestHeader("token") String token) {
         String userId = wearable.getUserId(token);
-//        List<TotalScore> totalScore = totalScoreRepo.findByUsers_UserId(userId);
-        return new ResponseEntity<>(wearable.totalScore(userId), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(score.totalScore(userId), HttpStatus.valueOf(200));
     }
 
+
     // 연도별 데일리 종합 점수
+    @ApiOperation(
+            value = "연도별 데일리 종합 점수 데이터 요청",
+            notes = "userId를 통해 연도별 데일리 종합 점수를 json 형태로 반환한다",
+            response = DailyTotalScore.class,
+            responseContainer = "List"
+    )
     @GetMapping("/user/score/{year}")
-    public ResponseEntity<List<?>> totalDailyScore(@RequestHeader("token") String token, @PathVariable int year) {
+    public ResponseEntity<List<DailyTotalScore>> totalDailyScore(@RequestHeader("token") String token, @PathVariable int year) {
         String userId = wearable.getUserId(token);
-//        List<TotalScore> totalScore = totalScoreRepo.findByUsers_UserId(userId);
-        return new ResponseEntity<>(wearable.yearTotalScore(userId,year),HttpStatus.valueOf(200));
+        return new ResponseEntity<>(score.yearTotalScore(userId,year),HttpStatus.valueOf(200));
     }
 }

@@ -14,7 +14,6 @@ public interface Wearable {
     // 걸음수 일별
     List<StepDailyDto> stepDaily(String userId);
 
-
     // 활동량 달별
     List<EnergyMonthlyDto> energyMonthly(String userId);
 
@@ -23,9 +22,6 @@ public interface Wearable {
 
     // 활동량 일별
     List<EnergyDailyDto> energyDaily(String userId);
-
-    // 활동량 이전과 비교
-//    List<EnergyPastNowDto> energyPastNow(String userId);
 
     // 심박수 달별
     List<RhrMonthlyDto> rhrMonthly(String userId);
@@ -66,24 +62,9 @@ public interface Wearable {
     // 활동량 이전과 비교
 //    WeightPastNowDto weightPastNow(String userId);
 
-    // 총합 점수 평균 반환
-    List<TotalScoreDto> totalScore(String userId);
-
-    // 연도별 데일리 종합 점수 반환
-    List<DailyTotalScore> yearTotalScore(String userId, int year);
 
     // jwt 토큰에서 userId 추출
     String getUserId(String token);
-
-    UserAverageDto userAverage(String userId);
-
-    ApiAverageDto apiTotalAverage();
-
-    ApiAverageDto apiCustomAverage(int userAge, String userSex);
-
-//    List<FriendDto> friendList(String userId);
-//
-//    List<UserAverageDto> friendAverage(String userId);
 
 
 }

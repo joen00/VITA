@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface WeeklyWearableRepo extends JpaRepository<WeeklyWearable,Long> {
+    // userId로 주간 데이터 리스트 추출
     List<WeeklyWearable> findByUser_UserId(String userId);
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+// 해당 유저의 평균 데이터 Dto
 public class UserAverageDto {
     private int userAverageStep;
     private int userAverageEnergy;

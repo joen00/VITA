@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+// 월간 수면 데이터 Dto
 public class StressMonthlyDto {
     private int monthlyWearableStress;
     private ZonedDateTime date;

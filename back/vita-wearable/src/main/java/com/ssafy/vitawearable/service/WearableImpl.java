@@ -11,7 +11,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.DatatypeConverter;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,14 +22,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class WearableImpl implements Wearable {
-    private final ApiAverageRepo apiAverageRepo;
     private final DailyWearableRepo dailyWearableRepo;
     private final MonthlyWearableRepo monthlyWearableRepo;
-    private final UserAverageRepo userAverageRepo;
     private final WeeklyWearableRepo weeklyWearableRepo;
-    private final TotalScoreRepo totalScoreRepo;
-//    private final FriendRepo friendRepo;
-//    private final UsersRepo usersRepo;
     private final ModelMapper mapper = new ModelMapper();
 
     // 걸음수 달별
@@ -34,7 +32,9 @@ public class WearableImpl implements Wearable {
     public List<StepMonthlyDto> stepMonthly(String userId) {
         List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyEnergy.stream()
-                .map(monthly -> mapper.map(monthly, StepMonthlyDto.class)).collect(Collectors.toList());
+                .map(monthly -> mapper.map(monthly, StepMonthlyDto.class))
+                .sorted(Comparator.comparing(StepMonthlyDto::getDate))
+                .collect(Collectors.toList());
     }
 
     // 걸음수 주별
@@ -42,7 +42,9 @@ public class WearableImpl implements Wearable {
     public List<StepWeeklyDto> stepWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, StepWeeklyDto.class)).collect(Collectors.toList());
+                .map(weekly -> mapper.map(weekly, StepWeeklyDto.class))
+                .sorted(Comparator.comparing(StepWeeklyDto::getDate))
+                .collect(Collectors.toList());
     }
 
     // 걸음수 일별
@@ -50,15 +52,21 @@ public class WearableImpl implements Wearable {
     public List<StepDailyDto> stepDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .map(daily -> mapper.map(daily, StepDailyDto.class)).collect(Collectors.toList());
+                .map(daily -> mapper.map(daily, StepDailyDto.class))
+                .sorted(Comparator.comparing(StepDailyDto::getDate))
+                .collect(Collectors.toList());
     }
+
+
 
     // 활동량 달별
     @Override
     public List<EnergyMonthlyDto> energyMonthly(String userId) {
         List<MonthlyWearable> monthlyEnergy = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyEnergy.stream()
-                .map(monthly -> mapper.map(monthly, EnergyMonthlyDto.class)).collect(Collectors.toList());
+                .map(monthly -> mapper.map(monthly, EnergyMonthlyDto.class))
+                .sorted(Comparator.comparing(EnergyMonthlyDto::getDate))
+                .collect(Collectors.toList());
     }
 
     // 활동량 주별
@@ -66,7 +74,9 @@ public class WearableImpl implements Wearable {
     public List<EnergyWeeklyDto> energyWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, EnergyWeeklyDto.class)).collect(Collectors.toList());
+                .map(weekly -> mapper.map(weekly, EnergyWeeklyDto.class))
+                .sorted(Comparator.comparing(EnergyWeeklyDto::getDate))
+                .collect(Collectors.toList());
     }
 
     // 활동량 일별
@@ -74,7 +84,9 @@ public class WearableImpl implements Wearable {
     public List<EnergyDailyDto> energyDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .map(daily -> mapper.map(daily, EnergyDailyDto.class)).collect(Collectors.toList());
+                .map(daily -> mapper.map(daily, EnergyDailyDto.class))
+                .sorted(Comparator.comparing(EnergyDailyDto::getDate))
+                .collect(Collectors.toList());
     }
 
     // 심박수 달별
@@ -82,7 +94,9 @@ public class WearableImpl implements Wearable {
     public List<RhrMonthlyDto> rhrMonthly(String userId) {
         List<MonthlyWearable> monthlyRhr = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyRhr.stream()
-                .map(monthly -> mapper.map(monthly, RhrMonthlyDto.class)).collect(Collectors.toList());
+                .map(monthly -> mapper.map(monthly, RhrMonthlyDto.class))
+                .sorted(Comparator.comparing(RhrMonthlyDto::getDate))
+                .collect(Collectors.toList());
     }
 
     // 심박수 주별
@@ -90,7 +104,9 @@ public class WearableImpl implements Wearable {
     public List<RhrWeeklyDto> rhrWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, RhrWeeklyDto.class)).collect(Collectors.toList());
+                .map(weekly -> mapper.map(weekly, RhrWeeklyDto.class))
+                .sorted(Comparator.comparing(RhrWeeklyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -99,7 +115,9 @@ public class WearableImpl implements Wearable {
     public List<RhrDailyDto> rhrDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .map(daily -> mapper.map(daily, RhrDailyDto.class)).collect(Collectors.toList());
+                .map(daily -> mapper.map(daily, RhrDailyDto.class))
+                .sorted(Comparator.comparing(RhrDailyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -108,7 +126,9 @@ public class WearableImpl implements Wearable {
     public List<SleepMonthlyDto> sleepMonthly(String userId) {
         List<MonthlyWearable> monthlySleep = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlySleep.stream()
-                .map(monthly -> mapper.map(monthly, SleepMonthlyDto.class)).collect(Collectors.toList());
+                .map(monthly -> mapper.map(monthly, SleepMonthlyDto.class))
+                .sorted(Comparator.comparing(SleepMonthlyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -117,7 +137,9 @@ public class WearableImpl implements Wearable {
     public List<SleepWeeklyDto> sleepWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, SleepWeeklyDto.class)).collect(Collectors.toList());
+                .map(weekly -> mapper.map(weekly, SleepWeeklyDto.class))
+                .sorted(Comparator.comparing(SleepWeeklyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -126,7 +148,9 @@ public class WearableImpl implements Wearable {
     public List<SleepDailyDto> sleepDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .map(daily -> mapper.map(daily, SleepDailyDto.class)).collect(Collectors.toList());
+                .map(daily -> mapper.map(daily, SleepDailyDto.class))
+                .sorted(Comparator.comparing(SleepDailyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -135,7 +159,9 @@ public class WearableImpl implements Wearable {
     public List<StressMonthlyDto> stressMonthly(String userId) {
         List<MonthlyWearable> monthlyStress = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyStress.stream()
-                .map(monthly -> mapper.map(monthly, StressMonthlyDto.class)).collect(Collectors.toList());
+                .map(monthly -> mapper.map(monthly, StressMonthlyDto.class))
+                .sorted(Comparator.comparing(StressMonthlyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -144,7 +170,9 @@ public class WearableImpl implements Wearable {
     public List<StressWeeklyDto> stressWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, StressWeeklyDto.class)).collect(Collectors.toList());
+                .map(weekly -> mapper.map(weekly, StressWeeklyDto.class))
+                .sorted(Comparator.comparing(StressWeeklyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -153,7 +181,9 @@ public class WearableImpl implements Wearable {
     public List<StressDailyDto> stressDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .map(daily -> mapper.map(daily, StressDailyDto.class)).collect(Collectors.toList());
+                .map(daily -> mapper.map(daily, StressDailyDto.class))
+                .sorted(Comparator.comparing(StressDailyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -162,7 +192,9 @@ public class WearableImpl implements Wearable {
     public List<WeightMonthlyDto> weightMonthly(String userId) {
         List<MonthlyWearable> monthlyWeight = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyWeight.stream()
-                .map(monthly -> mapper.map(monthly, WeightMonthlyDto.class)).collect(Collectors.toList());
+                .map(monthly -> mapper.map(monthly, WeightMonthlyDto.class))
+                .sorted(Comparator.comparing(WeightMonthlyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -171,7 +203,9 @@ public class WearableImpl implements Wearable {
     public List<WeightWeeklyDto> weightWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .map(weekly -> mapper.map(weekly, WeightWeeklyDto.class)).collect(Collectors.toList());
+                .map(weekly -> mapper.map(weekly, WeightWeeklyDto.class))
+                .sorted(Comparator.comparing(WeightWeeklyDto::getDate))
+                .collect(Collectors.toList());
 
     }
 
@@ -180,100 +214,17 @@ public class WearableImpl implements Wearable {
     public List<WeightDailyDto> weightDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .map(daily -> mapper.map(daily, WeightDailyDto.class)).collect(Collectors.toList());
-
-    }
-
-//    public WeightPastNowDto weightPastNow(String userId) {
-//        WeightPastNowDto weightPastNowDto = new WeightPastNowDto();
-//        weightPastNowDto = weeklyWearableRepo.findByUser_UserId(userId).get(0);
-//
-//    }
-
-    // 모든 총합 점수 반환
-    public List<TotalScoreDto> totalScore(String userId) {
-        mapper.getConfiguration().setAmbiguityIgnored(true);
-        List<TotalScore> totalScoreList = totalScoreRepo.findByUser_UserId(userId);
-        List<TotalScoreDto> totalScoreDtoList = totalScoreList.stream()
-                .map(totalScore -> mapper.map(totalScore, TotalScoreDto.class))
+                .map(daily -> mapper.map(daily, WeightDailyDto.class))
+                .sorted(Comparator.comparing(WeightDailyDto::getDate))
                 .collect(Collectors.toList());
-        // totalScore 구하기
-        for (TotalScoreDto t:totalScoreDtoList) {
-            int totalScore = t.getTotalScoreEnergy() + t.getTotalScoreWeight() +
-                    t.getTotalScoreSleep() + t.getTotalScoreRhr() +
-                    t.getTotalScoreStep() + t.getTotalScoreStress();
-            t.setTotalScore(totalScore/6);
-        }
-        return totalScoreDtoList;
+
     }
-
-    // 연도별 데일리 종합 점수 반환
-    public List<DailyTotalScore> yearTotalScore(String userId, int year) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
-        return dailyWearables.stream()
-                .filter(daily -> daily.getDate().getYear() == year)
-                .map(daily -> mapper.map(daily, DailyTotalScore.class))
-                .collect(Collectors.toList());
-    }
-
-
-    // 해당 유저 평균값 구하기
-    @Override
-    public UserAverageDto userAverage(String userId) {
-        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(0);
-        return mapper.map(userAverage, UserAverageDto.class);
-    }
-
-    // api 종합점수
-    @Override
-    public ApiAverageDto apiTotalAverage() {
-        List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
-        ApiAverageDto apiAverageDto = new ApiAverageDto();
-        apiAverageDto.setApiAverageStep((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStep).average().getAsDouble());
-        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
-        apiAverageDto.setApiAverageRhr((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-        apiAverageDto.setApiAverageStress((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-        apiAverageDto.setApiAverageSleep((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleep).average().getAsDouble());
-        apiAverageDto.setApiAverageLight((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
-        apiAverageDto.setApiAverageRem((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
-        apiAverageDto.setApiAverageCore((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageCore).average().getAsDouble());
-        apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
-        return apiAverageDto;
-    }
-
-    // 연별 유저 평균
-    @Override
-    public ApiAverageDto apiCustomAverage(int userAge, String userSex) {
-        List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
-        ApiAverage apiAverage = apiAverageList.stream()
-                .filter(i -> i.getSex().equals(userSex) && i.getAge() == userAge).collect(Collectors.toList()).get(0);
-        return mapper.map(apiAverage, ApiAverageDto.class);
-    }
-
-
-
-//    @Override
-//    public List<FriendDto> friendList(String userId) {
-//        usersRepo.findById(userId).
-//    }
-//
-//
-//    @Override
-//    public List<UserAverageDto> friendAverage(String userId) {
-//        user
-//    }
-
 
     // token에서 userId 추출. claims에서 subject안에 있는게 맞나?
     @Override
     public String getUserId(String token) {
-//        Claims claims = Jwts.parserBuilder()
-////                .setSigningKey(DatatypeConverter.parseBase64Binary("bundo10@naver.com"))
-//                .setSigningKey("vita500")
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
-        String secretKey = "youcantrevealthesecretkey1234012300040hjbvjhbjhvhjbjkbhjvjbjkn";
+        // user 서버의 secretKey
+        String secretKey = "8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds";
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey.getBytes())
                 .build()
@@ -281,7 +232,5 @@ public class WearableImpl implements Wearable {
                 .getBody();
 
         return claims.getSubject();
-
-//        return "2703629614";
     }
 }

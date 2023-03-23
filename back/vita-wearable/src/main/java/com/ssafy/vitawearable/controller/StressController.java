@@ -1,9 +1,8 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.StressDailyDto;
-import com.ssafy.vitawearable.dto.StressMonthlyDto;
-import com.ssafy.vitawearable.dto.StressWeeklyDto;
+import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
+import com.ssafy.vitawearable.service.WearablePast;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +23,7 @@ import java.util.List;
 @RequestMapping("/wearable/user/stress")
 public class StressController {
     private final Wearable wearable;
+    private final WearablePast wearablePast;
 
     // 스트레스 달별 데이터
     @ApiOperation(
@@ -62,5 +62,17 @@ public class StressController {
     public ResponseEntity<List<StressDailyDto>> stressDaily(@RequestHeader("token") String token) {
         String userId = wearable.getUserId(token);
         return new ResponseEntity<>(wearable.stressDaily(userId), HttpStatus.valueOf(200));
+    }
+
+    // 스트레스 과거 비교 데이터
+    @ApiOperation(
+            value = "스트레스 과거,현재 데이터 요청",
+            notes = "userId를 통해 스트레스 과거,현재 데이터를 json 형태로 반환한다",
+            response = SleepPastAndNowDto.class
+    )
+    @GetMapping("/past")
+    public ResponseEntity<SleepPastAndNowDto> stepPast(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearablePast.sleepPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }

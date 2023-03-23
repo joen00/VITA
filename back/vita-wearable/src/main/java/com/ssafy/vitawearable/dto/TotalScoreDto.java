@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+// 일일 총합 점수 Dto
 public class TotalScoreDto {
     private ZonedDateTime date;
     private int totalScore;

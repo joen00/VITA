@@ -1,8 +1,10 @@
 package com.ssafy.vitawearable.controller;
 
 import com.ssafy.vitawearable.dto.ApiAverageDto;
+import com.ssafy.vitawearable.dto.EnergyDailyDto;
 import com.ssafy.vitawearable.dto.EnergyMonthlyDto;
 import com.ssafy.vitawearable.dto.UserAverageDto;
+import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,37 +23,41 @@ import java.util.List;
 @RequestMapping("/wearable/average")
 public class AverageController {
     private final Wearable wearable;
+    private final Score score;
 
     // 사용자 평균 데이터 리스트
     @ApiOperation(
             value = "사용자 평균 데이터 리스트",
-            notes = "사용자 평균 데이터 리스트"
+            notes = "사용자 평균 데이터 리스트",
+            response = UserAverageDto.class
     )
     @GetMapping("/user")
     public ResponseEntity<UserAverageDto> userAverage(@RequestHeader("token") String token) {
         String userId = wearable.getUserId(token);
-        return new ResponseEntity<>(wearable.userAverage(userId), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
     }
 
     // API 전체 평균 데이터 리스트 전체
     @ApiOperation(
             value = "API 전체 평균 데이터 리스트 전체",
-            notes = "API 전체 평균 데이터 리스트 전체"
+            notes = "API 전체 평균 데이터 리스트 전체",
+            response = ApiAverageDto.class
     )
 
     @GetMapping("")
     public ResponseEntity<ApiAverageDto> apiTotalAverage() {
-        return new ResponseEntity<>(wearable.apiTotalAverage(), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(score.apiTotalAverage(), HttpStatus.valueOf(200));
     }
 
     // API 선택 평균 데이터 리스트 전체
     @ApiOperation(
             value = "API 선택 평균 데이터 리스트 전체",
-            notes = "API 선택 평균 데이터 리스트 전체"
+            notes = "API 선택 평균 데이터 리스트 전체",
+            response = EnergyDailyDto.class
     )
 
     @GetMapping("/{userAge}/{userSex}")
     public ResponseEntity<ApiAverageDto> apiCustomAverage(@PathVariable int userAge, @PathVariable String userSex) {
-        return new ResponseEntity<>(wearable.apiCustomAverage(userAge,userSex), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(score.apiCustomAverage(userAge,userSex), HttpStatus.valueOf(200));
     }
 }

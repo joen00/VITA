@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+// 주간 수면 데이터 Dto
 public class SleepWeeklyDto {
     private Long weeklyWearableSleep;
     private int weeklyWearableLight;

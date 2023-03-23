@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+// api 평균 dto
 public class ApiAverageDto {
     private int apiAverageStep;
     private int apiAverageEnergy;
@@ -15,15 +16,4 @@ public class ApiAverageDto {
     private int apiAverageRem;
     private int apiAverageCore;
     private int apiAverageDeep;
-
-//    public UserAverageDto(UserAverage userAverage) {
-//        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageEnergy = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageRhr = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageStress = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageLight = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageRem = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//    }
 }

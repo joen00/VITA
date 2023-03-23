@@ -2,8 +2,10 @@ package com.ssafy.vitawearable.controller;
 
 import com.ssafy.vitawearable.dto.StepDailyDto;
 import com.ssafy.vitawearable.dto.StepMonthlyDto;
+import com.ssafy.vitawearable.dto.StepPastAndNowDto;
 import com.ssafy.vitawearable.dto.StepWeeklyDto;
 import com.ssafy.vitawearable.service.Wearable;
+import com.ssafy.vitawearable.service.WearablePast;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ import java.util.List;
 @RequestMapping("/wearable/user/step")
 public class StepController {
     private final Wearable wearable;
+    private final WearablePast wearablePast;
 
     // 걸음수 달별 데이터
     @ApiOperation(
@@ -67,5 +70,17 @@ public class StepController {
     public ResponseEntity<List<StepDailyDto>> stepDaily(@RequestHeader("token") String token) {
         String userId = wearable.getUserId(token);
         return new ResponseEntity<>(wearable.stepDaily(userId), HttpStatus.valueOf(200));
+    }
+
+    // 걸음수 과거 비교 데이터
+    @ApiOperation(
+            value = "걸음수 과거,현재 데이터 요청",
+            notes = "userId를 통해 걸음수 과거,현재 데이터를 json 형태로 반환한다",
+            response = StepPastAndNowDto.class
+    )
+    @GetMapping("/past")
+    public ResponseEntity<StepPastAndNowDto> stepPast(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearablePast.stepPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }

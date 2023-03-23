@@ -1,9 +1,8 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.WeightDailyDto;
-import com.ssafy.vitawearable.dto.WeightMonthlyDto;
-import com.ssafy.vitawearable.dto.WeightWeeklyDto;
+import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
+import com.ssafy.vitawearable.service.WearablePast;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +20,7 @@ import java.util.List;
 @RequestMapping("/wearable/user/weight")
 public class WeightController {
     private final Wearable wearable;
+    private final WearablePast wearablePast;
 
     // 체중 월간 데이터
     @ApiOperation(
@@ -61,10 +61,15 @@ public class WeightController {
         return new ResponseEntity<>(wearable.weightDaily(userId), HttpStatus.valueOf(200));
     }
 
-//    // 1년전 평균과 이번해 평균, 1달전 평균과 이번달 평균, 1주전 평균과 이번주 평균 데이터 반환
-//    @GetMapping("/past")
-//    public ResponseEntity<List<TotalScore>> weightPath(@RequestHeader String userId) {
-//        List<TotalScore> totalScore = totalScoreRepo.findByUsers_UserId(userId);
-//        return new ResponseEntity<>(totalScore,HttpStatus.valueOf(200));
-//    }
+    // 체중 과거 비교 데이터
+    @ApiOperation(
+            value = "체중 과거,현재 데이터 요청",
+            notes = "userId를 통해 체중 과거,현재 데이터를 json 형태로 반환한다",
+            response = WeightPastAndNowDto.class
+    )
+    @GetMapping("/past")
+    public ResponseEntity<WeightPastAndNowDto> stepPast(@RequestHeader("token") String token) {
+        String userId = wearable.getUserId(token);
+        return new ResponseEntity<>(wearablePast.weightPastAndNow(userId), HttpStatus.valueOf(200));
+    }
 }
