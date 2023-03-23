@@ -1,14 +1,14 @@
 <template>
-    <div id="AwearableWalkBody">
-        <div id="Awalk">
-            <div id="AwalkLeft">
+    <div id="AwearableStressBody">
+        <div id="Astress">
+            <div id="AstressLeft">
               <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
-                <div id="AwalkAdvice">
+                <div id="AstressAdvice">
                   <DoctorAdvice :Advice= Advice ></DoctorAdvice>
                 </div>
             </div>
-            <div id="AwalkRight">
-                <div id="chartdiv-api-walk"></div>
+            <div id="AstressRight">
+                <div id="chartdiv-api-stress"></div>
             </div>
         </div>
     </div>
@@ -25,20 +25,20 @@
   import DoctorAdvice from '../wearable_api/DoctorAdvice.vue';
 
   export default {
-  components: { 
-    ComponentHeader,
-    DoctorAdvice,
-  },
+    components: { 
+      ComponentHeader,
+      DoctorAdvice
+    },
     data() {
       return {
-        ComponentHeaderTitle: "걸음수",
-        ComponentHeaderContent: "나의 걸음수와 사람들의 평균을 비교해보세요.",
-        Advice: "잘 걷고 있어요. 앞으로도 꾸준히 걸어볼까요?"
+        ComponentHeaderTitle: "스트레스",
+        ComponentHeaderContent: "나의 스트레스 지수와 사람들의 평균을 비교해보세요.",
+        Advice: "스트레스가 많습니다! 명상을 통해 안정을 취하세요.",
       };
     },
     mounted() {
       am5.ready(() => {
-        var root = am5.Root.new("chartdiv-api-walk");
+        var root = am5.Root.new("chartdiv-api-stress");
   
         root.setThemes([am5themes_Animated.new(root)]);
         // Create chart
@@ -51,9 +51,10 @@
             pinchZoomX: true
         }));
 
+        
         chart.get("colors").set("colors", [
-            am5.color(0xFC9EFE),
-            am5.color(0x7038CA),
+            am5.color(0xFF778F),
+            am5.color(0xFF2525),
         ]);
 
         // Add cursor
@@ -121,11 +122,11 @@
         var data = [
             {
                 target: "나",
-                value: 3000
+                value: 100
             }, 
             {
                 target: "평균",
-                value: 3300
+                value: 300
             }
         ];
 
@@ -145,27 +146,30 @@
 </script>
   
 <style scoped>
-  #Awalk{
+  #Astress{
     margin-top: 3rem;
   }
-  #AwalkLeft{
+  #AstressLeft{
     width: 50%;
     height: 250px;
     float: left;
+    /* background-color: aqua; */
   }
-  #AwalkRight{
+  #AstressRight{
     width: 50%;
     height: 250px;
     float: left;
+    /* background-color: bisque; */
   }
-  #chartdiv-api-walk {
+  #chartdiv-api-stress {
     width: 90%;
     height: 100%;
     background-color: rgb(253, 254, 255);
     border-radius: 10%;
     margin: 0 auto;
   }
-  #AwalkAdvice {
+  #AstressAdvice {
     margin-top: 30px;
   }
+
 </style>
