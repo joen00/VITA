@@ -1,7 +1,8 @@
 package com.ssafy.vitafriend.service;
 
-import com.ssafy.vitafriend.dto.FriendRankDto;
+import com.ssafy.vitafriend.dto.FriendTotalRankDto;
+import com.ssafy.vitafriend.entity.Score;
 
 public interface ScoreService {
-    FriendRankDto getTotalScoreByUser(String userId);
+    FriendTotalRankDto getTotalScoreByUser(String userId);
 }

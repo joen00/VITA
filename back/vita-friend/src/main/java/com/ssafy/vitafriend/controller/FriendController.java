@@ -1,8 +1,6 @@
 package com.ssafy.vitafriend.controller;
 
 import com.ssafy.vitafriend.dto.*;
-import com.ssafy.vitafriend.entity.Score;
-import com.ssafy.vitafriend.entity.User;
 import com.ssafy.vitafriend.service.FriendService;
 import com.ssafy.vitafriend.service.ScoreService;
 import com.ssafy.vitafriend.service.UsersService;
@@ -158,16 +156,16 @@ public class FriendController {
     }
 
     // 친구 랭킹 GET
-    @GetMapping("/rank")
+    @GetMapping("/rank/{scoreType}")
     @ApiOperation(value = "종합점수 조회", notes = "친구들의 종합점수 목록을 조회합니다.")
     @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
-    public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers, @PathVariable("scoreType") String scoreType) {
         try {
             // 출력시킬 종합 점수 리스트
-            List<FriendRankDto> rankFriendList = new ArrayList<>();
+            List<FriendTotalRankDto> rankFriendList = new ArrayList<>();
             
             // 친구들 정보를 받아와서
-            List<FriendRankDto> friendRankList = friendService.getFriendRankList(headers.getFirst("userID"));
+            List<?> friendRankList = friendService.getFriendRankList(headers.getFirst("userID"), scoreType);
 //            // 종합 점수 리스트에 저장
 //            rankFriendList.addAll(friendRankList);
 //            // 종합 점수를 내림차순으로 정렬

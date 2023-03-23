@@ -1,5 +1,6 @@
 package com.ssafy.vitafriend.repository;
 
+import com.ssafy.vitafriend.dto.FriendTotalRankDto;
 import com.ssafy.vitafriend.dto.UserInfoDto;
 import com.ssafy.vitafriend.entity.Score;
 import com.ssafy.vitafriend.entity.User;

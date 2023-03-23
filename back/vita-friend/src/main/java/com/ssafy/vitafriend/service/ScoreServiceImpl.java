@@ -1,6 +1,6 @@
 package com.ssafy.vitafriend.service;
 
-import com.ssafy.vitafriend.dto.FriendRankDto;
+import com.ssafy.vitafriend.dto.FriendTotalRankDto;
 import com.ssafy.vitafriend.entity.Score;
 import com.ssafy.vitafriend.repository.ScoreRepository;
 import org.modelmapper.ModelMapper;
@@ -19,9 +19,9 @@ public class ScoreServiceImpl implements ScoreService{
     private ModelMapper modelMapper;
 
     @Override
-    public FriendRankDto getTotalScoreByUser(String userId) {
+    public FriendTotalRankDto getTotalScoreByUser(String userId) {
         Score getUserScoreInfo = scoreRepository.findByUser_userId(userId);
-        FriendRankDto userScoreInfo = modelMapper.map(getUserScoreInfo, FriendRankDto.class);
+        FriendTotalRankDto userScoreInfo = modelMapper.map(getUserScoreInfo, FriendTotalRankDto.class);
         int totalScore = userScoreInfo.getTotalScoreEnergy() +
                 userScoreInfo.getTotalScoreSleep() + userScoreInfo.getTotalScoreRhr() +
                 userScoreInfo.getTotalScoreStep() + userScoreInfo.getTotalScoreStress();
