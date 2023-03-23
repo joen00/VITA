@@ -1,7 +1,7 @@
 <template>
   <div class="pt-5">
-    <div id="header-title">{{ headerTitle }}</div>
-    <div id="header-content">{{ headerContent }}</div>
+    <div id="vue-header-title">{{ VueHeaderTitle }}</div>
+    <div id="vue-header-content">{{ VueHeaderContent }}</div>
   </div>
 </template>
 
@@ -9,15 +9,15 @@
 export default {
   name: 'VueHeader',
   props: {
-    headerTitle: String,
-    headerContent: String,
+    VueHeaderTitle: String,
+    VueHeaderContent: String,
   }
 }
 
 </script>
 
 <style>
-#header-title {
+#vue-header-title {
   font-family: "Inter";
   font-style: normal;
   font-weight: bolder;
@@ -25,14 +25,14 @@ export default {
   line-height: 97px;
   color: #172176;
 }
-#header-content {
+#vue-header-content {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 24px;
   text-align: center;
-  margin-top: -2%;
+  /* margin-top: -2%; */
   color: #47474b;
 }
 </style>
