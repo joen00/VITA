@@ -20,7 +20,7 @@ def connectS3():
 # s3 파일 가져온 후 zip 입축 해제
 def decompress(s3, zipName):
     obj = s3.get_object(Bucket="vita-project-bucket", Key=zipName+".zip")
-    zipfile.ZipFile(io.BytesIO(obj["Body"].read())).extractall('./' + zipName + '/')
+    zipfile.ZipFile(io.BytesIO(obj["Body"].read())).extractall('./samsunghealth/')
 
 # DB 연결
 def connectDB():
