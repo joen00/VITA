@@ -15,7 +15,9 @@
           id="nick-search"
           placeholder="닉네임을 입력하세요."
         ></b-form-input>
-        <button>검색</button>
+        <b-button class="btn" v-b-modal.modal-scrollable id="btn-search-friend"
+          >검색</b-button
+        >
       </div>
       <div id="list">
         <h3 id="list-h3">친구리스트</h3>
@@ -25,9 +27,9 @@
             v-for="lists in friendpostlist"
             :key="lists.id"
           >
-            <span style="font-weight: 600">
+            <!-- <span style="font-weight: 600">
               {{ lists.user_id }}
-            </span>
+            </span> -->
             <b-avatar
               variant="info"
               :src="lists.user_img"
@@ -38,9 +40,9 @@
           </div>
         </div>
 
-        <div id="list-div" v-for="lists in friendlist" :key="lists.id">
+        <div id="list-div" class="scroll" v-for="lists in friendlist" :key="lists.id">
           <span style="font-weight: 600">
-            {{ lists.user_id }}
+            <!-- {{ lists.user_id }} -->
             <b-avatar
               variant="info"
               :src="lists.user_img"
@@ -163,11 +165,11 @@ export default {
 }
 #middle {
   height: 4rem;
-  margin: 0 auto;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
 }
 #btn-add-friend {
-  width: 10%;
+  width: 8%;
   height: 35px;
   border: none;
   color: rgb(255, 255, 255);
@@ -175,12 +177,10 @@ export default {
   background: #3695be;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  margin-left: 26rem;
-  margin-right: 1rem;
-  float: left;
+  margin: 0.5rem;
 }
 #btn-add-friend:hover {
-  width: 10%;
+  width: 8%;
   height: 35px;
   border: none;
   color: #3695be;
@@ -189,13 +189,36 @@ export default {
   background: rgb(255, 255, 255);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  margin-left: 26rem;
-  margin-right: 1rem;
-  float: left;
+  margin: 0.5rem;
 }
+
+#btn-search-friend {
+  width: 5%;
+  height: 35px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin: 0.5rem;
+}
+#btn-search-friend:hover {
+  width: 5%;
+  height: 35px;
+  border: none;
+  color: #3695be;
+  border: solid 2px #3695be;
+  font-weight: 600;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin: 0.5rem;
+}
+
 #nick-search {
   box-sizing: border-box;
-  width: 25%;
+  width: 24%;
   height: 35px;
   font-size: 14px;
   font-weight: 600;
@@ -203,11 +226,56 @@ export default {
   border: 2px solid #3695be;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: 15px;
-  float: left;
+  margin: 0.5rem;
+  /* float: left; */
   /* padding-top: 0.3rem; */
 }
+
+/* 리스트의 수락 거절 */
+
+#btn-delete-friend {
+  width: 89px;
+  height: 24px;
+  font-weight: 600;
+  color: white;
+  background: #ffa755;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  border: none;
+  font-size: 0.9rem;
+}
+
+#btn-post-add {
+  width: 55px;
+  height: 24px;
+  background: #79b6fd;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  color: white;
+  font-weight: 800;
+  border: none;
+  margin-right: -3.5rem;
+  font-size: 0.9rem;
+}
+#btn-post-delete {
+  width: 55px;
+  height: 24px;
+  font-weight: 800;
+  color: white;
+  background: #ffa755;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  border: none;
+  font-size: 0.9rem;
+}
+
+
+
+
+/* 아래쪽 CSS scroll이 scroll없애는 부분 */
 #list {
-  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   width: 40%;
   height: 27rem;
   background-color: aquamarine;
@@ -218,6 +286,7 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   clear: both;
+  overflow: scroll;
 }
 #list-h3 {
   font-family: "Exo 2";
@@ -225,58 +294,42 @@ export default {
   font-weight: 700;
   font-size: 26px;
   color: #172176;
+  margin: 1rem;
 }
+/* 큰 list 목록 특 */
 #list-div {
   width: 90%;
-  height: 3.5rem;
-  background: #e0f4fd;
+  height: 3.3rem;
+  background: #E0F4FD;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: 1rem;
-  padding-top: 0.9rem;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  /* padding-top: 0.9rem; */
 }
-#btn-delete-friend {
-  width: 89px;
-  height: 24px;
-  font-weight: 600;
-  color: white;
-  background: #ffa755;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  border: none;
-}
-
-#btn-post-add {
-  width: 55px;
-  height: 24px;
-
-  background: #79b6fd;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  color: white;
-  font-weight: 600;
-  border: none;
-  margin-right: 1rem;
-}
-#btn-post-delete {
-  width: 55px;
-  height: 24px;
-  font-weight: 600;
-  color: white;
-  background: #ffa755;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  border: none;
-}
-
 #list-post-div {
   width: 90%;
-  height: 3.5rem;
+  height: 3.3rem;
   background: #3695be;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: 1rem;
   color: white;
-  padding-top: 0.9rem;
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
 }
+
+#list::-webkit-scrollbar {
+  display: none;
+}
+
+#list {
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
 </style>
