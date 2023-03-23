@@ -40,6 +40,7 @@
           </div>
         </div>
 
+        <!-- 등록된 친구들 리스트 보긴 -->
         <div id="list-div" class="scroll" v-for="lists in friendlist" :key="lists.id">
           <span style="font-weight: 600">
             <!-- {{ lists.user_id }} -->

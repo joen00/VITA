@@ -1,9 +1,9 @@
 <template>
-  <div id="walk-rank-list">
-    <h3 id="walk-rank-list-h3" > 걸음수</h3> 
-    <div id="walk-rank-list-div">
-      <div class="rankwalk-item" v-for="rank in walkranks" :key="rank">
-              <span v-bind:style="{ color: rank.color}" style="text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
+  <div id="energy-rank-list">
+    <h3 id="energy-rank-list-h3" >활동에너지</h3> 
+    <div id="energy-rank-list-div">
+      <div class="rankenergy-item" v-for="rank in energyranks" :key="rank">
+              <span v-bind:style="{ color: rank.color}" >{{ rank.id }}</span>
               <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
               <span>{{ rank.name }}</span>
               <span>{{ rank.score }}</span> |
@@ -14,12 +14,12 @@
 
 <script>
 export default {
-    name: 'FriendWalk',
+    name: 'FriendEnergy',
     props: {
     msg: String
     },
     data: () => ({
-      walkranks: [{ id: 1,name: '김광배', score:'10',color:'#FFB800' },
+      energyranks: [{ id: 1,name: '김광배', score:'10',color:'#FFB800' },
       { id: 2, name: '이광배', score:'20',color:'silver'  },
       { id: 3, name: '차광배', score: '30',color:'#BB6C23'  }],
     }),
@@ -28,7 +28,7 @@ export default {
 
 <style>
 
-/* .rankwalk{
+/* .rankenergy{
     width: 90%;
     height: 100px;
     margin: 0 auto;
@@ -39,7 +39,7 @@ export default {
     border-radius: 30px;
 } */
 
-.rankwalk-item{
+.rankenergy-item{
     width: 33%;
     margin: 0 auto;
     font-weight: 800;
@@ -48,37 +48,26 @@ export default {
     align-items: center;
 }
 
-#walk-rank-list-div{
+#energy-rank-list-div{
   display: flex;
   justify-content: center;
 }
 
-#walk-rank-list {
+#energy-rank-list {
   padding: 0.5rem;
   width: 80%;
   height: 6rem;
-  background-color: rgb(248, 203, 203);
+  background-color: rgb(212, 206, 255);
   margin: 0 auto;
   margin-top: 1rem;
   margin-bottom: 2rem;
-  /* border: 3px solid #3695be; */
   box-sizing: border-box;
-  /* box-shadow: 1px 1px 1px 1px rgba(0.25, 0.25, 0.25, 0.25); */
   border-radius: 30px;
-  /* display: flex;
-  justify-content: center; */
-  /* overflow: scroll; */
-}
-/* #walk-rank-list::-webkit-scrollbar {
-  display: none;
+
 }
 
-#walk-rank-list {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-} */
 
-#walk-rank-list-h3 {
+#energy-rank-list-h3 {
   font-family: "Exo 2";
   font-style: normal;
   font-weight: 800;
