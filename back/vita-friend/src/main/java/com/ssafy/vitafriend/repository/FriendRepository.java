@@ -25,5 +25,4 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
     Friend findByFriendSendingUser_userIdAndFriendReceivingUser_userNicknameAndFriendStatus(String sendingUserId, String receivingUserNickname, String friendStatus);
     Friend findByFriendSendingUser_userNicknameAndFriendReceivingUser_userIdAndFriendStatus(String sendingUserId, String receivingUserNickname, String friendStatus);
     Friend findByFriendSendingUser_userIdAndFriendReceivingUser_userId(String sendingUserId, String receivingUserId);
-
 }

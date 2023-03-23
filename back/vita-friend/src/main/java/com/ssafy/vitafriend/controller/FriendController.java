@@ -1,13 +1,10 @@
 package com.ssafy.vitafriend.controller;
 
-import com.ssafy.vitafriend.dto.FriendApplyListDto;
-import com.ssafy.vitafriend.dto.FriendReceivingListDto;
-import com.ssafy.vitafriend.dto.FriendSearchMapping;
-import com.ssafy.vitafriend.dto.FriendSendingListDto;
-import com.ssafy.vitafriend.dto.FriendRankDto;
-import com.ssafy.vitafriend.dto.UserInfoDto;
+import com.ssafy.vitafriend.dto.*;
+import com.ssafy.vitafriend.entity.Score;
 import com.ssafy.vitafriend.entity.User;
 import com.ssafy.vitafriend.service.FriendService;
+import com.ssafy.vitafriend.service.ScoreService;
 import com.ssafy.vitafriend.service.UsersService;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +36,9 @@ public class FriendController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private ScoreService scoreService;
 
     // 테스트
     @GetMapping("/hello")
@@ -166,28 +166,37 @@ public class FriendController {
     @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
     public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers) {
         try {
-            // 친구를 담을 리스트를 <친구리스트 부모 클래스 형>으로 선언
-            User myInfo = usersService.findByUserId(headers.getFirst("userID"));
+            // 출력시킬 종합 점수 리스트
+            List<ScoreDto> rankFriendList = new ArrayList<>();
+            List<FriendRankDto> myFriendList = new ArrayList<>();
+
+            // 내 정보에서 닉네임 받아와서 ScoreDto에 저장
+            User getMyInfo = usersService.findByUserId(headers.getFirst("userID"));
+            FriendRankDto myTotalScore = scoreService.getTotalScoreByUser(headers.getFirst("userID"));
+            myTotalScore.setUserNickname(getMyInfo.getUserNickname());
+            myTotalScore.setUserId(getMyInfo.getUserId());
+            myTotalScore.setUserImg(getMyInfo.getUserImg());
+            myFriendList.add(modelMapper.map(myTotalScore, FriendRankDto.class));
+
 
             // 랭킹에 나도 포함 시킴, modelMapper로 타입 맞춰서 넣기
-            List<UserInfoDto> rankFriendList = new ArrayList<>();
-            rankFriendList.add(modelMapper.map(myInfo, UserInfoDto.class));
 
             // header에서 받은 userId에 해당하는 유저의 받은 친구, 보낸 친구를 각각 리스트에 담기
-            List<FriendReceivingListDto> ReceivingFriendList = friendService.getReceivingFriendList(headers.getFirst("userID"));
-            List<FriendSendingListDto> SendingFriendList = friendService.getSendingFriendList(headers.getFirst("userID"));
-            for(Object
-                    friend : SendingFriendList) {
-                rankFriendList.add((UserInfoDto) friend);
+            List<FriendRankDto> sendingFriendRankList = friendService.getSendingFriendRankList(headers.getFirst("userID"));
+            List<FriendRankDto> friendReceivingRankList = friendService.getReceivingFriendRankList(headers.getFirst("userID"));
+            for(FriendRankDto
+                    friend : sendingFriendRankList) {
+                myFriendList.add(friend);
             }
-            for(Object
-                    friend : ReceivingFriendList) {
-                rankFriendList.add((UserInfoDto) friend);
+            for(FriendRankDto
+                    friend : friendReceivingRankList) {
+                myFriendList.add(friend);
             }
 
             // 최종 출력
-            if (rankFriendList != null && !rankFriendList.isEmpty()) {
-                return new ResponseEntity<List<?>>(rankFriendList.stream().map(friend -> modelMapper.map(friend, FriendRankDto.class)).collect(Collectors.toList()), HttpStatus.OK);
+            if (myFriendList != null && !myFriendList.isEmpty()) {
+                return new ResponseEntity<List<?>>(myFriendList, HttpStatus.OK);
+//                return new ResponseEntity<List<?>>(rankFriendList, HttpStatus.OK);
             } else {
                 return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
             }
