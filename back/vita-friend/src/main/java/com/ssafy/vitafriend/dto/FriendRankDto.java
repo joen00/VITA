@@ -16,7 +16,7 @@ public class FriendRankDto {
     private String userImg;
     private String userNickname;
     private int totalScore;
-    private int totalScoreWeight;
+//    private int totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;

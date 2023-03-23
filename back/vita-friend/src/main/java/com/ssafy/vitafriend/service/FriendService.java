@@ -17,8 +17,7 @@ public interface FriendService {
     List<FriendSearchMapping> getSearchFriendList(String userId, String userNickname);
     
     // 랭킹 점수
-    List<FriendRankDto> getSendingFriendRankList(String userId);
-    List<FriendRankDto> getReceivingFriendRankList(String userId);
+    List<FriendRankDto> getFriendRankList(String userId);
     
     // 친구 요청, 수락, 거절 및 삭제
     void applyFriend(String userId, String userNickname);

@@ -4,6 +4,7 @@ import com.ssafy.vitafriend.dto.*;
 import com.ssafy.vitafriend.dto.FriendReceivingListDto;
 import com.ssafy.vitafriend.dto.FriendSendingListDto;
 import com.ssafy.vitafriend.entity.Friend;
+import com.ssafy.vitafriend.entity.User;
 import com.ssafy.vitafriend.repository.FriendRepository;
 import com.ssafy.vitafriend.repository.ScoreRepository;
 import com.ssafy.vitafriend.repository.UsersRepository;
@@ -31,6 +32,9 @@ public class FriendServiceImpl implements FriendService{
     private ScoreService scoreService;
 
     @Autowired
+    private UsersService usersService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -40,11 +44,14 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
-    public List<FriendRankDto> getSendingFriendRankList(String userId) {
+    public List<FriendRankDto> getFriendRankList(String userId) {
 
+        // 친구 신청 보내서 친구가 된 사람들 목록
         List<FriendSendingListDto> getFriendSendingList = friendRepository.findByFriendSendingUser_userIdAndFriendStatus(userId, "accepted");
+        // 친구 신청 받아서 친구가 된 사람들 목록
         List<FriendReceivingListDto> getFriendRecevingList = friendRepository.findByFriendReceivingUser_userIdAndFriendStatus(userId, "accepted");
 
+        // 친구 신청 보내서 친구가 된 사람들 의 점수 정보 불러오기
         List<FriendRankDto> friendSendingRankList = getFriendSendingList.stream().map(friend -> modelMapper.map(friend, FriendRankDto.class)).collect(Collectors.toList());
         for (FriendRankDto info : friendSendingRankList) {
             info.setTotalScore(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScore());
@@ -54,6 +61,7 @@ public class FriendServiceImpl implements FriendService{
             info.setTotalScoreStep(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreStep());
             info.setTotalScoreStress(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreStress());
         }
+        // 친구 신청 받아서 친구가 된 사람들 의 점수 정보 불러오기
         List<FriendRankDto> friendReceivingRankList = getFriendRecevingList.stream().map(friend -> modelMapper.map(friend, FriendRankDto.class)).collect(Collectors.toList());
         for (FriendRankDto info : friendReceivingRankList) {
             info.setTotalScore(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScore());
@@ -64,32 +72,20 @@ public class FriendServiceImpl implements FriendService{
             info.setTotalScoreStress(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreStress());
         }
 
-        // 여기부터 고치면 돼!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 2023.03.23
+        // 내 종합 점수 정보 불러오기
+        User getMyInfo = usersService.findByUserId(userId);
+        FriendRankDto myTotalScore = scoreService.getTotalScoreByUser(userId);
+        myTotalScore.setUserNickname(getMyInfo.getUserNickname());
+        myTotalScore.setUserId(getMyInfo.getUserId());
+        myTotalScore.setUserImg(getMyInfo.getUserImg());
+
+        // 합치기
         List<FriendRankDto> myFriendRankList = new ArrayList<FriendRankDto>();
         myFriendRankList.addAll(friendSendingRankList);
         myFriendRankList.addAll(friendReceivingRankList);
+        myFriendRankList.add(myTotalScore);
 
         return myFriendRankList;
-    }
-
-    @Override
-    public List<FriendRankDto> getReceivingFriendRankList(String userId) {
-
-        List<FriendReceivingListDto> getFriendRecevingList = friendRepository.findByFriendReceivingUser_userIdAndFriendStatus(userId, "accepted");
-        for (FriendReceivingListDto friend: getFriendRecevingList) {
-            System.out.println("friend.getUserNickname().toString() = " + friend.getUserNickname().toString());
-        }
-        List<FriendRankDto> friendReceivingRankList = getFriendRecevingList.stream().map(friend -> modelMapper.map(friend, FriendRankDto.class)).collect(Collectors.toList());
-        for (FriendRankDto info : friendReceivingRankList) {
-            info.setTotalScore(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScore());
-            info.setTotalScoreEnergy(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreEnergy());
-            info.setTotalScoreRhr(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreRhr());
-            info.setTotalScoreSleep(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreSleep());
-            info.setTotalScoreStep(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreStep());
-            info.setTotalScoreStress(scoreService.getTotalScoreByUser(info.getUserId()).getTotalScoreStress());
-        }
-
-        return friendReceivingRankList;
     }
 
     @Override

@@ -17,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -167,35 +164,17 @@ public class FriendController {
     public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers) {
         try {
             // 출력시킬 종합 점수 리스트
-            List<ScoreDto> rankFriendList = new ArrayList<>();
-            List<FriendRankDto> myFriendList = new ArrayList<>();
-
-            // 내 정보에서 닉네임 받아와서 ScoreDto에 저장
-            User getMyInfo = usersService.findByUserId(headers.getFirst("userID"));
-            FriendRankDto myTotalScore = scoreService.getTotalScoreByUser(headers.getFirst("userID"));
-            myTotalScore.setUserNickname(getMyInfo.getUserNickname());
-            myTotalScore.setUserId(getMyInfo.getUserId());
-            myTotalScore.setUserImg(getMyInfo.getUserImg());
-            myFriendList.add(modelMapper.map(myTotalScore, FriendRankDto.class));
-
-
-            // 랭킹에 나도 포함 시킴, modelMapper로 타입 맞춰서 넣기
-
-            // header에서 받은 userId에 해당하는 유저의 받은 친구, 보낸 친구를 각각 리스트에 담기
-            List<FriendRankDto> sendingFriendRankList = friendService.getSendingFriendRankList(headers.getFirst("userID"));
-            List<FriendRankDto> friendReceivingRankList = friendService.getReceivingFriendRankList(headers.getFirst("userID"));
-            for(FriendRankDto
-                    friend : sendingFriendRankList) {
-                myFriendList.add(friend);
-            }
-            for(FriendRankDto
-                    friend : friendReceivingRankList) {
-                myFriendList.add(friend);
-            }
-
+            List<FriendRankDto> rankFriendList = new ArrayList<>();
+            
+            // 친구들 정보를 받아와서
+            List<FriendRankDto> friendRankList = friendService.getFriendRankList(headers.getFirst("userID"));
+//            // 종합 점수 리스트에 저장
+//            rankFriendList.addAll(friendRankList);
+//            // 종합 점수를 내림차순으로 정렬
+//            rankFriendList.sort(Comparator.comparing(FriendRankDto::getTotalScore).reversed());
             // 최종 출력
-            if (myFriendList != null && !myFriendList.isEmpty()) {
-                return new ResponseEntity<List<?>>(myFriendList, HttpStatus.OK);
+            if (friendRankList != null && !friendRankList.isEmpty()) {
+                return new ResponseEntity<List<?>>(friendRankList, HttpStatus.OK);
 //                return new ResponseEntity<List<?>>(rankFriendList, HttpStatus.OK);
             } else {
                 return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
