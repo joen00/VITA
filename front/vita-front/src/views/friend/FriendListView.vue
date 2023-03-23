@@ -2,7 +2,7 @@
   <div class="text-center">
     <div class="container">
       <div id="header">
-        <VueHeader :headerTitle="headerTitle" :headerContent="headerContent"/>
+        <VueHeader :headerTitle="headerTitle" :headerContent="headerContent" />
       </div>
       <div id="middle">
         <b-button class="btn" v-b-modal.modal-scrollable id="btn-add-friend"
@@ -28,26 +28,30 @@
             <span style="font-weight: 600">
               {{ lists.user_id }}
             </span>
-            <b-avatar
-              variant="info"
-              :src="lists.user_img"
-            ></b-avatar>
+            <b-avatar variant="info" :src="lists.user_img"></b-avatar>
             <span style="font-weight: 600">{{ lists.user_nickname }} </span>
-            <button id="btn-post-add" @click="acceptFriend(lists.user_id)">수락</button>
-            <button id="btn-post-delete" @click="deleteOrRejectFriend(lists.user_id)">거절</button>
+            <button id="btn-post-add" @click="acceptFriend(lists.user_id)">
+              수락
+            </button>
+            <button
+              id="btn-post-delete"
+              @click="deleteOrRejectFriend(lists.user_id)"
+            >
+              거절
+            </button>
           </div>
         </div>
 
         <div id="list-div" v-for="lists in friendlist" :key="lists.id">
           <span style="font-weight: 600">
             {{ lists.user_id }}
-            <b-avatar
-              variant="info"
-              :src="lists.user_img"
-            ></b-avatar
+            <b-avatar variant="info" :src="lists.user_img"></b-avatar
           ></span>
           <span style="font-weight: 600">{{ lists.user_nickname }} </span>
-          <button id="btn-delete-friend" @click="deleteOrRejectFriend(lists.user_id)">
+          <button
+            id="btn-delete-friend"
+            @click="deleteOrRejectFriend(lists.user_id)"
+          >
             친구 삭제
           </button>
         </div>
@@ -61,11 +65,12 @@ import FriendAddModal from "@/components/friend/FriendAddModal.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 
-const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
+const SERVER_URL = "http://localhost:8080/friend";
+// const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
 // 유저 검색하거나 친구추가 테스트용
-// user_id : 2703564897, user_name: 박서윤, user_nickname: bboong 
+// user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 2703564897;
+const MY_USER_ID = 1;
 
 export default {
   name: "FriendListView",
@@ -84,7 +89,7 @@ export default {
       // { id: 2, name: "이광배", score: "20" },
     ],
     headerTitle: "프렌즈",
-    headerContent: "친구들의 정보를 확인해보세요."
+    headerContent: "친구들의 정보를 확인해보세요.",
   }),
   methods: {
     getFriendList() {
@@ -95,7 +100,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           response.data.map((data) => {
             this.friendlist.push(data);
           });
@@ -111,9 +116,9 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.friendpostlist = []
+          this.friendpostlist = [];
           this.getFriendPostList();
-          this.friendlist = []
+          this.friendlist = [];
           this.getFriendList();
         });
     },
@@ -125,7 +130,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response)
+          console.log(response);
           response.data.map((data) => {
             this.friendpostlist.push(data);
           });
@@ -133,19 +138,20 @@ export default {
     },
     acceptFriend(sendingUserId) {
       axios
-        .put(SERVER_URL, null ,{
+        .put(SERVER_URL, null, {
           headers: {
             sendingUserId: sendingUserId,
-            receivingUserId: MY_USER_ID
+            receivingUserId: MY_USER_ID,
           },
-        }).then((response) => {
-          console.log(response)
-          this.friendpostlist = []
-          this.getFriendPostList();
-          this.friendlist = []
-          this.getFriendList();
         })
-    }
+        .then((response) => {
+          console.log(response);
+          this.friendpostlist = [];
+          this.getFriendPostList();
+          this.friendlist = [];
+          this.getFriendList();
+        });
+    },
   },
   created() {
     this.getFriendList();

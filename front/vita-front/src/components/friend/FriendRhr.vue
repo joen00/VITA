@@ -1,7 +1,7 @@
 <template>
-  <div class="rankwalk">
-    <h5>걸음수</h5>
-    <div class="rankwalk-item" v-for="rank in walkRanks" :key="rank">
+  <div class="rankrhr">
+    <h5>심박수</h5>
+    <div class="rankrhr-item" v-for="rank in rhrRanks" :key="rank">
       {{ rank.id }}
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
       {{ rank.name }}
@@ -20,17 +20,17 @@ const SERVER_URL = "http://localhost:8080/friend";
 const MY_USER_ID = 1;
 
 export default {
-  name: "FriendWalk",
+  name: "FriendRhr",
   props: {
     msg: String,
   },
   data: () => ({
-    walkRanks: [],
+    rhrRanks: [],
   }),
   methods: {
-    getFriendStepRankList() {
+    getFriendRhrRankList() {
       axios
-        .get(SERVER_URL + `/rank/step`, {
+        .get(SERVER_URL + `/rank/rhr`, {
           headers: {
             userID: MY_USER_ID,
           },
@@ -40,23 +40,23 @@ export default {
           var i = 0;
           response.data.map((data) => {
             i++;
-            this.walkRanks.push({
+            this.rhrRanks.push({
               id: i,
               name: data.user_nickname,
-              score: data.total_score_step,
+              score: data.total_score_rhr,
             });
           });
         });
     },
   },
   created() {
-    this.getFriendStepRankList();
+    this.getFriendRhrRankList();
   },
 };
 </script>
 
 <style>
-.rankwalk {
+.rankrhr {
   width: 90%;
   height: 100px;
   margin: 0 auto;
@@ -67,7 +67,7 @@ export default {
   border-radius: 30px;
 }
 
-.rankwalk-item {
+.rankrhr-item {
   float: left;
   width: 33%;
   margin: 0 auto;
