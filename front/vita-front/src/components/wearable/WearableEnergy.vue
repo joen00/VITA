@@ -1,19 +1,19 @@
 <template>
   <div>
     <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
-    <div id="walk-middle">
-        <div id="walk-middle-left-btn">
-          <div id="walk-middle-left-btn-up">
-            <button id="btn-walk" v-on:click="weekWalk">1주</button>
+    <div id="energy-middle">
+        <div id="energy-middle-left-btn">
+          <div id="energy-middle-left-btn-up">
+            <button id="btn-energy" v-on:click="weekEnergy">1주</button>
             <br>
-            <button id="btn-walk" v-on:click="monthWalk">1개월</button>
+            <button id="btn-energy" v-on:click="monthEnergy">1개월</button>
             <br>
-            <button id="btn-walk" v-on:click="yearWalk">1년</button>
+            <button id="btn-energy" v-on:click="yearEnergy">1년</button>
           </div>
-          <div id="walk-middle-left-btn-down">
+          <div id="energy-middle-left-btn-down"> 
             <div style="font-size: 18px;
                         font-weight: 800;
-                        color: #5B5A63;">걸음수</div>
+                        color: #5B5A63;">활동에너지</div>
             <div style="font-size: 18px;
                         font-weight: 800;
                         color: #5B5A63;">종합점수</div>
@@ -23,17 +23,17 @@
                         color: #5B5A63;">80</div>
           </div>
         </div>
-        <div id="walk-middle-left">
+        <div id="energy-middle-left">
           <!-- 그래프 그려지는 곳 -->
-          <!-- <div id="walkchart"></div> -->
-          <WalkChart :key="componentKey" :data="data" />
+          <!-- <div id="energychart"></div> -->
+          <EnergyChart :key="componentKey" :data="data" />
         </div>
-        <div id="walk-middle-right">
-          <div id="walk-middle-right-div">
-            <div>이번주 걸음수가 그 전주보다 줄었습니다.</div>
+        <div id="energy-middle-right">
+          <div id="energy-middle-right-div">
+            <div>이번주 활동에너지가 그 전주보다 줄었습니다.</div>
           </div>
-          <div id="walk-middle-right-div">a</div>
-          <div id="walk-middle-right-div">dfdfz</div>
+          <div id="energy-middle-right-div">a</div>
+          <div id="energy-middle-right-div">dfdfz</div>
         </div>
     </div>
   </div>
@@ -42,16 +42,16 @@
 <script>
 import axios from 'axios'
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
-import WalkChart from "@/components/wearable/WalkChart.vue";
+import EnergyChart from "@/components/wearable/EnergyChart.vue"
 
 export default {
-  name: "WearableWalk",
+  name: "Wearableenergy",
   components: {
       ComponentHeader,
-      WalkChart
+      EnergyChart
     },
   data: () => ({
-        ComponentHeaderTitle: "걸음수",
+        ComponentHeaderTitle: "활동에너지",
         ComponentHeaderContent: "나의 걸음수 기록을 보여줘요.",
         data: [],
         past: null,
@@ -59,50 +59,45 @@ export default {
   }),
 // 데이터 가져오는 곳
 created() {
-    this.weekWalk();
-    this.pastAndNowWalk();
+    this.weekEnergy();
+    this.pastAndNowEnergy();
   },
   methods: {
-      async weekWalk() {
-        await axios.get(this.$store.state.url + 'step/daily' , {
+      async weekEnergy() {
+        await axios.get(this.$store.state.url + 'energy/daily' , {
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data.map(function(e){
-          // return {"Step": e.dailyWearableStep, "date": e.date.slice(0,10)};
-          return {"Step": e.dailyWearableStep, "date": e.date};
+          return {"Energy": e.dailyWearableEnergy, "date": e.date};
         })
-        // this.data = res.data
       })
-      this.componentKey += 1;  
+      this.componentKey += 1; 
       },
-      async monthWalk() {
-        await axios.get(this.$store.state.url + 'step/weekly' , {
+      async monthEnergy() {
+        await axios.get(this.$store.state.url + 'energy/weekly' , {
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
-        // this.data = res.data
         this.data = res.data.map(function(e){
-          // return {"Step": e.weeklyWearableStep, "date": e.date.slice(0,10)};
-          return {"Step": e.weeklyWearableStep, "date": e.date};
+          return {"Energy": e.weeklyWearableEnergy, "date": e.date};
         })
       })
-      this.componentKey += 1;  
+      this.componentKey += 1; 
       },
-      async yearWalk() {
-        await axios.get(this.$store.state.url + 'step/monthly' , {
+      async yearEnergy() {
+        await axios.get(this.$store.state.url + 'energy/monthly' , {
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
-        this.data = res.data
         this.data = res.data.map(function(e){
-          return {"Step": e.monthlyWearableStep, "date": e.date};
+          return {"Energy": e.monthlyWearableEnergy, "date": e.date};
         })
-        this.componentKey += 1; 
       })
+      this.componentKey += 1; 
       },
-      async pastAndNowWalk() {
-        await axios.get(this.$store.state.url + 'step/past' , {
+      async pastAndNowEnergy() {
+        await axios.get(this.$store.state.url + 'energy/past' , {
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
@@ -116,7 +111,7 @@ created() {
 </script>
 
 <style>
-#walk-middle{
+#energy-middle{
     height: 400px;
     /* background-color: aqua; */
     margin: 3rem;
@@ -124,7 +119,7 @@ created() {
     justify-content: center;
     align-items: center;
 }
-#walk-middle-left-btn{
+#energy-middle-left-btn{
     width: 12%;
     height: 100%;
     /* display: flex; */
@@ -132,7 +127,7 @@ created() {
     align-items: center; */
     /* background-color: rgb(255, 255, 255); */
 }
-#walk-middle-left{
+#energy-middle-left{
     width: 44%;
     height: 100%;
     align-items: center;
@@ -142,7 +137,7 @@ created() {
     border-radius: 20px;
 }
 
-#walk-middle-right{
+#energy-middle-right{
     margin-left: 2%;
     width: 42%;
     height: 100%;
@@ -153,7 +148,7 @@ created() {
     /* align-items: center; */
 }
 
-#btn-walk {
+#btn-energy {
   width: 70%;
   height: 35px;
   border: none;
@@ -164,7 +159,7 @@ created() {
   border-radius: 12px;
   margin-bottom: 1rem;
 }
-#btn-walk:hover {
+#btn-energy:hover {
   width: 70%;
   height: 35px;
   border: none;
@@ -175,16 +170,16 @@ created() {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
 }
-#walk-middle-left-btn-up{
+#energy-middle-left-btn-up{
   height: 70%;
 }
-#walkchart {
+#energychart {
   width: 150%;
   height: 90%;
   margin-top: 1rem;
   /* margin: auto; */
 }
-#walk-middle-right-div{
+#energy-middle-right-div{
   width: 100%;
   height: 28%;
   background: #FFFFFF;
