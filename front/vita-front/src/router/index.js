@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import WearableView from '../views/WearableView.vue'
+import WearableFriendView from '../views/WearableFriendView.vue'
 import MypageView from '../views/MypageView.vue'
 import MainView from '../views/MainView.vue'
 import FriendView from '../views/FriendView.vue'
@@ -29,6 +30,11 @@ const routes = [
     path: "/wearable",
     name: "wearable",
     component: WearableView,
+  },
+  {
+    path: "/wearable/friend",
+    name: "wearableFriend",
+    component: WearableFriendView,
   },
   {
     path: "/friend",

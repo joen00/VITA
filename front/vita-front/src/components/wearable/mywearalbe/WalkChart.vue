@@ -8,19 +8,29 @@
   <script>
   import * as am5 from "@amcharts/amcharts5";
   import * as am5xy from "@amcharts/amcharts5/xy";
-  // import * as am5radar from "@amcharts/amcharts5/radar";
   import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { List } from '@amcharts/amcharts5/.internal/core/util/List';
   
   export default {
-    name: 'WearableWalkChart',
+    name: 'WalkChart',
     props: {
-      data: List,
+      data: Array,
     },
+    // data () {
+    //   return {
+    //     stepData: [],
+    // }
+    // },
+    // created() {
+    //   this.stepData = this.data
+    // },
+    // watch: {
+    //   data: function() {
+    //     this.$forceUpdate();
+    //   }
+    // },
     mounted() {
-      console.log(this.data);
       am5.ready(() => {
-        var root = am5.Root.new("chartdiv"); // 'chartdiv'라는 id로 차트 생성
+        const root = am5.Root.new("chartdiv"); // 'chartdiv'라는 id로 차트 생성
         root.setThemes([
           am5themes_Animated.new(root), //
         ]);
@@ -45,7 +55,7 @@ import { List } from '@amcharts/amcharts5/.internal/core/util/List';
   
         
         // The data
-        const data = this.datas;
+        let data = this.data;
         
         const xRenderer = am5xy.AxisRendererX.new(root, {});
         xRenderer.grid.template.set("location", 0.5);
@@ -77,7 +87,7 @@ import { List } from '@amcharts/amcharts5/.internal/core/util/List';
           am5xy.LineSeries.new(root, {
             xAxis: xAxis,
             yAxis: yAxis,
-            valueYField: "dailyWearableStep",
+            valueYField: "Step",
             valueXField: "date",
             maskBullets: false,
             tooltip: am5.Tooltip.new(root, {
@@ -89,7 +99,7 @@ import { List } from '@amcharts/amcharts5/.internal/core/util/List';
         );
   
         series.data.processor = am5.DataProcessor.new(root, {
-          dateFormat: "yyyy-MM-dd HH:mm",
+          dateFormat: "yyyy-MM-dd",
           dateFields: ["date"],
         });
   
@@ -129,9 +139,7 @@ import { List } from '@amcharts/amcharts5/.internal/core/util/List';
             sprite: container,
           });
         });
-        console.log("여기가 에러임?")  
         series.data.setAll(data);
-        console.log("아닌가?")
         series.appear(1000);
   
         // Make stuff animate on load

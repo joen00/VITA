@@ -5,10 +5,7 @@
 
 <script>
 export default {
-  name: 'WearableTop',
-  props: {
-    msg: String
-  }
+  name: 'Top',
 }
 </script>
 

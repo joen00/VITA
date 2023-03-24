@@ -12,13 +12,8 @@
   <script>
   import axios from 'axios'
   
-  var api_url = 'http://localhost:8080/wearable/user/sleep'
-  
   export default {
-    name: 'WearableSleep',
-    props: {
-      msg: String
-    },
+    name: 'SleepRoot',
     data () {
       return {
         data: null
@@ -26,27 +21,27 @@
    },
     methods: {
       weekSleep() {
-        axios.get(api_url + '/daily' , {
+        axios.get(this.$store.state.url + 'sleep/weekly' , {
       headers: {'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
+                'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data;
       })
   
       },
       monthSleep() {
-        axios.get(api_url + '/weekly' , {
+        axios.get(this.$store.state.url + 'sleep/weekly' , {
       headers: {'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
+                'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data;
       })
   
       },
       yearSleep() {
-        axios.get(api_url + '/monthly' , {
+        axios.get(this.$store.state.url + 'sleep/weekly' , {
       headers: {'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
+                'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data;
       })

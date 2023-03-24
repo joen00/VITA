@@ -2,32 +2,38 @@
   <div class="home">
     <h1>마이 헬스 데이터</h1>
     <p>나의 종합 건강 점수를 확인해보세요.</p>
-    <wearableWalk />
-    <WearableEnergy />
-    <WearableRhr />
-    <WearableSleep />
-    <WearableStress />
-    <WearableWeight />
+    <TotalScore />
+    <DailyScore />
+    <WalkRoot />
+    <EnergyRoot />
+    <RhrRoot />
+    <SleepRoot />
+    <StressRoot />
+    <WeightRoot />
   </div>
 </template>
 
 <script>
-import WearableWalk from '@/components/wearable/WearableWalk.vue'
-import WearableEnergy from '@/components/wearable/WearableEnergy.vue'
-import WearableRhr from '@/components/wearable/WearableRhr.vue'
-import WearableSleep from '@/components/wearable/WearableSleep.vue'
-import WearableStress from '@/components/wearable/WearableStress.vue'
-import WearableWeight from '@/components/wearable/WearableWeight.vue'
+import TotalScore from '@/components/wearable/mywearalbe/TotalScore.vue'
+import DailyScore from '@/components/wearable/mywearalbe/DailyScore.vue'
+import WalkRoot from '@/components/wearable/mywearalbe/Walk.vue'
+import EnergyRoot from '@/components/wearable/mywearalbe/Energy.vue'
+import RhrRoot from '@/components/wearable/mywearalbe/Rhr.vue'
+import SleepRoot from '@/components/wearable/mywearalbe/Sleep.vue'
+import StressRoot from '@/components/wearable/mywearalbe/Stress.vue'
+import WeightRoot from '@/components/wearable/mywearalbe/Weight.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    WearableWalk,
-    WearableEnergy,
-    WearableRhr,
-    WearableSleep,
-    WearableStress,
-    WearableWeight
+    TotalScore,
+    DailyScore,
+    WalkRoot,
+    EnergyRoot,
+    RhrRoot,
+    SleepRoot,
+    StressRoot,
+    WeightRoot
   }
 }
 </script>

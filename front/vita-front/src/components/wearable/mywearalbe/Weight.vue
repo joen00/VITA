@@ -12,13 +12,8 @@
   <script>
   import axios from 'axios'
   
-  var api_url = 'http://localhost:8080/wearable/user/weight'
-  
   export default {
-    name: 'WearableWeight',
-    props: {
-      msg: String
-    },
+    name: 'WeightRoot',
     data () {
       return {
         data: null
@@ -26,27 +21,27 @@
    },
     methods: {
       weekWeight() {
-        axios.get(api_url + '/daily' , {
+        axios.get(this.$store.state.url + 'weight/weekly' , {
       headers: {'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
+                'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data;
       })
   
       },
       monthWeight() {
-        axios.get(api_url + '/weekly' , {
+        axios.get(this.$store.state.url + 'weight/weekly' , {
       headers: {'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
+                'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data;
       })
   
       },
       yearWeight() {
-        axios.get(api_url + '/monthly' , {
+        axios.get(this.$store.state.url + 'weight/weekly' , {
       headers: {'Content-Type': 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NTU1NTU1NTU1IiwibmFtZSI6ImppbmhvIiwiaWF0IjoxNTE2MjM5MDIyfQ.DRS63ZgjpVEptIqCqxoMXSLfAXjiYkUH5qfRD7nXyUU'},
+                'token': this.$store.state.test_token},
       }).then(res => {
         this.data = res.data;
       })
