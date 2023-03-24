@@ -1,7 +1,7 @@
 <template>
-  <div class="rankwalk">
-    <h5>걸음수</h5>
-    <div class="rankwalk-item" v-for="rank in walkRanks" :key="rank">
+  <div class="rankstress">
+    <h5>스트레스</h5>
+    <div class="rankstress-item" v-for="rank in stressRanks" :key="rank">
       {{ rank.id }}
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
       {{ rank.name }}
@@ -20,17 +20,17 @@ const SERVER_URL = "http://localhost:8080/friend";
 const MY_USER_ID = 1;
 
 export default {
-  name: "FriendWalk",
+  name: "FriendStress",
   props: {
     msg: String,
   },
   data: () => ({
-    walkRanks: [],
+    stressRanks: [],
   }),
   methods: {
     getFriendStepRankList() {
       axios
-        .get(SERVER_URL + `/rank/step`, {
+        .get(SERVER_URL + `/rank/stress`, {
           headers: {
             userID: MY_USER_ID,
           },
@@ -40,10 +40,10 @@ export default {
           var i = 0;
           response.data.map((data) => {
             i++;
-            this.walkRanks.push({
+            this.stressRanks.push({
               id: i,
               name: data.user_nickname,
-              score: data.total_score_step,
+              score: data.total_score_stress,
             });
           });
         });
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style>
-.rankwalk {
+.rankstress {
   width: 90%;
   height: 100px;
   margin: 0 auto;
@@ -67,7 +67,7 @@ export default {
   border-radius: 30px;
 }
 
-.rankwalk-item {
+.rankstress-item {
   float: left;
   width: 33%;
   margin: 0 auto;

@@ -13,7 +13,9 @@
         </div>
       </template>
       <div id="modal-middle">
-        <b-form-input v-model="inputValue" @keyup="getSearchFriendList(inputValue)"
+        <b-form-input
+          v-model="inputValue"
+          @keyup="getSearchFriendList(inputValue)"
           id="modal-nick-search"
           placeholder="닉네임을 입력하세요."
         ></b-form-input>
@@ -34,13 +36,14 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
-const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
+const SERVER_URL = "http://localhost:8080/friend";
+// const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
 // 유저 검색하거나 친구추가 테스트용
-// user_id : 2703564897, user_name: 박서윤, user_nickname: bboong 
+// user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 2715879100;
+const MY_USER_ID = 1;
 
 export default {
   name: "FriendAddModal",
@@ -54,7 +57,7 @@ export default {
   }),
   methods: {
     getSearchFriendList(inputValue) {
-      console.log(inputValue)
+      console.log(inputValue);
       axios
         .get(SERVER_URL + `/apply/` + `${inputValue}`, {
           headers: {
@@ -62,28 +65,33 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response)
-          this.searchlist = []
+          console.log(response);
+          this.searchlist = [];
           response.data.map((data) => {
             this.searchlist.push(data);
           });
         })
-        .catch(this.searchlist = []);
+        .catch((this.searchlist = []));
     },
     requestFriend(user_nickname) {
       axios
-        .post(SERVER_URL + `/apply`, { user_nickname: user_nickname },{
-          headers: {
-            userID: MY_USER_ID
-          },
-        }).then((response) => {
-          console.log(response)
-        })
+        .post(
+          SERVER_URL + `/apply`,
+          { user_nickname: user_nickname },
+          {
+            headers: {
+              userID: MY_USER_ID,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        });
     },
   },
   created() {
     this.getSearchFriendList();
-  }
+  },
 };
 </script>
 
