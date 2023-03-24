@@ -3,47 +3,46 @@
       <h1>마이 헬스 데이터 with 프렌즈</h1>
       <p>친구들과 나의 건강 데이터를 비교해보세요.</p>
       <FriendList :friendList="friendList"/>
-      <p>나의 평균입니다</p>
-      {{ userData }}
-      <p>친구들의 평균입니다</p>
-      {{ friendData }}
-      <!-- <FriendWalk />
-      <FriendEnergy />
-      <FriendRhr />
-      <FriendStress />
-      <FriendSleep /> -->
+      <FriendWalk :data="stepList" />
+      <FriendEnergy :data="energyList" />
+      <FriendRhr :data="rhrList" />
+      <FriendStress :data="stressList"/>
+      <FriendSleep :data="sleepList"/>
     </div>
   </template>
   
   <script>
   import axios from 'axios'
   import FriendList from '@/components/wearable/friend/FriendList.vue'
-  // import FriendWalk from '@/components/wearable/friend/FriendWalk.vue'
-  // import FriendEnergy from '@/components/wearable/friend/FriendEnergy.vue'
-  // import FriendRhr from '@/components/wearable/friend/FriendRhr.vue'
-  // import FriendStress from '@/components/wearable/friend/FriendStress.vue'
-  // import FriendSleep from '@/components/wearable/friend/FriendSleep.vue'
+  import FriendWalk from '@/components/wearable/friend/FriendWalk.vue'
+  import FriendEnergy from '@/components/wearable/friend/FriendEnergy.vue'
+  import FriendRhr from '@/components/wearable/friend/FriendRhr.vue'
+  import FriendStress from '@/components/wearable/friend/FriendStress.vue'
+  import FriendSleep from '@/components/wearable/friend/FriendSleep.vue'
   
   export default {
     name: 'HomeView',data () {
       return {
-        userData: {},
-        friendData: [{}], 
         friendList: {},
+        stepList: [],
+        energyList: [],
+        rhrList: [],
+        stressList: [],
+        sleepList: [],
     }
    },
     components: {
       FriendList,
-      // FriendWalk,
-      // FriendEnergy,
-      // FriendRhr,
-      // FriendStress,
-      // FriendSleep
+      FriendWalk,
+      FriendEnergy,
+      FriendRhr,
+      FriendStress,
+      FriendSleep
     },
    created() {
+    this.userAverage();
     this.getFriendList();
     // this.friendAverage();
-    this.userAverage();
   },
     methods: {
       async getFriendList() {
@@ -58,8 +57,7 @@
           axios.post(this.$store.state.friendUrl + '/all' , friendUserIdList,{
           headers: {'Content-Type': 'application/json'},
           }).then(res => {
-          this.friendData = res.data;
-          console.log(this.friendData)
+          this.getFriendData(res.data)
         })
       })
       },
@@ -68,24 +66,31 @@
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
-        this.userData = res.data;
-        console.log(this.userData)
+        this.stepList.push({ "nickName" : res.data.user.userNickname, 
+        "Step" : res.data.userAverageStep });
+        this.energyList.push({ "nickName" : res.data.user.userNickname, 
+        "Energy" : res.data.userAverageEnergy });
+        this.rhrList.push({ "nickName" : res.data.user.userNickname, 
+        "Rhr" : res.data.userAverageRhr });
+        this.stressList.push({ "nickName" : res.data.user.userNickname, 
+        "Stress" : res.data.userAverageStress });
+        this.sleepList.push({ "nickName" : res.data.user.userNickname, 
+        "Sleep" : res.data.userAverageSleep });
       })
       },
-      getFriendStep() {
-        
-      },
-      getFriendEnergy() {
-
-      },
-      getFriendRhr() {
-
-      },
-      getFriendStress() {
-
-      },
-      getFriendSleep() {
-
+      getFriendData(data) {
+        data.map(function(e){
+          this.stepList.push({ "nickName" : e.user.userNickname, 
+          "Step" : e.userAverageStep });
+          this.energyList.push({ "nickName" : e.user.userNickname, 
+          "Energy" : e.userAverageEnergy });
+          this.rhrList.push({ "nickName" : e.user.userNickname, 
+          "Rhr" : e.userAverageRhr });
+          this.stressList.push({ "nickName" : e.user.userNickname, 
+          "Stress" : e.userAverageStress });
+          this.sleepList.push({ "nickName" : e.user.userNickname, 
+          "Sleep" : e.userAverageSleep });
+        })
       },
     },
 
