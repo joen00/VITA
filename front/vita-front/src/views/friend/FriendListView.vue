@@ -2,7 +2,7 @@
   <div class="text-center">
     <div class="container">
       <div id="header">
-        <VueHeader :headerTitle="headerTitle" :headerContent="headerContent" />
+        <VueHeader :vueHeaderTitle="vueHeaderTitle" :vueHeaderContent="vueHeaderContent" />
       </div>
       <div id="middle">
         <b-button class="btn" v-b-modal.modal-scrollable id="btn-add-friend"
@@ -73,12 +73,12 @@ import FriendAddModal from "@/components/friend/FriendAddModal.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 
-const SERVER_URL = "http://localhost:8080/friend";
-// const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
+// const SERVER_URL = "http://localhost:8080/friend";
+const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 1;
+const MY_USER_ID = 2703629614;
 
 export default {
   name: "FriendListView",
@@ -96,8 +96,8 @@ export default {
       // { id: 1, name: "김광배", score: "10" },
       // { id: 2, name: "이광배", score: "20" },
     ],
-    headerTitle: "프렌즈",
-    headerContent: "친구들의 정보를 확인해보세요.",
+    vueHeaderTitle: "프렌즈",
+    vueHeaderContent: "친구들의 정보를 확인해보세요.",
   }),
   methods: {
     getFriendList() {
