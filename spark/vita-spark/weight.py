@@ -16,6 +16,14 @@ def dayDF(df):
     df= df.fillna(0)
     return df
 
+# 주, 월 데이터 처리
+def periodDF(df, period):
+    df = df.resample(rule=period, on='start_time').mean().round(1)
+    df = df.reset_index()
+    df = df[['weight', 'skeletal_muscle_mass', 'body_fat_mass', 'start_time']]
+    df = df.fillna(0)
+    return df
+
 # DB Query 작성
 def update(table, userId):
     query = "UPDATE " + table + " SET daily_wearable_weight = %s, daily_wearable_muscle = %s, daily_wearable_fat = %s WHERE user_id = '" + userId + "' AND date = %s"

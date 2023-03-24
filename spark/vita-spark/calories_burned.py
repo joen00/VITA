@@ -17,6 +17,14 @@ def dayDF(df):
     df = df[['active_calorie', 'day_time']]
     return df
 
+# 주, 월 데이터 처리
+def periodDF(df, period):
+    df = df.resample(rule=period, on='day_time').mean().round(0)
+    df = df.reset_index()
+    df = df[['active_calorie', 'day_time']]
+    df = df.fillna(0)
+    return df
+
 # DB Query 작성
 def update(table, userId):
     query = "UPDATE " + table + " SET daily_wearable_energy = %s WHERE user_id = '" + userId + "' AND date = %s"
