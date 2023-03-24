@@ -13,14 +13,20 @@ def dayDF(df):
     df['start_time'] = df.start_time.str.split(' ').str[0] # 날짜 형식
     df2 = df.groupby('start_time', as_index=False).mean().round(0) # 날짜별 합계
     df2 = df2[['score', 'start_time']]
+    df2.rename(columns = {'score':'daily_wearable_stress', 'start_time':'date'}, inplace=True)
     return df2
 
 # 주, 월 데이터 처리
 def periodDF(df, period):
-    df = df.resample(rule=period, on='start_time').mean().round(0)
+    df.date = pd.to_datetime(df.date)
+    df = df.resample(rule=period, on='date').mean().round(0)
     df = df.reset_index()
-    df = df[['score', 'start_time']]
     df = df.fillna(0)
+    
+    if period == '1W':
+        df.rename(columns = {'daily_wearable_stress':'weekly_wearable_stress'}, inplace=True)
+    elif period == '1M':
+        df.rename(columns = {'daily_wearable_stress':'monthly_wearable_stress'}, inplace=True)
     return df
 
 # DB Query 작성

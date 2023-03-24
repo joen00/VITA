@@ -11,11 +11,17 @@ import stress
 
 app = Flask(__name__)
 
-def day(db_connection, table, type, csv, userId):
+def makeDF(type, csv):
+    list = []
     df = type.readCsv(csv)
-    df2 = type.dayDF(df)
+    day_df = type.dayDF(df)
+    list.append(day_df)
 
-    common.save(db_connection, table, type, userId, df2)
+    week_df = type.periodDF(day_df, '1W')
+    list.append(week_df)
+    month_df = type.periodDF(day_df, '1M')
+    list.append(month_df)
+    return list
 
 @app.route('/')
 def home():
@@ -30,17 +36,34 @@ def upload(userId):
     files = glob.glob('samsunghealth/*')
     file = glob.glob(files[0] + '/*')
 
+    weight_list = []
+    step_daily_trend_list = []
+    calories_burned_list = []
+    stress_list = []
+
     for csv in file:
         if 'weight' in csv:
-            day(db, 'daily_wearable', weight, csv, userId)
+            weight_list = makeDF(weight, csv)
         if 'step_daily_trend' in csv:
-            day(db, 'daily_wearable', step_daily_trend, csv, userId)
+            step_daily_trend_list = makeDF(step_daily_trend, csv)
         if 'calories_burned' in csv:
-            day(db, 'daily_wearable', calories_burned, csv, userId)
+            calories_burned_list = makeDF(calories_burned, csv)
         if 'stress' in csv and 'histogram' not in csv:
-            day(db, 'daily_wearable', stress, csv, userId)
+            stress_list = makeDF(stress, csv)
 
-    db.close()
+    day = common.combine(calories_burned_list[0], step_daily_trend_list[0], stress_list[0], weight_list[0])
+    week = common.combine(calories_burned_list[1], step_daily_trend_list[1], stress_list[1], weight_list[1])
+    month = common.combine(calories_burned_list[2], step_daily_trend_list[2], stress_list[2], weight_list[2])
+    
+    day['user_id'] = userId
+    week['user_id'] = userId
+    month['user_id'] = userId
+
+    common.saveDB(db, 'daily_wearable', day)
+    common.saveDB(db, 'weekly_wearable', week)
+    common.saveDB(db, 'monthly_wearable', month)
+
+    # db.close()
     return f'Hello, {userId}!'
 
 if __name__ == '__main__':

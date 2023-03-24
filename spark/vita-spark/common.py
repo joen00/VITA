@@ -1,6 +1,8 @@
 import boto3
 import zipfile
 import io
+import pandas as pd
+from functools import reduce
 
 import pymysql
 from sqlalchemy import create_engine
@@ -24,11 +26,17 @@ def decompress(s3, zipName):
 
 # DB 연결
 def connectDB():
-    db_connection = pymysql.connect(host=config.host, user=config.user,
-                                    password=config.password, db=config.db)
+    db_connection_str = config.db_connection_str
+    db_connection = create_engine(db_connection_str)
+    # db_connection = pymysql.connect(host=config.host, user=config.user,
+    #                                 password=config.password, db=config.db)
     return db_connection
 
-# DB 저장
+# DB 저장-1
+def saveDB(db_connection, table, df):
+    df.to_sql(name=table, con=db_connection, if_exists='append', index=False)
+
+# DB 저장-2
 def execute(db_connection, query, df):
     cursor = db_connection.cursor()
     cursor.executemany(query, df)
@@ -58,6 +66,7 @@ def select(db_connection, table, userId, df):
 
     return resultList
 
+# insert, update
 def save(db_connection, table, type, userId, df):
     list = select(db_connection, table, userId, df)
 
@@ -65,3 +74,9 @@ def save(db_connection, table, type, userId, df):
     execute(db_connection, insertQuery, list[0])
     updateQuery = type.update(table, userId)
     execute(db_connection, updateQuery, list[1])
+
+# combine df
+def combine(calories_burned, step_daily_trend, stress, weight):
+    df_list = [calories_burned, step_daily_trend, stress, weight]
+    df_merge = reduce(lambda left, right: pd.merge(left, right, on='date', how='outer'), df_list)
+    return df_merge
