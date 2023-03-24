@@ -1,13 +1,11 @@
 <template>
-  <div id="backgroundcolor">
   <div class="text-center">
     <div class="container">
-      <div id="header">
-        <div id="header-title">마이 헬스 데이터 with 프렌즈</div>
-        <div id="header-content">친구들과 나의 건강 데이터를 비교해보세요.</div>
-        <div id="header-content1">
-          친구의 프로필을 클릭하고 비교하기 버튼을 누르면 친구의 건강 데이터가
-          실시간으로 그래프에 반영된답니다.
+      <div class="header">
+          <VueHeader
+            :VueHeaderTitle="VueHeaderTitle"
+            :VueHeaderContent="VueHeaderContent"
+          />
         </div>
         <div id="header-content2">
           * 친구는 한 번에 최대 4명까지만 추가 가능합니다.
@@ -38,7 +36,7 @@
               <hooper-navigation slot="hooper-addons"></hooper-navigation>
               <hooper-pagination slot="hooper-addons"></hooper-pagination>
             </hooper>
-          </div>
+   
 
           <b-button
             style="
@@ -70,7 +68,7 @@
       </div>
     </div>
   </div>
-</div>
+
 </template>
   
 <script>
@@ -83,6 +81,9 @@ import {
 import "hooper/dist/hooper.css";
 import FwearableWalk from "@/components/wearable_friend/FwearableWalk.vue";
 import FwearableEnergy from "@/components/wearable_friend/FwearableEnergy.vue";
+import VueHeader from "@/components/common/VueHeader.vue";
+
+
 export default {
   name: "App",
   components: {
@@ -91,10 +92,13 @@ export default {
     HooperPagination,
     HooperNavigation,
     FwearableWalk,
-    FwearableEnergy
+    FwearableEnergy,
+    VueHeader,
   },
   data() {
     return {
+      VueHeaderTitle: "마이 헬스 데이터 with 프렌즈",
+      VueHeaderContent:"친구의 프로필을 클릭하고 비교하기 버튼을 누르면 친구의 건강 데이터가 실시간으로 그래프에 반영된답니다. ",
       slides: [
         { id: 1, name: "김뿡" },
         { id: 2, name: "김뿡" },
@@ -112,31 +116,21 @@ export default {
 
 <style>
 /* ----------------------------------------- */
-#header-content1 {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 24px;
-  text-align: center;
-  margin-top: 1rem;
-  color: #47474b;
-}
+
 #header-content2 {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 12px;
   line-height: 24px;
   color: #909090;
+  margin-top: -2rem;
   margin-bottom: 3rem;
 }
-
 #wfriendlist {
   box-sizing: border-box;
   width: 100%;
   height: 180px;
-
   background: #a0cfee;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
@@ -146,6 +140,13 @@ export default {
   width: 100px;
   height: 100px;
   background-color: #ffffff;
+  line-height: 100px;
+  border-radius: 20%;
+}
+.useritem:hover {
+  width: 100px;
+  height: 100px;
+  background-color: #f2ff79;
   line-height: 100px;
   border-radius: 20%;
 }
