@@ -20,13 +20,13 @@ public class UserInfoResponseDto {
     private float userHeight;
     private float userWeight;
     private String userPhoneType;
-    private String userPublic;
+    private boolean userPublic;
     private int userScore;
 
     @Builder
     public UserInfoResponseDto(String userId, String userName, String userImg, String userNickname, int userAge,
                                String userGender, float userHeight, float userWeight, String userPhoneType,
-                               String userPublic, int userScore ) {
+                               boolean userPublic, int userScore ) {
         this.userId = userId;
         this.userName = userName;
         this.userImg = userImg;

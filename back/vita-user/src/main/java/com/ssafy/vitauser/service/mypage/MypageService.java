@@ -36,7 +36,7 @@ public class MypageService {
                 .userName(user.getUserName())
                 .userNickname(user.getUserNickname())
                 .userPhoneType(user.getUserPhoneType())
-                .userPublic(user.getUserPublic())
+                .userPublic(user.isUserPublic())
                 .userWeight(user.getUserWeight())
                 .userScore(user.getUserScore())
                 .build();
