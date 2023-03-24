@@ -146,36 +146,49 @@ public class FriendServiceImpl implements FriendService{
 
 
     @Override
-    public void applyFriend(String userId, String userNickname) {
+    public String applyFriend(String userId, String userNickname) {
         // userId = 내 아이디, userNickname = 신청 보낼 유저의 닉네임
-        Friend applySendInfo = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userNicknameAndFriendStatus(userId, userNickname, "accepted");
-        Friend applyReceiveInfo = friendRepository.findByFriendSendingUser_userNicknameAndFriendReceivingUser_userIdAndFriendStatus(userNickname, userId, "accepted");
+        Friend applySendInfo = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userNickname(userId, userNickname);
+        Friend applyReceiveInfo = friendRepository.findByFriendSendingUser_userNicknameAndFriendReceivingUser_userId(userNickname, userId);
+//        System.out.println(applySendInfo.getFriendId());
+//        System.out.println(applyReceiveInfo.getFriendId());
 
         FriendDto friend = new FriendDto();
         if (applySendInfo == null && applyReceiveInfo == null) {
             friend.setFriendSendingUser(usersRepository.findByUserId(userId));
             friend.setFriendReceivingUser(usersRepository.findByUserNickname(userNickname));
             friend.setFriendStatus("applied");
+            friendRepository.save(friend.toFriendEntity());
+            return "success";
+        } else {
+            return "fail";
         }
-        friendRepository.save(friend.toFriendEntity());
+
     }
 
     @Override
-    public void acceptFriend(String sendingUserId, String receivingUserId) {
+    public String acceptFriend(String sendingUserId, String receivingUserId) {
         Friend currentRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userIdAndFriendStatus(sendingUserId, receivingUserId, "applied");
         currentRelation.acceptFriendRelation();
+        if (currentRelation == null) {
+            return "fail";
+        }
         friendRepository.save(currentRelation);
+        return "success";
     }
 
     @Override
-    public void rejectOrDeleteFriend(String sendingUserId, String receivingUserId) {
+    public String rejectOrDeleteFriend(String sendingUserId, String receivingUserId) {
         Friend rejectOrDeleteRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userId(sendingUserId, receivingUserId);
         Friend rejectOrDeleteReverseRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userId(receivingUserId, sendingUserId);
         if (rejectOrDeleteRelation != null) {
             friendRepository.deleteById(rejectOrDeleteRelation.getFriendId());
+            return "success";
         } else if (rejectOrDeleteReverseRelation != null) {
             friendRepository.deleteById(rejectOrDeleteReverseRelation.getFriendId());
+            return "success";
         }
+        return "fail";
     }
 
 }

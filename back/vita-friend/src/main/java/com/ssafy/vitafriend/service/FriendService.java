@@ -21,7 +21,7 @@ public interface FriendService {
     List<FriendStepRankDto> getFriendStepRankLIst(String userId);
     
     // 친구 요청, 수락, 거절 및 삭제
-    void applyFriend(String userId, String userNickname);
-    void acceptFriend(String sendingUserId, String receivingUserId);
-    void rejectOrDeleteFriend(String sendingUserId, String receivingUserId);
+    String applyFriend(String userId, String userNickname);
+    String acceptFriend(String sendingUserId, String receivingUserId);
+    String rejectOrDeleteFriend(String sendingUserId, String receivingUserId);
 }

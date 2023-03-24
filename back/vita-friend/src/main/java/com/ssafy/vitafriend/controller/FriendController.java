@@ -80,9 +80,14 @@ public class FriendController {
             @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "user_nickname", value = "친구 신청을 보낼 사용자의 닉네임", dataType = "String", paramType = "body", example = "홍길동")
     })
-    public void applyFriend(@RequestHeader HttpHeaders headers, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
+    public String applyFriend(@RequestHeader HttpHeaders headers, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
         System.out.println(req);
-        friendService.applyFriend(headers.getFirst("userID"), req.get("user_nickname"));
+        String result = friendService.applyFriend(headers.getFirst("userID"), req.get("user_nickname"));
+        if (Objects.equals(result, "success")) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
     // 친구요청 수락하기 PUT
@@ -92,8 +97,13 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "수락할 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public void acceptFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
-        friendService.acceptFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
+    public String acceptFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
+        String result = friendService.acceptFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
+        if (Objects.equals(result, "success")) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
     // 친구요청 거절 및 친구 삭제 DELETE
@@ -103,8 +113,13 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "요청을 받을 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public void rejectOrDeleteFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
-        friendService.rejectOrDeleteFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
+    public String rejectOrDeleteFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
+        String result = friendService.rejectOrDeleteFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
+        if (Objects.equals(result, "success")) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 
     // 친구 신청온 리스트 GET
