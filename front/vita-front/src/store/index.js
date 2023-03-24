@@ -8,7 +8,9 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   state: {
-    myUserId: "1",
+    // 이강윤 : 2715879100
+    myUserId: "2715879100",
+    serverBaseUrl: "http://localhost:8080"
   },
   getters: {
   },
@@ -19,8 +21,8 @@ export default new Vuex.Store({
   modules: {
     account
   },
-  plugins: [ 
-    createPersistedState({ storage: window.sessionStorage }) 
+  plugins: [
+    createPersistedState({ storage: window.sessionStorage })
   ],
   strict: debug
 })

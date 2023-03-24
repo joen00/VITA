@@ -2,8 +2,7 @@
   <div class="text-center">
     <div class="container">
         <div class="header">
-          <div class="header-title">마이 페이지</div>
-          <div class="header-content">나의 정보를 확인해보세요.</div>
+          <VueHeader :VueHeaderTitle = VueHeaderTitle :VueHeaderContent = VueHeaderContent />
         </div>
 
         <b-container class="bv-example-row container h-30" id="mypage-container">
@@ -34,12 +33,16 @@
 
             <!-- 캘린더 -->
             <b-row class="calander">
-              <b-calendar 
+              <b-calendar
                 selected-variant="primary"
                 today-variant="info"
                 nav-button-variant="primary">
               </b-calendar>
             </b-row>
+
+            <v-calendar
+              :attributes='attributes'
+              />
           </b-col>
           <!-- left 끝 -->
 
@@ -72,39 +75,74 @@
 <script>
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 
+import VueHeader from '@/components/common/VueHeader.vue';
+import axios from 'axios';
+
 export default {
   name: 'MypageView',
   components: {
     Carousel3d,
     Slide,
+    VueHeader,
   },
   data: () => ({
     nickname: `뿡뿡 아영`,
     gender: "female",
     UserInfo: [
-      { attr: 'weight', data: 30.0 + 'kg', desc: '체중' },
-      { attr: 'gender', data: '여자', desc: '성별' },
-      { attr: 'age', data: 30 + '살', desc: '나이' },
-      { attr: 'height', data: 130 + 'cm', desc: '키' },
+      { attr: 'weight', data: null, desc: '체중' },
+      { attr: 'gender', data: null, desc: '성별' },
+      { attr: 'age', data: null, desc: '나이' },
+      { attr: 'height', data: null, desc: '키' },
     ],
     slides: [
       { src: 'mytotal' },
       { src: 'mytotal' },
       { src: 'mytotal' },
-      { src: 'mytotal' },
-      { src: 'mytotal' },
-      { src: 'mytotal' },
-      { src: 'mytotal' },
-      { src: 'mytotal' },
-      { src: 'mytotal' },
+      // { src: 'mytotal' },
+      // { src: 'mytotal' },
+      // { src: 'mytotal' },
+      // { src: 'mytotal' },
+      // { src: 'mytotal' },
+      // { src: 'mytotal' },
     ],
+    VueHeaderTitle: "마이페이지",
+    VueHeaderContent: "나의 정보를 확인해보세요."
   }),
 
   methods: {
     goToSlide(index) {
       this.$refs.hitoryCarousel.goSlide(index)
-    }
+    },
+    getUserInfo() {
+      axios
+        .get(this.$store.state.serverBaseUrl + `/mypage/user` + `/${this.$store.state.myUserId}`)
+        .then((response) => {
+          console.log(response)
+          this.nickname = response.data.userNickname,
+          this.UserInfo[0].data = response.data.userWeight + 'kg',
+          this.UserInfo[1].data = response.data.userGender,
+          this.UserInfo[2].data = response.data.userAge + '살',
+          this.UserInfo[3].data = response.data.userHeight + 'cm'
+        });
+    },
+    // getUserHistory() {
+    //   axios
+    //     .get(this.$store.state.serverBaseUrl + `/mypage/user/history` + `/${this.$store.state.myUserId}`)
+    //     .then((response) => {
+    //       console.log(response)
+    //       this.nickname = response.data.userNickname,
+    //       this.UserInfo[0].data = response.data.userWeight + 'kg',
+    //       this.UserInfo[1].data = response.data.userGender,
+    //       this.UserInfo[2].data = response.data.userAge + '살',
+    //       this.UserInfo[3].data = response.data.userHeight + 'cm'
+    //     });
+    // }
+  },
+  created() {
+    this.getUserInfo();
+    this.getUserHistory();
   }
+
 }
 
 </script>
