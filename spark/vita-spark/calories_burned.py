@@ -11,7 +11,19 @@ def readCsv(csvName):
 # 일 데이터 처리
 def dayDF(df):
     df.rename(columns={'com.samsung.shealth.calories_burned.day_time':'day_time', 'com.samsung.shealth.calories_burned.active_calorie':'active_calorie'}, inplace=True)
-    df = df[['day_time', 'active_calorie']]
+    df = df[['active_calorie', 'day_time']]
     df['day_time']=df['day_time'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)) # 날짜 형식 변환
     df.sort_values(by='day_time' ,ascending=True) # 날짜 오름차순 정렬
+    df = df[['active_calorie', 'day_time']]
     return df
+
+# DB Query 작성
+def update(table, userId):
+    query = "UPDATE " + table + " SET daily_wearable_energy = %s WHERE user_id = '" + userId + "' AND date = %s"
+    print(query)
+    return query
+
+def insert(table, userId):
+    query = "INSERT INTO " + table + " (user_id, daily_wearable_energy, date) values ('" + userId + "', %s, %s)"
+    print(query)
+    return query

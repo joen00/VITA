@@ -24,10 +24,44 @@ def decompress(s3, zipName):
 
 # DB 연결
 def connectDB():
-    db_connection_str = config.db_connection_str
-    db_connection = create_engine(db_connection_str)
+    db_connection = pymysql.connect(host=config.host, user=config.user,
+                                    password=config.password, db=config.db)
     return db_connection
 
 # DB 저장
-def saveDB(db_connection, table, df):
-    df.to_sql(name=table, con=db_connection, if_exists='append', index=False)
+def execute(db_connection, query, df):
+    cursor = db_connection.cursor()
+    cursor.executemany(query, df)
+    db_connection.commit()
+
+# select
+def select(db_connection, table, userId, df):
+    query = "SELECT count(*) FROM " + table + " WHERE user_id = '" + userId + "' AND date = %s"
+    
+    resultList = []
+    insertList = []
+    updateList = []
+    list = df.values.tolist()
+
+    for row in list:
+        cursor = db_connection.cursor()
+        cursor.execute(query, row[1])
+        result = cursor.fetchone()
+
+        if result[0] == 0:
+            insertList.append(row)
+        else:
+            updateList.append(row)
+    
+    resultList.append(insertList)
+    resultList.append(updateList)
+
+    return resultList
+
+def save(db_connection, table, type, userId, df):
+    list = select(db_connection, table, userId, df)
+
+    insertQuery = type.insert(table, userId)
+    execute(db_connection, insertQuery, list[0])
+    updateQuery = type.update(table, userId)
+    execute(db_connection, updateQuery, list[1])

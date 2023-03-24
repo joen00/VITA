@@ -9,7 +9,19 @@ def readCsv(csvName):
 
 # 일 데이터 처리
 def dayDF(df):
-    df = df[['start_time', 'score']]
+    df = df[['score', 'start_time']]
     df['start_time'] = df.start_time.str.split(' ').str[0] # 날짜 형식
     df2 = df.groupby('start_time', as_index=False).mean().round(0) # 날짜별 합계
+    df2 = df2[['score', 'start_time']]
     return df2
+
+# DB Query 작성
+def update(table, userId):
+    query = "UPDATE " + table + " SET daily_wearable_stress = %s WHERE user_id = '" + userId + "' AND date = %s"
+    print(query)
+    return query
+
+def insert(table, userId):
+    query = "INSERT INTO " + table + " (user_id, daily_wearable_stress, date) values ('" + userId + "', %s, %s)"
+    print(query)
+    return query

@@ -10,7 +10,19 @@ def readCsv(csvName):
 
 # 일 데이터 처리
 def dayDF(df):
-    df = df[['day_time', 'count']]
+    df = df[['count', 'day_time']]
     df['day_time']=df['day_time'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)) # 날짜 형식 변환
     df2 = df.groupby('day_time', as_index=False).max() # 날짜별 최대값
+    df2 = df2[['count', 'day_time']]
     return df2
+
+# DB Query 작성
+def update(table, userId):
+    query = "UPDATE " + table + " SET daily_wearable_step = %s WHERE user_id = '" + userId + "' AND date = %s"
+    print(query)
+    return query
+
+def insert(table, userId):
+    query = "INSERT INTO " + table + " (user_id, daily_wearable_step, date) values ('" + userId + "', %s, %s)"
+    print(query)
+    return query
