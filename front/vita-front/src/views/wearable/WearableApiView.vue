@@ -91,16 +91,6 @@
       background-position: center;
   }
   /* ----------------------------------------- */
-  #header-content1 {
-      font-family: "Inter";
-      font-style: normal;
-      font-weight: 600;
-      font-size: 1rem;
-      line-height: 24px;
-      text-align: center;
-      margin-top: 1rem;
-      color: #47474b;
-  }
   #extraDesc {
     font-family: "Inter";
     font-style: normal;
