@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Api("마이페이지 API")
-@RequestMapping(path="/mypage")
+@RequestMapping(path="/users/mypage")
 public class MypageController {
 
     private final MypageService mypageService;
@@ -25,25 +25,25 @@ public class MypageController {
 
 
     @ApiOperation(value = "유저 정보 조회", notes = "성공하면 success.", response = String.class)
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<?> selectOne(@ApiParam(value = "user_id", required = true) @PathVariable("userId") String id){
         return new ResponseEntity(mypageService.selectOne(id), HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "유저 뱃지 정보 조회", notes = "성공하면 success.", response = String.class)
-    @GetMapping("/user/badge/{userId}")
+    @GetMapping("/badge/{userId}")
     public ResponseEntity<?> selectAllBadge(@ApiParam(value = "user_id", required = true) @PathVariable("userId") String id){
         return new ResponseEntity(mypageService.selectAllBadge(id), HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "유저 히스토리 정보 조회", notes = "성공하면 success.", response = String.class)
-    @GetMapping("/user/history/{userId}")
+    @GetMapping("/history/{userId}")
     public ResponseEntity<?> selectAllHistory(@ApiParam(value = "user_id", required = true) @PathVariable("userId") String id){
         return new ResponseEntity(mypageService.selectAllHistory(id), HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "유저 파일 업로드 저장", notes = "성공하면 success.", response = String.class)
-    @PostMapping("/user/upload/{userId}")
+    @PostMapping("/upload/{userId}")
     public ResponseEntity<String> uploadFile(@RequestParam("multipartFile") MultipartFile multipartFile, @PathVariable String userId) throws Exception {
         // 파일 저장함
         String url = awsS3Service.uploadFileV1(multipartFile);
