@@ -80,3 +80,20 @@ def combine(calories_burned, step_daily_trend, stress, weight, heart_rate):
     df_list = [calories_burned, step_daily_trend, stress, weight, heart_rate]
     df_merge = reduce(lambda left, right: pd.merge(left, right, on='date', how='outer'), df_list)
     return df_merge
+
+# 주, 월 데이터 처리
+def periodDF(df, period, userId):
+    df.date = pd.to_datetime(df.date)
+    df = df.resample(rule=period, on='date').mean().round(1)
+    df = df.reset_index()
+    df = df.fillna(0)
+    
+    if period == '1W':
+        df.rename(columns = {'daily_wearable_stress':'weekly_wearable_stress', 'daily_wearable_rhr':'weekly_wearable_rhr', 'daily_wearable_energy':'weekly_wearable_energy', 'daily_wearable_step':'weekly_wearable_step',
+                             'daily_wearable_weight':'weekly_wearable_weight', 'daily_wearable_muscle':'weekly_wearable_muscle', 'daily_wearable_fat':'weekly_wearable_fat'}, inplace=True)
+    elif period == '1M':
+        df.rename(columns = {'daily_wearable_stress':'monthly_wearable_stress', 'daily_wearable_rhr':'monthly_wearable_rhr', 'daily_wearable_energy':'monthly_wearable_energy', 'daily_wearable_step':'monthly_wearable_step',
+                             'daily_wearable_weight':'monthly_wearable_weight', 'daily_wearable_muscle':'monthly_wearable_muscle', 'daily_wearable_fat':'monthly_wearable_fat'}, inplace=True)
+    
+    df['user_id'] = userId
+    return df

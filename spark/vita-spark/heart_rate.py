@@ -1,5 +1,4 @@
 import pandas as pd
-import datetime
 
 # csv 파일 읽기
 def readCsv(csvName):
@@ -10,23 +9,8 @@ def readCsv(csvName):
 
 # 일 데이터 처리
 def dayDF(df):
-    df.rename(columns={'com.samsung.health.heart_rate.start_time':'start_time', 'com.samsung.health.heart_rate.heart_rate':'heart_rate'}, inplace=True)
-    df = df[['heart_rate', 'start_time']]
-    df['start_time'] = df.start_time.str.split(' ').str[0] # 날짜 형식
-    df = df.groupby('start_time', as_index=False).mean().round(0) # 날짜별 합계
-    df = df[['heart_rate', 'start_time']]
-    df.rename(columns = {'heart_rate':'daily_wearable_rhr', 'start_time':'date'}, inplace=True)
-    return df
-
-# 주, 월 데이터 처리
-def periodDF(df, period):
-    df.date = pd.to_datetime(df.date)
-    df = df.resample(rule=period, on='date').mean().round(0)
-    df = df.reset_index()
-    df = df.fillna(0)
-    
-    if period == '1W':
-        df.rename(columns = {'daily_wearable_rhr':'weekly_wearable_rhr'}, inplace=True)
-    elif period == '1M':
-        df.rename(columns = {'daily_wearable_rhr':'monthly_wearable_rhr'}, inplace=True)
+    df.rename(columns={'com.samsung.health.heart_rate.start_time':'date', 'com.samsung.health.heart_rate.heart_rate':'daily_wearable_rhr'}, inplace=True)
+    df = df[['daily_wearable_rhr', 'date']]
+    df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
+    df = df.groupby('date', as_index=False).mean().round(0) # 날짜별 합계
     return df

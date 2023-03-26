@@ -10,34 +10,7 @@ def readCsv(csvName):
 
 # 일 데이터 처리
 def dayDF(df):
-    df.rename(columns={'com.samsung.shealth.calories_burned.day_time':'day_time', 'com.samsung.shealth.calories_burned.active_calorie':'active_calorie'}, inplace=True)
-    df = df[['active_calorie', 'day_time']]
-    df['day_time'] = df['day_time'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)) # 날짜 형식 변환
-    df.sort_values(by='day_time' ,ascending=True) # 날짜 오름차순 정렬
-    df = df[['active_calorie', 'day_time']]
-    df.rename(columns = {'active_calorie':'daily_wearable_energy', 'day_time':'date'}, inplace=True)
+    df.rename(columns={'com.samsung.shealth.calories_burned.day_time':'date', 'com.samsung.shealth.calories_burned.active_calorie':'daily_wearable_energy'}, inplace=True)
+    df = df[['daily_wearable_energy', 'date']]
+    df['date'] = df['date'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)).astype(str) # 날짜 형식 변환
     return df
-
-# 주, 월 데이터 처리
-def periodDF(df, period):
-    df.date = pd.to_datetime(df.date)
-    df = df.resample(rule=period, on='date').mean().round(0)
-    df = df.reset_index()
-    df = df.fillna(0)
-    
-    if period == '1W':
-        df.rename(columns = {'daily_wearable_energy':'weekly_wearable_energy'}, inplace=True)
-    elif period == '1M':
-        df.rename(columns = {'daily_wearable_energy':'monthly_wearable_energy'}, inplace=True)
-    return df
-
-# DB Query 작성
-def update(table, userId):
-    query = "UPDATE " + table + " SET daily_wearable_energy = %s WHERE user_id = '" + userId + "' AND date = %s"
-    print(query)
-    return query
-
-def insert(table, userId):
-    query = "INSERT INTO " + table + " (user_id, daily_wearable_energy, date) values ('" + userId + "', %s, %s)"
-    print(query)
-    return query
