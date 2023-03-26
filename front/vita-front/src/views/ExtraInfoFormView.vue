@@ -232,7 +232,7 @@ export default {
                 return false;
             }
             if (this.form.weight == 0) {
-                his.$refs.weight.focus();
+                this.$refs.weight.focus();
                 return false;
             }
 
