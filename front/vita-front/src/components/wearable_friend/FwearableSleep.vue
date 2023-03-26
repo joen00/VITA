@@ -1,26 +1,26 @@
 <template>
-  <div id="FwearableEnergyBody">
+  <div id="FwearableSleepBody">
     <div class="header">
       <ComponentHeader
         :ComponentHeaderTitle="ComponentHeaderTitle"
         :ComponentHeaderContent="ComponentHeaderContent"
       />
     </div>
-    <div id="wearable-friend-Energy">
-      <div id="wearable-friend-Energy-Left">
-        <div id="wearable-friend-Energy-Left-div">
-          <div id="wearable-friend-Energy-chartdiv"></div>
+    <div id="wearable-friend-Sleep">
+      <div id="wearable-friend-Sleep-Left">
+        <div id="wearable-friend-Sleep-Left-div">
+          <div id="wearable-friend-Sleep-chartdiv"></div>
         </div>
       </div>
-      <div id="wearable-friend-Energy-Right">
-        <div id="wearable-friend-Energy-rank">
+      <div id="wearable-friend-Sleep-Right">
+        <div id="wearable-friend-Sleep-rank">
           <img
-            id="wearable-friend-Energy-rank-img"
+            id="wearable-friend-Sleep-rank-img"
             :src="require(`/public/wearable-friend/fwrank.png`)"
           />
-          <div id="wearable-friend-Energy-rank-h1">랭킹</div>
+          <div id="wearable-friend-Sleep-rank-h1">랭킹</div>
           <div
-            id="wearable-friend-Energy-rank-item"
+            id="wearable-friend-Sleep-rank-item"
             v-for="rank in franks"
             :key="rank"
           >
@@ -52,9 +52,8 @@ export default {
   },
   data() {
     return {
-      ComponentHeaderTitle: "활동 에너지",
-      ComponentHeaderContent:
-        "친구들과 나의 평균 활동 에너지 기록을 비교해 보여줘요.",
+      ComponentHeaderTitle: "수면",
+      ComponentHeaderContent: "친구들과 나의 평균 수면 기록을 비교해 보여줘요.",
       franks: [
         { id: 1, name: "김뿡1" },
         { id: 2, name: "김뿡2" },
@@ -68,7 +67,7 @@ export default {
     am5.ready(() => {
       // Create root element
       // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-      var root = am5.Root.new("wearable-friend-Energy-chartdiv");
+      var root = am5.Root.new("wearable-friend-Sleep-chartdiv");
 
       // Set themes
       // https://www.amcharts.com/docs/v5/concepts/themes/
@@ -217,12 +216,12 @@ export default {
 </script>
 
 <style>
-#wearable-friend-Energy {
+#wearable-friend-Sleep {
   /* margin-top: 10rem; */
   /* padding-left: 3rem;
   padding-right: 3rem; */
 }
-#wearable-friend-Energy-Left {
+#wearable-friend-Sleep-Left {
   width: 70%;
   height: 500px;
   float: left;
@@ -233,7 +232,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-#wearable-friend-Energy-Left-div {
+#wearable-friend-Sleep-Left-div {
   width: 80%;
   height: 90%;
   float: left;
@@ -247,7 +246,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-#wearable-friend-Energy-chartdiv {
+#wearable-friend-Sleep-chartdiv {
   width: 80%;
   height: 80%;
   float: left;
@@ -255,13 +254,13 @@ export default {
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px; */
 }
-#wearable-friend-Energy-Right {
+#wearable-friend-Sleep-Right {
   width: 30%;
   height: 500px;
   float: left;
   /* background-color: bisque; */
 }
-#wearable-friend-Energy-rank {
+#wearable-friend-Sleep-rank {
   box-sizing: border-box;
   width: 250px;
   height: 343px;
@@ -274,14 +273,14 @@ export default {
   margin-left: -5%;
   vertical-align: middle;
 }
-#wearable-friend-Energy-rank-h1 {
+#wearable-friend-Sleep-rank-h1 {
   font-weight: 600;
   font-size: 1.5rem;
 }
-#wearable-friend-Energy-rank-img {
+#wearable-friend-Sleep-rank-img {
   margin-top: -30px;
 }
-#wearable-friend-Energy-rank-item {
+#wearable-friend-Sleep-rank-item {
   font-weight: 600;
   margin: 0.5rem;
 }
