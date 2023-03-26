@@ -1,12 +1,10 @@
 <template>
   <div class="text-center">
     <div class="container">
-      <div class="header">
-        <VueHeader
-          :VueHeaderTitle="VueHeaderTitle"
-          :VueHeaderContent="VueHeaderContent"
-        />
-      </div>
+      <VueHeader
+        :VueHeaderTitle="VueHeaderTitle"
+        :VueHeaderContent="VueHeaderContent"
+      />
 
       <b-container class="bv-example-row container h-30" id="mypage-container">
         <b-col class="left">
@@ -22,12 +20,12 @@
                 {{ nickname }}
               </b-row>
               <b-row class="item" v-for="info in UserInfo" :key="info">
-                <b-col class="icon">
+                <b-col cols="3" class="icon">
                   <b-row
-                    ><img :src="require(`/public/user/${info.attr}.png`)"
+                    ><img id="item-img" :src="require(`/public/user/${info.attr}.png`)"
                   /></b-row>
                 </b-col>
-                <b-col cols="8" class="data">
+                <b-col cols="9" class="data">
                   <b-row class="info-data">{{ info.data }}</b-row>
                   <b-row class="info-desc">{{ info.desc }}</b-row>
                 </b-col>
@@ -43,12 +41,6 @@
               @dayclick="dayclick"
               ref="datepicker"
             />
-            <!-- <b-calendar
-              selected-variant="primary"
-              today-variant="info"
-              nav-button-variant="primary"
-            >
-            </b-calendar> -->
           </b-row>
         </b-col>
         <!-- left 끝 -->
@@ -121,22 +113,16 @@ export default {
     nickname: `뿡뿡 아영`,
     gender: "female",
     UserInfo: [
-      { attr: "weight", data: null, desc: "체중" },
-      { attr: "gender", data: null, desc: "성별" },
-      { attr: "age", data: null, desc: "나이" },
-      { attr: "height", data: null, desc: "키" },
+      { attr: "weight", data: '40.0kg', desc: "체중" },
+      { attr: "gender", data: '여자', desc: "성별" },
+      { attr: "age", data: '10세', desc: "나이" },
+      { attr: "height", data: '180.2cm', desc: "키" },
     ],
     componentKey: 0,
     slides: [
       { index: "0302", src: "mytotal_1" },
       { index: "0307", src: "mytotal_2" },
       { index: "0323", src: "mytotal_3" },
-      // { src: 'mytotal' },
-      // { src: 'mytotal' },
-      // { src: 'mytotal' },
-      // { src: 'mytotal' },
-      // { src: 'mytotal' },
-      // { src: 'mytotal' },
     ],
     attrs: [
       {
@@ -241,29 +227,6 @@ export default {
   width: 100%;
   height: 42.5rem;
 }
-.header {
-  width: 100%;
-  height: 16%;
-  margin-bottom: 2rem;
-}
-.header-title {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 3rem;
-  line-height: 97px;
-  color: #172176;
-}
-.header-content {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 24px;
-  text-align: center;
-  margin: -1%;
-  color: #47474b;
-}
 .container {
   height: 100%;
 }
@@ -279,6 +242,7 @@ export default {
   float: left;
   margin-top: 1rem;
   margin: 0 auto;
+  padding: 30px;
 }
 .profile {
   padding: 30px;
@@ -290,11 +254,11 @@ export default {
   float: left;
 }
 .item {
-  padding: 5px;
+  padding: 8px;
 }
 .info {
   float: left;
-  padding: 30px;
+  padding-left: 30px;
 }
 .data {
   float: left;
@@ -326,7 +290,7 @@ export default {
   background: #ffffff;
 }
 .history {
-  margin-top: 150px;
+  margin-top: 100px;
 }
 .vc-container {
   width: 400px;
@@ -340,5 +304,15 @@ export default {
 #img-avatar {
   width: 200px;
   height: 300px;
+}
+#item-img {
+  padding: 0.7rem;
+}
+.info.data {
+  font-size: 17px;
+}
+.info-desc {
+  color: rgb(150, 150, 150);
+  font-size: 13px;
 }
 </style>
