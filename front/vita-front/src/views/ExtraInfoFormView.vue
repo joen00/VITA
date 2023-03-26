@@ -6,7 +6,7 @@
                 </div>
                 <div class="body">
                     <div id="form">
-                        <b-form @submit.prevent.stop="onSubmit" id="input-form">
+                        <b-form @submit.prevent.stop="onSubmit" id="input-form" name="input-form">
                             <b-container>
                                 <!-- 닉네임 -->
                                 <b-row class="my-5">
@@ -14,12 +14,15 @@
                                         <label for="input-nickname">닉네임:</label>
                                     </b-col>
                                     <b-col sm="10">
-                                        <b-form-input id="input-nickname" v-model="form.nickname" :state="validationNickname" required ></b-form-input>
+                                        <b-input-group>
+                                            <b-form-input id="input-nickname" ref="nickname" v-model="form.nickname" :state="validationNickname" required ></b-form-input>
+                                            <b-input-group-append><b-button id="dupNicknameCheck" v-on:click="duplicatedNicknameCheck">중복확인</b-button></b-input-group-append>                                   
+                                        </b-input-group>
                                         <b-form-invalid-feedback :state="validationNickname">
-                                            Please set your nickname.
+                                            {{ valicationNicknameMsg }}
                                         </b-form-invalid-feedback>
                                         <b-form-valid-feedback :state="validationNickname">
-                                            Looks Good.
+                                            사용 가능한 닉네임입니다.
                                         </b-form-valid-feedback>
                                     </b-col>
                                 </b-row> 
@@ -30,12 +33,12 @@
                                         <label for="input-age">나이:</label>
                                     </b-col>
                                     <b-col sm="10">
-                                        <b-form-input id="input-age" type="number" :state="validationAge" v-model="form.age" required ></b-form-input>
+                                        <b-form-input id="input-age" ref="age" type="number" :state="validationAge" v-model="form.age" required ></b-form-input>
                                         <b-form-invalid-feedback :state="validationAge">
-                                            Your age must be at least 1 years old.
+                                            나이를 입력해주세요.
                                         </b-form-invalid-feedback>
                                         <b-form-valid-feedback :state="validationAge">
-                                            Looks Good.
+                                            OK!
                                         </b-form-valid-feedback>
                                     </b-col>
                                 </b-row>
@@ -61,12 +64,12 @@
                                         <label for="input-height">키:</label>
                                     </b-col>
                                     <b-col sm="10">
-                                        <b-form-input id="input-height" type="number" step="any" v-model="form.height" :state="validationHeight" required ></b-form-input>
+                                        <b-form-input id="input-height" ref="height" type="number" step="any" v-model="form.height" :state="validationHeight" required ></b-form-input>
                                         <b-form-invalid-feedback :state="validationHeight">
-                                            Please set your height.
+                                            키를 입력해주세요.
                                         </b-form-invalid-feedback>
                                         <b-form-valid-feedback :state="validationHeight">
-                                            Looks Good.
+                                            OK!
                                         </b-form-valid-feedback>
                                     </b-col>
                                 </b-row>
@@ -77,12 +80,12 @@
                                         <label for="input-weight">체중:</label>
                                     </b-col>
                                     <b-col sm="10">
-                                        <b-form-input id="input-weight" type="number" step="any" :state="validationWeight" v-model="form.weight" required ></b-form-input>
+                                        <b-form-input id="input-weight" ref="weight" type="number" step="any" :state="validationWeight" v-model="form.weight" required ></b-form-input>
                                         <b-form-invalid-feedback :state="validationWeight">
-                                            Please set your weight.
+                                            체중을 입력해주세요.
                                         </b-form-invalid-feedback>
                                         <b-form-valid-feedback :state="validationWeight">
-                                            Looks Good.
+                                            OK!
                                         </b-form-valid-feedback>
                                     </b-col>
                                 </b-row>
@@ -137,9 +140,7 @@ import axios from "axios";
 import { mapGetters } from 'vuex'
 
 // const SERVER_URL = "http://j8b106.p.ssafy.io:8000/users";
-const SERVER_URL = "http://localhost:8080/users";
-const MY_USER_ID = "2703564897";
-// const token = this.$store.state.token;
+const SERVER_URL = "http://localhost:8085/users";
 
 export default {
     name: "ExtraInfoFormView",
@@ -174,15 +175,31 @@ export default {
                 { text: 'public', value: true },
                 { text: 'private', value: false },
             ],
-            show: true
+            show: true,
+            isCheckNickname: false,
+            isDupNickname: true,
+            valicationNicknameMsg: ""
         };
     },
 
     computed: {
         ...mapGetters(['token', 'user']),
- 
+
         validationNickname() {
-            return this.form.nickname != ""
+            if (this.form.nickname.length > 0) {
+                this.valicationNicknameMsg = '닉네임 중복검사를 해주세요.';
+                if (this.isDupNickname == false && this.isCheckNickname == true) {
+                    this.valicationNicknameMsg = '사용 가능한 닉네임입니다.';
+                    return true;
+                }
+                else if (this.isDupNickname == true && this.isCheckNickname == true) { 
+                    this.valicationNicknameMsg = '중복된 닉네임입니다.';
+                    return false;
+                }
+                return false;
+            }
+            this.valicationNicknameMsg = '닉네임을 입력해주세요.';
+            return false;
         },
 
         validationAge() {
@@ -201,6 +218,24 @@ export default {
     methods: {
         onSubmit(event) {
             event.preventDefault();
+
+            if (this.form.nickname.value == "" || this.isCheckNickname == false || this.isDupNickname == true) {
+                this.$refs.nickname.focus();
+                return false;
+            }
+            if (this.form.age == 0) {
+                this.$refs.age.focus();
+                return false;
+            }
+            if (this.form.height == 0) {
+                this.$refs.height.focus();
+                return false;
+            }
+            if (this.form.weight == 0) {
+                his.$refs.weight.focus();
+                return false;
+            }
+
             console.log(JSON.stringify(this.form));
             console.log(this.token);
             axios
@@ -214,8 +249,6 @@ export default {
                         gender: this.form.gender,
                         phoneType: this.form.phoneType,
                         userPublic: this.form.userPublic,
-                        userId: MY_USER_ID,
-
                     },
                     {
                         headers: {
@@ -228,7 +261,26 @@ export default {
                         this.$router.replace('/');
                     }
                 })
-        }
+        },
+
+        duplicatedNicknameCheck(event) {
+            console.log(this.nickname)
+            axios
+                .get(SERVER_URL + `/search/nickname?nickname=` + this.form.nickname)
+                .then((response) => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        if (response.data.body.isDupNickname == 'true') {
+                            this.isDupNickname = true;
+                            this.isCheckNickname = true;
+                        } else {
+                            this.isDupNickname = false;
+                            this.isCheckNickname = true;
+                        }
+                        console.log(this.isDupNickname + " " + this.isCheckNickname);
+                    }
+                })
+        },
     }
 };
 </script>
@@ -279,5 +331,9 @@ export default {
         float: right;
         font-weight: 600;
         color: #172176;
+    }
+
+    #dupNicknameCheck {
+        margin-left: 20px;
     }
 </style>
