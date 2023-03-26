@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     // 이강윤 : 2715879100
     myUserId: "2715879100",
-    serverBaseUrl: "http://localhost:8080"
+    serverBaseUrl: "http://j8b106.p.ssafy.io"
   },
   getters: {
   },
