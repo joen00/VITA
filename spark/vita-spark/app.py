@@ -8,6 +8,7 @@ import weight
 import step_daily_trend
 import calories_burned
 import stress
+import heart_rate
 
 app = Flask(__name__)
 
@@ -50,10 +51,12 @@ def upload(userId):
             calories_burned_list = makeDF(calories_burned, csv)
         if 'stress' in csv and 'histogram' not in csv:
             stress_list = makeDF(stress, csv)
+        if 'heart_rate' in csv and 'recovery' not in csv:
+            heart_rate_list = makeDF(heart_rate, csv)
 
-    day = common.combine(calories_burned_list[0], step_daily_trend_list[0], stress_list[0], weight_list[0])
-    week = common.combine(calories_burned_list[1], step_daily_trend_list[1], stress_list[1], weight_list[1])
-    month = common.combine(calories_burned_list[2], step_daily_trend_list[2], stress_list[2], weight_list[2])
+    day = common.combine(calories_burned_list[0], step_daily_trend_list[0], stress_list[0], weight_list[0], heart_rate_list[0])
+    week = common.combine(calories_burned_list[1], step_daily_trend_list[1], stress_list[1], weight_list[1], heart_rate_list[1])
+    month = common.combine(calories_burned_list[2], step_daily_trend_list[2], stress_list[2], weight_list[2], heart_rate_list[2])
     
     day['user_id'] = userId
     week['user_id'] = userId

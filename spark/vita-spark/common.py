@@ -76,7 +76,7 @@ def save(db_connection, table, type, userId, df):
     execute(db_connection, updateQuery, list[1])
 
 # combine df
-def combine(calories_burned, step_daily_trend, stress, weight):
-    df_list = [calories_burned, step_daily_trend, stress, weight]
+def combine(calories_burned, step_daily_trend, stress, weight, heart_rate):
+    df_list = [calories_burned, step_daily_trend, stress, weight, heart_rate]
     df_merge = reduce(lambda left, right: pd.merge(left, right, on='date', how='outer'), df_list)
     return df_merge
