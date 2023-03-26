@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -45,5 +48,14 @@ public class UserService {
         } catch (Exception e) {};
 
         return user;
+    }
+
+    public Boolean validateDuplicatedNickname(String nickname) {
+        // 중복 O
+        if (userRepository.findByUserNickname(nickname) != null) {
+            return true;
+        }
+        // 중복 X
+        else return false;
     }
 }
