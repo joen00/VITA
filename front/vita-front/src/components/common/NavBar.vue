@@ -1,12 +1,11 @@
 <template lang="pug">
 .bp-header-container(:class='{ sticky: stickyMode }')
   header.bp-header
-    nav.bp-nav(style='justify-content: space-between;')
+    nav.bp-nav
       ul.nav-list
-        ui
-          .a.logo-link(@click='go("/")')
-            img(src="@/assets/VitaLogo-NavBar.png" id="nav-logo")
-          
+        li.a.logo-link(@click='go("/")')
+          img(src="@/assets/VitaLogo-NavBar.png" id="nav-logo")
+
         li.nav-list-item(v-for='m in menu')
           a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
     .bp-account
@@ -223,5 +222,8 @@ export default {
   width: 100px;
   height: 40px;
   margin-top: 5px;
+}
+li {
+  list-style-type : none;
 }
 </style>
