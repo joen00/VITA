@@ -156,7 +156,7 @@ export default {
     methods: {
       getTotalScore(year) {
         // axios.get(this.$store.state.url + 'score/' + year , {
-        axios.get("http://localhost:8083/wearable/user/score/" + year , {
+        axios.get(this.$store.state.url + "score/" + year , {
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
