@@ -29,6 +29,5 @@ public class UserAverage {
     private Time userAverageRem;
     private Time userAverageAwake;
     private Time userAverageDeep;
-
 }
 
