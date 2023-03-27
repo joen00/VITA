@@ -1,9 +1,9 @@
 <template>
     <div id="AdviceContainer">
-        <!-- <div id="AdviceSpeechBubble"> -->
+        <div id="AdviceSpeechBubble">
             <img id="img-doctor" src="@/assets/Doctor.png">
             <div id="advice">{{ Advice }}</div>
-        <!-- </div> -->
+        </div>
     </div>
 </template>
 <script>
@@ -21,7 +21,7 @@ export default {
         background-size : cover;
         max-height: 100%;
         max-width: 100%;
-        padding: 30px;
+        padding: 9% 10% 9% 4%;
         display: flex;
         justify-content : center;
     }
@@ -32,7 +32,7 @@ export default {
     }
     #advice {
         text-align: center;
-        font-weight: 800;
+        font-weight: 600;
         color: #172176;
     }
 </style>

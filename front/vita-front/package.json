@@ -17,6 +17,7 @@
     "hooper": "^0.3.4",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "v-calendar": "^2.4.1",
     "vue": "^2.7.14",
     "vue-apexcharts": "^1.6.2",
     "vue-carousel-3d": "^1.0.1",
