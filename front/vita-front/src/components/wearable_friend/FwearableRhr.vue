@@ -217,11 +217,6 @@ export default {
 </script>
 
 <style>
-#wearable-friend-Rhr {
-  /* margin-top: 10rem; */
-  /* padding-left: 3rem;
-  padding-right: 3rem; */
-}
 #wearable-friend-Rhr-Left {
   width: 70%;
   height: 500px;
