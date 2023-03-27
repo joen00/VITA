@@ -14,5 +14,5 @@ def dayDF(df):
     df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
     df['daily_wearable_muscle'] = df['daily_wearable_muscle'].round(1) # 골격근량
     df['daily_wearable_fat'] = df['daily_wearable_fat'].round(1) # 체지방량
-    df2 = df.groupby('date', as_index=False).mean() # 날짜별 최대값
+    df2 = df.groupby('date', as_index=False).mean() # 날짜별 평균
     return df2

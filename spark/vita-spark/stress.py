@@ -12,5 +12,5 @@ def dayDF(df):
     df.rename(columns = {'score':'daily_wearable_stress', 'start_time':'date'}, inplace=True)
     df = df[['daily_wearable_stress', 'date']]
     df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
-    df2 = df.groupby('date', as_index=False).mean().round(0) # 날짜별 합계    
+    df2 = df.groupby('date', as_index=False).mean().round(0) # 날짜별 평균
     return df2
