@@ -19,7 +19,7 @@
                                             <b-input-group-append><b-button id="dupNicknameCheck" v-on:click="duplicatedNicknameCheck">중복확인</b-button></b-input-group-append>                                   
                                         </b-input-group>
                                         <b-form-invalid-feedback :state="validationNickname">
-                                            {{ valicationNicknameMsg }}
+                                            {{ validationNicknameMsg }}
                                         </b-form-invalid-feedback>
                                         <b-form-valid-feedback :state="validationNickname">
                                             사용 가능한 닉네임입니다.
@@ -139,7 +139,7 @@ import VueHeader from '@/components/common/VueHeader.vue';
 import axios from "axios";
 import { mapGetters } from 'vuex'
 
-// const SERVER_URL = "http://j8b106.p.ssafy.io:8000/users";
+// const SERVER_URL = "http://j8b106.p.ssafy.io:8085/users";
 const SERVER_URL = "http://localhost:8085/users";
 
 export default {
@@ -178,7 +178,7 @@ export default {
             show: true,
             isCheckNickname: false,
             isDupNickname: true,
-            valicationNicknameMsg: ""
+            validationNicknameMsg: ""
         };
     },
 
@@ -187,18 +187,18 @@ export default {
 
         validationNickname() {
             if (this.form.nickname.length > 0) {
-                this.valicationNicknameMsg = '닉네임 중복검사를 해주세요.';
+                this.validationNicknameMsg = '닉네임 중복검사를 해주세요.';
                 if (this.isDupNickname == false && this.isCheckNickname == true) {
-                    this.valicationNicknameMsg = '사용 가능한 닉네임입니다.';
+                    this.validationNicknameMsg = '사용 가능한 닉네임입니다.';
                     return true;
                 }
                 else if (this.isDupNickname == true && this.isCheckNickname == true) { 
-                    this.valicationNicknameMsg = '중복된 닉네임입니다.';
+                    this.validationNicknameMsg = '중복된 닉네임입니다.';
                     return false;
                 }
                 return false;
             }
-            this.valicationNicknameMsg = '닉네임을 입력해주세요.';
+            this.validationNicknameMsg = '닉네임을 입력해주세요.';
             return false;
         },
 
@@ -263,7 +263,7 @@ export default {
                 })
         },
 
-        duplicatedNicknameCheck(event) {
+        duplicatedNicknameCheck() {
             console.log(this.nickname)
             axios
                 .get(SERVER_URL + `/search/nickname?nickname=` + this.form.nickname)

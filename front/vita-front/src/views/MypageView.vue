@@ -153,9 +153,13 @@ export default {
       axios
         .get(
           this.$store.state.serverBaseUrl +
-            `/mypage/user` +
-            `/${this.$store.state.myUserId}`
-        )
+            `/mypage/user`
+        ,
+        {
+            headers: {
+            Authorization: `Bearer ${this.token}`,
+        },
+        })
         .then((response) => {
           console.log(response);
           (this.nickname = response.data.userNickname),
@@ -169,9 +173,12 @@ export default {
       axios
         .get(
           this.$store.state.serverBaseUrl +
-            `/mypage/user/history` +
-            `/${this.$store.state.myUserId}`
-        )
+            `/mypage/user/history`,
+        {
+            headers: {
+            Authorization: `Bearer ${this.token}`,
+        },
+        })
         .then((response) => {
           response.data.map((data) => {
             this.slides.push({
