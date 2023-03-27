@@ -5,6 +5,8 @@ import com.ssafy.vitawearable.entity.UserAverage;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
+
 @Getter
 @Setter
 // 해당 유저의 평균 데이터 Dto
@@ -14,11 +16,11 @@ public class UserAverageDto {
     private int userAverageEnergy;
     private int userAverageRhr;
     private int userAverageStress;
-    private int userAverageSleep;
-    private int userAverageLight;
-    private int userAverageRem;
-    private int userAverageCore;
-    private int userAverageDeep;
+    private Time userAverageSleep;
+    private Time userAverageLight;
+    private Time userAverageRem;
+    private Time userAverageAwake;
+    private Time userAverageDeep;
 
 //    public UserAverageDto(UserAverage userAverage) {
 //        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
