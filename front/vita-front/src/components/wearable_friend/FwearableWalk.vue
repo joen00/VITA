@@ -1,24 +1,37 @@
 <template>
   <div id="FwearableWalkBody">
     <div class="header">
-      <div class="header-title">걸음수</div>
-      <div class="header-content">
-        친구들과 나의 평균 걸음수 기록을 비교해 보여줘요.
+      <ComponentHeader
+        :ComponentHeaderTitle="ComponentHeaderTitle"
+        :ComponentHeaderContent="ComponentHeaderContent"
+      />
+    </div>
+    <div id="wearable-friend-Walk">
+      <div id="wearable-friend-Walk-Left">
+        <div id="wearable-friend-Walk-Left-div">
+          <div id="wearable-friend-Walk-chartdiv"></div>
+        </div>
       </div>
-      <div id="fwWalk">
-          <div id="fwWalkLeft">
-            <div id="chartdiv"></div>
+      <div id="wearable-friend-Walk-Right">
+        <div id="wearable-friend-Walk-rank">
+          <img
+            id="wearable-friend-Walk-rank-img"
+            :src="require(`/public/wearable-friend/fwrank.png`)"
+          />
+          <div id="wearable-friend-Walk-rank-h1">랭킹</div>
+          <div
+            id="wearable-friend-Walk-rank-item"
+            v-for="rank in franks"
+            :key="rank"
+          >
+            {{ rank.id }}
+            <b-avatar
+              variant="info"
+              src="https://placekitten.com/300/300"
+            ></b-avatar>
+            {{ rank.name }}
           </div>
-          <div id="fwWalkRight">
-            <div id="fwWalkrank">
-              <h1>랭킹</h1>
-              <div id="frwalk" v-for="rank in franks" :key="rank">
-                  {{ rank.id }}
-                  <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
-                  {{ rank.name }}
-              </div>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,10 +44,17 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import ComponentHeader from "@/components/common/ComponentHeader.vue";
 
 export default {
+  components: {
+    ComponentHeader,
+  },
   data() {
     return {
+      ComponentHeaderTitle: "걸음수",
+      ComponentHeaderContent:
+        "친구들과 나의 평균 걸음수 기록을 비교해 보여줘요.",
       franks: [
         { id: 1, name: "김뿡1" },
         { id: 2, name: "김뿡2" },
@@ -48,7 +68,7 @@ export default {
     am5.ready(() => {
       // Create root element
       // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-      var root = am5.Root.new("chartdiv");
+      var root = am5.Root.new("wearable-friend-Walk-chartdiv");
 
       // Set themes
       // https://www.amcharts.com/docs/v5/concepts/themes/
@@ -197,43 +217,67 @@ export default {
 </script>
 
 <style>
-
-#FwearableWalkBody{
-  margin-top: 10rem;
-}
-#fwWalk{
-  margin-top: 3rem;
-}
-#fwWalkLeft{
+#wearable-friend-Walk-Left {
   width: 70%;
   height: 500px;
   float: left;
-  /* background-color: aqua; */
+  /*수평 수직 정렬*/
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; /*수평 정렬*/
+  align-items: center;
+  justify-content: center;
 }
-
-#chartdiv {
-  width: 90%;
-  height: 500px;
-  background-color: rgb(253, 254, 255);
-  border-radius: 10%;
-  margin: 0 auto;
+#wearable-friend-Walk-Left-div {
+  width: 80%;
+  height: 90%;
+  float: left;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  /*수평 수직 정렬*/
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; /*수평 정렬*/
+  align-items: center;
+  justify-content: center;
 }
-#fwWalkRight{
+#wearable-friend-Walk-chartdiv {
+  width: 80%;
+  height: 80%;
+  float: left;
+  background: #ffffff;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px; */
+}
+#wearable-friend-Walk-Right {
   width: 30%;
   height: 500px;
   float: left;
   /* background-color: bisque; */
 }
-#fwWalkrank{
+#wearable-friend-Walk-rank {
   box-sizing: border-box;
   width: 250px;
   height: 343px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   margin: 0 auto;
-  margin-top: 24%;
+  margin-top: 20%;
+  margin-left: -5%;
   vertical-align: middle;
+}
+#wearable-friend-Walk-rank-h1 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+#wearable-friend-Walk-rank-img {
+  margin-top: -30px;
+}
+#wearable-friend-Walk-rank-item {
+  font-weight: 600;
+  margin: 0.5rem;
 }
 </style>
