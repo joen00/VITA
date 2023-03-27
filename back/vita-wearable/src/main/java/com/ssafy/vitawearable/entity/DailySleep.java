@@ -28,6 +28,6 @@ public class DailySleep {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private ZonedDateTime dailySleepEnd;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    private LocalTime dailySleepTotal;
+    private int dailySleepTotal;
 
 }
