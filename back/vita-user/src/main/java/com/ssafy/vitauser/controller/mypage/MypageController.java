@@ -66,5 +66,4 @@ public class MypageController {
         mypageService.updateUpload(userId, url);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
-    
 }
