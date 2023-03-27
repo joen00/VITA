@@ -1,9 +1,12 @@
 <template lang="pug">
 .bp-header-container(:class='{ sticky: stickyMode }')
   header.bp-header
-    a.logo-link(@click='go("/")')
-    nav.bp-nav
+    nav.bp-nav(style='justify-content: space-between;')
       ul.nav-list
+        ui
+          .a.logo-link(@click='go("/")')
+            img(src="@/assets/VitaLogo-NavBar.png" id="nav-logo")
+          
         li.nav-list-item(v-for='m in menu')
           a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
     .bp-account
@@ -30,12 +33,9 @@ export default {
     return {
       isOpenAccountDropdown: false,
       menu: [
-        { path: "/", name: "Main" },
-        { path: "/mypage", name: "MyPage" },
+        { path: "/wearable", name: "MyHealth" },
         { path: "/friend", name: "Friend" },
-        { path: "/wearable", name: "Wearable" },
-        { path: "/symptom", name: "Symptom" },
-        { path: "/disease", name: "Disease" }
+        { path: "/mypage", name: "MyPage" }
       ]
     }
   },
@@ -74,11 +74,16 @@ export default {
 <style scoped>
 .bp-header-container {
   color: #fff;
-  background: #47474B;
+  /* background: #47474B; */
+  /* background: #2f2f56; */
+  background: linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
+  /* background: rgb(254, 255, 213); */
   width: 100%;
   height: 10px;
   position: absolute;
   z-index: 1;
+  justify-content: center;
+  display: flex;
 }
 .bp-header-container .bp-header {
   height: 100%;
@@ -100,6 +105,7 @@ export default {
 .bp-header-container .bp-header .bp-nav .nav-list {
   height: 100%;
   display: flex;
+  /* justify-content: center; */
 }
 .bp-header-container .bp-header .bp-nav .nav-list .nav-list-item {
   height: 100%;
@@ -110,7 +116,10 @@ export default {
   line-height: 5px;
   padding: 15px;
   cursor: pointer;
-  color: #fff;
+  color: #FBD30D;
+  font-weight: 900;
+  font-size: larger;
+  text-decoration: none;
 }
 .bp-header-container .bp-header .bp-nav .nav-list .nav-list-item .nav-list-item-link:hover {
   color: var(--theme-ui-colors-link-color, rgb(111, 174, 201));
@@ -139,7 +148,7 @@ export default {
   margin-right: 15px;
   font-size: smaller;
   width: 90px;
-  height: 50%;
+  height: 60%;
   border: 1px solid #3592ba;
   border-radius: 5px;
 }
@@ -209,5 +218,10 @@ export default {
     height: 64px;
     margin: 2.5px 0;
   }
+}
+#nav-logo {
+  width: 100px;
+  height: 40px;
+  margin-top: 5px;
 }
 </style>
