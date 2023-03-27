@@ -29,20 +29,14 @@ public class WeeklyWearable {
     private Float weeklyWearableWeight;
     private Float weeklyWearableMuscle;
     private Float weeklyWearableFat;
-    private int weeklyWearableWeightDay;
     private int weeklyWearableStep;
-    private int weeklyWearableStepDay;
     private Long weeklyWearableEnergy;
-    private int weeklyWearableEnergyDay;
     private int weeklyWearableRhr;
-    private int weeklyWearableRhrDay;
     private int weeklyWearableStress;
-    private int weeklyWearableStressDay;
     private LocalTime weeklyWearableSleep;
     private LocalTime weeklyWearableLight;
     private LocalTime weeklyWearableRem;
     private LocalTime weeklyWearableAwake;
     private LocalTime weeklyWearableDeep;
-    private LocalTime weeklyWearableSleepDay;
 
 }
