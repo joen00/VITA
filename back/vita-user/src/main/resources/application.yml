@@ -2,7 +2,7 @@ server:
   port: 8085
   ssl:
     enabled: true
-    key-store: keystore.p12
+    key-store: ./src/main/resources/keystore.p12
     #    key-store: classpath:keystore.p12(로컬뿐 아닌 개발서버에서도 사용하려면)
     key-store-password: Vita500!
     key-store-type: PKCS12
