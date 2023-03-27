@@ -37,14 +37,6 @@ spring:
             allowedHeaders: "*"
             allowedMethods: "*"
       routes:
-        - id: first
-          uri: http://localhost:8081/
-          predicates:
-            - Path=/first/**
-        - id: second
-          uri: http://j8b106.p.ssafy.io:8082/
-          predicates:
-            - Path=/second/**
         - id: wearable
           uri: http://j8b106.p.ssafy.io:8083/
           predicates:
