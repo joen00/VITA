@@ -1,7 +1,7 @@
 // const BACKEND_PORT = process.env.BACKEND_PORT === null ? '' : `:${process.env.BACKEND_PORT}`
 const BACKEND_PORT = `:8000`
 // const BACKEND_URL = `${location.protocol}//${location.hostname}${BACKEND_PORT}`
-const BACKEND_URL = `http://j8b106.p.ssafy.io:8085` 
+const BACKEND_URL = `https://j8b106.p.ssafy.io:8085` 
 // const FRONTEND_PORT = process.env.FRONTEND_PORT === null ? '' : `:${process.env.FRONTEND_PORT}`
 const FRONTEND_PORT = `:3000`
 const REDIRECT_URI = `${location.protocol}//${location.hostname}${FRONTEND_PORT}/oauth/redirect`
