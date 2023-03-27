@@ -114,7 +114,7 @@ public class ScoreImpl implements Score{
                 mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
         apiAverageDto.setApiAverageRem((int)apiAverageList.stream().
                 mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
-        apiAverageDto.setApiAverageCore((int)apiAverageList.stream().
+        apiAverageDto.setApiAverageAwake((int)apiAverageList.stream().
                 mapToInt(ApiAverage::getApiAverageCore).average().getAsDouble());
         apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().
                 mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
