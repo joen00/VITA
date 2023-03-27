@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Api("웨어러블 체중 컨트롤러 API")
-@RequestMapping("/wearable/user/weight")
+@RequestMapping("/api/wearable/user/weight")
 public class WeightController {
     private final Wearable wearable;
     private final WearablePast wearablePast;

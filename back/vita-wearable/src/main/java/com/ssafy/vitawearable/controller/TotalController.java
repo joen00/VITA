@@ -1,5 +1,6 @@
 package com.ssafy.vitawearable.controller;
 
+
 import com.ssafy.vitawearable.dto.DailyTotalScoreDto;
 import com.ssafy.vitawearable.dto.TotalScoreDto;
 import com.ssafy.vitawearable.dto.TotalScoreYearDto;
@@ -17,7 +18,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/wearable")
+@RequestMapping("/api/wearable")
 public class TotalController {
     private final Wearable wearable;
     private final Score score;

@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Api("웨어러블 활동량 컨트롤러 API")
-@RequestMapping("/wearable/user/energy")
+@RequestMapping("/api/wearable/user/energy")
 public class EnergyController {
     private final Wearable wearable;
     private final WearablePast wearablePast;

@@ -20,7 +20,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @Api("친구 데이터 컨트롤러 API")
-@RequestMapping("/wearable/friend")
+@RequestMapping("/api/wearable/friend")
 public class FriendController {
     private final WearableFriend wearableFriend;
     private final Wearable wearable;

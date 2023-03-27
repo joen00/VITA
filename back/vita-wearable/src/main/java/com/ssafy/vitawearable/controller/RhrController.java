@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Api("웨어러블 심박수 컨트롤러 API")
-@RequestMapping("/wearable/user/rhr")
+@RequestMapping("/api/wearable/user/rhr")
 public class RhrController {
     private final Wearable wearable;
     private final WearablePast wearablePast;

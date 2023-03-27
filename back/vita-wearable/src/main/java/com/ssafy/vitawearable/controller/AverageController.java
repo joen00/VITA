@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Api("평균 데이터 컨트롤러 API")
-@RequestMapping("/wearable/average")
+@RequestMapping("/api/wearable/average")
 public class AverageController {
     private final Wearable wearable;
     private final Score score;
@@ -36,7 +36,7 @@ public class AverageController {
         String userId = wearable.getUserId(token);
         return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
     }
-    // 사고뭉치
+
     // API 전체 평균 데이터 리스트 전체
     @ApiOperation(
             value = "API 전체 평균 데이터 리스트 전체",
