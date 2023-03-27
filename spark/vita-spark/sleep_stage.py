@@ -16,6 +16,10 @@ def dayDF(df):
     df['daily_sleep_end'] = pd.DatetimeIndex(df['daily_sleep_end']) + timedelta(hours=9)
     df['daily_sleep_total'] = df['daily_sleep_end'] - df['daily_sleep_start']
     df['daily_sleep_total'] = df['daily_sleep_total'].apply(timedelta.total_seconds) / 60
+    df = df.replace({'daily_sleep_stage': {40001: 'AWAKE'}})
+    df = df.replace({'daily_sleep_stage': {40002: 'LIGHT'}})
+    df = df.replace({'daily_sleep_stage': {40003: 'DEEP'}})
+    df = df.replace({'daily_sleep_stage': {40004: 'REM'}})
     return df
 
 # 주, 월 데이터 처리를 위한 일 데이터 처리
@@ -28,16 +32,16 @@ def sleepDF(df):
     df3['date'] = df2['daily_sleep_start'].unique()
 
     for index, row in df2.iterrows():
-        if row['daily_sleep_stage'] == 40001:
+        if row['daily_sleep_stage'] == 'AWAKE':
             r_index = df3.loc[df3['date'] == row['daily_sleep_start']].index[0]
             df3.loc[r_index,'daily_wearable_awake'] = row['daily_sleep_total']
-        if row['daily_sleep_stage'] == 40002:
+        if row['daily_sleep_stage'] == 'LIGHT':
             r_index = df3.loc[df3['date'] == row['daily_sleep_start']].index[0]
             df3.loc[r_index,'daily_wearable_light'] = row['daily_sleep_total']
-        if row['daily_sleep_stage'] == 40003:
+        if row['daily_sleep_stage'] == 'DEEP':
             r_index = df3.loc[df3['date'] == row['daily_sleep_start']].index[0]
             df3.loc[r_index,'daily_wearable_deep'] = row['daily_sleep_total']
-        if row['daily_sleep_stage'] == 40004:
+        if row['daily_sleep_stage'] == 'REM':
             r_index = df3.loc[df3['date'] == row['daily_sleep_start']].index[0]
             df3.loc[r_index,'daily_wearable_rem'] = row['daily_sleep_total']
 
