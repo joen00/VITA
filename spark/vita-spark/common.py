@@ -43,37 +43,14 @@ def execute(db_connection, query, df):
     db_connection.commit()
 
 # select
-def select(db_connection, table, userId, df):
-    query = "SELECT count(*) FROM " + table + " WHERE user_id = '" + userId + "' AND date = %s"
+def select(db_connection, table, userId):
+    query = "SELECT max('date') FROM " + table + " WHERE user_id = '" + userId
     
-    resultList = []
-    insertList = []
-    updateList = []
-    list = df.values.tolist()
+    cursor = db_connection.cursor()
+    cursor.execute(query)
+    result = cursor.fetchone()
 
-    for row in list:
-        cursor = db_connection.cursor()
-        cursor.execute(query, row[1])
-        result = cursor.fetchone()
-
-        if result[0] == 0:
-            insertList.append(row)
-        else:
-            updateList.append(row)
-    
-    resultList.append(insertList)
-    resultList.append(updateList)
-
-    return resultList
-
-# insert, update
-def save(db_connection, table, type, userId, df):
-    list = select(db_connection, table, userId, df)
-
-    insertQuery = type.insert(table, userId)
-    execute(db_connection, insertQuery, list[0])
-    updateQuery = type.update(table, userId)
-    execute(db_connection, updateQuery, list[1])
+    return result
 
 # combine df
 def combine(calories_burned, step_daily_trend, stress, weight, heart_rate):
@@ -105,5 +82,6 @@ def avgDF(df):
     df = df.drop('monthly_wearable_weight', axis = 'columns')
     df = df.drop('monthly_wearable_muscle', axis = 'columns')
     df = df.drop('monthly_wearable_fat', axis = 'columns')
+    df = df.drop('date', axis='columns')
     df = df.groupby('user_id', as_index=False).mean().round(1) # 사용자 아이디별 평균
     return df
