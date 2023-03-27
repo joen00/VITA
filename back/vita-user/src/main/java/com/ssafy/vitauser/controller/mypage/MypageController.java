@@ -64,7 +64,7 @@ public class MypageController {
         String url = awsS3Service.uploadFileV1(multipartFile);
         // url update 해줌
         mypageService.updateUpload(userId, url);
-        return new ResponseEntity<String>("FAIL", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
 
 

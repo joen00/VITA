@@ -84,8 +84,7 @@ public class MypageService {
         User user = mypageRepository.findByUserId(userId);
         UserUpload updateUserUpload = userUploadRepository.findByUser(user);
 
-
-        if (user.getUserId() != null){
+        if (updateUserUpload != null){
             updateUserUpload.updateUpload(updateUserUpload.getUserUploadId(), user, url);
         }else {
             UserUploadRequestDto userUploadRequestDto = new UserUploadRequestDto(user, url);
