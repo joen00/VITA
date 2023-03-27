@@ -90,10 +90,12 @@ def periodDF(df, period, userId):
     
     if period == '1W':
         df.rename(columns = {'daily_wearable_stress':'weekly_wearable_stress', 'daily_wearable_rhr':'weekly_wearable_rhr', 'daily_wearable_energy':'weekly_wearable_energy', 'daily_wearable_step':'weekly_wearable_step',
-                             'daily_wearable_weight':'weekly_wearable_weight', 'daily_wearable_muscle':'weekly_wearable_muscle', 'daily_wearable_fat':'weekly_wearable_fat'}, inplace=True)
+                             'daily_wearable_weight':'weekly_wearable_weight', 'daily_wearable_muscle':'weekly_wearable_muscle', 'daily_wearable_fat':'weekly_wearable_fat',
+                             'daily_wearable_sleep':'weekly_wearable_sleep', 'daily_wearable_awake':'weekly_wearable_awake', 'daily_wearable_light':'weekly_wearable_light', 'daily_wearable_deep':'weekly_wearable_deep', 'daily_wearable_rem':'weekly_wearable_rem'}, inplace=True)
     elif period == '1M':
         df.rename(columns = {'daily_wearable_stress':'monthly_wearable_stress', 'daily_wearable_rhr':'monthly_wearable_rhr', 'daily_wearable_energy':'monthly_wearable_energy', 'daily_wearable_step':'monthly_wearable_step',
-                             'daily_wearable_weight':'monthly_wearable_weight', 'daily_wearable_muscle':'monthly_wearable_muscle', 'daily_wearable_fat':'monthly_wearable_fat'}, inplace=True)
+                             'daily_wearable_weight':'monthly_wearable_weight', 'daily_wearable_muscle':'monthly_wearable_muscle', 'daily_wearable_fat':'monthly_wearable_fat',
+                             'daily_wearable_sleep':'monthly_wearable_sleep', 'daily_wearable_awake':'monthly_wearable_awake', 'daily_wearable_light':'monthly_wearable_light', 'daily_wearable_deep':'monthly_wearable_deep', 'daily_wearable_rem':'monthly_wearable_rem'}, inplace=True)
     
     df['user_id'] = userId
     return df

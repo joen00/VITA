@@ -1,4 +1,5 @@
 from flask import Flask
+import pandas as pd
 import glob
 
 import common
@@ -7,6 +8,7 @@ import step_daily_trend
 import calories_burned
 import stress
 import heart_rate
+import sleep_stage
 
 app = Flask(__name__)
 
@@ -15,7 +17,7 @@ def makeDF(type, csv):
     day_df = type.dayDF(df)
     return day_df
 
-def makeDay(file, userId):
+def makeDay(db, file, userId):
     for csv in file:
         if 'weight' in csv:
             weight_list = makeDF(weight, csv)
@@ -27,10 +29,17 @@ def makeDay(file, userId):
             stress_list = makeDF(stress, csv)
         if 'heart_rate' in csv and 'recovery' not in csv:
             heart_rate_list = makeDF(heart_rate, csv)
+        if 'sleep_stage' in csv:
+            sleep_stage_list = makeDF(sleep_stage, csv)
+            sleep_stage_list['user_id'] = userId
+            common.saveDB(db, 'daily_sleep', sleep_stage_list)
 
     day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list)
     day['user_id'] = userId
-    return day
+    common.saveDB(db, 'daily_wearable', day)
+    
+    day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
+    return day_merge
 
 @app.route('/')
 def home():
@@ -45,11 +54,10 @@ def upload(userId):
     files = glob.glob('samsunghealth/*')
     file = glob.glob(files[0] + '/*')
 
-    day = makeDay(file, userId)
+    day = makeDay(db, file, userId)
     week = common.periodDF(day, '1W', userId)
     month = common.periodDF(day, '1M', userId)
 
-    common.saveDB(db, 'daily_wearable', day)
     common.saveDB(db, 'weekly_wearable', week)
     common.saveDB(db, 'monthly_wearable', month)
 
