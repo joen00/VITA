@@ -19,23 +19,23 @@
               <div id="wearable-profile-info">
                 <div class="wearable-profile-info-p">
                   <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>&nbsp;&nbsp;
-                  {{ totalscore[2].totalScoreEnergy }}
+                  {{ lastTotalscore.totalScoreEnergy }}
                 </div>
                 <div class="wearable-profile-info-p">
                   <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>&nbsp;&nbsp;
-                  {{ totalscore[2].totalScoreRhr }}
+                  {{ lastTotalscore.totalScoreRhr }}
                 </div>
                 <div class="wearable-profile-info-p">
                   <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>&nbsp;&nbsp;
-                  {{ totalscore[2].totalScoreSleep }}
+                  {{ lastTotalscore.totalScoreSleep }}
                 </div>
                 <div class="wearable-profile-info-p">
                   <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>&nbsp;&nbsp;
-                  {{ totalscore[2].totalScoreStep }}
+                  {{ lastTotalscore.totalScoreStep }}
                 </div>
                 <div class="wearable-profile-info-p">
                   <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>&nbsp;&nbsp;
-                  {{ totalscore[2].totalScoreStress }}
+                  {{ lastTotalscore.totalScoreStress }}
                 </div>
                 <!-- <div class="wearable-profile-info-p">
                   <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>&nbsp;&nbsp;
@@ -56,7 +56,7 @@
                           font-size: 100px;
                           /* line-height: 180px; */
                           /* text-transform: uppercase; */
-                          color: #5B5A63;"> {{ totalscore[2].totalScore }} </div>
+                          color: #5B5A63;"> {{ lastTotalscore.totalscore }} </div>
               <div style="font-size: 14px;
                           font-weight: 800;
                           color: #5B5A63;
@@ -120,6 +120,7 @@ export default {
   },
   data: () => ({
     totalscore:[],
+    lastTotalscore:{},
     VueHeaderTitle: "마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
     series: [
@@ -127,10 +128,6 @@ export default {
         name: "종합 점수",
         data: [],
       },
-      // {
-      //   name: "체중",
-      //   data: [10, 80, 90, 70, 50, 70],
-      // }
     ],
     chartOptions: {
         chart: {
@@ -196,11 +193,13 @@ export default {
   },
   methods: {
         async totalScore() {
-          await axios.get('https://j8b106.p.ssafy.io:8000/wearable/' + 'score', {
+          await axios.get('http://j8b106.p.ssafy.io:8000/wearable/' + 'score', {
+            // await axios.get('http://localhost:8083/wearable/' + 'score', {
         headers: {'Content-Type': 'application/json',
                   'token': this.$store.state.test_token},
         }).then(res => {
           this.totalscore = res.data
+          this.lastTotalscore = res.data[this.totalScore.length - 1]
         }) 
       this.series[0].data = this.totalscore.map(function (e) { 
         return e.totalScore;

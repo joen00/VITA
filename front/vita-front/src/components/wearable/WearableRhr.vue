@@ -54,6 +54,7 @@
           ComponentHeaderTitle: "심박변이",
           ComponentHeaderContent: "나의 심박변이 기록을 보여줘요.",
           data: [],
+          date:[],
           past: null,
           componentKey: 0,
     }),
