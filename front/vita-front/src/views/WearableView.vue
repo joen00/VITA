@@ -193,7 +193,7 @@ export default {
   },
   methods: {
         async totalScore() {
-          await axios.get('https://j8b106.p.ssafy.io:8000/wearable/' + 'score', {
+          await axios.get('https://j8b106.p.ssafy.io:8083/wearable/' + 'score', {
             // await axios.get('http://localhost:8083/wearable/' + 'score', {
         headers: {'Content-Type': 'application/json',
                   'token': this.$store.state.test_token},
