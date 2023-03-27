@@ -1,12 +1,12 @@
 server:
   port: 8084
-#  ssl:
-#    enabled: true
-#    key-store: classpath:keystore.p12
-#    #    key-store: classpath:keystore.p12(로컬뿐 아닌 개발서버에서도 사용하려면)
-#    key-store-password: Vita500!
-#    key-store-type: PKCS12
-#    key-alias: bns-ssl
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    #    key-store: classpath:keystore.p12(로컬뿐 아닌 개발서버에서도 사용하려면)
+    key-store-password: Vita500!
+    key-store-type: PKCS12
+    key-alias: bns-ssl
 
 
 spring:
@@ -14,7 +14,7 @@ spring:
     name: friend
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j8b106.p.ssafy.io:3306/vita?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://j8b106.p.ssafy.io:3306/vita?serverTimezone=Asia/Seoul&useSSL=true
     username: vita
     password: Vita500!
   mvc:
