@@ -1,10 +1,8 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.DailyTotalScore;
-import com.ssafy.vitawearable.dto.SleepPastAndNowDto;
+import com.ssafy.vitawearable.dto.DailyTotalScoreDto;
 import com.ssafy.vitawearable.dto.TotalScoreDto;
-import com.ssafy.vitawearable.entity.TotalScore;
-import com.ssafy.vitawearable.repo.TotalScoreRepo;
+import com.ssafy.vitawearable.dto.TotalScoreYearDto;
 import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
 import io.swagger.annotations.ApiOperation;
@@ -42,11 +40,11 @@ public class TotalController {
     @ApiOperation(
             value = "연도별 데일리 종합 점수 데이터 요청",
             notes = "userId를 통해 연도별 데일리 종합 점수를 json 형태로 반환한다",
-            response = DailyTotalScore.class,
+            response = DailyTotalScoreDto.class,
             responseContainer = "List"
     )
     @GetMapping("/user/score/{year}")
-    public ResponseEntity<List<DailyTotalScore>> totalDailyScore(@RequestHeader("token") String token, @PathVariable int year) {
+    public ResponseEntity<List<TotalScoreYearDto>> totalDailyScore(@RequestHeader("token") String token, @PathVariable int year) {
         String userId = wearable.getUserId(token);
         return new ResponseEntity<>(score.yearTotalScore(userId,year),HttpStatus.valueOf(200));
     }

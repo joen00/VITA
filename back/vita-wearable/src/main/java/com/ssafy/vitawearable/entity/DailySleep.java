@@ -14,29 +14,20 @@ import java.time.ZonedDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "monthly_wearable")
-public class MonthlyWearable {
-
+@Table(name = "daily_sleep")
+public class DailySleep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long monthlyWearableId;
+    private Long dailySleepId;
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @CreationTimestamp
+    private String dailySleepStage;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private ZonedDateTime date;
-    private Float monthlyWearableWeight;
-    private Float monthlyWearableMuscle;
-    private Float monthlyWearableFat;
-    private int monthlyWearableStep;
-    private Long monthlyWearableEnergy;
-    private int monthlyWearableRhr;
-    private int monthlyWearableStress;
-    private LocalTime monthlyWearableSleep;
-    private LocalTime monthlyWearableLight;
-    private LocalTime monthlyWearableRem;
-    private LocalTime monthlyWearableAwake;
-    private LocalTime monthlyWearableDeep;
+    private ZonedDateTime dailySleepStart;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private ZonedDateTime dailySleepEnd;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    private LocalTime dailySleepTotal;
 
 }

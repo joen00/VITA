@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 // 일일 총합 점수 Dto
-public class DailyTotalScore {
+public class DailyTotalScoreDto {
     private int dailyWearableScore;
     private ZonedDateTime date;
 }

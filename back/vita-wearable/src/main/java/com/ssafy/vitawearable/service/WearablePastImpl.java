@@ -10,8 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.time.LocalTime;
+import java.time.Period;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -265,22 +269,32 @@ public class WearablePastImpl implements WearablePast {
                         .findFirst().get().getMonthlyWearableSleep());
 
         // 이번 년도 값 평균 구해서 넣어주기
-        sleepPastAndNowDto.setYearNowWearableSleep(
-                (long)monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear())
-                        .map(MonthlyWearable::getMonthlyWearableSleep)
-                        .mapToLong(num -> num)
-                        .summaryStatistics()
-                        .getAverage());
+        List<LocalTime> yearNow = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear())
+                .map(MonthlyWearable::getMonthlyWearableSleep)
+                .collect(Collectors.toList());
+        LocalTime total = LocalTime.of(0,0,0);
+        for (LocalTime t:yearNow) {
+            total = total.plusHours(t.getHour())
+                            .plusMinutes(t.getMinute());
+        }
+        sleepPastAndNowDto.setYearNowWearableSleep(total);
 
         // 저번 년도 값 평균 구해서 넣어주기
-        sleepPastAndNowDto.setYearPastWearableSleep(
-                (long)monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusYears(1).getYear())
-                        .map(MonthlyWearable::getMonthlyWearableSleep)
-                        .mapToLong(num -> num)
-                        .summaryStatistics()
-                        .getAverage());
+//        sleepPastAndNowDto.setYearPastWearableSleep(
+//                (long)monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusYears(1).getYear())
+//                        .map(MonthlyWearable::getMonthlyWearableSleep)
+        List<LocalTime> yearPast = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusYears(1).getYear())
+                .map(MonthlyWearable::getMonthlyWearableSleep)
+                .collect(Collectors.toList());
+        total = LocalTime.of(0,0,0);
+        for (LocalTime t:yearPast) {
+            total = total.plusHours(t.getHour())
+                    .plusMinutes(t.getMinute());
+        }
+        sleepPastAndNowDto.setYearPastWearableSleep(total);
 
         return sleepPastAndNowDto;
     }

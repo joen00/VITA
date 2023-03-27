@@ -32,11 +32,6 @@ public class DailyWearable {
     private int dailyWearableEnergy;
     private int dailyWearableRhr;
     private int dailyWearableStress;
-    private Long dailyWearableSleep;
-    private int dailyWearableLight;
-    private int dailyWearableRem;
-    private int dailyWearableCore;
-    private int dailyWearableDeep;
     private int dailyWearableScore;
 
 }

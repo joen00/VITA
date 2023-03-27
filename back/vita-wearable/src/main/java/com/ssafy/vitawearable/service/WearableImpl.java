@@ -25,6 +25,7 @@ public class WearableImpl implements Wearable {
     private final DailyWearableRepo dailyWearableRepo;
     private final MonthlyWearableRepo monthlyWearableRepo;
     private final WeeklyWearableRepo weeklyWearableRepo;
+    private final DailySleepRepo dailySleepRepo;
     private final ModelMapper mapper = new ModelMapper();
 
     // 걸음수 달별
@@ -146,12 +147,11 @@ public class WearableImpl implements Wearable {
     // 수면 일별
     @Override
     public List<SleepDailyDto> sleepDaily(String userId) {
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
+        List<DailySleep> dailyWearables = dailySleepRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, SleepDailyDto.class))
-                .sorted(Comparator.comparing(SleepDailyDto::getDate))
+                .sorted(Comparator.comparing(SleepDailyDto::getDailySleepStart))
                 .collect(Collectors.toList());
-
     }
 
     // 스트레스 달별

@@ -1,9 +1,6 @@
 package com.ssafy.vitawearable.service;
 
-import com.ssafy.vitawearable.dto.ApiAverageDto;
-import com.ssafy.vitawearable.dto.DailyTotalScore;
-import com.ssafy.vitawearable.dto.TotalScoreDto;
-import com.ssafy.vitawearable.dto.UserAverageDto;
+import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.entity.ApiAverage;
 import com.ssafy.vitawearable.entity.DailyWearable;
 import com.ssafy.vitawearable.entity.TotalScore;
@@ -14,8 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,7 +31,13 @@ public class ScoreImpl implements Score{
     public List<TotalScoreDto> totalScore(String userId) {
         mapper.getConfiguration().setAmbiguityIgnored(true);
         List<TotalScore> totalScoreList = totalScoreRepo.findByUser_UserId(userId);
+        int skipCount = 0;
+        if (totalScoreList.size() > 5) {
+            skipCount = totalScoreList.size() - 5;
+        }
         List<TotalScoreDto> totalScoreDtoList = totalScoreList.stream()
+                .sorted(Comparator.comparing(TotalScore::getDate))
+                .skip(skipCount)
                 .map(totalScore -> mapper.map(totalScore, TotalScoreDto.class))
                 .collect(Collectors.toList());
         // totalScore 구하기
@@ -47,13 +51,29 @@ public class ScoreImpl implements Score{
     }
 
     // 연도별 데일리 종합 점수 반환
-    public List<DailyTotalScore> yearTotalScore(String userId, int year) {
+    public List<TotalScoreYearDto> yearTotalScore(String userId, int year) {
         mapper.getConfiguration().setAmbiguityIgnored(true);
-        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
-        return dailyWearables.stream()
+        List<TotalScoreYearDto> totalScoreYearDtoList = new ArrayList<TotalScoreYearDto>();
+        for (int i=1; i < 13; i++) { totalScoreYearDtoList.add(new TotalScoreYearDto(i)); }
+        List<DailyTotalScoreDto> dailyWearablesDtoList = dailyWearableRepo.findByUser_UserId(userId).stream()
                 .filter(daily -> daily.getDate().getYear() == year)
-                .map(daily -> mapper.map(daily, DailyTotalScore.class))
+                .sorted(Comparator.comparing(DailyWearable::getDate))
+                .map(daily -> mapper.map(daily, DailyTotalScoreDto.class))
                 .collect(Collectors.toList());
+        for (DailyTotalScoreDto data:dailyWearablesDtoList) {
+            int month = data.getDate().getMonthValue();
+            Map<String,Integer> xy = new HashMap<>();
+//            totalScoreYearDtoList.get(month-1).getData().;
+            xy.put("x",data.getDate().getDayOfMonth());
+            xy.put("y",data.getDailyWearableScore());
+            totalScoreYearDtoList.get(month-1).getData().add(xy);
+        }
+        // 비어있는 날짜 넣어주기
+//        for (TotalScoreYearDto data:totalScoreYearDtoList) {
+//            data.getData().
+//        }
+
+        return totalScoreYearDtoList;
     }
 
 
@@ -61,6 +81,8 @@ public class ScoreImpl implements Score{
     @Override
     public UserAverageDto userAverage(String userId) {
         UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(0);
+        UserAverageDto userAverageDto = mapper.map(userAverage, UserAverageDto.class);
+        userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
         return mapper.map(userAverage, UserAverageDto.class);
     }
 
@@ -78,15 +100,24 @@ public class ScoreImpl implements Score{
     public ApiAverageDto apiTotalAverage() {
         List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
         ApiAverageDto apiAverageDto = new ApiAverageDto();
-        apiAverageDto.setApiAverageStep((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStep).average().getAsDouble());
-        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
-        apiAverageDto.setApiAverageRhr((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-        apiAverageDto.setApiAverageStress((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-        apiAverageDto.setApiAverageSleep((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleep).average().getAsDouble());
-        apiAverageDto.setApiAverageLight((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
-        apiAverageDto.setApiAverageRem((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
-        apiAverageDto.setApiAverageCore((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageCore).average().getAsDouble());
-        apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
+        apiAverageDto.setApiAverageStep((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageStep).average().getAsDouble());
+        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
+        apiAverageDto.setApiAverageRhr((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
+        apiAverageDto.setApiAverageStress((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
+        apiAverageDto.setApiAverageSleep((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageSleep).average().getAsDouble());
+        apiAverageDto.setApiAverageLight((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
+        apiAverageDto.setApiAverageRem((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
+        apiAverageDto.setApiAverageCore((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageCore).average().getAsDouble());
+        apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().
+                mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
         return apiAverageDto;
     }
 
@@ -98,7 +129,4 @@ public class ScoreImpl implements Score{
                 .filter(i -> i.getSex().equals(userSex) && i.getAge() == userAge).collect(Collectors.toList()).get(0);
         return mapper.map(apiAverage, ApiAverageDto.class);
     }
-
-
-
 }

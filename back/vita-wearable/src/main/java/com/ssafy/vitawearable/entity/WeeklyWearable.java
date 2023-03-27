@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -36,11 +38,11 @@ public class WeeklyWearable {
     private int weeklyWearableRhrDay;
     private int weeklyWearableStress;
     private int weeklyWearableStressDay;
-    private Long weeklyWearableSleep;
-    private int weeklyWearableLight;
-    private int weeklyWearableRem;
-    private int weeklyWearableCore;
-    private int weeklyWearableDeep;
-    private int weeklyWearableSleepDay;
+    private LocalTime weeklyWearableSleep;
+    private LocalTime weeklyWearableLight;
+    private LocalTime weeklyWearableRem;
+    private LocalTime weeklyWearableAwake;
+    private LocalTime weeklyWearableDeep;
+    private LocalTime weeklyWearableSleepDay;
 
 }

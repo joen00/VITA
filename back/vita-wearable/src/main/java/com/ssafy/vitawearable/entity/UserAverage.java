@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Time;
 
 @Entity
 @Getter
@@ -20,20 +21,14 @@ public class UserAverage {
     @JoinColumn(name = "user_id")
     private User user;
     private int userAverageStep;
-    private int userAverageStepDay;
     private int userAverageEnergy;
-    private int userAverageEnergyDay;
     private int userAverageRhr;
-    private int userAverageRhrDay;
     private int userAverageStress;
-    private int userAverageStressDay;
-    private Long userAverageSleep;
-    private int userAverageSleepDay;
-    private int userAverageLight;
-    private int userAverageRem;
-    private int userAverageCore;
-    private int userAverageDeep;
-    private int userAverageStageDay;
+    private Time userAverageSleep;
+    private Time userAverageLight;
+    private Time userAverageRem;
+    private Time userAverageAwake;
+    private Time userAverageDeep;
 
 }
 

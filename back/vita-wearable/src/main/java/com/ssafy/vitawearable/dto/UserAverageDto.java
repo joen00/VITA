@@ -1,5 +1,6 @@
 package com.ssafy.vitawearable.dto;
 
+import com.ssafy.vitawearable.entity.User;
 import com.ssafy.vitawearable.entity.UserAverage;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Setter
 // 해당 유저의 평균 데이터 Dto
 public class UserAverageDto {
+    private String userNickname;
     private int userAverageStep;
     private int userAverageEnergy;
     private int userAverageRhr;

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -45,8 +46,9 @@ public class FriendController {
             response = UserAverageDto.class,
             responseContainer = "List"
     )
-    @GetMapping("/all")
+    @PostMapping("/all")
     public ResponseEntity<List<UserAverageDto>> friendAverage(@RequestBody List<String> friendList) {
+        System.out.println(friendList);
         return new ResponseEntity<>(score.friendAverage(friendList), HttpStatus.valueOf(200));
     }
 

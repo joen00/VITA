@@ -1,9 +1,6 @@
 package com.ssafy.vitawearable.service;
 
-import com.ssafy.vitawearable.dto.ApiAverageDto;
-import com.ssafy.vitawearable.dto.DailyTotalScore;
-import com.ssafy.vitawearable.dto.TotalScoreDto;
-import com.ssafy.vitawearable.dto.UserAverageDto;
+import com.ssafy.vitawearable.dto.*;
 
 import java.util.List;
 
@@ -13,7 +10,7 @@ public interface Score {
     List<TotalScoreDto> totalScore(String userId);
 
     // 연도별 데일리 종합 점수 반환
-    List<DailyTotalScore> yearTotalScore(String userId, int year);
+    List<TotalScoreYearDto> yearTotalScore(String userId, int year);
 
     // 유저 평균값 반환
     UserAverageDto userAverage(String userId);
