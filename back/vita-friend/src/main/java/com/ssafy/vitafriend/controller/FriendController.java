@@ -43,25 +43,39 @@ public class FriendController {
     }
 
     // 친구 목록 GET
-    @GetMapping
+    @GetMapping(value = {"", "/{nickname}"})
     @ApiOperation(value = "친구목록 조회", notes = "자신이 가지고 있는 친구목록을 조회합니다.")
     @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
-    public ResponseEntity<?> friendList(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> friendList(@RequestHeader HttpHeaders headers, @PathVariable(value = "nickname", required = false) String nickname) {
         try {
             // 친구를 담을 리스트를 <친구리스트 부모 클래스 형>으로 선언
             List<UserInfoDto> myFriendList = new ArrayList<>();
 
-            // header에서 받은 userId에 해당하는 유저의 받은 친구, 보낸 친구를 각각 리스트에 담기
-            List<?> ReceivingFriendList = friendService.getReceivingFriendList(headers.getFirst("userID"));
-            List<?> SendingFriendList = friendService.getSendingFriendList(headers.getFirst("userID"));
-            for(Object
-                    friend : SendingFriendList) {
-                myFriendList.add((UserInfoDto) friend);
+            if (nickname == null) {
+                // header에서 받은 userId에 해당하는 유저의 받은 친구, 보낸 친구를 각각 리스트에 담기
+                List<?> ReceivingFriendList = friendService.getReceivingFriendList(headers.getFirst("userID"));
+                List<?> SendingFriendList = friendService.getSendingFriendList(headers.getFirst("userID"));
+                for(Object
+                        friend : SendingFriendList) {
+                    myFriendList.add((UserInfoDto) friend);
+                }
+                for(Object
+                        friend : ReceivingFriendList) {
+                    myFriendList.add((UserInfoDto) friend);
+                }
+            } else {
+                List<?> ReceivingFriendList = friendService.getReceivingFriendListLike(headers.getFirst("userID"), nickname);
+                List<?> SendingFriendList = friendService.getSendingFriendListLike(headers.getFirst("userID"), nickname);
+                for(Object
+                        friend : SendingFriendList) {
+                    myFriendList.add((UserInfoDto) friend);
+                }
+                for(Object
+                        friend : ReceivingFriendList) {
+                    myFriendList.add((UserInfoDto) friend);
+                }
             }
-            for(Object
-                    friend : ReceivingFriendList) {
-                myFriendList.add((UserInfoDto) friend);
-            }
+
             if (myFriendList != null && !myFriendList.isEmpty()) {
                 return ResponseEntity.ok().body(myFriendList);
             } else {
@@ -73,7 +87,7 @@ public class FriendController {
         }
     }
 
-    // 친구 요청 수락 POST
+    // 친구 요청 보내기 POST
     @PostMapping("/apply")
     @ApiOperation(value = "친구 신청 보내기", notes = "친구 신청을 보냅니다.")
     @ApiImplicitParams({
@@ -141,17 +155,23 @@ public class FriendController {
     }
    
     // 친구 신청 검색(친구로 등록이 안되어 있는 유저만 모두 보여주기) GET
-    @GetMapping("/apply/{nickname}")
+    @GetMapping(value = {"/apply", "/apply/{nickname}"})
     @ApiOperation(value = "친구 검색", notes = "아직 친구로 등록되지 않은 사용자 목록을 조회합니다.")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "nickname", value = "검색할 닉네임", dataType = "String", paramType = "path", example = "홍길동")
     })
-    public ResponseEntity<?> searchFriendList(@RequestHeader HttpHeaders headers, @PathVariable("nickname") String nickname) {
+    public ResponseEntity<?> searchFriendList(@RequestHeader HttpHeaders headers, @PathVariable(value = "nickname", required = false) String nickname) {
         try {
-
+            List<FriendSearchMapping> usersList = new ArrayList<>();
             String getUserId = headers.getFirst("userID");
-            List<FriendSearchMapping> usersList = friendService.getSearchFriendList(getUserId, nickname);
+            if (nickname == null) {
+                usersList = friendService.getSearchFriendList(getUserId);
+                System.out.println("--------------------------------------");
+                System.out.println(usersList);
+            } else {
+                usersList = friendService.getSearchFriendListLike(getUserId, nickname);
+            }
 
             // 목록에서 자신을 제외
             usersList.removeIf(users -> users.getUser_Id().equals(getUserId));

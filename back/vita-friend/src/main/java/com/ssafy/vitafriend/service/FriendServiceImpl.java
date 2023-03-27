@@ -45,6 +45,21 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
+    public List<FriendReceivingListDto> getReceivingFriendList(String userId) {
+        return friendRepository.findByFriendReceivingUser_userIdAndFriendStatus(userId, "accepted");
+    }
+
+    @Override
+    public List<FriendSendingListDto> getSendingFriendListLike(String userId, String nickname) {
+        return friendRepository.findByFriendSendingUser_userIdAndFriendStatusAndFriendReceivingUser_userNicknameContains(userId, "accepted", nickname);
+    }
+
+    @Override
+    public List<FriendReceivingListDto> getReceivingFriendListLike(String userId, String nickname) {
+        return friendRepository.findByFriendReceivingUser_userIdAndFriendStatusAndFriendSendingUser_userNicknameContains(userId, "accepted", nickname);
+    }
+
+    @Override
     public List<?> getFriendRankList(String userId, String scoreType) {
 
         List<FriendTotalRankDto> myFriendRankList = new ArrayList<>();
@@ -130,18 +145,18 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
-    public List<FriendReceivingListDto> getReceivingFriendList(String userId) {
-        return friendRepository.findByFriendReceivingUser_userIdAndFriendStatus(userId, "accepted");
-    }
-
-    @Override
     public List<FriendReceivingListDto> getApplyingFriendList(String userId) {
         return friendRepository.findByFriendReceivingUser_userIdAndFriendStatus(userId, "applied");
     }
 
     @Override
-    public List<FriendSearchMapping> getSearchFriendList(String userId, String userNickname) {
-        return friendRepository.getFriendSearchList(userId, userNickname);
+    public List<FriendSearchMapping> getSearchFriendListLike(String userId, String userNickname) {
+        return friendRepository.getFriendSearchListLike(userId, userNickname);
+    }
+
+    @Override
+    public List<FriendSearchMapping> getSearchFriendList(String userId) {
+        return friendRepository.getFriendSearchList(userId);
     }
 
 
