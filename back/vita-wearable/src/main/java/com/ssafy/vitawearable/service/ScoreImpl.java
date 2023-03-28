@@ -89,7 +89,7 @@ public class ScoreImpl implements Score{
     @Override
     public List<UserAverageDto> friendAverage(List<String> friendIdList) {
         return friendIdList.stream()
-                .map(userId -> userAverageRepo.findByUser_UserId(userId).get(0))
+                .map(userId -> userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1))
                 .map(m -> mapper.map(m,UserAverageDto.class))
                 .collect(Collectors.toList());
 

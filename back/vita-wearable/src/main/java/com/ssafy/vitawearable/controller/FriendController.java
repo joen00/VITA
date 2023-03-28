@@ -48,7 +48,6 @@ public class FriendController {
     )
     @PostMapping("/all")
     public ResponseEntity<List<UserAverageDto>> friendAverage(@RequestBody List<String> friendList) {
-        System.out.println(friendList);
         return new ResponseEntity<>(score.friendAverage(friendList), HttpStatus.valueOf(200));
     }
 
