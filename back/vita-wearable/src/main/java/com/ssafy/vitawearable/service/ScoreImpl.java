@@ -80,7 +80,7 @@ public class ScoreImpl implements Score{
     // 해당 유저 평균값 구하기
     @Override
     public UserAverageDto userAverage(String userId) {
-        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(0);
+        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1);
         UserAverageDto userAverageDto = mapper.map(userAverage, UserAverageDto.class);
         userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
         return mapper.map(userAverage, UserAverageDto.class);
