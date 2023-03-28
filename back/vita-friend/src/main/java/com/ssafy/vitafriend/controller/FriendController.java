@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/friend")
+@RequestMapping("/api/friend")
 @Api(value = "비타프렌즈 API")
 public class FriendController {
     @Autowired
