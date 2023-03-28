@@ -58,9 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
             http
+                    .csrf().disable() // csrf 미사용
                     .cors()
                 .and()
-                    .csrf().disable() // csrf 미사용
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션을 사용하지 않음
                 .and()
@@ -156,21 +156,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /*
     * Cors 설정
     * */
-//    @Bean
-//    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
-//        UrlBasedCorsConfigurationSource corsConfigSource = new UrlBasedCorsConfigurationSource();
-//
-//        CorsConfiguration corsConfig = new CorsConfiguration();
-//        corsConfig.setAllowedHeaders(Arrays.asList(corsProperties.getAllowedHeaders().split(",")));
-//        corsConfig.setAllowedMethods(Arrays.asList(corsProperties.getAllowedMethods().split(",")));
-//        corsConfig.setAllowedOrigins(Arrays.asList(corsProperties.getAllowedOrigins().split(",")));
-//        corsConfig.setAllowCredentials(true);
-//        corsConfig.setMaxAge(corsConfig.getMaxAge());
-//
-//        corsConfigSource.registerCorsConfiguration("/**", corsConfig);
-//        return corsConfigSource;
-//    }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
