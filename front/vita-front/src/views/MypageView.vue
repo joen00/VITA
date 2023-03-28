@@ -22,7 +22,9 @@
               <b-row class="item" v-for="info in UserInfo" :key="info">
                 <b-col cols="3" class="icon">
                   <b-row
-                    ><img id="item-img" :src="require(`/public/user/${info.attr}.png`)"
+                    ><img
+                      id="item-img"
+                      :src="require(`/public/user/${info.attr}.png`)"
                   /></b-row>
                 </b-col>
                 <b-col cols="9" class="data">
@@ -49,7 +51,9 @@
         <b-col class="right">
           <b-row>
             <b-col id="btn-fileupload"
-              ><b-button class="btn-fileupload d-inline-flex"
+              ><b-button
+                class="btn-fileupload d-inline-flex"
+                @click="$router.push(`/fileupload`)"
                 >파일 업로드 하러 가기</b-button
               ></b-col
             >
@@ -114,10 +118,10 @@ export default {
     nickname: `뿡뿡 아영`,
     gender: "female",
     UserInfo: [
-      { attr: "weight", data: '40.0kg', desc: "체중" },
-      { attr: "gender", data: '여자', desc: "성별" },
-      { attr: "age", data: '10세', desc: "나이" },
-      { attr: "height", data: '180.2cm', desc: "키" },
+      { attr: "weight", data: "40.0kg", desc: "체중" },
+      { attr: "gender", data: "여자", desc: "성별" },
+      { attr: "age", data: "10세", desc: "나이" },
+      { attr: "height", data: "180.2cm", desc: "키" },
     ],
     componentKey: 0,
     slides: [
@@ -156,14 +160,10 @@ export default {
     },
     getUserInfo() {
       axios
-        .get(
-          this.$store.state.serverBaseUrl +
-            `/users/mypage`
-        ,
-        {
-            headers: {
+        .get(this.$store.state.serverBaseUrl + `/users/mypage`, {
+          headers: {
             Authorization: `Bearer ${this.token}`,
-        },
+          },
         })
         .then((response) => {
           console.log(response);
@@ -176,13 +176,10 @@ export default {
     },
     getUserHistory() {
       axios
-        .get(
-          this.$store.state.serverBaseUrl +
-            `/users/mypage/history`,
-        {
-            headers: {
+        .get(this.$store.state.serverBaseUrl + `/users/mypage/history`, {
+          headers: {
             Authorization: `Bearer ${this.token}`,
-        },
+          },
         })
         .then((response) => {
           response.data.map((data) => {
