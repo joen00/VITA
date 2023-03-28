@@ -54,11 +54,11 @@ import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 
 // const SERVER_URL = "http://localhost:8080/friend";
-const SERVER_URL = "https://j8b106.p.ssafy.io:8000/friend";
+// const SERVER_URL = "https://j8b106.p.ssafy.io:8000/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 2715879100;
+// const MY_USER_ID = 2715879100;
 
 export default {
   name: "FriendView",
@@ -84,9 +84,9 @@ export default {
   methods: {
     getFriendTotalRankList() {
       axios
-        .get(SERVER_URL + `/rank/total`, {
+        .get(this.$store.state.serverBaseUrl + `/friend` + `/rank/total`, {
           headers: {
-            userID: MY_USER_ID,
+            userID: this.$store.state.myUserId,
           },
         })
         .then((response) => {
@@ -102,95 +102,9 @@ export default {
           });
         });
     },
-
-    // getFriendEnergyRankList() {
-    //   axios
-    //     .get(SERVER_URL + `/rank/step`, {
-    //       headers: {
-    //         userID: MY_USER_ID,
-    //       },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       var i = 0;
-    //       response.data.map((data) => {
-    //         i++;
-    //         this.energyRanks.push({
-    //           id: i,
-    //           name: data.user_nickname,
-    //           score: data.total_score,
-    //         });
-    //       });
-    //     });
-    // },
-    // getFriendRhrRankList() {
-    //   axios
-    //     .get(SERVER_URL + `/rank/rhr`, {
-    //       headers: {
-    //         userID: MY_USER_ID,
-    //       },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       var i = 0;
-    //       response.data.map((data) => {
-    //         i++;
-    //         this.heartRateRanks.push({
-    //           id: i,
-    //           name: data.user_nickname,
-    //           score: data.total_score,
-    //         });
-    //       });
-    //     });
-    // },
-    // getFriendStressRankList() {
-    //   axios
-    //     .get(SERVER_URL + `/rank/stress`, {
-    //       headers: {
-    //         userID: MY_USER_ID,
-    //       },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       var i = 0;
-    //       response.data.map((data) => {
-    //         i++;
-    //         this.stressRanks.push({
-    //           id: i,
-    //           name: data.user_nickname,
-    //           score: data.total_score,
-    //         });
-    //       });
-    //     });
-    // },
-    // getFriendSleepRankList() {
-    //   axios
-    //     .get(SERVER_URL + `/rank/sleep`, {
-    //       headers: {
-    //         userID: MY_USER_ID,
-    //       },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //       var i = 0;
-    //       response.data.map((data) => {
-    //         i++;
-    //         this.sleepRanks.push({
-    //           id: i,
-    //           name: data.user_nickname,
-    //           score: data.total_score,
-    //         });
-    //       });
-    //     });
-    // },
   },
   created() {
     this.getFriendTotalRankList();
-    // this.getFriendStepRankList();
-    // this.getFriendEnergyRankList();
-    // this.getFriendRhrRankList();
-    // this.getFriendStressRankList();
-    // this.getFriendSleepRankList();
   },
 };
 </script>

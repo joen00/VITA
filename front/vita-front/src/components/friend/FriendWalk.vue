@@ -13,11 +13,11 @@
 <script>
 import axios from "axios";
 // const SERVER_URL = "http://localhost:8080/friend";
-const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
+// const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 2715879100;
+// const MY_USER_ID = 2715879100;
 
 export default {
   name: "FriendWalk",
@@ -30,9 +30,9 @@ export default {
   methods: {
     getFriendStepRankList() {
       axios
-        .get(SERVER_URL + `/rank/step`, {
+        .get(this.$store.state.serverBaseUrl + `/friend` + `/rank/step`, {
           headers: {
-            userID: MY_USER_ID,
+            userID: this.$store.state.myUserId,
           },
         })
         .then((response) => {
