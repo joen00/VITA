@@ -6,7 +6,7 @@
       <span v-if="rank.id == 1" style="color:#FFB800; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
       <span v-else-if="rank.id == 2"  style="color:silver; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
       <span v-else-if="rank.id == 3"  style="color:#BB6C23; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
-      <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
+      <b-avatar variant="info" :src="rank.profileImg"></b-avatar>
       <span>{{ rank.name }}</span>
       <span>{{ rank.score }}</span>
     </div>
@@ -48,6 +48,7 @@ export default {
               id: i,
               name: data.user_nickname,
               score: data.total_score_step,
+              profileImg: data.user_img,
             });
           });
         });

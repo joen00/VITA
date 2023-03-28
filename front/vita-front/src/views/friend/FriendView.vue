@@ -21,10 +21,10 @@
               :key="totalrank.id"
             >
             
-              <span v-if="totalrank.id == 1" style="color:#FFB800;"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
-              <span v-else-if="totalrank.id == 2" style="color:silver;"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
-              <span v-else-if="totalrank.id == 3" style="color:#BB6C23"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
-              <span v-else style="color : gold"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
+              <span v-if="totalrank.id == 1" style="color:#FFB800;"> {{ totalrank.id }} <b-avatar :src="totalrank.profileImg"></b-avatar></span>
+              <span v-else-if="totalrank.id == 2" style="color:silver;"> {{ totalrank.id }} <b-avatar :src="totalrank.profileImg"></b-avatar></span>
+              <span v-else-if="totalrank.id == 3" style="color:#BB6C23"> {{ totalrank.id }} <b-avatar :src="totalrank.profileImg"></b-avatar></span>
+              <span v-else> {{ totalrank.id }} <b-avatar :src="totalrank.profileImg"></b-avatar></span>
               <span>{{ totalrank.name }} </span>
               <span style="color: #3695BE">{{ totalrank.score }} </span>
             
@@ -103,6 +103,7 @@ export default {
               id: i,
               name: data.user_nickname,
               score: data.total_score,
+              profileImg: data.user_img,
             });
           });
         });
