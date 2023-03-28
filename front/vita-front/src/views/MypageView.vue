@@ -96,6 +96,7 @@
 
 <script>
 import { Carousel3d, Slide } from "vue-carousel-3d";
+import { mapGetters } from "vuex";
 
 import VueHeader from "@/components/common/VueHeader.vue";
 import VDatePicker from "v-calendar/lib/components/date-picker.umd";
@@ -144,6 +145,10 @@ export default {
     VueHeaderTitle: "마이페이지",
     VueHeaderContent: "나의 정보를 확인해보세요.",
   }),
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
 
   methods: {
     goToSlide(index) {
