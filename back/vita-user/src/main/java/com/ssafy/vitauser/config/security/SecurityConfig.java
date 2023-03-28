@@ -55,13 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable(); // csrf 미사용
         http
                     .cors()
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션을 사용하지 않음
                 .and()
-                    .csrf().disable() // csrf 미사용
                     .formLogin().disable() // 로그인 폼 미사용
                     .httpBasic().disable()
                     .exceptionHandling()
