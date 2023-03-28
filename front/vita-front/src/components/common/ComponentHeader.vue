@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="header-title">{{ headerTitle }}</div>
-    <div id="header-content">{{ headerContent }}</div>
+    <div id="component-header-title">{{ ComponentHeaderTitle }}</div>
+    <div id="component-header-content">{{ ComponentHeaderContent }}</div>
   </div>
 </template>
 
@@ -9,27 +9,28 @@
 export default {
   name: 'ComponentHeader',
   props: {
-    headerTitle: String,
-    headerContent: String,
+    ComponentHeaderTitle: String,
+    ComponentHeaderContent: String,
   }
 }
 
 </script>
 
 <style>
-#header-title {
+#component-header-title {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 60px;
-  line-height: 97px;
+  font-size: 35px;
+  line-height: 60px;
   color: #172176;
+
 }
-#header-content {
+#component-header-content {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 800;
+  font-size: 0.8rem;
   line-height: 24px;
   text-align: center;
   margin: -1%;

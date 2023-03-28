@@ -2,9 +2,10 @@
     <div id="AwearableEnergyBody">
         <div id="Aenergy">
             <div id="AenergyLeft">
-                <div id="AenergyTitle">활동 에너지</div>
-                <div id="AenergyDesc">나의 활동 에너지와 사람들의 평균을 비교해보세요.</div>
-                <div id="AenergyAdvice"></div>
+              <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
+                <div id="AenergyAdvice">
+                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
+                </div>
             </div>
             <div id="AenergyRight">
                 <div id="chartdiv-api-energy"></div>
@@ -20,10 +21,19 @@
   import * as am5 from "@amcharts/amcharts5";
   import * as am5xy from "@amcharts/amcharts5/xy";
   import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+  import ComponentHeader from '../common/ComponentHeader.vue';
+  import DoctorAdvice from '../wearable_api/DoctorAdvice.vue';
 
   export default {
+    components: { 
+      ComponentHeader,
+      DoctorAdvice
+    },
     data() {
       return {
+        ComponentHeaderTitle: "활동 에너지",
+        ComponentHeaderContent: "나의 활동 에너지와 사람들의 평균을 비교해보세요.",
+        Advice: "규칙적인 활동은 건강한 몸에 도움이 된답니다.",
       };
     },
     mounted() {
@@ -41,6 +51,11 @@
             pinchZoomX: true
         }));
 
+        chart.get("colors").set("colors", [
+            am5.color(0xFBD242),
+            am5.color(0x8CEB7C),
+        ]);
+
         // Add cursor
         // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
         var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
@@ -51,10 +66,8 @@
         // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
         var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
             xRenderer.labels.template.setAll({
-            rotation: -90,
             centerY: am5.p50,
-            centerX: am5.p100,
-            paddingRight: 15
+            centerX: am5.p50,
         });
 
         xRenderer.grid.template.setAll({
@@ -99,6 +112,10 @@
             return chart.get("colors").getIndex(series.columns.indexOf(target));
         });
 
+        // Set column width
+        series.columns.template.setAll({
+          width: am5.percent(20)
+        });
 
         // Set data
         var data = [
@@ -128,21 +145,18 @@
 </script>
   
 <style scoped>
-  #AwearableEnergyBody{
-    margin-top: 10rem;
-  }
   #Aenergy{
     margin-top: 3rem;
   }
   #AenergyLeft{
     width: 50%;
-    height: 300px;
+    height: 250px;
     float: left;
     /* background-color: aqua; */
   }
   #AenergyRight{
     width: 50%;
-    height: 300px;
+    height: 250px;
     float: left;
     /* background-color: bisque; */
   }
@@ -153,18 +167,8 @@
     border-radius: 10%;
     margin: 0 auto;
   }
-  #AenergyTitle {
-    font-family: "Exo 2";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 26px;
-    color: #172176;
+  #AenergyAdvice {
+    margin-top: 30px;
   }
-  #AenergyDesc {
-    font-family: "Exo 2";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    color: #47474B;
-  }
+
 </style>

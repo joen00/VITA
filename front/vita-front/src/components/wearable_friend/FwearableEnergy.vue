@@ -1,24 +1,37 @@
 <template>
-  <div id="FwearableWalkBody">
+  <div id="FwearableEnergyBody">
     <div class="header">
-      <div class="header-title">걸음수</div>
-      <div class="header-content">
-        친구들과 나의 평균 걸음수 기록을 비교해 보여줘요.
+      <ComponentHeader
+        :ComponentHeaderTitle="ComponentHeaderTitle"
+        :ComponentHeaderContent="ComponentHeaderContent"
+      />
+    </div>
+    <div id="wearable-friend-Energy">
+      <div id="wearable-friend-Energy-Left">
+        <div id="wearable-friend-Energy-Left-div">
+          <div id="wearable-friend-Energy-chartdiv"></div>
+        </div>
       </div>
-      <div id="fwWalk">
-          <div id="fwWalkLeft">
-            <div id="fwenergychartdiv"></div>
+      <div id="wearable-friend-Energy-Right">
+        <div id="wearable-friend-Energy-rank">
+          <img
+            id="wearable-friend-Energy-rank-img"
+            :src="require(`/public/wearable-friend/fwrank.png`)"
+          />
+          <div id="wearable-friend-Energy-rank-h1">랭킹</div>
+          <div
+            id="wearable-friend-Energy-rank-item"
+            v-for="rank in franks"
+            :key="rank"
+          >
+            {{ rank.id }}
+            <b-avatar
+              variant="info"
+              src="https://placekitten.com/300/300"
+            ></b-avatar>
+            {{ rank.name }}
           </div>
-          <div id="fwWalkRight">
-            <div id="fwWalkrank">
-              <h1>랭킹</h1>
-              <div id="frwalk" v-for="rank in franks" :key="rank">
-                  {{ rank.id }}
-                  <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
-                  {{ rank.name }}
-              </div>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,10 +44,17 @@
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import ComponentHeader from "@/components/common/ComponentHeader.vue";
 
 export default {
+  components: {
+    ComponentHeader,
+  },
   data() {
     return {
+      ComponentHeaderTitle: "활동 에너지",
+      ComponentHeaderContent:
+        "친구들과 나의 평균 활동 에너지 기록을 비교해 보여줘요.",
       franks: [
         { id: 1, name: "김뿡1" },
         { id: 2, name: "김뿡2" },
@@ -46,8 +66,16 @@ export default {
   },
   mounted() {
     am5.ready(() => {
-      var root = am5.Root.new("fwenergychartdiv");
+      // Create root element
+      // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+      var root = am5.Root.new("wearable-friend-Energy-chartdiv");
+
+      // Set themes
+      // https://www.amcharts.com/docs/v5/concepts/themes/
       root.setThemes([am5themes_Animated.new(root)]);
+
+      // Create chart
+      // https://www.amcharts.com/docs/v5/charts/xy-chart/
       var chart = root.container.children.push(
         am5xy.XYChart.new(root, {
           panX: false,
@@ -189,43 +217,72 @@ export default {
 </script>
 
 <style>
-
-#FwearableWalkBody{
-  margin-top: 10rem;
+#wearable-friend-Energy {
+  /* margin-top: 10rem; */
+  /* padding-left: 3rem;
+  padding-right: 3rem; */
 }
-#fwWalk{
-  margin-top: 3rem;
-}
-#fwWalkLeft{
+#wearable-friend-Energy-Left {
   width: 70%;
   height: 500px;
   float: left;
-  /* background-color: aqua; */
+  /*수평 수직 정렬*/
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; /*수평 정렬*/
+  align-items: center;
+  justify-content: center;
 }
-
-#fwenergychartdiv {
-  width: 90%;
-  height: 500px;
-  background-color: rgb(253, 254, 255);
-  border-radius: 10%;
-  margin: 0 auto;
+#wearable-friend-Energy-Left-div {
+  width: 80%;
+  height: 90%;
+  float: left;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  /*수평 수직 정렬*/
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; /*수평 정렬*/
+  align-items: center;
+  justify-content: center;
 }
-#fwWalkRight{
+#wearable-friend-Energy-chartdiv {
+  width: 80%;
+  height: 80%;
+  float: left;
+  background: #ffffff;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px; */
+}
+#wearable-friend-Energy-Right {
   width: 30%;
   height: 500px;
   float: left;
   /* background-color: bisque; */
 }
-#fwWalkrank{
+#wearable-friend-Energy-rank {
   box-sizing: border-box;
   width: 250px;
   height: 343px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   margin: 0 auto;
-  margin-top: 24%;
+  margin-top: 20%;
+  margin-left: -5%;
   vertical-align: middle;
+}
+#wearable-friend-Energy-rank-h1 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+#wearable-friend-Energy-rank-img {
+  margin-top: -30px;
+}
+#wearable-friend-Energy-rank-item {
+  font-weight: 600;
+  margin: 0.5rem;
 }
 </style>

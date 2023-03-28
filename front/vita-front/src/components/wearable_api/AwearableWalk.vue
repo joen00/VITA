@@ -2,13 +2,9 @@
     <div id="AwearableWalkBody">
         <div id="Awalk">
             <div id="AwalkLeft">
-                <div id="AwalkTitle">걸음수</div>
-                <div id="AwalkDesc">나의 걸음수와 사람들의 평균을 비교해보세요.</div>
+              <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
                 <div id="AwalkAdvice">
-                  <div id="AwalkAdviceSpeechBubble">
-                    <img id="img-doctor" src="@/assets/Doctor.png">
-                    <div id="advice">평균보다 높은 심박수입니다. 안정을 취하세요!!</div>
-                  </div>
+                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
                 </div>
             </div>
             <div id="AwalkRight">
@@ -25,10 +21,19 @@
   import * as am5 from "@amcharts/amcharts5";
   import * as am5xy from "@amcharts/amcharts5/xy";
   import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+  import ComponentHeader from '../common/ComponentHeader.vue';
+  import DoctorAdvice from '../wearable_api/DoctorAdvice.vue';
 
   export default {
+  components: { 
+    ComponentHeader,
+    DoctorAdvice,
+  },
     data() {
       return {
+        ComponentHeaderTitle: "걸음수",
+        ComponentHeaderContent: "나의 걸음수와 사람들의 평균을 비교해보세요.",
+        Advice: "잘 걷고 있어요. 앞으로도 꾸준히 걸어볼까요?"
       };
     },
     mounted() {
@@ -46,6 +51,11 @@
             pinchZoomX: true
         }));
 
+        chart.get("colors").set("colors", [
+            am5.color(0xFC9EFE),
+            am5.color(0x7038CA),
+        ]);
+
         // Add cursor
         // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
         var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
@@ -56,10 +66,8 @@
         // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
         var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
             xRenderer.labels.template.setAll({
-            rotation: -90,
             centerY: am5.p50,
-            centerX: am5.p100,
-            paddingRight: 15
+            centerX: am5.p50,
         });
 
         xRenderer.grid.template.setAll({
@@ -104,6 +112,10 @@
             return chart.get("colors").getIndex(series.columns.indexOf(target));
         });
 
+        // Set column width
+        series.columns.template.setAll({
+          width: am5.percent(20)
+        });
 
         // Set data
         var data = [
@@ -133,23 +145,18 @@
 </script>
   
 <style scoped>
-  #AwearableWalkBody{
-    margin-top: 10rem;
-  }
   #Awalk{
     margin-top: 3rem;
   }
   #AwalkLeft{
     width: 50%;
-    height: 300px;
+    height: 250px;
     float: left;
-    /* background-color: aqua; */
   }
   #AwalkRight{
     width: 50%;
-    height: 300px;
+    height: 250px;
     float: left;
-    /* background-color: bisque; */
   }
   #chartdiv-api-walk {
     width: 90%;
@@ -158,37 +165,7 @@
     border-radius: 10%;
     margin: 0 auto;
   }
-  #AwalkTitle {
-    font-family: "Exo 2";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 26px;
-    color: #172176;
-  }
-  #AwalkDesc {
-    font-family: "Exo 2";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    color: #47474B;
-  }
   #AwalkAdvice {
-    margin-top: 20px;
-  }
-  #AwalkAdviceSpeechBubble {
-    background-image: url("@/assets/SpeechBubble.png");
-    background-repeat : no-repeat;
-    background-size : cover;
-    max-height: 100%;
-    max-width: 100%;
-    padding: 30px;
-  }
-  #img-doctor {
-    width: 50px;
-    height: 50px;
-    float: left;
-  }
-  #advice {
-    text-align: center;
+    margin-top: 30px;
   }
 </style>
