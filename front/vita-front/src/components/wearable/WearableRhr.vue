@@ -1,304 +1,440 @@
 <template>
-    <div>
-      <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
-      <div id="rhr-middle">
-          <div id="rhr-middle-left-btn">
-            <div id="rhr-middle-left-btn-up">
-              <button id="btn-rhr" v-on:click="weekRhr">1주</button>
-              <br>
-              <button id="btn-rhr" v-on:click="monthRhr">1개월</button>
-              <br>
-              <button id="btn-rhr" v-on:click="yearRhr">1년</button>
-            </div>
-            <div id="rhr-middle-left-btn-down"> 
-              <div style="font-size: 18px;
-                          font-weight: 800;
-                          color: #5B5A63;">심박변이</div>
-              <div style="font-size: 18px;
-                          font-weight: 800;
-                          color: #5B5A63;">종합점수</div>
-              <div style="font-size: 60px;
-                          margin-top: -0.8rem;
-                          font-weight: 800;
-                          color: #5B5A63;">80</div>
-            </div>
+  <div>
+    <ComponentHeader
+      :ComponentHeaderTitle="ComponentHeaderTitle"
+      :ComponentHeaderContent="ComponentHeaderContent"
+    />
+    <div id="rhr-middle">
+      <div id="rhr-middle-left-btn">
+        <div id="rhr-middle-left-btn-up">
+          <button id="btn-rhr" v-on:click="weekRhr">1주</button>
+          <br />
+          <button id="btn-rhr" v-on:click="monthRhr">1개월</button>
+          <br />
+          <button id="btn-rhr" v-on:click="yearRhr">1년</button>
+        </div>
+        <div id="rhr-middle-left-btn-down">
+          <div style="font-size: 18px; font-rhr: 800; color: #5b5a63">
+            심박변이
           </div>
-          <div id="rhr-middle-left">
-            <!-- 그래프 그려지는 곳 -->
-            <!-- <div id="rhrchart"></div> -->
-            <RhrChart :key="componentKey" :date="date" :data="data" />
+          <div style="font-size: 18px; font-rhr: 800; color: #5b5a63">
+            종합점수
           </div>
-          <div id="rhr-middle-right">
-          
-
-          <div id="rhr-middle-right-div">
-          <div v-if="past.weekNowWearableRhr < past.weekPastWearableRhr"> 
-            <p>저번주가 더 심박수이 높습니다</p>
+          <div
+            style="
+              font-size: 60px;
+              margin-top: -0.8rem;
+              font-rhr: 800;
+              color: #5b5a63;
+            "
+          >
+            80
           </div>
-          <div v-else>  
-            <p>이번주가 더 심박수이 높습니다</p>
-          </div>
-          <div class="row">
-            <span class="col-2">이번주</span>
-            <div class="progress col-9 px-0" id="weekNowWearableRhr">
-              <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekNowWearableRhr" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekNowPersent }">
-              <span class="sr-only">{{ past.weekNowWearableRhr }}</span>
-              </div>
-            </div>
-          </div>
-          
-            <div class="row">
-              <span class="col-2">저번주</span>
-              <div class="progress col-9 px-0" id="weekPastWearableRhr">
-                <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekPastWearableRhr" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekPastPersent }">
-                <span class="sr-only">{{ past.weekPastWearableRhr }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+        </div>
+      </div>
+      <div id="rhr-middle-left">
+        <!-- 그래프 그려지는 곳 -->
+        <!-- <div id="rhrchart"></div> -->
+        <RhrChart :key="componentKey" :date="date" :data="data" />
+      </div>
+      <div id="rhr-middle-right">
         <div id="rhr-middle-right-div">
-          <div v-if="past.monthNowWearableRhr < past.monthPastWearableRhr">  
-            <p>전달이 더 심박수이 높습니다</p>
+          <div v-if="past.weekNowWearableRhr < past.weekPastWearableRhr">
+            <p id="rhr-middle-right-div-h">저번주가 더 심박수이 높습니다</p>
           </div>
           <div v-else>
-            <p>이번달이 더 심박수이 높습니다 </p> 
+            <p id="rhr-middle-right-div-h">이번주가 더 심박수이 높습니다</p>
           </div>
           <div class="row">
-            <span class="col-2">이번달</span>
-            <div class="progress col-9 px-0" id="monthNowWearableRhr">
-              <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthNowWearableRhr" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthNowPersent }">
-              <span class="sr-only">{{ past.monthNowWearableRhr }}</span>
-              </div>
-            </div>
-          </div>
-          
-            <div class="row">
-              <span class="col-2">저번달</span>
-              <div class="progress col-9 px-0" id="monthPastWearableRhr">
-                <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthPastWearableRhr" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthPastPersent }">
-                <span class="sr-only">{{ past.monthPastWearableRhr }}</span>
-                </div>
+            <span id="rhr-middle-right-div-p" class="col-2">이번주</span>
+            <div class="progress col-9 px-0" id="weekNowWearableRhr">
+              <div
+                id="rhr-week-now-progess"
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="past.weekNowWearableRhr"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{ width: past.weekNowPersent }"
+              >
+                <span id="rhr-now-progress-p" class="sr-only">{{
+                  past.weekNowWearableRhr
+                }}</span>
               </div>
             </div>
           </div>
 
-        <div id="rhr-middle-right-div">
-          <div v-if="past.yearNowWearableRhr < past.yearPastWearableRhr"> 
-            <p> 작년에 더 심박수이 높습니다 </p>
-          </div>
-          <div v-else> 
-            <p> 올해에 더 심박수이 높습니다 </p>
-          </div>
           <div class="row">
-            <span class="col-2">작년</span>
-            <div class="progress col-9 px-0" id="yearNowWearableRhr">
-              <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearNowWearableRhr" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearNowPersent }">
-              <span class="sr-only">{{ past.yearNowWearableRhr }}</span>
+            <span id="rhr-middle-right-div-p" class="col-2">저번주</span>
+            <div class="progress col-9 px-0" id="weekPastWearableRhr">
+              <div
+                id="rhr-past-progess"
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="past.weekPastWearableRhr"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{ width: past.weekPastPersent }"
+              >
+                <span id="rhr-progress-p" class="sr-only">{{
+                  past.weekPastWearableRhr
+                }}</span>
               </div>
             </div>
           </div>
-          
-            <div class="row">
-              <span class="col-2">올해</span>
-              <div class="progress col-9 px-0" id="yearPastWearableRhr">
-                <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearPastWearableRhr" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearPastPersent }">
-                <span class="sr-only">{{ past.yearPastWearableRhr }}</span>
-                </div>
+        </div>
+
+        <div id="rhr-middle-right-div">
+          <div v-if="past.monthNowWearableRhr < past.monthPastWearableRhr">
+            <p id="rhr-middle-right-div-h">전달이 더 심박수이 높습니다</p>
+          </div>
+          <div v-else>
+            <p id="rhr-middle-right-div-h">이번달이 더 심박수이 높습니다</p>
+          </div>
+          <div class="row">
+            <span id="rhr-middle-right-div-p" class="col-2">이번달</span>
+            <div class="progress col-9 px-0" id="monthNowWearableRhr">
+              <div
+                id="rhr-month-now-progess"
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="past.monthNowWearableRhr"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{ width: past.monthNowPersent }"
+              >
+                <span id="rhr-now-progress-p" class="sr-only">{{
+                  past.monthNowWearableRhr
+                }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <span id="rhr-middle-right-div-p" class="col-2">저번달</span>
+            <div class="progress col-9 px-0" id="monthPastWearableRhr">
+              <div
+                id="rhr-past-progess"
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="past.monthPastWearableRhr"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{ width: past.monthPastPersent }"
+              >
+                <span id="rhr-progress-p" class="sr-only">{{
+                  past.monthPastWearableRhr
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="rhr-middle-right-div">
+          <div v-if="past.yearNowWearableRhr < past.yearPastWearableRhr">
+            <p id="rhr-middle-right-div-h">작년에 더 심박수이 높습니다</p>
+          </div>
+          <div v-else>
+            <p id="rhr-middle-right-div-h">올해에 더 심박수이 높습니다</p>
+          </div>
+
+          <div class="row">
+            <span id="rhr-middle-right-div-p" class="col-2">올해</span>
+            <div class="progress col-9 px-0" id="yearNowWearableRhr">
+              <div
+                id="rhr-year-now-progess"
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="past.yearNowWearableRhr"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{ width: past.yearNowPersent }"
+              >
+                <span id="rhr-now-progress-p" class="sr-only">{{
+                  past.yearNowWearableRhr
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <span id="rhr-middle-right-div-p" class="col-2">작년</span>
+            <div class="progress col-9 px-0" id="yearPastWearableRhr">
+              <div
+                id="rhr-past-progess"
+                class="progress-bar"
+                role="progressbar"
+                :aria-valuenow="past.yearPastWearableRhr"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                :style="{ width: past.yearPastPersent }"
+              >
+                <span id="rhr-progress-p" class="sr-only">{{
+                  past.yearPastWearableRhr
+                }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios'
-  import ComponentHeader from "@/components/common/ComponentHeader.vue";
-  import RhrChart from "@/components/wearable/RhrChart.vue";
-  
-  export default {
-    name: "Wearablerhr",
-    components: {
-        ComponentHeader,
-        RhrChart
-      },
-    data: () => ({
-          ComponentHeaderTitle: "심박변이",
-          ComponentHeaderContent: "나의 심박변이 기록을 보여줘요.",
-          data: [],
-          date:[],
-          past: [],
-          componentKey: 0,
-    }),
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import ComponentHeader from "@/components/common/ComponentHeader.vue";
+import RhrChart from "@/components/wearable/RhrChart.vue";
+
+export default {
+  name: "Wearablerhr",
+  components: {
+    ComponentHeader,
+    RhrChart,
+  },
+  data: () => ({
+    ComponentHeaderTitle: "심박변이",
+    ComponentHeaderContent: "나의 심박변이 기록을 보여줘요.",
+    data: [],
+    date: [],
+    past: [],
+    componentKey: 0,
+  }),
   // 데이터 가져오는 곳
   created() {
-      this.weekRhr();
-      this.pastAndNowRhr();
+    this.weekRhr();
+    this.pastAndNowRhr();
+  },
+  methods: {
+    async weekRhr() {
+      await axios
+        .get(this.$store.state.url + "rhr/daily", {
+          headers: {
+            "Content-Type": "application/json",
+            token: this.$store.state.test_token,
+          },
+        })
+        .then((res) => {
+          this.data = res.data.map(function (e) {
+            return e.dailyWearableRhr;
+          });
+          this.date = res.data.map(function (e) {
+            return e.date;
+          });
+          this.componentKey += 1;
+        });
     },
-    methods: {
-      async weekRhr() {
-        await axios.get(this.$store.state.url + 'rhr/daily' , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
-      }).then(res => {
-        this.data = res.data.map(function(e){
-          return e.dailyWearableRhr;
+    async monthRhr() {
+      await axios
+        .get(this.$store.state.url + "rhr/weekly", {
+          headers: {
+            "Content-Type": "application/json",
+            token: this.$store.state.test_token,
+          },
         })
-        this.date = res.data.map(function(e){
-          return e.date;
-        })
-        this.componentKey += 1;
-      })
-  
-      },
-      async monthRhr() {
-        await axios.get(this.$store.state.url + 'rhr/weekly' , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
-      }).then(res => {
-        this.data = res.data.map(function(e){
-          return e.weeklyWearableRhr;
-        })
-        this.date = res.data.map(function(e){
-          return e.date;
-        })
-        this.componentKey += 1;
-      })
-  
-      },
-      async yearRhr() {
-        await axios.get(this.$store.state.url + 'rhr/monthly' , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
-      }).then(res => {
-        this.data = res.data.map(function(e){
-          return e.monthlyWearableRhr;
-        })
-        this.date = res.data.map(function(e){
-          return e.date;
-        })
-        this.componentKey += 1;
-      })
-      },
-      async pastAndNowRhr() {
-        await axios.get(this.$store.state.url + 'rhr/past' , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
-      }).then(res => {
-        this.past = res.data
-        if (this.past.weekPastWearableRhr >= this.past.weekNowWearableRhr) {
-          this.past['weekNowPersent'] = this.past.weekNowWearableRhr / this.past.weekPastWearableRhr * 100;
-          this.past['weekPastPersent'] = 100 + "%";
-        }
-        else {
-          this.past['weekNowPersent'] = 100 + "%"; 
-          this.past['weekPastPersent'] = (this.past.weekPastWearableRhr / this.past.weekNowWearableRhr * 100) + "%";
-        }
-        if (this.past.monthPastWearableRhr >= this.past.monthNowWearableRhr) {
-          this.past['monthNowPersent'] = (this.past.monthNowWearableRhr / this.past.monthPastWearableRhr * 100) + "%";
-          this.past['monthPastPersent'] = 100 + "%";
-        }
-        else {
-          this.past['monthNowPersent'] = 100 + "%"; 
-          this.past['monthPastPersent'] = (this.past.monthPastWearableRhr / this.past.monthNowWearableRhr * 100) + "%";
-        }
-        if (this.past.yearPastWearableRhr >= this.past.yearNowWearableRhr) {
-          this.past['yearNowPersent'] = (this.past.yearNowWearableRhr / this.past.yearPastWearableRhr * 100) + "%";
-          this.past['yearPastPersent'] = 100 + "%";
-        }
-        else {
-          this.past['yearNowPersent'] = 100 + "%"; 
-          this.past['yearPastPersent'] = (this.past.yearPastWearableRhr / this.past.yearNowWearableRhr * 100) + "%" ;
-        }
-      })
-      },
+        .then((res) => {
+          this.data = res.data.map(function (e) {
+            return e.weeklyWearableRhr;
+          });
+          this.date = res.data.map(function (e) {
+            return e.date;
+          });
+          this.componentKey += 1;
+        });
     },
-  
-  
-  }
-  </script>
-  
-  <style>
-  #rhr-middle{
-      height: 400px;
-      /* background-color: aqua; */
-      margin: 3rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-  #rhr-middle-left-btn{
-      width: 12%;
-      height: 100%;
-      /* display: flex; */
-      /* justify-content: center;
-      align-items: center; */
-      /* background-color: rgb(255, 255, 255); */
-  }
-  #rhr-middle-left{
-      width: 44%;
-      height: 100%;
-      align-items: center;
-      background-color: rgb(255, 255, 255);
-      background: #FFFFFF;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 20px;
-  }
-  
-  #rhr-middle-right{
-      margin-left: 2%;
-      width: 42%;
-      height: 100%;
-      /* background-color: rgb(0, 0, 0); */
-      display: flex; 
-      flex-direction: column;
-      justify-content: space-between;
-      /* align-items: center; */
-  }
-  
-  #btn-rhr {
-    width: 70%;
-    height: 35px;
-    border: none;
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    background: #3695be;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-  }
-  #btn-rhr:hover {
-    width: 70%;
-    height: 35px;
-    border: none;
-    color: #3695be;
-    border: solid 2px #3695be;
-    font-weight: 600;
-    background: rgb(255, 255, 255);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
-  }
-  #rhr-middle-left-btn-up{
-    height: 70%;
-  }
-  #rhrchart {
-    width: 150%;
-    height: 90%;
-    margin-top: 1rem;
-    /* margin: auto; */
-  }
-  #rhr-middle-right-div{
-    width: 100%;
-    height: 28%;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-  
-    /* display: flex; 
-    flex-direction: column;
-    justify-content: space-between; */
-  }
-  </style>
+    async yearRhr() {
+      await axios
+        .get(this.$store.state.url + "rhr/monthly", {
+          headers: {
+            "Content-Type": "application/json",
+            token: this.$store.state.test_token,
+          },
+        })
+        .then((res) => {
+          this.data = res.data.map(function (e) {
+            return e.monthlyWearableRhr;
+          });
+          this.date = res.data.map(function (e) {
+            return e.date;
+          });
+          this.componentKey += 1;
+        });
+    },
+    async pastAndNowRhr() {
+      await axios
+        .get(this.$store.state.url + "rhr/past", {
+          headers: {
+            "Content-Type": "application/json",
+            token: this.$store.state.test_token,
+          },
+        })
+        .then((res) => {
+          this.past = res.data;
+          if (this.past.weekPastWearableRhr >= this.past.weekNowWearableRhr) {
+            this.past["weekNowPersent"] =
+              (this.past.weekNowWearableRhr / this.past.weekPastWearableRhr) *
+              100;
+            this.past["weekPastPersent"] = 100 + "%";
+          } else {
+            this.past["weekNowPersent"] = 100 + "%";
+            this.past["weekPastPersent"] =
+              (this.past.weekPastWearableRhr / this.past.weekNowWearableRhr) *
+                100 +
+              "%";
+          }
+          if (this.past.monthPastWearableRhr >= this.past.monthNowWearableRhr) {
+            this.past["monthNowPersent"] =
+              (this.past.monthNowWearableRhr / this.past.monthPastWearableRhr) *
+                100 +
+              "%";
+            this.past["monthPastPersent"] = 100 + "%";
+          } else {
+            this.past["monthNowPersent"] = 100 + "%";
+            this.past["monthPastPersent"] =
+              (this.past.monthPastWearableRhr / this.past.monthNowWearableRhr) *
+                100 +
+              "%";
+          }
+          if (this.past.yearPastWearableRhr >= this.past.yearNowWearableRhr) {
+            this.past["yearNowPersent"] =
+              (this.past.yearNowWearableRhr / this.past.yearPastWearableRhr) *
+                100 +
+              "%";
+            this.past["yearPastPersent"] = 100 + "%";
+          } else {
+            this.past["yearNowPersent"] = 100 + "%";
+            this.past["yearPastPersent"] =
+              (this.past.yearPastWearableRhr / this.past.yearNowWearableRhr) *
+                100 +
+              "%";
+          }
+        });
+    },
+  },
+};
+</script>
+
+<style>
+#rhr-month-now-progess {
+  background: #27e58a;
+  border-radius: 10px;
+}
+
+#rhr-now-progress-p {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+#rhr-progress-p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: black;
+}
+
+#rhr-year-now-progess {
+  background: #f33249;
+  border-radius: 10px;
+}
+
+#rhr-past-progess {
+  background: #d0d6e5;
+  border-radius: 10px;
+}
+
+#rhr-middle-right-div-p {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-left: -1rem;
+}
+#rhr-middle-right-div-h {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#rhr-middle {
+  height: 400px;
+  /* background-color: aqua; */
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#rhr-middle-left-btn {
+  width: 12%;
+  height: 100%;
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  /* background-color: rgb(255, 255, 255); */
+}
+#rhr-middle-left {
+  width: 44%;
+  height: 100%;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+#rhr-middle-right {
+  margin-left: 2%;
+  width: 42%;
+  height: 100%;
+  /* background-color: rgb(0, 0, 0); */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+#btn-rhr {
+  width: 70%;
+  height: 35px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+#btn-rhr:hover {
+  width: 70%;
+  height: 35px;
+  border: none;
+  color: #3695be;
+  border: solid 2px #3695be;
+  font-weight: 600;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+#rhr-middle-left-btn-up {
+  height: 70%;
+}
+#rhrchart {
+  width: 150%;
+  height: 90%;
+  margin-top: 1rem;
+  /* margin: auto; */
+}
+#rhr-middle-right-div {
+  width: 100%;
+  height: 28%;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  /* display: flex; 
+flex-direction: column;
+justify-content: space-between; */
+}
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0;
+}
+</style>

@@ -7,13 +7,12 @@
 
 <script>
 export default {
-  name: 'ComponentHeader',
+  name: "ComponentHeader",
   props: {
     ComponentHeaderTitle: String,
     ComponentHeaderContent: String,
-  }
-}
-
+  },
+};
 </script>
 
 <style>
@@ -24,7 +23,6 @@ export default {
   font-size: 35px;
   line-height: 60px;
   color: #172176;
-
 }
 #component-header-content {
   font-family: "Inter";
@@ -33,7 +31,7 @@ export default {
   font-size: 0.8rem;
   line-height: 24px;
   text-align: center;
-  margin: -1%;
+  /* margin: -1%; */
   color: #47474b;
 }
 </style>
