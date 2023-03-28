@@ -1,13 +1,19 @@
 <template>
-  <div class="rankenergy">
-    <h5>활동 에너지</h5>
-    <div class="rankenergy-item" v-for="rank in energyRanks" :key="rank">
-      {{ rank.id }}
+  <div id="energy-rank-list">
+    <h3 id="energy-rank-list-h3" >활동에너지</h3> 
+    <div id="energy-rank-list-div">
+
+      <div class="rankenergy-item" v-for="rank in energyRanks" :key="rank">
+      <span v-if="rank.id == 1" style="color:#FFB800; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
+      <span v-else-if="rank.id == 2"  style="color:silver; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
+      <span v-else-if="rank.id == 3"  style="color:#BB6C23; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
-      {{ rank.name }}
-      {{ rank.score }}
+      <span>{{ rank.name }}</span>
+      <span>{{ rank.score }}</span>
     </div>
+  </div>   
   </div>
+
 </template>
 
 <script>
@@ -56,20 +62,56 @@ export default {
 </script>
 
 <style>
-.rankenergy {
-  width: 90%;
-  height: 100px;
-  margin: 0 auto;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 30px;
+
+/* .rankenergy{
+    width: 90%;
+    height: 100px;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+} */
+
+.rankenergy-item{
+    width: 33%;
+    margin: 0 auto;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.rankenergy-item {
-  float: left;
-  width: 33%;
-  margin: 0 auto;
+#energy-rank-list-div{
+  display: flex;
+  justify-content: center;
 }
+
+#energy-rank-list {
+  padding: 0.5rem;
+  width: 90%;
+  height: 6rem;
+  /* background-color: rgb(200, 255, 204); */
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border: 4px solid #79aec4;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  /* box-shadow: 1px 1px 1px 1px rgba(0.25, 0.25, 0.25, 0.25); */
+  border-radius: 30px;
+
+}
+
+
+#energy-rank-list-h3 {
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  color: #172176;
+  margin-bottom: -0.1rem;
+}
+
 </style>
