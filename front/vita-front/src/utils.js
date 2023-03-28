@@ -5,7 +5,8 @@ const BACKEND_URL = `https://j8b106.p.ssafy.io`
 // const FRONTEND_PORT = process.env.FRONTEND_PORT === null ? '' : `:${process.env.FRONTEND_PORT}`
 // const FRONTEND_PORT = `:3000`
 // const REDIRECT_URI = `${location.protocol}//${location.hostname}${FRONTEND_PORT}/oauth/redirect`
-const REDIRECT_URI = `https://j8b106.p.ssafy.io/login/oauth2/code/kakao`
+// const REDIRECT_URI = `https://j8b106.p.ssafy.io/login/oauth2/code/kakao`
+const REDIRECT_URI = `https://j8b106.p.ssafy.io/oauth/redirect`
 
 export default {
   getSocialLoginUrl(socialType) {
