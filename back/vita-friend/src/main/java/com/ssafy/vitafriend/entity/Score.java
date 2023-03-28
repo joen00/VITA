@@ -6,6 +6,7 @@ import lombok.*;
 ;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -29,5 +30,6 @@ public class Score {
     private int totalScoreStress;
     private int totalScoreStep;
     private int totalScoreSleep;
+    private ZonedDateTime createdDate;
 
 }

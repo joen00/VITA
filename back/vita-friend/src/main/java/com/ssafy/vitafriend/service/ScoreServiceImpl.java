@@ -20,7 +20,7 @@ public class ScoreServiceImpl implements ScoreService{
 
     @Override
     public FriendTotalRankDto getTotalScoreByUser(String userId) {
-        Score getUserScoreInfo = scoreRepository.findByUser_userId(userId);
+        Score getUserScoreInfo = scoreRepository.findFirstByUser_userIdOrderByCreatedDateDesc(userId);
         FriendTotalRankDto userScoreInfo = modelMapper.map(getUserScoreInfo, FriendTotalRankDto.class);
         int totalScore = userScoreInfo.getTotalScoreEnergy() +
                 userScoreInfo.getTotalScoreSleep() + userScoreInfo.getTotalScoreRhr() +

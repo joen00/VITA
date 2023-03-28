@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ScoreRepository extends JpaRepository<Score, Long> {
-    Score findByUser_userId(String userId);
+    Score findFirstByUser_userIdOrderByCreatedDateDesc(String userId);
 }
