@@ -66,9 +66,9 @@ export default {
     getSearchFriendList(inputValue) {
       console.log(inputValue);
       axios
-        .get(SERVER_URL + `/apply/` + `${inputValue}`, {
+        .get(this.$store.state.serverBaseUrl + `/friend` + `/apply/` + `${inputValue}`, {
           headers: {
-            userID: MY_USER_ID,
+            userID: this.$store.state.myUserId,
           },
         })
         .then((response) => {
@@ -83,11 +83,11 @@ export default {
     requestFriend(user_nickname) {
       axios
         .post(
-          SERVER_URL + `/apply`,
+          this.$store.state.serverBaseUrl + `/friend` + `/apply`,
           { user_nickname: user_nickname },
           {
             headers: {
-              userID: MY_USER_ID,
+              userID: this.$store.state.myUserId,
             },
           }
         )
@@ -97,7 +97,7 @@ export default {
     },
   },
   created() {
-    this.getSearchFriendList();
+    this.getSearchFriendList("");
   },
 };
 </script>

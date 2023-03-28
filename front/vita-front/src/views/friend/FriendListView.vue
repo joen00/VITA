@@ -3,8 +3,8 @@
     <div class="container">
       <div id="header">
         <VueHeader
-          :vueHeaderTitle="vueHeaderTitle"
-          :vueHeaderContent="vueHeaderContent"
+          :VueHeaderTitle="VueHeaderTitle"
+          :VueHeaderContent="VueHeaderContent"
         />
       </div>
       <div id="middle">
@@ -15,6 +15,8 @@
         <friend-add-modal></friend-add-modal>
         <!-- 모달창 -->
         <b-form-input
+          v-model="inputValue"
+          @keyup="getFriendList(inputValue)"
           id="nick-search"
           placeholder="닉네임을 입력하세요."
         ></b-form-input>
@@ -33,7 +35,10 @@
             <!-- <span style="font-weight: 600">
               {{ lists.user_id }}
             </span> -->
-            <b-avatar variant="info" :src="lists.user_img"></b-avatar>
+            <b-avatar
+              variant="info"
+              :src="lists.user_img"
+            ></b-avatar>
             <span style="font-weight: 600">{{ lists.user_nickname }} </span>
             <button id="btn-post-add" @click="acceptFriend(lists.user_id)">
               수락
@@ -55,7 +60,10 @@
         >
           <span style="font-weight: 600">
             <!-- {{ lists.user_id }} -->
-            <b-avatar variant="info" :src="lists.user_img"></b-avatar
+            <b-avatar
+              variant="info"
+              :src="lists.user_img"
+            ></b-avatar
           ></span>
           <span style="font-weight: 600">{{ lists.user_nickname }} </span>
           <button
@@ -76,11 +84,11 @@ import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 
 // const SERVER_URL = "http://localhost:8080/friend";
-const SERVER_URL = "https://j8b106.p.ssafy.io/api/friend";
+// const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 2703629614;
+// const MY_USER_ID = 2703629614;
 
 export default {
   name: "FriendListView",
@@ -98,19 +106,22 @@ export default {
       // { id: 1, name: "김광배", score: "10" },
       // { id: 2, name: "이광배", score: "20" },
     ],
-    vueHeaderTitle: "프렌즈",
-    vueHeaderContent: "친구들의 정보를 확인해보세요.",
+    inputValue: "",
+    VueHeaderTitle: "프렌즈",
+    VueHeaderContent: "친구들의 정보를 확인해보세요.",
   }),
   methods: {
-    getFriendList() {
+    getFriendList(inputValue) {
+      console.log(inputValue);
       axios
-        .get(SERVER_URL, {
+        .get(this.$store.state.serverBaseUrl + `/friend` + `/${inputValue}`, {
           headers: {
-            userID: MY_USER_ID,
+            userID: this.$store.state.myUserId,
           },
         })
         .then((response) => {
           console.log(response);
+          this.friendlist = [];
           response.data.map((data) => {
             this.friendlist.push(data);
           });
@@ -118,9 +129,9 @@ export default {
     },
     deleteOrRejectFriend(user_id) {
       axios
-        .delete(SERVER_URL, {
+        .delete(this.$store.state.serverBaseUrl + `/friend`, {
           headers: {
-            sendingUserId: MY_USER_ID,
+            sendingUserId: this.$store.state.myUserId,
             receivingUserId: user_id,
           },
         })
@@ -134,9 +145,9 @@ export default {
     },
     getFriendPostList() {
       axios
-        .get(SERVER_URL + `/applyList`, {
+        .get(this.$store.state.serverBaseUrl + `/friend` + `/applyList`, {
           headers: {
-            userID: MY_USER_ID,
+            userID: this.$store.state.myUserId,
           },
         })
         .then((response) => {
@@ -148,10 +159,10 @@ export default {
     },
     acceptFriend(sendingUserId) {
       axios
-        .put(SERVER_URL, null, {
+        .put(this.$store.state.serverBaseUrl + `/friend`, null, {
           headers: {
             sendingUserId: sendingUserId,
-            receivingUserId: MY_USER_ID,
+            receivingUserId: this.$store.state.myUserId,
           },
         })
         .then((response) => {
@@ -159,12 +170,13 @@ export default {
           this.friendpostlist = [];
           this.getFriendPostList();
           this.friendlist = [];
-          this.getFriendList();
+          this.getFriendList("");
+          this.inputValue = ""
         });
     },
   },
   created() {
-    this.getFriendList();
+    this.getFriendList("");
     this.getFriendPostList();
   },
 };
