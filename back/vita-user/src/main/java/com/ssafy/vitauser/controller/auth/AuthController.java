@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/users/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

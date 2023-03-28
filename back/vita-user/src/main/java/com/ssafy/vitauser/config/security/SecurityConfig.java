@@ -74,11 +74,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .antMatchers("/api/**/admin/**").hasAnyAuthority(RoleType.ADMIN.getCode())
 //                    .anyRequest().authenticated() // 그 외엔 모두 인증 필요
                 .and()
+                    // 인가에 대한 요청 서비스
+                    // "/oauth2/authorization"로 접근시 oauth 로그인 요청
                     .oauth2Login()
                     .authorizationEndpoint()
                     .baseUri("/oauth2/authorization") // 소셜 로그인 Url
                     .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository()) // 인증 요청을 쿠키에 저장하고 검색
                 .and()
+                    // callback 주소
                     .redirectionEndpoint()
                     .baseUri("/*/oauth2/code/*")  // 소셜 인증 후 Redirect Url
                 .and()
