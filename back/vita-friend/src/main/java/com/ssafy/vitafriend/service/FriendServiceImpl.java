@@ -109,27 +109,47 @@ public class FriendServiceImpl implements FriendService{
             case "step" :
                 List<FriendStepRankDto> tmp1 = myFriendRankList.stream().map(friend -> modelMapper.map(friend, FriendStepRankDto.class)).collect(Collectors.toList());
                 tmp1.sort(Comparator.comparing(FriendStepRankDto::getTotalScoreStep).reversed());
-                return tmp1.subList(0, 3);
+                if(tmp1.size() <= 3) {
+                    return tmp1;
+                } else {
+                    return tmp1.subList(0, 3);
+                }
 
             case "energy" :
                 List<FriendEnergyRankDto> tmp2 = myFriendRankList.stream().map(friend -> modelMapper.map(friend, FriendEnergyRankDto.class)).collect(Collectors.toList());
                 tmp2.sort(Comparator.comparing(FriendEnergyRankDto::getTotalScoreEnergy).reversed());
-                return tmp2.subList(0, 3);
+                if(tmp2.size() <= 3) {
+                    return tmp2;
+                } else {
+                    return tmp2.subList(0, 3);
+                }
 
             case "rhr" :
                 List<FriendRhrRankDto> tmp3 = myFriendRankList.stream().map(friend -> modelMapper.map(friend, FriendRhrRankDto.class)).collect(Collectors.toList());
                 tmp3.sort(Comparator.comparing(FriendRhrRankDto::getTotalScoreRhr).reversed());
-                return tmp3.subList(0, 3);
+                if(tmp3.size() <= 3) {
+                    return tmp3;
+                } else {
+                    return tmp3.subList(0, 3);
+                }
 
             case "stress" :
                 List<FriendStressRankDto> tmp4 = myFriendRankList.stream().map(friend -> modelMapper.map(friend, FriendStressRankDto.class)).collect(Collectors.toList());
                 tmp4.sort(Comparator.comparing(FriendStressRankDto::getTotalScoreStress).reversed());
-                return tmp4.subList(0, 3);
+                if(tmp4.size() <= 3) {
+                    return tmp4;
+                } else {
+                    return tmp4.subList(0, 3);
+                }
 
             case "sleep" :
                 List<FriendSleepRankDto> tmp5 = myFriendRankList.stream().map(friend -> modelMapper.map(friend, FriendSleepRankDto.class)).collect(Collectors.toList());
                 tmp5.sort(Comparator.comparing(FriendSleepRankDto::getTotalScoreSleep).reversed());
-                return tmp5.subList(0, 3);
+                if(tmp5.size() <= 3) {
+                    return tmp5;
+                } else {
+                    return tmp5.subList(0, 3);
+                }
 
         }
 
