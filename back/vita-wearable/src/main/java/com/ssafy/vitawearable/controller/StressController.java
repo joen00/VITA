@@ -68,11 +68,11 @@ public class StressController {
     @ApiOperation(
             value = "스트레스 과거,현재 데이터 요청",
             notes = "userId를 통해 스트레스 과거,현재 데이터를 json 형태로 반환한다",
-            response = SleepPastAndNowDto.class
+            response = StressPastAndNowDto.class
     )
     @GetMapping("/past")
-    public ResponseEntity<SleepPastAndNowDto> stepPast(@RequestHeader("token") String token) {
+    public ResponseEntity<StressPastAndNowDto> stepPast(@RequestHeader("token") String token) {
         String userId = wearable.getUserId(token);
-        return new ResponseEntity<>(wearablePast.sleepPastAndNow(userId), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(wearablePast.stressPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }
