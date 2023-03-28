@@ -20,9 +20,14 @@
               v-for="totalrank in totalranks"
               :key="totalrank.id"
             >
-              <span> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
+            
+              <span v-if="totalrank.id == 1" style="color:#FFB800;"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
+              <span v-else-if="totalrank.id == 2" style="color:silver;"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
+              <span v-else-if="totalrank.id == 3" style="color:#BB6C23"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
+              <span v-else style="color : gold"> {{ totalrank.id }} <b-avatar src=""></b-avatar></span>
               <span>{{ totalrank.name }} </span>
-              <span>{{ totalrank.score }} </span>
+              <span style="color: #3695BE">{{ totalrank.score }} </span>
+            
             </div>
           </div>
         </div>
@@ -180,7 +185,7 @@ export default {
 .rank-list-div {
   width: 90%;
   height: 3.3rem;
-  background: #E0F4FD;
+  background: #ceeaf7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: 1rem;

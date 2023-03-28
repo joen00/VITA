@@ -1,12 +1,16 @@
 <template>
-  <div class="rankrhr">
-    <h5>심박수</h5>
+  <div id="rhr-rank-list">
+    <h3 id="rhr-rank-list-h3" >심박수</h3> 
+    <div id="rhr-rank-list-div">
     <div class="rankrhr-item" v-for="rank in rhrRanks" :key="rank">
-      {{ rank.id }}
+      <span v-if="rank.id == 1" style="color:#FFB800; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
+      <span v-else-if="rank.id == 2"  style="color:silver; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
+      <span v-else-if="rank.id == 3"  style="color:#BB6C23; text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);">{{ rank.id }}</span>
       <b-avatar variant="info" src="https://placekitten.com/300/300"></b-avatar>
-      {{ rank.name }}
-      {{ rank.score }}
+      <span>{{ rank.name }}</span>
+      <span>{{ rank.score }}</span>
     </div>
+  </div>
   </div>
 </template>
 
@@ -56,20 +60,44 @@ export default {
 </script>
 
 <style>
-.rankrhr {
-  width: 90%;
-  height: 100px;
-  margin: 0 auto;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 30px;
+.rankrhr-item{
+    width: 33%;
+    margin: 0 auto;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.rankrhr-item {
-  float: left;
-  width: 33%;
-  margin: 0 auto;
+#rhr-rank-list-div{
+  display: flex;
+  justify-content: center;
 }
+
+#rhr-rank-list {
+  padding: 0.5rem;
+  width: 90%;
+  height: 6rem;
+  /* background-color: rgb(200, 255, 204); */
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border: 4px solid #79aec4;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  /* box-shadow: 1px 1px 1px 1px rgba(0.25, 0.25, 0.25, 0.25); */
+  border-radius: 30px;
+
+}
+
+
+#rhr-rank-list-h3 {
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  color: #172176;
+  margin-bottom: -0.1rem;
+}
+
 </style>
