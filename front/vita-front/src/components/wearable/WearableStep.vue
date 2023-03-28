@@ -32,112 +32,84 @@
           
 
           <div id="step-middle-right-div">
-            <div v-if="past.weekNowWearableStep < past.weekPastWearableStep"> 
-              <p>저번주가 더 걸음수가 높습니다</p>
-              <p>이번주 걸음수</p>
-                <div class="progress" id="weekNowWearableStep">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                    <span class="sr-only">{{ past.weekNowWearableStep }}</span>
-                  </div>
-                </div>
-                <br>
-                <span>저번주 걸음수</span>
-                <div class="progress" id="weekPastWearableStep">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                    <span class="sr-only">{{ past.weekPastWearableStep }}</span>
-                  </div>
-                </div>
+          <div v-if="past.weekNowWearableStep < past.weekPastWearableStep"> 
+            <p>저번주가 더 걸음수이 높습니다</p>
+          </div>
+          <div v-else>  
+            <p>이번주가 더 걸음수이 높습니다</p>
+          </div>
+          <div class="row">
+            <span class="col-2">이번주</span>
+            <div class="progress col-9 px-0" id="weekNowWearableStep">
+              <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekNowWearableStep" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekNowPersent }">
+              <span class="sr-only">{{ past.weekNowWearableStep }}</span>
               </div>
-            <div v-else>  
-              <p>이번주가 더 걸음수가 높습니다</p>
-              <p>이번주 걸음수</p>
-              <div class="progress" id="weekNowWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                  <span class="sr-only">{{ past.weekNowWearableStep }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번주 걸음수</span>
-              <div class="progress" id="weekPastWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                  <span class="sr-only">{{ past.weekPastWearableStep }}</span>
+            </div>
+          </div>
+          
+            <div class="row">
+              <span class="col-2">저번주</span>
+              <div class="progress col-9 px-0" id="weekPastWearableStep">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekPastWearableStep" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekPastPersent }">
+                <span class="sr-only">{{ past.weekPastWearableStep }}</span>
                 </div>
               </div>
             </div>
           </div>
 
 
-          <div id="step-middle-right-div">
-            <div v-if="past.monthNowWearableStep < past.monthPastWearableStep">  
-              <p>전달이 더 걸음수가 높습니다</p>
-              <div class="progress" id="monthNowWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                  <span class="sr-only">{{ past.monthNowWearableStep }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번달 걸음수</span>
-              <div class="progress" id="monthPastWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
-                  <span class="sr-only">{{past.monthPastWearableStep}}</span>
-                </div>
+        <div id="step-middle-right-div">
+          <div v-if="past.monthNowWearableStep < past.monthPastWearableStep">  
+            <p>전달이 더 걸음수이 높습니다</p>
+          </div>
+          <div v-else>
+            <p>이번달이 더 걸음수이 높습니다 </p> 
+          </div>
+          <div class="row">
+            <span class="col-2">이번달</span>
+            <div class="progress col-9 px-0" id="monthNowWearableStep">
+              <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthNowWearableStep" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthNowPersent }">
+              <span class="sr-only">{{ past.monthNowWearableStep }}</span>
               </div>
             </div>
-            <div v-else>
-              <p> 이번달이 더 걸음수가 높습니다 </p> 
-              <div class="progress" id="monthNowWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                  <span class="sr-only">{{ past.monthNowWearableStep }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번달 걸음수</span>
-              <div class="progress" id="monthPastWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
-                  <span class="sr-only">{{past.monthPastWearableStep}}</span>
+          </div>
+          
+            <div class="row">
+              <span class="col-2">저번달</span>
+              <div class="progress col-9 px-0" id="monthPastWearableStep">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthPastWearableStep" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthPastPersent }">
+                <span class="sr-only">{{ past.monthPastWearableStep }}</span>
                 </div>
               </div>
             </div>
           </div>
 
-
-          <div id="step-middle-right-div">
-            <div v-if="past.yearNowWearableStep < past.yearPastWearableStep"> 
-              <p> 작년에 더 걸음수가 높습니다 </p>
-              <p>이번해 걸음수</p>
-              <div class="progress" id="yearNowWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                  <span class="sr-only">{{ past.yearNowWearableStep }}</span>
-                </div>
-              </div>
-              <br>
-              <span>작년 걸음수</span>
-              <div class="progress" id="yearPastWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                  <span class="sr-only">{{ past.yearPastWearableStep }}</span>
-                </div>
-              </div>
-            </div>
-            <div v-else> 
-              <p> 올해에 더 걸음수가 높습니다 </p>
-              <p>이번해 걸음수</p>
-              <div class="progress" id="yearNowWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                  <span class="sr-only">{{ past.yearNowWearableStep }}</span>
-                </div>
-              </div>
-              <br>
-              <span>작년 걸음수</span>
-              <div class="progress" id="yearPastWearableStep">
-                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                  <span class="sr-only">{{ past.yearPastWearableStep }}</span>
-                </div>
-              </div>
-
-            </div>
-            
+        <div id="step-middle-right-div">
+          <div v-if="past.yearNowWearableStep < past.yearPastWearableStep"> 
+            <p> 작년에 더 걸음수이 높습니다 </p>
           </div>
-        </div>
+          <div v-else> 
+            <p> 올해에 더 걸음수이 높습니다 </p>
+          </div>
+          <div class="row">
+            <span class="col-2">작년</span>
+            <div class="progress col-9 px-0" id="yearNowWearableStep">
+              <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearNowWearableStep" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearNowPersent }">
+              <span class="sr-only">{{ past.yearNowWearableStep }}</span>
+              </div>
+            </div>
+          </div>
+          
+            <div class="row">
+              <span class="col-2">올해</span>
+              <div class="progress col-9 px-0" id="yearPastWearableStep">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearPastWearableStep" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearPastPersent }">
+                <span class="sr-only">{{ past.yearPastWearableStep }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
 </template>
@@ -210,6 +182,30 @@ created() {
                 'token': this.$store.state.test_token},
       }).then(res => {
         this.past = res.data
+        if (this.past.weekPastWearableStep >= this.past.weekNowWearableStep) {
+          this.past['weekNowPersent'] = this.past.weekNowWearableStep / this.past.weekPastWearableStep * 100;
+          this.past['weekPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['weekNowPersent'] = 100 + "%"; 
+          this.past['weekPastPersent'] = (this.past.weekPastWearableStep / this.past.weekNowWearableStep * 100) + "%";
+        }
+        if (this.past.monthPastWearableStep >= this.past.monthNowWearableStep) {
+          this.past['monthNowPersent'] = (this.past.monthNowWearableStep / this.past.monthPastWearableStep * 100) + "%";
+          this.past['monthPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['monthNowPersent'] = 100 + "%"; 
+          this.past['monthPastPersent'] = (this.past.monthPastWearableStep / this.past.monthNowWearableStep * 100) + "%";
+        }
+        if (this.past.yearPastWearableStep >= this.past.yearNowWearableStep) {
+          this.past['yearNowPersent'] = (this.past.yearNowWearableStep / this.past.yearPastWearableStep * 100) + "%";
+          this.past['yearPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['yearNowPersent'] = 100 + "%"; 
+          this.past['yearPastPersent'] = (this.past.yearPastWearableStep / this.past.yearNowWearableStep * 100) + "%" ;
+        }
       })
       },
     },

@@ -31,112 +31,84 @@
           <div id="stress-middle-right">
           
 
-          <div id="stress-middle-right-div">
+            <div id="stress-middle-right-div">
             <div v-if="past.weekNowWearableStress < past.weekPastWearableStress"> 
-              <p>저번주가 더 스트레스가 높습니다</p>
-              <p>이번주 스트레스</p>
-                <div class="progress" id="weekNowWearableStress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                    <span class="sr-only">{{ past.weekNowWearableStress }}</span>
-                  </div>
-                </div>
-                <br>
-                <span>저번주 스트레스</span>
-                <div class="progress" id="weekPastWearableStress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                    <span class="sr-only">{{ past.weekPastWearableStress }}</span>
-                  </div>
-                </div>
-              </div>
+              <p>저번주가 더 스트레스이 높습니다</p>
+            </div>
             <div v-else>  
-              <p>이번주가 더 스트레스가 높습니다</p>
-              <p>이번주 스트레스</p>
-              <div class="progress" id="weekNowWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                  <span class="sr-only">{{ past.weekNowWearableStress }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번주 스트레스</span>
-              <div class="progress" id="weekPastWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                  <span class="sr-only">{{ past.weekPastWearableStress }}</span>
+              <p>이번주가 더 스트레스이 높습니다</p>
+            </div>
+            <div class="row">
+              <span class="col-2">이번주</span>
+              <div class="progress col-9 px-0" id="weekNowWearableStress">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekNowWearableStress" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekNowPersent }">
+                <span class="sr-only">{{ past.weekNowWearableStress }}</span>
                 </div>
               </div>
             </div>
-          </div>
+            
+              <div class="row">
+                <span class="col-2">저번주</span>
+                <div class="progress col-9 px-0" id="weekPastWearableStress">
+                  <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekPastWearableStress" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekPastPersent }">
+                  <span class="sr-only">{{ past.weekPastWearableStress }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
           <div id="stress-middle-right-div">
             <div v-if="past.monthNowWearableStress < past.monthPastWearableStress">  
-              <p>전달이 더 스트레스가 높습니다</p>
-              <div class="progress" id="monthNowWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                  <span class="sr-only">{{ past.monthNowWearableStress }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번달 스트레스</span>
-              <div class="progress" id="monthPastWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
-                  <span class="sr-only">{{past.monthPastWearableStress}}</span>
-                </div>
-              </div>
+              <p>전달이 더 스트레스이 높습니다</p>
             </div>
             <div v-else>
-              <p> 이번달이 더 스트레스가 높습니다 </p> 
-              <div class="progress" id="monthNowWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                  <span class="sr-only">{{ past.monthNowWearableStress }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번달 스트레스</span>
-              <div class="progress" id="monthPastWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
-                  <span class="sr-only">{{past.monthPastWearableStress}}</span>
+              <p>이번달이 더 스트레스이 높습니다 </p> 
+            </div>
+            <div class="row">
+              <span class="col-2">이번달</span>
+              <div class="progress col-9 px-0" id="monthNowWearableStress">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthNowWearableStress" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthNowPersent }">
+                <span class="sr-only">{{ past.monthNowWearableStress }}</span>
                 </div>
               </div>
             </div>
-          </div>
-
+            
+              <div class="row">
+                <span class="col-2">저번달</span>
+                <div class="progress col-9 px-0" id="monthPastWearableStress">
+                  <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthPastWearableStress" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthPastPersent }">
+                  <span class="sr-only">{{ past.monthPastWearableStress }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           <div id="stress-middle-right-div">
             <div v-if="past.yearNowWearableStress < past.yearPastWearableStress"> 
-              <p> 작년에 더 스트레스가 높습니다 </p>
-              <p>이번해 스트레스</p>
-              <div class="progress" id="yearNowWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                  <span class="sr-only">{{ past.yearNowWearableStress }}</span>
-                </div>
-              </div>
-              <br>
-              <span>작년 스트레스</span>
-              <div class="progress" id="yearPastWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                  <span class="sr-only">{{ past.yearPastWearableStress }}</span>
-                </div>
-              </div>
+              <p> 작년에 더 스트레스이 높습니다 </p>
             </div>
             <div v-else> 
-              <p> 올해에 더 스트레스가 높습니다 </p>
-              <p>이번해 스트레스</p>
-              <div class="progress" id="yearNowWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                  <span class="sr-only">{{ past.yearNowWearableStress }}</span>
+              <p> 올해에 더 스트레스이 높습니다 </p>
+            </div>
+            <div class="row">
+              <span class="col-2">작년</span>
+              <div class="progress col-9 px-0" id="yearNowWearableStress">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearNowWearableStress" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearNowPersent }">
+                <span class="sr-only">{{ past.yearNowWearableStress }}</span>
                 </div>
               </div>
-              <br>
-              <span>작년 스트레스</span>
-              <div class="progress" id="yearPastWearableStress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                  <span class="sr-only">{{ past.yearPastWearableStress }}</span>
-                </div>
-              </div>
-
             </div>
             
-          </div>
+              <div class="row">
+                <span class="col-2">올해</span>
+                <div class="progress col-9 px-0" id="yearPastWearableStress">
+                  <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearPastWearableStress" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearPastPersent }">
+                  <span class="sr-only">{{ past.yearPastWearableStress }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -163,6 +135,7 @@
   // 데이터 가져오는 곳
     created() {
         this.weekStress();
+        this.pastAndNowStress();
     },
     methods: {
       async weekStress() {
@@ -207,6 +180,31 @@
                 'token': this.$store.state.test_token},
       }).then(res => {
         this.past = res.data
+        console.log(this.past)
+        if (this.past.weekPastWearableStress >= this.past.weekNowWearableStress) {
+          this.past['weekNowPersent'] = this.past.weekNowWearableStress / this.past.weekPastWearableStress * 100;
+          this.past['weekPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['weekNowPersent'] = 100 + "%"; 
+          this.past['weekPastPersent'] = (this.past.weekPastWearableStress / this.past.weekNowWearableStress * 100) + "%";
+        }
+        if (this.past.monthPastWearableStress >= this.past.monthNowWearableStress) {
+          this.past['monthNowPersent'] = (this.past.monthNowWearableStress / this.past.monthPastWearableStress * 100) + "%";
+          this.past['monthPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['monthNowPersent'] = 100 + "%"; 
+          this.past['monthPastPersent'] = (this.past.monthPastWearableStress / this.past.monthNowWearableStress * 100) + "%";
+        }
+        if (this.past.yearPastWearableStress >= this.past.yearNowWearableStress) {
+          this.past['yearNowPersent'] = (this.past.yearNowWearableStress / this.past.yearPastWearableStress * 100) + "%";
+          this.past['yearPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['yearNowPersent'] = 100 + "%"; 
+          this.past['yearPastPersent'] = (this.past.yearPastWearableStress / this.past.yearNowWearableStress * 100) + "%" ;
+        }
       })
       },
     },

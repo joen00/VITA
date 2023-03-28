@@ -32,110 +32,82 @@
           
 
           <div id="energy-middle-right-div">
-            <div v-if="past.weekNowWearableEnergy < past.weekPastWearableEnergy"> 
-              <p>저번주가 더 활동에너지가 높습니다</p>
-              <p>이번주 활동에너지</p>
-                <div class="progress" id="weekNowWearableEnergy">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                    <span class="sr-only">{{ past.weekNowWearableEnergy }}</span>
-                  </div>
-                </div>
-                <br>
-                <span>저번주 활동에너지</span>
-                <div class="progress" id="weekPastWearableEnergy">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                    <span class="sr-only">{{ past.weekPastWearableEnergy }}</span>
-                  </div>
-                </div>
+          <div v-if="past.weekNowWearableEnergy < past.weekPastWearableEnergy"> 
+            <p>저번주가 더 활동에너지이 높습니다</p>
+          </div>
+          <div v-else>  
+            <p>이번주가 더 활동에너지이 높습니다</p>
+          </div>
+          <div class="row">
+            <span class="col-2">이번주</span>
+            <div class="progress col-9 px-0" id="weekNowWearableEnergy">
+              <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekNowWearableEnergy" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekNowPersent }">
+              <span class="sr-only">{{ past.weekNowWearableEnergy }}</span>
               </div>
-            <div v-else>  
-              <p>이번주가 더 활동에너지가 높습니다</p>
-              <p>이번주 활동에너지</p>
-              <div class="progress" id="weekNowWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                  <span class="sr-only">{{ past.weekNowWearableEnergy }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번주 활동에너지</span>
-              <div class="progress" id="weekPastWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                  <span class="sr-only">{{ past.weekPastWearableEnergy }}</span>
+            </div>
+          </div>
+          
+            <div class="row">
+              <span class="col-2">저번주</span>
+              <div class="progress col-9 px-0" id="weekPastWearableEnergy">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.weekPastWearableEnergy" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.weekPastPersent }">
+                <span class="sr-only">{{ past.weekPastWearableEnergy }}</span>
                 </div>
               </div>
             </div>
           </div>
 
 
-          <div id="energy-middle-right-div">
-            <div v-if="past.monthNowWearableEnergy < past.monthPastWearableEnergy">  
-              <p>전달이 더 활동에너지가 높습니다</p>
-              <div class="progress" id="monthNowWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                  <span class="sr-only">{{ past.monthNowWearableEnergy }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번달 활동에너지</span>
-              <div class="progress" id="monthPastWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
-                  <span class="sr-only">{{past.monthPastWearableEnergy}}</span>
-                </div>
+        <div id="energy-middle-right-div">
+          <div v-if="past.monthNowWearableEnergy < past.monthPastWearableEnergy">  
+            <p>전달이 더 활동에너지이 높습니다</p>
+          </div>
+          <div v-else>
+            <p>이번달이 더 활동에너지이 높습니다 </p> 
+          </div>
+          <div class="row">
+            <span class="col-2">이번달</span>
+            <div class="progress col-9 px-0" id="monthNowWearableEnergy">
+              <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthNowWearableEnergy" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthNowPersent }">
+              <span class="sr-only">{{ past.monthNowWearableEnergy }}</span>
               </div>
             </div>
-            <div v-else>
-              <p> 이번달이 더 활동에너지가 높습니다 </p> 
-              <div class="progress" id="monthNowWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                  <span class="sr-only">{{ past.monthNowWearableEnergy }}</span>
-                </div>
-              </div>
-              <br>
-              <span>저번달 활동에너지</span>
-              <div class="progress" id="monthPastWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
-                  <span class="sr-only">{{past.monthPastWearableEnergy}}</span>
+          </div>
+          
+            <div class="row">
+              <span class="col-2">저번달</span>
+              <div class="progress col-9 px-0" id="monthPastWearableEnergy">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.monthPastWearableEnergy" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.monthPastPersent }">
+                <span class="sr-only">{{ past.monthPastWearableEnergy }}</span>
                 </div>
               </div>
             </div>
           </div>
 
-
-          <div id="energy-middle-right-div">
-            <div v-if="past.yearNowWearableEnergy < past.yearPastWearableEnergy"> 
-              <p> 작년에 더 활동에너지가 높습니다 </p>
-              <p>이번해 활동에너지</p>
-              <div class="progress" id="yearNowWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                  <span class="sr-only">{{ past.yearNowWearableEnergy }}</span>
-                </div>
+        <div id="energy-middle-right-div">
+          <div v-if="past.yearNowWearableEnergy < past.yearPastWearableEnergy"> 
+            <p> 작년에 더 활동에너지이 높습니다 </p>
+          </div>
+          <div v-else> 
+            <p> 올해에 더 활동에너지이 높습니다 </p>
+          </div>
+          <div class="row">
+            <span class="col-2">작년</span>
+            <div class="progress col-9 px-0" id="yearNowWearableEnergy">
+              <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearNowWearableEnergy" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearNowPersent }">
+              <span class="sr-only">{{ past.yearNowWearableEnergy }}</span>
               </div>
-              <br>
-              <span>작년 활동에너지</span>
-              <div class="progress" id="yearPastWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                  <span class="sr-only">{{ past.yearPastWearableEnergy }}</span>
+            </div>
+          </div>
+          
+            <div class="row">
+              <span class="col-2">올해</span>
+              <div class="progress col-9 px-0" id="yearPastWearableEnergy">
+                <div class="progress-bar" role="progressbar" :aria-valuenow="past.yearPastWearableEnergy" aria-valuemin="0" aria-valuemax="100" :style="{ width: past.yearPastPersent }">
+                <span class="sr-only">{{ past.yearPastWearableEnergy }}</span>
                 </div>
               </div>
             </div>
-            <div v-else> 
-              <p> 올해에 더 활동에너지가 높습니다 </p>
-              <p>이번해 활동에너지</p>
-              <div class="progress" id="yearNowWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                  <span class="sr-only">{{ past.yearNowWearableEnergy }}</span>
-                </div>
-              </div>
-              <br>
-              <span>작년 활동에너지</span>
-              <div class="progress" id="yearPastWearableEnergy">
-                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                  <span class="sr-only">{{ past.yearPastWearableEnergy }}</span>
-                </div>
-              </div>
-
-            </div>
-            
           </div>
         </div>
     </div>
@@ -205,6 +177,30 @@ created() {
                 'token': this.$store.state.test_token},
       }).then(res => {
         this.past = res.data
+        if (this.past.weekPastWearableEnergy >= this.past.weekNowWearableEnergy) {
+          this.past['weekNowPersent'] = this.past.weekNowWearableEnergy / this.past.weekPastWearableEnergy * 100;
+          this.past['weekPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['weekNowPersent'] = 100 + "%"; 
+          this.past['weekPastPersent'] = (this.past.weekPastWearableEnergy / this.past.weekNowWearableEnergy * 100) + "%";
+        }
+        if (this.past.monthPastWearableEnergy >= this.past.monthNowWearableEnergy) {
+          this.past['monthNowPersent'] = (this.past.monthNowWearableEnergy / this.past.monthPastWearableEnergy * 100) + "%";
+          this.past['monthPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['monthNowPersent'] = 100 + "%"; 
+          this.past['monthPastPersent'] = (this.past.monthPastWearableEnergy / this.past.monthNowWearableEnergy * 100) + "%";
+        }
+        if (this.past.yearPastWearableEnergy >= this.past.yearNowWearableEnergy) {
+          this.past['yearNowPersent'] = (this.past.yearNowWearableEnergy / this.past.yearPastWearableEnergy * 100) + "%";
+          this.past['yearPastPersent'] = 100 + "%";
+        }
+        else {
+          this.past['yearNowPersent'] = 100 + "%"; 
+          this.past['yearPastPersent'] = (this.past.yearPastWearableEnergy / this.past.yearNowWearableEnergy * 100) + "%" ;
+        }
       })
       },
     },
