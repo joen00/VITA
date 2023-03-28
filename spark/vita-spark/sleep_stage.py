@@ -31,16 +31,16 @@ def sleepDF(df):
     for row in df2.itertuples():
         if row.daily_sleep_stage == 'AWAKE':
             r_index = df3.loc[df3['date'] == row.daily_sleep_start].index[0]
-            df3.loc[r_index, 'weekly_wearable_awake'] = row.daily_sleep_total
+            df3.loc[r_index, 'daily_wearable_awake'] = row.daily_sleep_total
         if row.daily_sleep_stage == 'LIGHT':
             r_index = df3.loc[df3['date'] == row.daily_sleep_start].index[0]
-            df3.loc[r_index, 'weekly_wearable_light'] = row.daily_sleep_total
+            df3.loc[r_index, 'daily_wearable_light'] = row.daily_sleep_total
         if row.daily_sleep_stage == 'DEEP':
             r_index = df3.loc[df3['date'] == row.daily_sleep_start].index[0]
-            df3.loc[r_index, 'weekly_wearable_deep'] = row.daily_sleep_total
+            df3.loc[r_index, 'daily_wearable_deep'] = row.daily_sleep_total
         if row.daily_sleep_stage == 'REM':
             r_index = df3.loc[df3['date'] == row.daily_sleep_start].index[0]
-            df3.loc[r_index, 'weekly_wearable_rem'] = row.daily_sleep_total
+            df3.loc[r_index, 'daily_wearable_rem'] = row.daily_sleep_total
 
     df3 = df3.fillna(0)
     df3['daily_wearable_sleep'] = df3['daily_wearable_awake'] + df3['daily_wearable_light'] + df3['daily_wearable_deep'] + df3['daily_wearable_rem']
