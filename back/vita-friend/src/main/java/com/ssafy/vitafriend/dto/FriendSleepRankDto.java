@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-
-public class FriendRankDto {
+public class FriendSleepRankDto {
+    private String userId;
+    private String userImg;
     private String userNickname;
-    private int userScore;
-
+    private int totalScoreSleep;
 }

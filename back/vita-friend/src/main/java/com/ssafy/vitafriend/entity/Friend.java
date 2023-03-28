@@ -1,5 +1,6 @@
 package com.ssafy.vitafriend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiParam;
 import lombok.*;
 
@@ -19,10 +20,12 @@ public class Friend {
     @ApiParam(value = "친구의 상태. 이미 친구로 등록된 상태이면 'accepted', 친구 신청이 보내진 상태이면 'applied'")
     private String friendStatus;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_sending_user_id")
     private User friendSendingUser;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "friend_receiving_user_id")
     private User friendReceivingUser;

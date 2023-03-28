@@ -16,7 +16,7 @@ public class FriendDto extends UserInfoDto{
     private User friendReceivingUser;
 
     // Dto를 이용하여 Entity 객체를 생성하는 방법. Entity에 Setter가 없기 때문에 이렇게 사용
-    public Friend toEntity() {
+    public Friend toFriendEntity() {
         return Friend.builder()
                 .friendStatus(friendStatus)
                 .friendSendingUser(friendSendingUser)
