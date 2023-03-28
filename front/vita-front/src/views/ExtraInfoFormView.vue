@@ -283,6 +283,7 @@ export default {
 
       console.log(JSON.stringify(this.form));
       console.log(this.token);
+      console.log(`${this.token}`);
       axios
         .put(
           SERVER_URL + `/extrainfo`,
@@ -298,7 +299,7 @@ export default {
           },
           {
             headers: {
-              Authorization: `Bearer ${this.token}`,
+              'Authorization': `Bearer ${this.token}`,
             },
           }
         )
