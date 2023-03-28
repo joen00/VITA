@@ -38,7 +38,7 @@
 <script>
 import axios from "axios";
 
-const SERVER_URL = "http://localhost:8080/friend";
+const SERVER_URL = "https://localhost:8080/friend";
 // const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
@@ -90,7 +90,7 @@ export default {
     },
   },
   created() {
-    this.getSearchFriendList();
+    this.getSearchFriendList("");
   },
 };
 </script>
