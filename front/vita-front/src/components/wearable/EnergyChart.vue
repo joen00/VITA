@@ -1,21 +1,21 @@
 <template>
-    <div>
-      <div id="energychartdiv"></div>
-      <!-- {{data}} -->
-    </div>
-  </template>
-  
-  <script>
-  import * as am5 from "@amcharts/amcharts5";
-  import * as am5xy from "@amcharts/amcharts5/xy";
-  import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-  
-  export default {
-    name: 'EnergyChart',
-    props: {
-      data: Array,
-    },
-    mounted() {
+  <div>
+    <div id="energychartdiv"></div>
+    <!-- {{data}} -->
+  </div>
+</template>
+
+<script>
+import * as am5 from "@amcharts/amcharts5";
+import * as am5xy from "@amcharts/amcharts5/xy";
+import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+
+export default {
+  name: "EnergyChart",
+  props: {
+    data: Array,
+  },
+  mounted() {
     am5.ready(() => {
       const root = am5.Root.new("energychartdiv");
 
@@ -71,9 +71,9 @@
       );
 
       series.data.processor = am5.DataProcessor.new(root, {
-          dateFormat: "yyyy-MM-dd",
-          dateFields: ["date"],
-        });
+        dateFormat: "yyyy-MM-dd",
+        dateFields: ["date"],
+      });
 
       series.columns.template.setAll({ strokeOpacity: 0 });
 
@@ -84,7 +84,7 @@
         })
       );
 
-      const data = this.data
+      const data = this.data;
 
       series.data.setAll(data);
 
@@ -92,16 +92,16 @@
       chart.appear(1000, 100);
     });
   },
-  }
-  </script>
-  
-  <style scoped>
-  #energychartdiv {
-    /* width: 40rem;
-    height: 400px;
-    margin-top: 10rem;
-    margin: auto; */
-    width: 30rem;
-    height: 400px;
-  }
-  </style>
+};
+</script>
+
+<style scoped>
+#energychartdiv {
+  /* width: 40rem;
+  height: 400px;
+  margin-top: 10rem;
+  margin: auto; */
+  width: 32rem;
+  height: 400px;
+}
+</style>
