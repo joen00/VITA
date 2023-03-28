@@ -79,9 +79,6 @@ def periodDF(df, period, userId):
 
 # 사용자 평균 데이터 처리
 def avgDF(df):
-    df = df.drop('monthly_wearable_weight', axis = 'columns')
-    df = df.drop('monthly_wearable_muscle', axis = 'columns')
-    df = df.drop('monthly_wearable_fat', axis = 'columns')
-    df = df.drop('date', axis='columns')
+    df = df.drop(['monthly_wearable_weight', 'monthly_wearable_muscle', 'monthly_wearable_fat', 'date'], axis = 'columns')
     df = df.groupby('user_id', as_index=False).mean().round(1) # 사용자 아이디별 평균
     return df

@@ -41,10 +41,6 @@ def makeDay(db, file, userId):
     day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
-
 @app.route('/upload/<userId>')
 def upload(userId):
     db = common.connectDB()
@@ -64,4 +60,4 @@ def upload(userId):
     return f'Hello, {userId}!'
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True, ssl_context =("cert.pem", "privkey.pem"))
