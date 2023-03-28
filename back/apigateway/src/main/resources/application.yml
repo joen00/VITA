@@ -38,10 +38,26 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "https://localhost:3000"
+              - "http://j8b106.p.ssafy.io:3000"
+              - "https://j8b106.p.ssafy.io:3000"
             allow-credentials: true   #추가
-            allowedHeaders: "*"
-            allowedMethods: "*"
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+              - x-forwarded-for-user-id
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - OPTIONS
+              - DELETE
       routes:
         - id: wearable
           uri: http://j8b106.p.ssafy.io:8083/
