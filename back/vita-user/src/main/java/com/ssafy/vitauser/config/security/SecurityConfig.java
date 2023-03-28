@@ -57,12 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
             http
-                    .csrf().ignoringRequestMatchers(
-                            new AntPathRequestMatcher("/**"))
-                    .and()
-//                    .csrf().csrfdisable() // csrf 미사용
                     .cors()
                 .and()
+                    .csrf().disable() // csrf 미사용
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션을 사용하지 않음
                 .and()
