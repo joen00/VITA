@@ -13,4 +13,5 @@ def dayDF(df):
     df.rename(columns={'com.samsung.shealth.calories_burned.day_time':'date', 'com.samsung.shealth.calories_burned.active_calorie':'daily_wearable_energy'}, inplace=True)
     df = df[['daily_wearable_energy', 'date']]
     df['date'] = df['date'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)).astype(str) # 날짜 형식 변환
+    df = df.groupby('date', as_index=False).mean().round(0) # 날짜별 평균
     return df

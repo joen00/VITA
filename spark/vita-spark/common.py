@@ -63,7 +63,6 @@ def periodDF(df, period, userId):
     df.date = pd.to_datetime(df.date)
     df = df.resample(rule=period, on='date').mean().round(1)
     df = df.reset_index()
-    # df = df.fillna(0)
     
     if period == '1W':
         df.rename(columns = {'daily_wearable_stress':'weekly_wearable_stress', 'daily_wearable_rhr':'weekly_wearable_rhr', 'daily_wearable_energy':'weekly_wearable_energy', 'daily_wearable_step':'weekly_wearable_step',
