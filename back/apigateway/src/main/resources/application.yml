@@ -43,6 +43,7 @@ spring:
               - "https://localhost:3000"
               - "http://j8b106.p.ssafy.io:3000"
               - "https://j8b106.p.ssafy.io:3000"
+              - "https://j8b106.p.ssafy.io"
             allow-credentials: true   #추가
             allowedHeaders:
               - x-requested-with
