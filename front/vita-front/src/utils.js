@@ -1,15 +1,16 @@
 // const BACKEND_PORT = process.env.BACKEND_PORT === null ? '' : `:${process.env.BACKEND_PORT}`
-const BACKEND_PORT = `:8000`
+// const BACKEND_PORT = `:8000`
 // const BACKEND_URL = `${location.protocol}//${location.hostname}${BACKEND_PORT}`
-const BACKEND_URL = `https://j8b106.p.ssafy.io` 
+const BACKEND_URL = `https://j8b106.p.ssafy.io`
 // const FRONTEND_PORT = process.env.FRONTEND_PORT === null ? '' : `:${process.env.FRONTEND_PORT}`
-const FRONTEND_PORT = `:3000`
-const REDIRECT_URI = `${location.protocol}//${location.hostname}${FRONTEND_PORT}/oauth/redirect`
+// const FRONTEND_PORT = `:3000`
+// const REDIRECT_URI = `${location.protocol}//${location.hostname}${FRONTEND_PORT}/oauth/redirect`
+// const REDIRECT_URI = `https://j8b106.p.ssafy.io/login/oauth2/code/kakao`
+const REDIRECT_URI = `http://localhost:3000/oauth/redirect`
 
 export default {
   getSocialLoginUrl(socialType) {
     return `${BACKEND_URL}/oauth2/authorization/${socialType}?redirect_uri=${REDIRECT_URI}`
-    // return `${BACKEND_URL}/oauth2/authorization/${socialType}?redirect_uri=${REDIRECT_URI}`
   },
   getSocialImage (socialType) {
     switch (socialType) {
