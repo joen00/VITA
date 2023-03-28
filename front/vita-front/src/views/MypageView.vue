@@ -153,7 +153,7 @@ export default {
       axios
         .get(
           this.$store.state.serverBaseUrl +
-            `/mypage/user`
+            `/users/mypage`
         ,
         {
             headers: {
@@ -173,7 +173,7 @@ export default {
       axios
         .get(
           this.$store.state.serverBaseUrl +
-            `/mypage/user/history`,
+            `/users/mypage/history`,
         {
             headers: {
             Authorization: `Bearer ${this.token}`,

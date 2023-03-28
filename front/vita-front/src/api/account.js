@@ -1,8 +1,8 @@
 import req from './req-wrapper'
 
 const ACCOUNT_URI = {
-  LOGIN: '/auth/login',
-  USER: '/users'
+  LOGIN: '/api/users/auth/login',
+  USER: '/api/users'
 }
 
 export default {
