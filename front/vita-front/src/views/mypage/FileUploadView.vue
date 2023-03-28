@@ -64,6 +64,9 @@ export default {
       "웨어러블기능을 이용하기 위해 수집된 데이터를 업로드 해보세요.",
     file1: null,
   }),
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
   methods: {
     uploadFile(file) {
       if (file == null) {
@@ -76,13 +79,12 @@ export default {
 
       axios
         .post(
-          this.$store.state.serverBaseUrl +
-            `/users/mypage/upload/${this.$store.state.myUserId}`,
+          this.$store.state.serverBaseUrl + `/users/mypage/upload/`,
           formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              // Authorization: `Bearer ${this.token}`,
+              Authorization: `Bearer ${this.token}`,
             },
           }
         )
