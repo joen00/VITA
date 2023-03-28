@@ -53,7 +53,8 @@ spring:
           clientSecret: 1VWU6r8KvigFPz7RUwguFRViKsyi5wIy
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
-          redirectUri: https://j8b106.p.ssafy.io/login/oauth2/code/kakao
+#          redirectUri: https://j8b106.p.ssafy.io/login/oauth2/code/kakao
+          redirectUri: http://j8b106.p.ssafy.io:8085/login/oauth2/code/kakao
           scope:
             - profile_nickname
             - profile_image
@@ -89,4 +90,4 @@ app:
 #      - https://j8b106.p.ssafy.io/oauth/redirect
 #      - http://localhost:3000/oauth/redirect
 #      - https://j8b106.p.ssafy.io/login/oauth2/code/kakao
-      - https://j8b106.p.ssafy.io/oauth/redirect
+      - http://j8b106.p.ssafy.io:3000/oauth/redirect
