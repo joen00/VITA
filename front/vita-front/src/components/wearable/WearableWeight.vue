@@ -191,9 +191,9 @@
           series.appear();
           legend.data.push(series);
         }
-        createSeries("체지방량", "체지방량");
-        createSeries("골격근량", "골격근량");
-        createSeries("체중", "체중");
+        createSeries("체지방량", "1");
+        createSeries("골격근량", "2");
+        createSeries("체중", "3");
         // Prepare data for the river-stacked series
         for (var i = 0; i < data.length; i++) {
           var row = data[i];

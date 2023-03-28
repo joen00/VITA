@@ -13,8 +13,8 @@ export default new Vuex.Store({
     url: 'https://j8b106.p.ssafy.io/api/wearable/user/',
     friendUrl: 'https://j8b106.p.ssafy.io/api/wearable/friend',
     // 로컬서버
-    // url: 'http://localhost:8083/wearable/user/',
-    // friendUrl: 'http://localhost:8083/wearable/friend',
+    // url: 'http://localhost:8083/api/wearable/user/',
+    // friendUrl: 'http://localhost:8083/api/wearable/friend',
     // 이강윤 : 2715879100
     myUserId: "2715879100",
     // ec2서버 : "https://j8b106.p.ssafy.io:8000"
