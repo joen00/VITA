@@ -16,10 +16,10 @@ export default new Vuex.Store({
     // url: 'http://localhost:8083/api/wearable/user/',
     // friendUrl: 'http://localhost:8083/api/wearable/friend',
     // 이강윤 : 2715879100
-    myUserId: "1",
+    myUserId: "2715879100",
     // ec2서버 : "https://j8b106.p.ssafy.io:8000"
     // 로컬 유저 서버: "http://localhost:8085"
-    serverBaseUrl: "http://localhost:8080/api"
+    serverBaseUrl: "https://j8b106.p.ssafy.io/api"
   },
   getters: {
   },
