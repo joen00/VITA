@@ -53,9 +53,11 @@ def upload(userId):
     day = makeDay(db, file, userId)
     week = common.periodDF(day, '1W', userId)
     month = common.periodDF(day, '1M', userId)
+    average = common.avgDF(month)
 
     common.saveDB(db, 'weekly_wearable', week)
     common.saveDB(db, 'monthly_wearable', month)
+    common.saveDB(db, 'user_average', average)
 
     return f'Hello, {userId}!'
 
