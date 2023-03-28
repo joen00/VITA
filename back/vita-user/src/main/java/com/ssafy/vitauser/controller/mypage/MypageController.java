@@ -55,10 +55,11 @@ public class MypageController {
     }
 
     @ApiOperation(value = "유저 파일 업로드 저장", notes = "성공하면 success.", response = String.class)
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("multipartFile") MultipartFile multipartFile, HttpServletRequest request) throws Exception {
-        String accessToken = HeaderUtil.getAccessToken(request);
-        String userId = authTokenProvider.getUserId(accessToken);
+    @PostMapping("/upload/{userId}")
+//    public ResponseEntity<String> uploadFile(@RequestParam("multipartFile") MultipartFile multipartFile, HttpServletRequest request) throws Exception {
+    public ResponseEntity<String> uploadFile(@RequestParam("multipartFile") MultipartFile multipartFile, @PathVariable("userId") String userId) throws Exception {
+//        String accessToken = HeaderUtil.getAccessToken(request);
+//        String userId = authTokenProvider.getUserId(accessToken);
 
         // 파일 저장함
         String url = awsS3Service.uploadFileV1(multipartFile);
