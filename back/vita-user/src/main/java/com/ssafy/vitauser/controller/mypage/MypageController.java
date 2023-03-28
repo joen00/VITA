@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Api("마이페이지 API")
-@RequestMapping(path="/users/mypage")
+@RequestMapping(path="/api/users/mypage")
 public class MypageController {
 
     private final MypageService mypageService;
