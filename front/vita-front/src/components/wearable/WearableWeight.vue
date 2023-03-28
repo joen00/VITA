@@ -1,16 +1,16 @@
 <template>
     <div>
       <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
-      <div id="walk-middle">
-          <div id="walk-middle-left-btn">
-            <div id="walk-middle-left-btn-up">
-              <button id="btn-walk">1주</button>
+      <div id="weight-middle">
+          <div id="weight-middle-left-btn">
+            <div id="weight-middle-left-btn-up">
+              <button id="btn-weight">1주</button>
               <br>
-              <button id="btn-walk">1개월</button>
+              <button id="btn-weight">1개월</button>
               <br>
-              <button id="btn-walk">1년</button>
+              <button id="btn-weight">1년</button>
             </div>
-            <div id="walk-middle-left-btn-down">
+            <div id="weight-middle-left-btn-down">
               <div style="font-size: 18px;
                           font-weight: 800;
                           color: #5B5A63;">체중</div>
@@ -23,16 +23,120 @@
                           color: #5B5A63;">80</div>
             </div>
           </div>
-          <div id="walk-middle-left">
+          <div id="weight-middle-left">
+            <!-- 그래프 그려지는 곳 -->
             <div id="weight1chartdiv"></div>
           </div>
-          <div id="walk-middle-right">
-            <div id="walk-middle-right-div">
-              <div>이번주 평균 체중이 그 전주보다 줄었습니다.</div>
+          <div id="weight-middle-right">
+          
+
+          <div id="weight-middle-right-div">
+            <div v-if="past.weekNowWearableWeight < past.weekPastWearableWeight"> 
+              <p>저번주가 더 체중가 높습니다</p>
+              <p>이번주 체중</p>
+                <div class="progress" id="weekNowWearableWeight">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                    <span class="sr-only">{{ past.weekNowWearableWeight }}</span>
+                  </div>
+                </div>
+                <br>
+                <span>저번주 체중</span>
+                <div class="progress" id="weekPastWearableWeight">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                    <span class="sr-only">{{ past.weekPastWearableWeight }}</span>
+                  </div>
+                </div>
+              </div>
+            <div v-else>  
+              <p>이번주가 더 체중가 높습니다</p>
+              <p>이번주 체중</p>
+              <div class="progress" id="weekNowWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                  <span class="sr-only">{{ past.weekNowWearableWeight }}</span>
+                </div>
+              </div>
+              <br>
+              <span>저번주 체중</span>
+              <div class="progress" id="weekPastWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                  <span class="sr-only">{{ past.weekPastWearableWeight }}</span>
+                </div>
+              </div>
             </div>
-            <div id="walk-middle-right-div">a</div>
-            <div id="walk-middle-right-div">dfdfz</div>
           </div>
+
+
+          <div id="weight-middle-right-div">
+            <div v-if="past.monthNowWearableWeight < past.monthPastWearableWeight">  
+              <p>전달이 더 체중가 높습니다</p>
+              <div class="progress" id="monthNowWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                  <span class="sr-only">{{ past.monthNowWearableWeight }}</span>
+                </div>
+              </div>
+              <br>
+              <span>저번달 체중</span>
+              <div class="progress" id="monthPastWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
+                  <span class="sr-only">{{past.monthPastWearableWeight}}</span>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <p> 이번달이 더 체중가 높습니다 </p> 
+              <div class="progress" id="monthNowWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+                  <span class="sr-only">{{ past.monthNowWearableWeight }}</span>
+                </div>
+              </div>
+              <br>
+              <span>저번달 체중</span>
+              <div class="progress" id="monthPastWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:65%">
+                  <span class="sr-only">{{past.monthPastWearableWeight}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div id="weight-middle-right-div">
+            <div v-if="past.yearNowWearableWeight < past.yearPastWearableWeight"> 
+              <p> 작년에 더 체중가 높습니다 </p>
+              <p>이번해 체중</p>
+              <div class="progress" id="yearNowWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+                  <span class="sr-only">{{ past.yearNowWearableWeight }}</span>
+                </div>
+              </div>
+              <br>
+              <span>작년 체중</span>
+              <div class="progress" id="yearPastWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+                  <span class="sr-only">{{ past.yearPastWearableWeight }}</span>
+                </div>
+              </div>
+            </div>
+            <div v-else> 
+              <p> 올해에 더 체중가 높습니다 </p>
+              <p>이번해 체중</p>
+              <div class="progress" id="yearNowWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+                  <span class="sr-only">{{ past.yearNowWearableWeight }}</span>
+                </div>
+              </div>
+              <br>
+              <span>작년 체중</span>
+              <div class="progress" id="yearPastWearableWeight">
+                <div class="progress-bar" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100" style="width:80%">
+                  <span class="sr-only">{{ past.yearPastWearableWeight }}</span>
+                </div>
+              </div>
+
+            </div>
+            
+          </div>
+        </div>
       </div>
     </div>
   </template>
@@ -228,7 +332,7 @@
   </script>
   
   <style>
-  #walk-middle{
+  #weight-middle{
       height: 400px;
       /* background-color: aqua; */
       margin: 3rem;
@@ -236,7 +340,7 @@
       justify-content: center;
       align-items: center;
   }
-  #walk-middle-left-btn{
+  #weight-middle-left-btn{
       width: 12%;
       height: 100%;
       /* display: flex; */
@@ -244,7 +348,7 @@
       align-items: center; */
       /* background-color: rgb(255, 255, 255); */
   }
-  #walk-middle-left{
+  #weight-middle-left{
       width: 44%;
       height: 100%;
       align-items: center;
@@ -254,7 +358,7 @@
       border-radius: 20px;
   }
   
-  #walk-middle-right{
+  #weight-middle-right{
       margin-left: 2%;
       width: 42%;
       height: 100%;
@@ -265,7 +369,7 @@
       /* align-items: center; */
   }
   
-  #btn-walk {
+  #btn-weight {
     width: 70%;
     height: 35px;
     border: none;
@@ -276,7 +380,7 @@
     border-radius: 12px;
     margin-bottom: 1rem;
   }
-  #btn-walk:hover {
+  #btn-weight:hover {
     width: 70%;
     height: 35px;
     border: none;
@@ -287,7 +391,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
   }
-  #walk-middle-left-btn-up{
+  #weight-middle-left-btn-up{
     height: 70%;
   }
   #weight1chartdiv {
@@ -296,7 +400,7 @@
     margin-top: 1rem;
     /* margin: auto; */
   }
-  #walk-middle-right-div{
+  #weight-middle-right-div{
     width: 100%;
     height: 28%;
     background: #FFFFFF;

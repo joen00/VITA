@@ -56,7 +56,7 @@
                           font-size: 100px;
                           /* line-height: 180px; */
                           /* text-transform: uppercase; */
-                          color: #5B5A63;"> {{ lastTotalscore.totalscore }} </div>
+                          color: #5B5A63;"> {{ lastTotalscore.totalScore }} </div>
               <div style="font-size: 14px;
                           font-weight: 800;
                           color: #5B5A63;
@@ -84,7 +84,7 @@
       <div id="wearable-footer">
         <wearable-total></wearable-total>
         <wearable-weight style="margin-top: 10rem;"></wearable-weight>
-        <wearable-walk style="margin-top: 10rem;"></wearable-walk>
+        <wearable-step style="margin-top: 10rem;"></wearable-step>
         <wearable-energy style="margin-top: 10rem;"></wearable-energy>
         <wearable-rhr style="margin-top: 10rem;"></wearable-rhr>
         <wearable-stress style="margin-top: 10rem;"></wearable-stress>
@@ -98,13 +98,13 @@
 import VueHeader from "@/components/common/VueHeader.vue";
 import VueApexCharts from "vue-apexcharts";
 import WearableTotal from "@/components/wearable/WearableTotal.vue";
-import WearableWalk from "@/components/wearable/WearableWalk.vue";
+import WearableStep from "@/components/wearable/WearableStep.vue";
 import WearableWeight from "@/components/wearable/WearableWeight.vue";
 import WearableEnergy from "@/components/wearable/WearableEnergy.vue";
 import WearableRhr from "@/components/wearable/WearableRhr.vue";
 import WearableStress from "@/components/wearable/WearableStress.vue";
 import axios from "axios"
-import html2canvas from "html2canvas"
+// import html2canvas from "html2canvas"
 
 export default {
   name: "FriendView",
@@ -112,7 +112,7 @@ export default {
     VueHeader,
     VueApexCharts,
     WearableTotal,
-    WearableWalk,
+    WearableStep,
     WearableWeight,
     WearableEnergy,
     WearableRhr,
@@ -199,7 +199,9 @@ export default {
                   'token': this.$store.state.test_token},
         }).then(res => {
           this.totalscore = res.data
-          this.lastTotalscore = res.data[this.totalScore.length - 1]
+          let lastIndex = this.totalscore.length - 1
+          this.lastTotalscore = this.totalscore[lastIndex]
+          console.log(this.lastTotalscore)
         }) 
       this.series[0].data = this.totalscore.map(function (e) { 
         return e.totalScore;
@@ -209,49 +211,48 @@ export default {
         const dayOfWeek = week[new Date(e.date).getDay()];
         return dayOfWeek;
       })
-      console.log(this.chartOptions.xaxis.categories)
     },
-    makePDF (selector = 'body') {
-			window.html2canvas = html2canvas //Vue.js 특성상 window 객체에 직접 할당해야한다.
-			let that = this
-			let pdf = new jsPDF('p', 'mm', 'a4')
-			let canvas = pdf.canvas
-			const pageWidth = 210 //캔버스 너비 mm
-			const pageHeight = 295 //캔버스 높이 mm
-			canvas.width = pageWidth
+    // makePDF (selector = 'body') {
+		// 	window.html2canvas = html2canvas //Vue.js 특성상 window 객체에 직접 할당해야한다.
+		// 	let that = this
+		// 	let pdf = new jsPDF('p', 'mm', 'a4')
+		// 	let canvas = pdf.canvas
+		// 	const pageWidth = 210 //캔버스 너비 mm
+		// 	const pageHeight = 295 //캔버스 높이 mm
+		// 	canvas.width = pageWidth
 
-			let ele = document.querySelector(selector)
-			let width = ele.offsetWidth // 셀렉트한 요소의 px 너비
-			let height = ele.offsetHeight // 셀렉트한 요소의 px 높이
-			let imgHeight = pageWidth * height/width // 이미지 높이값 px to mm 변환
+		// 	let ele = document.querySelector(selector)
+		// 	let width = ele.offsetWidth // 셀렉트한 요소의 px 너비
+		// 	let height = ele.offsetHeight // 셀렉트한 요소의 px 높이
+		// 	let imgHeight = pageWidth * height/width // 이미지 높이값 px to mm 변환
 
-			if(!ele){
-				console.warn(selector + ' is not exist.')
-				return false
-			}
+		// 	if(!ele){
+		// 		console.warn(selector + ' is not exist.')
+		// 		return false
+		// 	}
 
-			html2canvas(ele, {
-				onrendered: function(canvas) {
-					let position = 0
-					const imgData = canvas.toDataURL('image/png')
-					pdf.addImage(imgData, 'png', 0, position, pageWidth, imgHeight, undefined, 'slow')
+		// 	html2canvas(ele, {
+		// 		onrendered: function(canvas) {
+		// 			let position = 0
+		// 			const imgData = canvas.toDataURL('image/png')
+		// 			pdf.addImage(imgData, 'png', 0, position, pageWidth, imgHeight, undefined, 'slow')
 
-					//Paging 처리
-					let heightLeft = imgHeight //페이징 처리를 위해 남은 페이지 높이 세팅.
-					heightLeft -= pageHeight
-					while (heightLeft >= 0) {
-						position = heightLeft - imgHeight
-						pdf.addPage();
-						pdf.addImage(imgData, 'png', 0, position, pageWidth, imgHeight)
-						heightLeft -= pageHeight
-					}
+		// 			//Paging 처리
+		// 			let heightLeft = imgHeight //페이징 처리를 위해 남은 페이지 높이 세팅.
+		// 			heightLeft -= pageHeight
+		// 			while (heightLeft >= 0) {
+		// 				position = heightLeft - imgHeight
+		// 				pdf.addPage();
+		// 				pdf.addImage(imgData, 'png', 0, position, pageWidth, imgHeight)
+		// 				heightLeft -= pageHeight
+		// 			}
 
-					pdf.save(that.propTitle.toLowerCase() +'.pdf')
-				},
+		// 			pdf.save(that.propTitle.toLowerCase() +'.pdf')
+		// 		},
 
-			});	
+		// 	});	
 
-		},
+		// },
       
     },
 };

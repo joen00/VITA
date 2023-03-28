@@ -10,7 +10,7 @@
   import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
   
   export default {
-    name: 'WalkChart',
+    name: 'StepChart',
     props: {
       data: Array,
     },
