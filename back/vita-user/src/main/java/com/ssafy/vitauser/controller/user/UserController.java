@@ -35,7 +35,9 @@ public class UserController {
     public ApiResponse extrainfo (@RequestBody ExtraInfoDto extraInfoDto, HttpServletRequest request) {
         // access token 확인
         String accessToken = HeaderUtil.getAccessToken(request);
+        System.out.println("accessToken = " + accessToken);
         String userId = authTokenProvider.getUserId(accessToken);
+        System.out.println("userId = " + userId);
         if (userId != null) {
             userService.putUserUpdate(extraInfoDto, userId);
         }
