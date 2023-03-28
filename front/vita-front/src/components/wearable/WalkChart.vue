@@ -14,19 +14,6 @@
     props: {
       data: Array,
     },
-    // data () {
-    //   return {
-    //     stepData: [],
-    // }
-    // },
-    // created() {
-    //   this.stepData = this.data
-    // },
-    // watch: {
-    //   data: function() {
-    //     this.$forceUpdate();
-    //   }
-    // },
     mounted() {
       am5.ready(() => {
         const root = am5.Root.new("chartdiv"); // 'chartdiv'라는 id로 차트 생성

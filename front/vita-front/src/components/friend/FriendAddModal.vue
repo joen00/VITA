@@ -1,45 +1,52 @@
 <template>
-
-    <b-modal id="modal-scrollable" hide-footer scrollable>
-      <!-- <template #modal-title>
+  <b-modal id="modal-scrollable" hide-footer scrollable>
+    <!-- <template #modal-title>
         <div>친구 추가</div>
       </template> -->
-      <template #modal-header="{ close }">
-        <div id="modal-header-div">
-          <h3 id="modal-header-font">친구 추가</h3>
-          <b-button style="width: 36px; height: 36px; font-weight: 600;" variant="outline-danger" @click="close()">
-            X
-          </b-button>
-        </div>
-      </template>
-      <div id="modal-middle">
-        <b-form-input
-          v-model="inputValue"
-          @keyup="getSearchFriendList(inputValue)"
-          id="modal-nick-search"
-          placeholder="닉네임을 입력하세요."
-        ></b-form-input>
+    <template #modal-header="{ close }">
+      <div id="modal-header-div">
+        <h3 id="modal-header-font">친구 추가</h3>
+        <b-button
+          style="width: 36px; height: 36px; font-weight: 600"
+          variant="outline-danger"
+          @click="close()"
+        >
+          X
+        </b-button>
       </div>
-      <div id="modal-content">
-        <div id="modal-content-list-post-div" v-for="lists in searchlist" :key="lists.id">
-          <b-avatar
-            variant="info"
-            :src="lists.user_img"
-          ></b-avatar>
-          <span style="font-weight: 600">{{ lists.user_nickname }} </span>
-          <button id="btn-modal-add-friend" @click="requestFriend(lists.user_nickname)">친구 신청</button>
-        </div>
+    </template>
+    <div id="modal-middle">
+      <b-form-input
+        v-model="inputValue"
+        @keyup="getSearchFriendList(inputValue)"
+        id="modal-nick-search"
+        placeholder="닉네임을 입력하세요."
+      ></b-form-input>
+    </div>
+    <div id="modal-content">
+      <div
+        id="modal-content-list-post-div"
+        v-for="lists in searchlist"
+        :key="lists.id"
+      >
+        <b-avatar variant="info" :src="lists.user_img"></b-avatar>
+        <span style="font-weight: 600">{{ lists.user_nickname }} </span>
+        <button
+          id="btn-modal-add-friend"
+          @click="requestFriend(lists.user_nickname)"
+        >
+          친구 신청
+        </button>
       </div>
-
-    </b-modal>
-
+    </div>
+  </b-modal>
 </template>
 
 <script>
 import axios from "axios";
 
 // const SERVER_URL = "http://localhost:8080/friend";
-const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
+const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
@@ -96,11 +103,11 @@ export default {
 </script>
 
 <style>
-#modal-header-div{
+#modal-header-div {
   display: flex;
   justify-content: space-between;
 }
-#modal-header-font{
+#modal-header-font {
   font-family: "Exo 2";
   font-style: normal;
   font-weight: 700;
@@ -141,8 +148,6 @@ export default {
   overflow: scroll;
 }
 
-
-
 /* 큰 list 목록 특 */
 /* #list-div {
   width: 90%;
@@ -155,13 +160,13 @@ export default {
 #modal-content-list-post-div {
   width: 90%;
   height: 3.3rem;
-  background:#E0F4FD;
+  background: #e0f4fd;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: 1rem;
   color: rgb(0, 0, 0);
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -185,5 +190,4 @@ export default {
   border: none;
   font-size: 0.9rem;
 }
-
 </style>

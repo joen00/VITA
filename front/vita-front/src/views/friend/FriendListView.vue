@@ -2,7 +2,10 @@
   <div class="text-center">
     <div class="container">
       <div id="header">
-        <VueHeader :vueHeaderTitle="vueHeaderTitle" :vueHeaderContent="vueHeaderContent" />
+        <VueHeader
+          :vueHeaderTitle="vueHeaderTitle"
+          :vueHeaderContent="vueHeaderContent"
+        />
       </div>
       <div id="middle">
         <b-button class="btn" v-b-modal.modal-scrollable id="btn-add-friend"
@@ -30,10 +33,7 @@
             <!-- <span style="font-weight: 600">
               {{ lists.user_id }}
             </span> -->
-            <b-avatar
-              variant="info"
-              :src="lists.user_img"
-            ></b-avatar>
+            <b-avatar variant="info" :src="lists.user_img"></b-avatar>
             <span style="font-weight: 600">{{ lists.user_nickname }} </span>
             <button id="btn-post-add" @click="acceptFriend(lists.user_id)">
               수락
@@ -47,13 +47,15 @@
           </div>
         </div>
 
-        <div id="list-div" class="scroll" v-for="lists in friendlist" :key="lists.id">
+        <div
+          id="list-div"
+          class="scroll"
+          v-for="lists in friendlist"
+          :key="lists.id"
+        >
           <span style="font-weight: 600">
             <!-- {{ lists.user_id }} -->
-            <b-avatar
-              variant="info"
-              :src="lists.user_img"
-            ></b-avatar
+            <b-avatar variant="info" :src="lists.user_img"></b-avatar
           ></span>
           <span style="font-weight: 600">{{ lists.user_nickname }} </span>
           <button
@@ -74,7 +76,7 @@ import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 
 // const SERVER_URL = "http://localhost:8080/friend";
-const SERVER_URL = "http://j8b106.p.ssafy.io:8000/friend";
+const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
 // 유저 검색하거나 친구추가 테스트용
 // user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
 // user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
@@ -281,9 +283,6 @@ export default {
   font-size: 0.9rem;
 }
 
-
-
-
 /* 아래쪽 CSS scroll이 scroll없애는 부분 */
 #list {
   padding-left: 2rem;
@@ -312,13 +311,13 @@ export default {
 #list-div {
   width: 90%;
   height: 3.3rem;
-  background: #E0F4FD;
+  background: #e0f4fd;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   margin: 1rem;
   color: rgb(0, 0, 0);
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
   /* padding-top: 0.9rem; */
 }
@@ -331,7 +330,7 @@ export default {
   margin: 1rem;
   color: white;
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -343,5 +342,4 @@ export default {
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
 }
-
 </style>

@@ -181,7 +181,7 @@ import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
 
-const SERVER_URL = "http://j8b106.p.ssafy.io:8085/users";
+const SERVER_URL = "https://j8b106.p.ssafy.io:8085/users";
 // const SERVER_URL = "http://localhost:8085/users";
 
 export default {

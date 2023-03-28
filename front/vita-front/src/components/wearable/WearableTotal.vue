@@ -55,90 +55,90 @@ export default {
     data: () => ({
         ComponentHeaderTitle: "종합점수 잔디",
         ComponentHeaderContent: "나의 종합점수 기록을 보여줘요.",
-        data: [],
-        // series: [{
-        //     name: '1월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '2월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '3월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '4월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '5월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '6월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '7월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '8월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },
-        //   {
-        //     name: '9월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //     },
-        //     {
-        //     name: '10월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },{
-        //     name: '11월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   },{
-        //     name: '12월',
-        //     data: generateData(31, {
-        //       min: 0,
-        //       max: 90
-        //     })
-        //   }
-        //   ],
+        // data: [],
+        data: [{
+            name: '1월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '2월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '3월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '4월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '5월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '6월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '7월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '8월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },
+          {
+            name: '9월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+            },
+            {
+            name: '10월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },{
+            name: '11월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          },{
+            name: '12월',
+            data: generateData(31, {
+              min: 0,
+              max: 90
+            })
+          }
+          ],
           chartOptions: {
             chart: {
               height: 300,
