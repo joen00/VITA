@@ -12,9 +12,9 @@
             a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
 
     div#login-section
-      .user-profile(v-if="!isLoggedIn")
-        img(src="https://mblogthumb-phinf.pstatic.net/20090917_240/jd111_1253156062795U0WBv_jpg/%C6%C4%C4%E2%B5%E5-%BF%B5%C1%D6_jd111.jpg?type=w210"  id="user-profile-img")
-        p#user-profile-nickname <strong>뿡빵</strong>
+      div.user-profile(v-if="isLoggedIn")
+          img(:src="getUserProfileImg"  id="user-profile-img")
+          p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
   
       .bp-account
         button.account-button(
@@ -120,6 +120,8 @@ export default {
   flex: 1;
   display: flex;
   height: 100%;
+  text-align: center;
+  justify-content: center;
 }
 .bp-header-container .bp-header .bp-nav .nav-list {
   height: 100%;
@@ -163,10 +165,9 @@ export default {
   background: #3592ba;
   color: #fff;
   cursor: pointer;
-  margin-right: 15px;
   font-size: smaller;
   width: 80px;
-  height: 100%;
+  height: 60%;
   border: 1px solid #3592ba;
   border-radius: 5px;
 }
@@ -238,30 +239,32 @@ li {
   list-style-type : none;
 }
 #logo-section {
-  width: 10%;
+  width: 20%;
   text-align: center;
+  justify-content: center;
+  margin-top: 5px;
 }
 #menu-section {
-  width: 70%;
+  width: 60%;
   text-align: center;
+  display: flex;
 }
 #login-section {
   width: 20%;
-  justify-content: right;
+  height: 100%;
   display: flex;
+  justify-content: right;
   text-align: center;
-  /* padding: 10px; */
 }
 .user-profile {
+  height: 100%;
   display: flex;
-  text-align: center;
-  justify-content: right;
+  align-items: center;
 }
 #user-profile-nickname {
   color: #172176;
   padding: 5px;
-  margin-left: 10px;
-  margin-right: 20px;
+  margin: 15px 40px 15px 10px;
 }
 #user-profile-img {
   width: 35px;
