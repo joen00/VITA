@@ -22,8 +22,8 @@ def makeDay(db, file, userId):
     with db.connect() as conn:
         sleep_date = conn.execute(text("SELECT max(daily_sleep_start) FROM daily_sleep WHERE user_id = '" + userId + "'"))
         day_date = conn.execute(text("SELECT max(date) FROM daily_wearable WHERE user_id = '" + userId + "'"))
-        conn.execute(text("DELETE FROM daily_sleep WHERE daily_sleep_start = '" + sleep_date + "'"))
-        conn.execute(text("DELETE FROM daily_wearable WHERE date = '" + day_date + "'"))
+        conn.execute("DELETE FROM daily_sleep WHERE daily_sleep_start = '" + sleep_date + "'")
+        conn.execute("DELETE FROM daily_wearable WHERE date = '" + day_date + "'")
 
     for csv in file:
         if 'weight' in csv:
@@ -65,9 +65,9 @@ def upload(userId):
     with db.connect() as conn:
         week_date = conn.execute(text("SELECT max(date) FROM weekly_wearable WHERE user_id = '" + userId + "'"))
         month_date = conn.execute(text("SELECT max(date) FROM monthly_wearable WHERE user_id = '" + userId + "'"))
-        conn.execute(text("DELETE FROM weekly_wearable WHERE date = '" + week_date + "'"))
-        conn.execute(text("DELETE FROM monthly_wearable WHERE date = '" + month_date + "'"))
-        conn.execute(text("DELETE FROM user_average WHERE user_id = '" + userId + "'"))
+        conn.execute("DELETE FROM weekly_wearable WHERE date = '" + week_date + "'")
+        conn.execute("DELETE FROM monthly_wearable WHERE date = '" + month_date + "'")
+        conn.execute("DELETE FROM user_average WHERE user_id = '" + userId + "'")
 
     common.saveDB(db, 'weekly_wearable', week[day['date'] >= week_date])
     common.saveDB(db, 'monthly_wearable', month[day['date'] >= month_date])
