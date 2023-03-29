@@ -6,6 +6,8 @@ import com.ssafy.vitawearable.dto.EnergyMonthlyDto;
 import com.ssafy.vitawearable.dto.UserAverageDto;
 import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,7 @@ import java.util.List;
 public class AverageController {
     private final Wearable wearable;
     private final Score score;
+    private final UserUtil userUtil;
 
     // 사용자 평균 데이터 리스트
     @ApiOperation(
@@ -31,9 +35,15 @@ public class AverageController {
             notes = "사용자 평균 데이터 리스트",
             response = UserAverageDto.class
     )
+//    @GetMapping("/user")
+//    public ResponseEntity<UserAverageDto> userAverage(@RequestHeader("token") String token) {
+//        String userId = wearable.getUserId(token);
+//        return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
+//    }
     @GetMapping("/user")
-    public ResponseEntity<UserAverageDto> userAverage(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<UserAverageDto> userAverage(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
     }
 
