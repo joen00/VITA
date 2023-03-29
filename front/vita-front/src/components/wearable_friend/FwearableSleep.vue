@@ -50,6 +50,9 @@ export default {
   components: {
     ComponentHeader,
   },
+  props: {
+    sleepData: Array
+  },
   data() {
     return {
       ComponentHeaderTitle: "수면",

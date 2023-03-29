@@ -50,6 +50,9 @@ export default {
   components: {
     ComponentHeader,
   },
+  props: {
+    energyData: Array
+  },
   data() {
     return {
       ComponentHeaderTitle: "활동 에너지",
@@ -148,43 +151,44 @@ export default {
       });
 
       // Set data
-      var data = [
-        {
-          name: "John",
-          value: 35654,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/A04.png",
-          },
-        },
-        {
-          name: "Damon",
-          value: 65456,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/C02.png",
-          },
-        },
-        {
-          name: "Patrick",
-          value: 45724,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/D02.png",
-          },
-        },
-        {
-          name: "Joen",
-          value: 13654,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/E01.png",
-          },
-        },
-        {
-          name: "Mark",
-          value: 13654,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/E01.png",
-          },
-        },
-      ];
+      var data = this.energyData;
+      // var data = [
+      //   {
+      //     name: "John",
+      //     value: 35654,
+      //     bulletSettings: {
+      //       src: "https://www.amcharts.com/lib/images/faces/A04.png",
+      //     },
+      //   },
+      //   {
+      //     name: "Damon",
+      //     value: 65456,
+      //     bulletSettings: {
+      //       src: "https://www.amcharts.com/lib/images/faces/C02.png",
+      //     },
+      //   },
+      //   {
+      //     name: "Patrick",
+      //     value: 45724,
+      //     bulletSettings: {
+      //       src: "https://www.amcharts.com/lib/images/faces/D02.png",
+      //     },
+      //   },
+      //   {
+      //     name: "Joen",
+      //     value: 13654,
+      //     bulletSettings: {
+      //       src: "https://www.amcharts.com/lib/images/faces/E01.png",
+      //     },
+      //   },
+      //   {
+      //     name: "Mark",
+      //     value: 13654,
+      //     bulletSettings: {
+      //       src: "https://www.amcharts.com/lib/images/faces/E01.png",
+      //     },
+      //   },
+      // ];
 
       series.bullets.push(function () {
         return am5.Bullet.new(root, {
