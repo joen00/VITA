@@ -11,10 +11,10 @@ import java.time.ZonedDateTime;
 @Setter
 // 주간 수면 데이터 Dto
 public class SleepWeeklyDto {
-    private LocalTime weeklyWearableSleep;
-    private LocalTime weeklyWearableLight;
-    private LocalTime weeklyWearableRem;
-    private LocalTime weeklyWearableAwake;
-    private LocalTime weeklyWearableDeep;
+    private int weeklyWearableSleep;
+    private int weeklyWearableLight;
+    private int weeklyWearableRem;
+    private int weeklyWearableAwake;
+    private int weeklyWearableDeep;
     private ZonedDateTime date;
 }

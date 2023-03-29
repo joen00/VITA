@@ -33,10 +33,10 @@ public class MonthlyWearable {
     private Long monthlyWearableEnergy;
     private int monthlyWearableRhr;
     private int monthlyWearableStress;
-    private LocalTime monthlyWearableSleep;
-    private LocalTime monthlyWearableLight;
-    private LocalTime monthlyWearableRem;
-    private LocalTime monthlyWearableAwake;
-    private LocalTime monthlyWearableDeep;
+    private int monthlyWearableSleep;
+    private int monthlyWearableLight;
+    private int monthlyWearableRem;
+    private int monthlyWearableAwake;
+    private int monthlyWearableDeep;
 
 }

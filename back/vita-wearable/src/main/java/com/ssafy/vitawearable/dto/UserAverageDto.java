@@ -17,11 +17,11 @@ public class UserAverageDto {
     private int userAverageEnergy;
     private int userAverageRhr;
     private int userAverageStress;
-    private Time userAverageSleep;
-    private Time userAverageLight;
-    private Time userAverageRem;
-    private Time userAverageAwake;
-    private Time userAverageDeep;
+    private int userAverageSleep;
+    private int userAverageLight;
+    private int userAverageRem;
+    private int userAverageAwake;
+    private int userAverageDeep;
 
 //    public UserAverageDto(UserAverage userAverage) {
 //        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();

@@ -33,10 +33,10 @@ public class WeeklyWearable {
     private Long weeklyWearableEnergy;
     private int weeklyWearableRhr;
     private int weeklyWearableStress;
-    private LocalTime weeklyWearableSleep;
-    private LocalTime weeklyWearableLight;
-    private LocalTime weeklyWearableRem;
-    private LocalTime weeklyWearableAwake;
-    private LocalTime weeklyWearableDeep;
+    private int weeklyWearableSleep;
+    private int weeklyWearableLight;
+    private int weeklyWearableRem;
+    private int weeklyWearableAwake;
+    private int weeklyWearableDeep;
 
 }

@@ -13,5 +13,5 @@ public class SleepDailyDto {
     private String dailySleepStage;
     private ZonedDateTime dailySleepStart;
     private ZonedDateTime dailySleepEnd;
-    private LocalTime dailySleepTotal;
+    private int dailySleepTotal;
 }
