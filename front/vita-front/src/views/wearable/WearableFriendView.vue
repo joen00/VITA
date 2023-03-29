@@ -180,25 +180,25 @@ export default {
             "value":e.userAverageEnergy, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.rhrData = res.data.map(function(e){
+          this.rhrData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageRhr, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.sleepData = res.data.map(function(e){
+          this.sleepData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageSleep, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.stressData = res.data.map(function(e){
+          this.stressData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageStress, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.walkData = res.data.map(function(e){
+          this.walkData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageStep, 

@@ -6,6 +6,7 @@
         :ComponentHeaderContent="ComponentHeaderContent"
       />
     </div>
+    {{ rhrData }}
     <div id="wearable-friend-Rhr">
       <div id="wearable-friend-Rhr-Left">
         <div id="wearable-friend-Rhr-Left-div">
