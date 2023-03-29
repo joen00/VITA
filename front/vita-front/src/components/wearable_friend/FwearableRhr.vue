@@ -78,6 +78,8 @@ export default {
         break;
       }
     }
+    console.log(this.franks)
+    console.log(this.rhrData)
 
     am5.ready(() => {
       // Create root element
