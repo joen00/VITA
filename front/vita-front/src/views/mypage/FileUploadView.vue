@@ -52,6 +52,7 @@
 <script>
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "FileUploadView",
