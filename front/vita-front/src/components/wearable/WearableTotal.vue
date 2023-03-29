@@ -27,7 +27,7 @@
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import VueApexCharts from "vue-apexcharts";
 import axios from 'axios'
-
+import { mapGetters } from "vuex";
 
 function generateData(count, yrange) {
     var i = 0;
@@ -153,12 +153,17 @@ export default {
     created() {
       this.getTotalScore(2023);
     },
+
+    computed: {
+    ...mapGetters(["token", "user"]),
+    },
+  
     methods: {
       getTotalScore(year) {
         // axios.get(this.$store.state.url + 'score/' + year , {
         axios.get(this.$store.state.url + "score/" + year , {
       headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
+                Authorization: `Bearer ${this.token}`,},
       }).then(res => {
         // console.log(res.data)
         this.data = res.data

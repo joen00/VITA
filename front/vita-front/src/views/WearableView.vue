@@ -167,6 +167,7 @@ import WearableEnergy from "@/components/wearable/WearableEnergy.vue";
 import WearableRhr from "@/components/wearable/WearableRhr.vue";
 import WearableStress from "@/components/wearable/WearableStress.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 // import html2canvas from "html2canvas"
 
 export default {
@@ -257,6 +258,11 @@ export default {
   created() {
     this.totalScore();
   },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     async totalScore() {
       await axios
@@ -264,7 +270,7 @@ export default {
           // await axios.get('http://localhost:8083/wearable/' + 'score', {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
