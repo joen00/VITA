@@ -167,8 +167,10 @@ export default {
         console.log(res.data)
         this.data = res.data;
         axios.get(this.$store.state.friendUrl + "/user" , {
-        headers: {'Content-Type': 'application/json',
-                  'token': this.$store.state.test_token},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}`
+          },
         }).then(res => {
           console.log(res.data)
           this.data.push(res.data);
