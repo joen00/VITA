@@ -105,6 +105,7 @@ import FwearableStress from "@/components/wearable_friend/FwearableStress.vue";
 import FwearableSleep from "@/components/wearable_friend/FwearableSleep.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from 'axios';
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -140,12 +141,16 @@ export default {
   created() {
     this.getFriendList();
   },
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
   methods: {
     getFriendList() {
       axios.get(this.$store.state.friendUrl , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token
-              },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+        },
       }).then(res => {
         this.slides = res.data.map(function(e){
           return {"id": e.userId, "name": e.userNickname, "img": e.userImg};
@@ -154,40 +159,44 @@ export default {
     },
     getAverage(selected) {
       axios.post(this.$store.state.friendUrl + "/all" , selected , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+        },
       }).then(res => {
         this.data = res.data;
         axios.get(this.$store.state.friendUrl + "/user" , {
-        headers: {'Content-Type': 'application/json',
-                  'token': this.$store.state.test_token},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}`
+          },
         }).then(res => {
           this.data.push(res.data);
-          this.energyData = res.data.map(function(e){
+          this.energyData = this.data.map(function (e) {
           return {
             "name":e.userNickname,
             "value":e.userAverageEnergy, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.rhrData = res.data.map(function(e){
+          this.rhrData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageRhr, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.sleepData = res.data.map(function(e){
+          this.sleepData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageSleep, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.stressData = res.data.map(function(e){
+          this.stressData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageStress, 
             "bulletSettings": { src:e.userImg }};
           })
-          this.walkData = res.data.map(function(e){
+          this.walkData = this.data.map(function(e){
           return {
             "name":e.userNickname, 
             "value":e.userAverageStep, 
