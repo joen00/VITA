@@ -5,7 +5,10 @@ export default {
     user: null,
     token: null,
     userNickname: null,
+<<<<<<< HEAD
     userProfileImg: null,
+=======
+>>>>>>> 6a1a3a9404075134471eda3b616afcefc38fcaa0
   },
   getters: {
     user: state => state.user,
@@ -14,7 +17,7 @@ export default {
     userProfileImg: state => state.userProfileImg
   },
   actions: {
-    fetchUser ({state, commit}, callback) {
+    fetchUser({ state, commit }, callback) {
       state.user
         ? callback && callback()
         : accountApi.getUser(
@@ -26,13 +29,13 @@ export default {
     }
   },
   mutations: {
-    setToken (state, token) {
+    setToken(state, token) {
       state.token = token
     },
-    setUser (state, user) {
+    setUser(state, user) {
       state.user = user
     },
-    setUserNickname(state, userNickname) { 
+    setUserNickname(state, userNickname) {
       state.userNickname = userNickname
     },
     setUserProfileImg(state, userProfileImg) {

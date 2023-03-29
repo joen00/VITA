@@ -91,9 +91,14 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          const userId = response.data 
+          axios
+        .get(`https://j8b106.p.ssafy.io:5000/upload`, { params: { userId: userId} })
+        .then((response) => {
+          console.log(response)
+        });
         });
     },
-    confirmFile() {},
     created() {
       console.log(this.serverBaseUrl);
     },
