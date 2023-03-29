@@ -1,6 +1,7 @@
 from flask import Flask, request
 from sqlalchemy import text
 from urllib import request as rq
+from flask_cors import CORS
 import pandas as pd
 import zipfile
 import shutil
@@ -16,6 +17,7 @@ import heart_rate
 import sleep_stage
 
 app = Flask(__name__)
+CORS(app)
 
 def makeDF(type, csv):
     df = type.readCsv(csv)
