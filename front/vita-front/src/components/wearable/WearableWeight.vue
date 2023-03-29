@@ -186,6 +186,7 @@
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import WeightChart from "./WeightChart.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "WearableWeight",
@@ -193,6 +194,7 @@ export default {
     ComponentHeader,
     WeightChart,
   },
+
   data: () => ({
     ComponentHeaderTitle: "체중",
     ComponentHeaderContent: "나의 BMI 기록을 보여줘요.",
@@ -200,18 +202,24 @@ export default {
     past: {},
     componentKey: 0,
   }),
+
   // 데이터 가져오는 곳
   created() {
     this.weekWeight();
     this.pastAndNowWeight();
   },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     async weekWeight() {
       await axios
         .get(this.$store.state.url + "weight/daily", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -235,7 +243,7 @@ export default {
         .get(this.$store.state.url + "weight/weekly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -257,7 +265,7 @@ export default {
         .get(this.$store.state.url + "weight/monthly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -278,7 +286,7 @@ export default {
         .get(this.$store.state.url + "weight/past", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {

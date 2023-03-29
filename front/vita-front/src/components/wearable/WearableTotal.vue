@@ -52,6 +52,7 @@ export default {
       ComponentHeader,
       apexchart: VueApexCharts,
     },
+
     data: () => ({
         ComponentHeaderTitle: "종합점수 잔디",
         ComponentHeaderContent: "나의 종합점수 기록을 보여줘요.",
@@ -150,6 +151,7 @@ export default {
             colors: ["#008FFB"],
           },
     }),
+
     created() {
       this.getTotalScore(2023);
     },
@@ -162,8 +164,10 @@ export default {
       getTotalScore(year) {
         // axios.get(this.$store.state.url + 'score/' + year , {
         axios.get(this.$store.state.url + "score/" + year , {
-      headers: {'Content-Type': 'application/json',
-                Authorization: `Bearer ${this.token}`,},
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+      },
       }).then(res => {
         // console.log(res.data)
         this.data = res.data

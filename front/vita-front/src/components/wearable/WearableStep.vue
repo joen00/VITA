@@ -188,13 +188,16 @@
 import axios from "axios";
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import StepChart from "@/components/wearable/StepChart.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "WearableStep",
+  
   components: {
     ComponentHeader,
     StepChart,
   },
+
   data: () => ({
     ComponentHeaderTitle: "걸음수",
     ComponentHeaderContent: "나의 걸음수 기록을 보여줘요.",
@@ -202,18 +205,24 @@ export default {
     past: [],
     componentKey: 0,
   }),
+
   // 데이터 가져오는 곳
   created() {
     this.weekStep();
     this.pastAndNowStep();
   },
+  
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+  
   methods: {
     async weekStep() {
       await axios
         .get(this.$store.state.url + "step/daily", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -230,7 +239,7 @@ export default {
         .get(this.$store.state.url + "step/weekly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -247,7 +256,7 @@ export default {
         .get(this.$store.state.url + "step/monthly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -263,7 +272,7 @@ export default {
         .get(this.$store.state.url + "step/past", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {

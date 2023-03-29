@@ -196,6 +196,7 @@
 import axios from "axios";
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import EnergyChart from "@/components/wearable/EnergyChart.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Wearableenergy",
@@ -203,6 +204,7 @@ export default {
     ComponentHeader,
     EnergyChart,
   },
+
   data: () => ({
     ComponentHeaderTitle: "활동에너지",
     ComponentHeaderContent: "나의 걸음수 기록을 보여줘요.",
@@ -210,18 +212,24 @@ export default {
     past: [],
     componentKey: 0,
   }),
+
   // 데이터 가져오는 곳
   created() {
     this.weekEnergy();
     this.pastAndNowEnergy();
   },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+  
   methods: {
     async weekEnergy() {
       await axios
         .get(this.$store.state.url + "energy/daily", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -236,7 +244,7 @@ export default {
         .get(this.$store.state.url + "energy/weekly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -251,7 +259,7 @@ export default {
         .get(this.$store.state.url + "energy/monthly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -266,7 +274,7 @@ export default {
         .get(this.$store.state.url + "energy/past", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {

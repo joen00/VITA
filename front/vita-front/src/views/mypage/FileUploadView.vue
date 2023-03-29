@@ -96,7 +96,6 @@ export default {
     confirmFile() {},
     created() {
       console.log(this.serverBaseUrl);
-      console.log(this.myUserId);
     },
   },
 };

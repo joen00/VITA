@@ -192,6 +192,7 @@
 import axios from "axios";
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import StressChart from "@/components/wearable/StressChart.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Wearablestress",
@@ -199,6 +200,7 @@ export default {
     ComponentHeader,
     StressChart,
   },
+
   data: () => ({
     ComponentHeaderTitle: "스트레스",
     ComponentHeaderContent: "나의 스트레스 기록을 보여줘요.",
@@ -206,18 +208,24 @@ export default {
     past: [],
     componentKey: 0,
   }),
+
   // 데이터 가져오는 곳
   created() {
     this.weekStress();
     this.pastAndNowStress();
   },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     async weekStress() {
       await axios
         .get(this.$store.state.url + "stress/daily", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -233,7 +241,7 @@ export default {
         .get(this.$store.state.url + "stress/weekly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -249,7 +257,7 @@ export default {
         .get(this.$store.state.url + "stress/monthly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -265,7 +273,7 @@ export default {
         .get(this.$store.state.url + "stress/past", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {

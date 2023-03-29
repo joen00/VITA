@@ -184,6 +184,7 @@
 import axios from "axios";
 import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import RhrChart from "@/components/wearable/RhrChart.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Wearablerhr",
@@ -191,6 +192,7 @@ export default {
     ComponentHeader,
     RhrChart,
   },
+
   data: () => ({
     ComponentHeaderTitle: "심박변이",
     ComponentHeaderContent: "나의 심박변이 기록을 보여줘요.",
@@ -199,18 +201,24 @@ export default {
     past: [],
     componentKey: 0,
   }),
+
   // 데이터 가져오는 곳
   created() {
     this.weekRhr();
     this.pastAndNowRhr();
   },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+  
   methods: {
     async weekRhr() {
       await axios
         .get(this.$store.state.url + "rhr/daily", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -228,7 +236,7 @@ export default {
         .get(this.$store.state.url + "rhr/weekly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -246,7 +254,7 @@ export default {
         .get(this.$store.state.url + "rhr/monthly", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
@@ -264,7 +272,7 @@ export default {
         .get(this.$store.state.url + "rhr/past", {
           headers: {
             "Content-Type": "application/json",
-            token: this.$store.state.test_token,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
