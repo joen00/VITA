@@ -105,6 +105,7 @@ import FwearableStress from "@/components/wearable_friend/FwearableStress.vue";
 import FwearableSleep from "@/components/wearable_friend/FwearableSleep.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from 'axios';
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -139,12 +140,16 @@ export default {
   created() {
     this.getFriendList();
   },
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
   methods: {
     getFriendList() {
       axios.get(this.$store.state.friendUrl , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token
-              },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+        },
       }).then(res => {
         this.slides = res.data.map(function(e){
           return {"id": e.userId, "name": e.userNickname, "img": e.userImg};
@@ -154,8 +159,10 @@ export default {
     getAverage(selected) {
       console.log(selected)
       axios.post(this.$store.state.friendUrl + "/all" , selected , {
-      headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token},
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+        },
       }).then(res => {
         console.log(res.data)
         this.data = res.data;
