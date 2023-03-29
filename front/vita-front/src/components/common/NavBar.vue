@@ -13,7 +13,7 @@
 
     div#login-section
       div.user-profile(v-if="isLoggedIn")
-          img(:src="getUserProfileImg"  id="user-profile-img")
+          img(:src="`${getUserProfileImg}`"  id="user-profile-img")
           p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
   
       .bp-account
@@ -27,11 +27,8 @@
           type='button'
           @click='logout'
         ) 로그아웃
-
-      //- div.user-profile(v-if="isLoggedIn")
-      //-   img(:src="getUserProfileImg"  id="user-profile-img")
-      //-   p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
 </template>
+
 <script>
 import $ from '@/utils'
 import { mapGetters, mapActions } from 'vuex'
