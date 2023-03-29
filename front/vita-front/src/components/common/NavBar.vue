@@ -159,18 +159,28 @@ export default {
   align-items: center;
 }
 .bp-header-container .bp-header .bp-account .account-button {
-  background: #3592ba;
-  color: #fff;
-  cursor: pointer;
-  font-size: smaller;
-  width: 80px;
+  width: 85px;
   height: 60%;
-  border: 1px solid #3592ba;
-  border-radius: 5px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin-left: 26rem;
+  margin-right: 1rem;
+  float: left;
 }
 .bp-header-container .bp-header .bp-account .account-button:hover {
-  background: #d4ecf7;
-  color: #106285;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  background: #125e7f;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin-left: 26rem;
+  margin-right: 1rem;
+  float: left;
 }
 .bp-header-container .account-dropdown {
   width: 100px;
@@ -259,7 +269,7 @@ li {
   align-items: center;
 }
 #user-profile-nickname {
-  color: #172176;
+  color: #125e7f;
   padding: 5px;
   margin: 15px 40px 15px 10px;
 }
