@@ -215,7 +215,7 @@ public class FriendServiceImpl implements FriendService{
 
         // 뱃지 등록시켜주기
         // 1. 받는 사람 친구 리스트 숫자 가져오기
-        List<FriendSearchMapping> friendDtoArrayList = friendRepository.getFriendSearchList(receivingUserId);
+        List<FriendSendingListDto> friendDtoArrayList = friendRepository.findByFriendSendingUser_userIdAndFriendStatus(receivingUserId, "accepted");
         int receivingCount = friendDtoArrayList.size();
         // 만약 5명 이상일때 업데이트
         if(receivingCount >= 5){
@@ -233,7 +233,7 @@ public class FriendServiceImpl implements FriendService{
         }
         // 2. 보낸 사람 친구 리스트 숫자 가져오기
         User sendingUser = usersRepository.findByUserNickname(sendingUserNickname);
-        List<FriendSearchMapping> sendingfriendList = friendRepository.getFriendSearchList(sendingUser.getUserId());
+        List<FriendSendingListDto> sendingfriendList = friendRepository.findByFriendSendingUser_userIdAndFriendStatus(sendingUser.getUserId(), "accepted");
         int sendingListSize = sendingfriendList.size();
         if(sendingListSize >= 5){
             User user = usersRepository.findByUserId(sendingUser.getUserId());
