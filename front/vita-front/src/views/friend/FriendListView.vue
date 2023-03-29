@@ -137,7 +137,9 @@ export default {
     deleteOrRejectFriend(SendingUserNickname) {
       axios
         .delete(this.$store.state.serverBaseUrl + `/friend`,
-          { SendingUserNickname: SendingUserNickname },
+          { data: 
+            { SendingUserNickname: SendingUserNickname }
+          },
           {
             headers: {
               Authorization: `Bearer ${this.token}`,
