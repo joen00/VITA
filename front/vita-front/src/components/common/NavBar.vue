@@ -1,26 +1,37 @@
 <template lang="pug">
 .bp-header-container(:class='{ sticky: stickyMode }')
   header.bp-header
-    nav.bp-nav
-      ul.nav-list
-        li.a.logo-link(@click='go("/")')
-          img(src="@/assets/VitaLogo-NavBar.png" id="nav-logo")
+    div#logo-section
+      a.logo-link(@click='go("/")')
+        img(src="@/assets/VitaLogo-NavBar.png" id="nav-logo")
+    
+    div#menu-section
+      nav.bp-nav
+        ul.nav-list
+          li.nav-list-item(v-for='m in menu')
+            a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
 
-        li.nav-list-item(v-for='m in menu')
-          a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
-    .bp-account
-      button.account-button(
-        v-if='!isLoggedIn'
-        type='button'
-        @click='$emit("onOpenLoginModal")'
-      ) 로그인
-      button.account-button.loggedin(
-        v-else
-        type='button'
-        @click='logout'
-      ) 로그아웃
+    div#login-section
+      .user-profile(v-if="!isLoggedIn")
+        img(src="https://mblogthumb-phinf.pstatic.net/20090917_240/jd111_1253156062795U0WBv_jpg/%C6%C4%C4%E2%B5%E5-%BF%B5%C1%D6_jd111.jpg?type=w210"  id="user-profile-img")
+        p#user-profile-nickname <strong>뿡빵</strong>
+  
+      .bp-account
+        button.account-button(
+          v-if='!isLoggedIn'
+          type='button'
+          @click='$emit("onOpenLoginModal")'
+        ) 로그인
+        button.account-button.loggedin(
+          v-else
+          type='button'
+          @click='logout'
+        ) 로그아웃
+
+      //- div.user-profile(v-if="isLoggedIn")
+      //-   img(:src="getUserProfileImg"  id="user-profile-img")
+      //-   p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
 </template>
-
 <script>
 import $ from '@/utils'
 import { mapGetters, mapActions } from 'vuex'
@@ -38,11 +49,14 @@ export default {
       ]
     }
   },
+  
   created () {
     this.isLoggedIn && this.fetchUser()
   },
+  
   methods: {
     ...mapActions(['fetchUser']),
+
     go (path) {
       this.close()
       if (this.$route.path !== path) this.$router.push(path)
@@ -53,17 +67,24 @@ export default {
     logout () {
       this.close()
       this.$emit('onLogout')
-    }
+    },
   },
+
   computed: {
-    ...mapGetters(['token', 'user']),
+    ...mapGetters(['token', 'userNickname', 'userProfileImg']),
+
     isLoggedIn () {
       return this.token != null
     },
-    isAdmin () {
-      return this.user && this.user.roleType === 'ROLE_ADMIN'
-    }
+    getUserNickname () {
+      if (!this.userNickname) return ''
+      return this.userNickname
+    },
+    getUserProfileImg () {
+      return this.getUserProfileImg
+    },
   },
+
   directives: {
     'click-outside': $.clickOutside()
   }
@@ -76,20 +97,19 @@ export default {
   /* background: #47474B; */
   /* background: #2f2f56; */
   background: linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
-  /* background: rgb(254, 255, 213); */
   width: 100%;
   height: 10px;
   position: absolute;
   z-index: 1;
-  justify-content: center;
-  display: flex;
 }
 .bp-header-container .bp-header {
   height: 100%;
   display: flex;
+  padding: 0 50px;
 }
 .bp-header-container .bp-header .logo-link {
   cursor: pointer;
+  display: block;
 }
 .bp-header-container .bp-header .bp-logo {
   flex: 0;
@@ -104,7 +124,6 @@ export default {
 .bp-header-container .bp-header .bp-nav .nav-list {
   height: 100%;
   display: flex;
-  /* justify-content: center; */
 }
 .bp-header-container .bp-header .bp-nav .nav-list .nav-list-item {
   height: 100%;
@@ -146,13 +165,12 @@ export default {
   cursor: pointer;
   margin-right: 15px;
   font-size: smaller;
-  width: 90px;
-  height: 60%;
+  width: 80px;
+  height: 100%;
   border: 1px solid #3592ba;
   border-radius: 5px;
 }
 .bp-header-container .bp-header .bp-account .account-button:hover {
-  /* color: #8a4baf; */
   background: #d4ecf7;
   color: #106285;
 }
@@ -193,12 +211,6 @@ export default {
   .bp-header-container .bp-header .bp-search .search-button {
     padding: 21px 15px;
   }
-  .bp-header-container .bp-header .bp-account .account-button {
-    /* padding: 10px 10px; */
-  }
-  .bp-header-container .bp-header .bp-account .account-button.loggedin {
-    padding: 10px 10px;
-  }
   .bp-header-container .account-dropdown {
     top: 70px;
   }
@@ -221,9 +233,39 @@ export default {
 #nav-logo {
   width: 100px;
   height: 40px;
-  margin-top: 5px;
 }
 li {
   list-style-type : none;
+}
+#logo-section {
+  width: 10%;
+  text-align: center;
+}
+#menu-section {
+  width: 70%;
+  text-align: center;
+}
+#login-section {
+  width: 20%;
+  justify-content: right;
+  display: flex;
+  text-align: center;
+  /* padding: 10px; */
+}
+.user-profile {
+  display: flex;
+  text-align: center;
+  justify-content: right;
+}
+#user-profile-nickname {
+  color: #172176;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+#user-profile-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
 }
 </style>
