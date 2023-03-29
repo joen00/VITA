@@ -21,9 +21,9 @@ def makeDF(type, csv):
 def makeDay(db, file, userId):
     with db.connect() as conn:
         sleep_date = conn.execute(text("SELECT max(daily_sleep_start) FROM daily_sleep WHERE user_id = '" + userId + "'"))
-        day_date = conn.execute(text("SELECT max(date) FROM 'daily_wearable' WHERE user_id = '" + userId + "'"))
+        day_date = conn.execute(text("SELECT max(date) FROM daily_wearable WHERE user_id = '" + userId + "'"))
         conn.execute(text("DELETE FROM daily_sleep WHERE daily_sleep_start = '" + sleep_date + "'"))
-        conn.execute(text("DELETE FROM daily_sleep WHERE date = '" + day_date + "'"))
+        conn.execute(text("DELETE FROM daily_wearable WHERE date = '" + day_date + "'"))
 
     for csv in file:
         if 'weight' in csv:
