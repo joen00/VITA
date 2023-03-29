@@ -6,17 +6,17 @@ import com.ssafy.vitafriend.dto.FriendSendingListDto;
 import com.ssafy.vitafriend.entity.Friend;
 import com.ssafy.vitafriend.entity.Score;
 import com.ssafy.vitafriend.entity.User;
+import com.ssafy.vitafriend.entity.UserBadge;
 import com.ssafy.vitafriend.repository.FriendRepository;
+import com.ssafy.vitafriend.repository.UserBadgeRepository;
 import com.ssafy.vitafriend.repository.UsersRepository;
+import lombok.Builder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +37,9 @@ public class FriendServiceImpl implements FriendService{
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UserBadgeRepository userBadgeRepository;
 
     @Override
     public List<FriendSendingListDto> getSendingFriendList(String userId) {
@@ -209,6 +212,43 @@ public class FriendServiceImpl implements FriendService{
             return "fail";
         }
         friendRepository.save(currentRelation);
+
+        // 뱃지 등록시켜주기
+        // 1. 받는 사람 친구 리스트 숫자 가져오기
+        List<FriendSearchMapping> friendDtoArrayList = friendRepository.getFriendSearchList(receivingUserId);
+        int receivingCount = friendDtoArrayList.size();
+        // 만약 5명 이상일때 업데이트
+        if(receivingCount >= 5){
+            User user = usersRepository.findByUserId(receivingUserId);
+            // 회원에 해당하는 userBadge가 나온다.
+            List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(user);
+            for(UserBadge userBadge : userBadgesList){
+                // badgeId 2이면 친구 5명 이상 이때 바꿔
+                if (userBadge.getBadge().getBadgeId()==2){
+                    Long userBadgeId = userBadge.getUserBadgeId();
+                    UserBadge u= userBadgeRepository.findByUserBadgeId(userBadgeId);
+                    u.updateUserBadge(userBadgeId,true,user,userBadge.getBadge());
+                }
+            }
+        }
+        // 2. 보낸 사람 친구 리스트 숫자 가져오기
+        User sendingUser = usersRepository.findByUserNickname(sendingUserNickname);
+        List<FriendSearchMapping> sendingfriendList = friendRepository.getFriendSearchList(sendingUser.getUserId());
+        int sendingListSize = sendingfriendList.size();
+        if(sendingListSize >= 5){
+            User user = usersRepository.findByUserId(sendingUser.getUserId());
+            // 회원에 해당하는 userBadge가 나온다.
+            List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(user);
+            for(UserBadge userBadge : userBadgesList){
+                // badgeId 2이면 친구 5명 이상 이때 바꿔
+                if (userBadge.getBadge().getBadgeId()==2){
+                    Long userBadgeId = userBadge.getUserBadgeId();
+                    UserBadge u= userBadgeRepository.findByUserBadgeId(userBadgeId);
+                    u.updateUserBadge(userBadgeId,true,user,userBadge.getBadge());
+                }
+            }
+        }
+
         return "success";
     }
 
