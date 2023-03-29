@@ -24,10 +24,11 @@
                   :name="slide.id"
                   :value="slide.id"
                 />
+                <!-- src="https://placekitten.com/300/300" -->
                 <span>
                   <b-avatar
                     variant="info"
-                    src="https://placekitten.com/300/300"
+                    :src="slide.img"
                     style="width: 50px; height: 50px; margin-top: -1.5rem"
                   ></b-avatar>
                   <br />
@@ -142,11 +143,11 @@ export default {
     getFriendList() {
       axios.get(this.$store.state.friendUrl , {
       headers: {'Content-Type': 'application/json',
-                'token': this.$store.state.test_token,
-                'Access-Control-Allow-Origin': '*'},
+                'token': this.$store.state.test_token
+              },
       }).then(res => {
         this.slides = res.data.map(function(e){
-          return {"id": e.userId, "name": e.userNickname};
+          return {"id": e.userId, "name": e.userNickname, "img": e.userImg};
         })
       })
     },
@@ -165,19 +166,34 @@ export default {
           console.log(res.data)
           this.data.push(res.data);
           this.energyData = res.data.map(function(e){
-          return {"name":e.userNickname, "value":e.userAverageEnergy};
+          return {
+            "name":e.userNickname,
+            "value":e.userAverageEnergy, 
+            "bulletSettings": { src:e.userImg }};
           })
           this.rhrData = res.data.map(function(e){
-          return {"name":e.userNickname, "value":e.userAverageRhr};
+          return {
+            "name":e.userNickname, 
+            "value":e.userAverageRhr, 
+            "bulletSettings": { src:e.userImg }};
           })
           this.sleepData = res.data.map(function(e){
-          return {"name":e.userNickname, "value":e.userAverageSleep};
+          return {
+            "name":e.userNickname, 
+            "value":e.userAverageSleep, 
+            "bulletSettings": { src:e.userImg }};
           })
           this.stressData = res.data.map(function(e){
-          return {"name":e.userNickname, "value":e.userAverageStress};
+          return {
+            "name":e.userNickname, 
+            "value":e.userAverageStress, 
+            "bulletSettings": { src:e.userImg }};
           })
           this.walkData = res.data.map(function(e){
-          return {"name":e.userNickname, "value":e.userAverageStep};
+          return {
+            "name":e.userNickname, 
+            "value":e.userAverageStep, 
+            "bulletSettings": { src:e.userImg }};
           })
         })
       })
