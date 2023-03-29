@@ -1,4 +1,5 @@
 from flask import Flask
+from sqlalchemy import select
 import pandas as pd
 import glob
 
@@ -14,10 +15,15 @@ app = Flask(__name__)
 
 def makeDF(type, csv):
     df = type.readCsv(csv)
-    day_df = type.dayDF(df)
+    day_df = type.dayDF(df)    
     return day_df
 
 def makeDay(db, file, userId):
+    sleep_date = db.execute("SELECT max('date') FROM 'daily_sleep' WHERE user_id = '" + userId)
+    day_date = db.execute("SELECT max('date') FROM 'daily_wearable' WHERE user_id = '" + userId)
+    db.execute("DELETE FROM 'daily_sleep' WHERE date == " + sleep_date)
+    db.execute("DELETE FROM 'daily_sleep' WHERE date == " + day_date)
+
     for csv in file:
         if 'weight' in csv:
             weight_list = makeDF(weight, csv)
@@ -32,11 +38,11 @@ def makeDay(db, file, userId):
         if 'sleep_stage' in csv:
             sleep_stage_list = makeDF(sleep_stage, csv)
             sleep_stage_list['user_id'] = userId
-            common.saveDB(db, 'daily_sleep', sleep_stage_list)
+            common.saveDB(db, 'daily_sleep', sleep_stage_list[sleep_stage_list['date'] >= sleep_date])
 
     day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list)
     day['user_id'] = userId
-    common.saveDB(db, 'daily_wearable', day)
+    common.saveDB(db, 'daily_wearable', day[day['date'] >= day_date])
     
     day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
@@ -55,8 +61,14 @@ def upload(userId):
     month = common.periodDF(day, '1M', userId)
     average = common.avgDF(month)
 
-    common.saveDB(db, 'weekly_wearable', week)
-    common.saveDB(db, 'monthly_wearable', month)
+    week_date = db.execute("SELECT max('date') FROM 'weekly_wearable' WHERE user_id = '" + userId)
+    month_date = db.execute("SELECT max('date') FROM 'monthly_wearable' WHERE user_id = '" + userId)
+    db.execute("DELETE FROM 'daily_sleep' WHERE date == " + week_date)
+    db.execute("DELETE FROM 'daily_sleep' WHERE date == " + month_date)
+    db.execute("DELETE FROM 'user_average' WHERE user_id == " + userId)
+
+    common.saveDB(db, 'weekly_wearable', week[day['date'] >= week_date])
+    common.saveDB(db, 'monthly_wearable', month[day['date'] >= month_date])
     common.saveDB(db, 'user_average', average)
 
     return f'Hello, {userId}!'
