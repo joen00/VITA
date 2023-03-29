@@ -1,7 +1,11 @@
 from flask import Flask, request
 from sqlalchemy import text
+from urllib import request as rq
 import pandas as pd
+import zipfile
+import shutil
 import glob
+import os
 
 import common
 import weight
@@ -55,10 +59,14 @@ def makeDay(db, file, userId):
 @app.route('/upload')
 def upload():
     userId = request.args.get('userId')
-    db = common.connectDB()
-    s3 = common.connectS3()
-    common.decompress(s3, userId)
 
+    db = common.connectDB()
+    with db.connect() as conn:
+        url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
+    
+    rq.urlretrieve(url, userId + ".zip")
+    zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
+    
     files = glob.glob('samsunghealth/*')
     file = glob.glob(files[0] + '/*')
 
@@ -83,7 +91,15 @@ def upload():
     else: common.saveDB(db, 'monthly_wearable', month)
     common.saveDB(db, 'user_average', average)
 
-    return f'Hello, {userId}!'
+    if os.path.isfile(userId + ".zip"):
+        os.remove(userId + ".zip")
+        shutil.rmtree('./samsunghealth/')
+
+    return f'Hello, {userId}!'    
+
+@app.route('/')
+def main():
+    return "Hello, Vita!"
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True, ssl_context =("cert.pem", "privkey.pem"))

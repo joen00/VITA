@@ -1,6 +1,3 @@
-import boto3
-import zipfile
-import io
 import pandas as pd
 from functools import reduce
 
@@ -11,18 +8,6 @@ pymysql.install_as_MySQLdb()
 import MySQLdb
 
 import config
-
-# s3 저장소 연결
-def connectS3():
-    s3 = boto3.client(service_name="s3",
-                      aws_access_key_id=config.aws_access_key_id,
-                      aws_secret_access_key=config.aws_secret_access_key)
-    return s3
-
-# s3 파일 가져온 후 zip 입축 해제
-def decompress(s3, zipName):
-    obj = s3.get_object(Bucket="vita-project-bucket", Key=zipName+".zip")
-    zipfile.ZipFile(io.BytesIO(obj["Body"].read())).extractall('./samsunghealth/')
 
 # DB 연결
 def connectDB():
