@@ -71,7 +71,7 @@ export default {
     let count = 0;
     this.franks = [];
 
-    for (data of sortData) {
+    for (var data of sortData) {
       count += 1;
       this.franks.push({id: count, name: data.userNickname, img: data.img})
       if (count < 5) {
