@@ -66,7 +66,7 @@ export default {
 
     // 등수 매기기
     let sortData = this.rhrData.sort(function(a,b) {
-      return b.userAverageEnergy - a.userAverageEnergy;
+      return b.userAverageRhr - a.userAverageRhr;
     })
     let count = 0;
     this.franks = [];
