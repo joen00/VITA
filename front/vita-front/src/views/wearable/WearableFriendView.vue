@@ -7,7 +7,7 @@
           :VueHeaderContent="VueHeaderContent"
         />
       </div>
-      <div id="header-content2">
+      <div id="header-contvueent2">
         * 친구는 한 번에 최대 4명까지만 추가 가능합니다.
       </div>
       {{ selected }}
@@ -75,15 +75,15 @@
           <!-- 비교하기 버튼 -->
           <!-- 여기서 부터 걸음수 컴포넌트 등장 -->
           <div style="clear: both"></div>
-          <fwearable-walk :walkData="walkData" style="margin-top: 8rem"></fwearable-walk>
+          <fwearable-walk :walkData="walkData" :key="componentKey" style="margin-top: 8rem"></fwearable-walk>
           <div style="clear: both"></div>
-          <fwearable-energy :energyData="energyData" style="margin-top: 8rem"></fwearable-energy>
+          <fwearable-energy :energyData="energyData" :key="componentKey" style="margin-top: 8rem"></fwearable-energy>
           <div style="clear: both"></div>
-          <fwearable-rhr :rhrData="rhrData" style="margin-top: 8rem"></fwearable-rhr>
+          <fwearable-rhr :rhrData="rhrData" :key="componentKey" style="margin-top: 8rem"></fwearable-rhr>
           <div style="clear: both"></div>
-          <fwearable-stress :stressData="stressData" style="margin-top: 8rem"></fwearable-stress>
+          <fwearable-stress :stressData="stressData" :key="componentKey" style="margin-top: 8rem"></fwearable-stress>
           <div style="clear: both"></div>
-          <fwearable-sleep :sleepData="sleepData" style="margin-top: 8rem"></fwearable-sleep>
+          <fwearable-sleep :sleepData="sleepData" :key="componentKey" style="margin-top: 8rem"></fwearable-sleep>
         </div>
       </div>
     </div>
@@ -123,6 +123,7 @@ export default {
   methods: {},
   data() {
     return {
+      componentKey: 0,
       selected: [], // Must be an array reference!
       Data: [],
       energyData: [], // {name:userNickname, value:userAverageEnergy}
@@ -152,18 +153,15 @@ export default {
       })
     },
     getAverage(selected) {
-      console.log(selected)
       axios.post(this.$store.state.friendUrl + "/all" , selected , {
       headers: {'Content-Type': 'application/json',
                 'token': this.$store.state.test_token},
       }).then(res => {
-        console.log(res.data)
         this.data = res.data;
         axios.get(this.$store.state.friendUrl + "/user" , {
         headers: {'Content-Type': 'application/json',
                   'token': this.$store.state.test_token},
         }).then(res => {
-          console.log(res.data)
           this.data.push(res.data);
           this.energyData = res.data.map(function(e){
           return {
@@ -195,6 +193,7 @@ export default {
             "value":e.userAverageStep, 
             "bulletSettings": { src:e.userImg }};
           })
+          this.componentKey += 1;
         })
       })
 
