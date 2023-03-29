@@ -28,29 +28,11 @@ def decompress(s3, zipName):
 def connectDB():
     db_connection_str = config.db_connection_str
     db_connection = create_engine(db_connection_str)
-    # db_connection = pymysql.connect(host=config.host, user=config.user,
-    #                                 password=config.password, db=config.db)
     return db_connection
 
-# DB 저장-1
+# DB 저장
 def saveDB(db_connection, table, df):
     df.to_sql(name=table, con=db_connection, if_exists='append', index=False)
-
-# DB 저장-2
-def execute(db_connection, query, df):
-    cursor = db_connection.cursor()
-    cursor.executemany(query, df)
-    db_connection.commit()
-
-# select
-def select(db_connection, table, userId):
-    query = "SELECT max('date') FROM " + table + " WHERE user_id = '" + userId
-    
-    cursor = db_connection.cursor()
-    cursor.execute(query)
-    result = cursor.fetchone()
-
-    return result
 
 # combine df
 def combine(calories_burned, step_daily_trend, stress, weight, heart_rate):
