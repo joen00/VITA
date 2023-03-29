@@ -66,13 +66,11 @@ def upload():
     with db.connect() as conn:
         url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
     
-    rq.urlretrieve(url, userId + ".zip")
+    rq.urlretrieve("https://vita-project-bucket.s3.ap-northeast-2.amazonaws.com/samsunghealth_rkddbs2015_20230329135408.zip", userId + ".zip")
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
-    
     files = glob.glob('samsunghealth/*')
-    file = glob.glob(files[0] + '/*')
 
-    day = makeDay(db, file, userId)
+    day = makeDay(db, files, userId)
     week = common.periodDF(day, '1W', userId)
     month = common.periodDF(day, '1M', userId)
     average = common.avgDF(month)
