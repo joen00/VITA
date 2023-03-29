@@ -174,7 +174,7 @@ export default {
         }).then(res => {
           console.log(res.data)
           this.data.push(res.data);
-          this.energyData = res.data.map(function(e){
+          this.energyData = this.data.map(function (e) {
           return {
             "name":e.userNickname,
             "value":e.userAverageEnergy, 
