@@ -101,9 +101,11 @@ public class FriendController {
             @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "user_nickname", value = "친구 신청을 보낼 사용자의 닉네임", dataType = "String", paramType = "body", example = "홍길동")
     })
-    public String applyFriend(@RequestHeader HttpHeaders headers, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
+    public String applyFriend(HttpServletRequest request, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
         System.out.println(req);
-        String result = friendService.applyFriend(headers.getFirst("userID"), req.get("user_nickname"));
+        String result = friendService.applyFriend(userId, req.get("user_nickname"));
         if (Objects.equals(result, "success")) {
             return "success";
         } else {
@@ -118,8 +120,10 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "수락할 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public String acceptFriend(@ApiIgnore @RequestBody Map<String, String> req, @RequestHeader HttpHeaders ruId) throws Exception {
-        String result = friendService.acceptFriend(req.get("SendingUserNickname"), ruId.getFirst("receivingUserId"));
+    public String acceptFriend(@ApiIgnore @RequestBody Map<String, String> req, HttpServletRequest request) throws Exception {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
+        String result = friendService.acceptFriend(req.get("SendingUserNickname"), userId);
         if (Objects.equals(result, "success")) {
             return "success";
         } else {
@@ -134,8 +138,10 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "요청을 받을 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public String rejectOrDeleteFriend(@ApiIgnore @RequestBody Map<String, String> req, @RequestHeader HttpHeaders ruId) throws Exception {
-        String result = friendService.rejectOrDeleteFriend(req.get("SendingUserNickname"), ruId.getFirst("receivingUserId"));
+    public String rejectOrDeleteFriend(@ApiIgnore @RequestBody Map<String, String> req, HttpServletRequest request) throws Exception {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
+        String result = friendService.rejectOrDeleteFriend(req.get("SendingUserNickname"), userId);
         if (Objects.equals(result, "success")) {
             return "success";
         } else {
@@ -147,9 +153,11 @@ public class FriendController {
     @ApiOperation(value = "친구 신청 받은 리스트", notes = "친구 신청을 받은 목록을 조회합니다. 프론트에서 수락, 거절 버튼이 뜨는 목록에 해당")
     @GetMapping("/applyList")
     @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
-    public ResponseEntity<?> applyingFriendList(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<?> applyingFriendList(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
         try {
-            List<FriendReceivingListDto> applyingFriendList = friendService.getApplyingFriendList(headers.getFirst("userID"));
+            List<FriendReceivingListDto> applyingFriendList = friendService.getApplyingFriendList(userId);
             System.out.println("asdasd");
             if (applyingFriendList != null && !applyingFriendList.isEmpty()) {
                 return new ResponseEntity<List<FriendApplyListDto>>(applyingFriendList.stream().map(friend -> modelMapper.map(friend, FriendApplyListDto.class)).collect(Collectors.toList()), HttpStatus.OK);
@@ -168,20 +176,21 @@ public class FriendController {
             @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "nickname", value = "검색할 닉네임", dataType = "String", paramType = "path", example = "홍길동")
     })
-    public ResponseEntity<?> searchFriendList(@RequestHeader HttpHeaders headers, @PathVariable(value = "nickname", required = false) String nickname) {
+    public ResponseEntity<?> searchFriendList(HttpServletRequest request, @PathVariable(value = "nickname", required = false) String nickname) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
         try {
             List<FriendSearchMapping> usersList = new ArrayList<>();
-            String getUserId = headers.getFirst("userID");
             if (nickname == null) {
-                usersList = friendService.getSearchFriendList(getUserId);
+                usersList = friendService.getSearchFriendList(userId);
                 System.out.println("--------------------------------------");
                 System.out.println(usersList);
             } else {
-                usersList = friendService.getSearchFriendListLike(getUserId, nickname);
+                usersList = friendService.getSearchFriendListLike(userId, nickname);
             }
 
             // 목록에서 자신을 제외
-            usersList.removeIf(users -> users.getUser_Id().equals(getUserId));
+            usersList.removeIf(users -> users.getUser_Id().equals(userId));
 
             // 이미 친구로 등록된 사람들 제외
             usersList.removeIf(users -> Objects.equals(users.getFriend_status(), "accepted"));
@@ -201,21 +210,13 @@ public class FriendController {
     @GetMapping("/rank/{scoreType}")
     @ApiOperation(value = "종합점수 조회", notes = "친구들의 종합점수 목록을 조회합니다.")
     @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
-    public ResponseEntity<?> rankFriendList(@RequestHeader HttpHeaders headers, @PathVariable("scoreType") String scoreType) {
+    public ResponseEntity<?> rankFriendList(HttpServletRequest request, @PathVariable("scoreType") String scoreType) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
         try {
-            // 출력시킬 종합 점수 리스트
-            List<FriendTotalRankDto> rankFriendList = new ArrayList<>();
-            
-            // 친구들 정보를 받아와서
-            List<?> friendRankList = friendService.getFriendRankList(headers.getFirst("userID"), scoreType);
-//            // 종합 점수 리스트에 저장
-//            rankFriendList.addAll(friendRankList);
-//            // 종합 점수를 내림차순으로 정렬
-//            rankFriendList.sort(Comparator.comparing(FriendRankDto::getTotalScore).reversed());
-            // 최종 출력
+            List<?> friendRankList = friendService.getFriendRankList(userId, scoreType);
             if (friendRankList != null && !friendRankList.isEmpty()) {
                 return new ResponseEntity<List<?>>(friendRankList, HttpStatus.OK);
-//                return new ResponseEntity<List<?>>(rankFriendList, HttpStatus.OK);
             } else {
                 return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
             }
