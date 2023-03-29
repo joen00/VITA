@@ -136,12 +136,14 @@ export default {
     },
     deleteOrRejectFriend(SendingUserNickname) {
       axios
-        .delete(this.$store.state.serverBaseUrl + `/friend`, {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-            SendingUserNickname: SendingUserNickname,
-          },
-        })
+        .delete(this.$store.state.serverBaseUrl + `/friend`,
+          { SendingUserNickname: SendingUserNickname },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then((response) => {
           console.log(response);
           this.friendpostlist = [];
@@ -166,12 +168,14 @@ export default {
     },
     acceptFriend(SendingUserNickname) {
       axios
-        .put(this.$store.state.serverBaseUrl + `/friend`, null, {
-          headers: {
-            SendingUserNickname: SendingUserNickname,
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
+        .put(this.$store.state.serverBaseUrl + `/friend`,
+          { SendingUserNickname: SendingUserNickname },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then((response) => {
           console.log(response);
           this.friendpostlist = [];
