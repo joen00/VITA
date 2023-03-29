@@ -64,6 +64,7 @@ public class MypageController {
         String url = awsS3Service.uploadFileV1(multipartFile);
         // url update 해줌
         mypageService.updateUpload(userId, url);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        // flask 서버로 userId 보내주기 위해 userId를 API 응답으로 반환시킴
+        return new ResponseEntity<String>(userId, HttpStatus.ACCEPTED);
     }
 }
