@@ -13,7 +13,7 @@
 
     div#login-section
       div.user-profile(v-if="isLoggedIn")
-          img(:src="`${getUserProfileImg}`"  id="user-profile-img")
+          img(:src="getUserProfileImg"  id="user-profile-img")
           p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
   
       .bp-account
@@ -78,7 +78,7 @@ export default {
       return this.userNickname
     },
     getUserProfileImg () {
-      return this.getUserProfileImg
+      return this.userProfileImg
     },
   },
 
