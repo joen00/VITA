@@ -5,6 +5,8 @@ import com.ssafy.vitawearable.repo.FriendRepo;
 import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearableFriend;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +28,7 @@ public class FriendController {
     private final WearableFriend wearableFriend;
     private final Wearable wearable;
     private final Score score;
+    private final UserUtil userUtil;
 
     // 친구 목록 리스트
     @ApiOperation(
@@ -33,11 +37,18 @@ public class FriendController {
             response = FriendDto.class,
             responseContainer = "List"
     )
+//    @GetMapping("")
+//    public ResponseEntity<List<FriendDto>> friendList(@RequestHeader("token") String token) {
+//        String userId = wearable.getUserId(token);
+//        return new ResponseEntity<>(wearableFriend.getFriendList(userId), HttpStatus.valueOf(200));
+//    }
     @GetMapping("")
-    public ResponseEntity<List<FriendDto>> friendList(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<FriendDto>> friendList(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearableFriend.getFriendList(userId), HttpStatus.valueOf(200));
     }
+
 
     // 친구들의 평균 데이터 리스트
     @ApiOperation(
