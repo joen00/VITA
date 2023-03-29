@@ -40,12 +40,12 @@
               :src="lists.user_img"
             ></b-avatar>
             <span style="font-weight: 600">{{ lists.user_nickname }} </span>
-            <button id="btn-post-add" @click="acceptFriend(lists.user_id)">
+            <button id="btn-post-add" @click="acceptFriend(lists.user_nickname)">
               수락
             </button>
             <button
               id="btn-post-delete"
-              @click="deleteOrRejectFriend(lists.user_id)"
+              @click="deleteOrRejectFriend(lists.user_nickname)"
             >
               거절
             </button>
@@ -68,7 +68,7 @@
           <span style="font-weight: 600">{{ lists.user_nickname }} </span>
           <button
             id="btn-delete-friend"
-            @click="deleteOrRejectFriend(lists.user_id)"
+            @click="deleteOrRejectFriend(lists.user_nickname)"
           >
             친구 삭제
           </button>
@@ -134,12 +134,12 @@ export default {
           });
         });
     },
-    deleteOrRejectFriend(user_id) {
+    deleteOrRejectFriend(SendingUserNickname) {
       axios
         .delete(this.$store.state.serverBaseUrl + `/friend`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
-            receivingUserId: user_id,
+            SendingUserNickname: SendingUserNickname,
           },
         })
         .then((response) => {
@@ -164,11 +164,11 @@ export default {
           });
         });
     },
-    acceptFriend(sendingUserId) {
+    acceptFriend(SendingUserNickname) {
       axios
         .put(this.$store.state.serverBaseUrl + `/friend`, null, {
           headers: {
-            sendingUserId: sendingUserId,
+            SendingUserNickname: SendingUserNickname,
             Authorization: `Bearer ${this.token}`,
           },
         })
