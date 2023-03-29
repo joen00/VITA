@@ -120,7 +120,7 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "수락할 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public String acceptFriend(@ApiIgnore @RequestBody Map<String, String> req, HttpServletRequest request) throws Exception {
+    public String acceptFriend(HttpServletRequest request, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = authTokenProvider.getUserId(accessToken);
         String result = friendService.acceptFriend(req.get("SendingUserNickname"), userId);
@@ -138,7 +138,7 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "요청을 받을 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public String rejectOrDeleteFriend(@ApiIgnore @RequestBody Map<String, String> req, HttpServletRequest request) throws Exception {
+    public String rejectOrDeleteFriend(HttpServletRequest request, @ApiIgnore @RequestBody Map<String, String> req) throws Exception {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = authTokenProvider.getUserId(accessToken);
         String result = friendService.rejectOrDeleteFriend(req.get("SendingUserNickname"), userId);

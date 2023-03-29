@@ -27,6 +27,6 @@ public interface FriendService {
     
     // 친구 요청, 수락, 거절 및 삭제
     String applyFriend(String userId, String userNickname);
-    String acceptFriend(String sendingUserId, String receivingUserId);
-    String rejectOrDeleteFriend(String sendingUserId, String receivingUserId);
+    String acceptFriend(String sendingUserNickname, String receivingUserId);
+    String rejectOrDeleteFriend(String sendingUserNickname, String receivingUserId);
 }
