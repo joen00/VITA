@@ -50,6 +50,9 @@ export default {
   components: {
     ComponentHeader,
   },
+  props: {
+    walkData: Array
+  },
   data() {
     return {
       ComponentHeaderTitle: "걸음수",

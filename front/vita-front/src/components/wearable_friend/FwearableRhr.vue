@@ -50,6 +50,9 @@ export default {
   components: {
     ComponentHeader,
   },
+  props: {
+    rhrData: Array
+  },
   data() {
     return {
       ComponentHeaderTitle: "심박변이",

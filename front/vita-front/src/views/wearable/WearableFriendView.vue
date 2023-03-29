@@ -10,6 +10,7 @@
       <div id="header-content2">
         * 친구는 한 번에 최대 4명까지만 추가 가능합니다.
       </div>
+      {{ selected }}
       <div id="wfriendlist">
         <!-- 여기 slide -->
         <div id="wfriendlistin">
@@ -19,6 +20,7 @@
                 <input
                   type="checkbox"
                   class="useritem"
+                  v-model="selected"
                   :name="slide.id"
                   :value="slide.id"
                 />
@@ -47,6 +49,7 @@
           <!-- 여기 slide 끝 -->
           <!-- 비교하기 버튼 -->
           <b-button
+            @click="getAverage(selected)"
             style="
               float: right;
               margin: 2.5rem;
@@ -71,15 +74,15 @@
           <!-- 비교하기 버튼 -->
           <!-- 여기서 부터 걸음수 컴포넌트 등장 -->
           <div style="clear: both"></div>
-          <fwearable-walk style="margin-top: 8rem"></fwearable-walk>
+          <fwearable-walk :walkData="walkData" style="margin-top: 8rem"></fwearable-walk>
           <div style="clear: both"></div>
-          <fwearable-energy style="margin-top: 8rem"></fwearable-energy>
+          <fwearable-energy :energyData="energyData" style="margin-top: 8rem"></fwearable-energy>
           <div style="clear: both"></div>
-          <fwearable-rhr style="margin-top: 8rem"></fwearable-rhr>
+          <fwearable-rhr :rhrData="rhrData" style="margin-top: 8rem"></fwearable-rhr>
           <div style="clear: both"></div>
-          <fwearable-stress style="margin-top: 8rem"></fwearable-stress>
+          <fwearable-stress :stressData="stressData" style="margin-top: 8rem"></fwearable-stress>
           <div style="clear: both"></div>
-          <fwearable-sleep style="margin-top: 8rem"></fwearable-sleep>
+          <fwearable-sleep :sleepData="sleepData" style="margin-top: 8rem"></fwearable-sleep>
         </div>
       </div>
     </div>
@@ -100,6 +103,7 @@ import FwearableRhr from "@/components/wearable_friend/FwearableRhr.vue";
 import FwearableStress from "@/components/wearable_friend/FwearableStress.vue";
 import FwearableSleep from "@/components/wearable_friend/FwearableSleep.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
+import axios from 'axios';
 
 export default {
   name: "App",
@@ -119,21 +123,67 @@ export default {
   data() {
     return {
       selected: [], // Must be an array reference!
+      Data: [],
+      energyData: [], // {name:userNickname, value:userAverageEnergy}
+      rhrData: [],    // {name:userNickname, value:userAverageEnergyRhr}
+      sleepData: [],  // {name:userNickname, value:userAverageSleep}
+      stressData: [], // {name:userNickname, value:userAverageStress}
+      walkData: [],   // {name:userNickname, value:userAverageStep}
       VueHeaderTitle: "마이 헬스 데이터 with 프렌즈",
       VueHeaderContent:
         "친구의 프로필을 클릭하고 비교하기 버튼을 누르면 친구의 건강 데이터가 실시간으로 그래프에 반영된답니다. ",
-      slides: [
-        { id: 1, name: "김뿡" },
-        { id: 2, name: "김뿡" },
-        { id: 3, name: "김뿡" },
-        { id: 4, name: "김뿡" },
-        { id: 5, name: "김뿡" },
-        { id: 6, name: "김뿡" },
-        { id: 7, name: "김뿡" },
-        { id: 8, name: "김뿡" },
-      ],
+      slides: [],
     };
   },
+  created() {
+    this.getFriendList();
+  },
+  methods: {
+    getFriendList() {
+      axios.get(this.$store.state.friendUrl , {
+      headers: {'Content-Type': 'application/json',
+                'token': this.$store.state.test_token,
+                'Access-Control-Allow-Origin': '*'},
+      }).then(res => {
+        this.slides = res.data.map(function(e){
+          return {"id": e.userId, "name": e.userNickname};
+        })
+      })
+    },
+    getAverage(selected) {
+      console.log(selected)
+      axios.post(this.$store.state.friendUrl + "/all" , selected , {
+      headers: {'Content-Type': 'application/json',
+                'token': this.$store.state.test_token},
+      }).then(res => {
+        console.log(res.data)
+        this.data = res.data;
+        axios.get(this.$store.state.friendUrl + "/user" , {
+        headers: {'Content-Type': 'application/json',
+                  'token': this.$store.state.test_token},
+        }).then(res => {
+          console.log(res.data)
+          this.data.push(res.data);
+          this.energyData = res.data.map(function(e){
+          return {"name":e.userNickname, "value":e.userAverageEnergy};
+          })
+          this.rhrData = res.data.map(function(e){
+          return {"name":e.userNickname, "value":e.userAverageRhr};
+          })
+          this.sleepData = res.data.map(function(e){
+          return {"name":e.userNickname, "value":e.userAverageSleep};
+          })
+          this.stressData = res.data.map(function(e){
+          return {"name":e.userNickname, "value":e.userAverageStress};
+          })
+          this.walkData = res.data.map(function(e){
+          return {"name":e.userNickname, "value":e.userAverageStep};
+          })
+        })
+      })
+
+    }
+  }
 };
 </script>
 

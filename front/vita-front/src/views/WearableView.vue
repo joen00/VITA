@@ -154,6 +154,7 @@
         <wearable-stress style="margin-top: 10rem"></wearable-stress>
       </div>
     </div>
+
   </div>
 </template>
 

@@ -50,6 +50,9 @@ export default {
   components: {
     ComponentHeader,
   },
+  props: {
+    stressData: Array
+  },
   data() {
     return {
       ComponentHeaderTitle: "스트레스",
