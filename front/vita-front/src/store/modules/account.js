@@ -5,10 +5,7 @@ export default {
     user: null,
     token: null,
     userNickname: null,
-<<<<<<< HEAD
     userProfileImg: null,
-=======
->>>>>>> 6a1a3a9404075134471eda3b616afcefc38fcaa0
   },
   getters: {
     user: state => state.user,
