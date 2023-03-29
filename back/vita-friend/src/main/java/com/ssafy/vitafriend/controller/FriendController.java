@@ -4,6 +4,8 @@ import com.ssafy.vitafriend.dto.*;
 import com.ssafy.vitafriend.service.FriendService;
 import com.ssafy.vitafriend.service.ScoreService;
 import com.ssafy.vitafriend.service.UsersService;
+import com.ssafy.vitafriend.util.AuthTokenProvider;
+import com.ssafy.vitafriend.util.HeaderUtil;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +38,8 @@ public class FriendController {
     @Autowired
     private ScoreService scoreService;
 
+    private final AuthTokenProvider authTokenProvider;
+
     // 테스트
     @GetMapping("/hello")
     @ApiOperation(value = "테스트", notes = "테스트")
@@ -46,15 +51,17 @@ public class FriendController {
     @GetMapping(value = {"", "/{nickname}"})
     @ApiOperation(value = "친구목록 조회", notes = "자신이 가지고 있는 친구목록을 조회합니다.")
     @ApiImplicitParam(name = "userID", value = "자신의 userID", dataType = "String", paramType = "header", example = "1")
-    public ResponseEntity<?> friendList(@RequestHeader HttpHeaders headers, @PathVariable(value = "nickname", required = false) String nickname) {
+    public ResponseEntity<?> friendList(HttpServletRequest request, @PathVariable(value = "nickname", required = false) String nickname) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
         try {
             // 친구를 담을 리스트를 <친구리스트 부모 클래스 형>으로 선언
             List<UserInfoDto> myFriendList = new ArrayList<>();
 
             if (nickname == null) {
                 // header에서 받은 userId에 해당하는 유저의 받은 친구, 보낸 친구를 각각 리스트에 담기
-                List<?> ReceivingFriendList = friendService.getReceivingFriendList(headers.getFirst("userID"));
-                List<?> SendingFriendList = friendService.getSendingFriendList(headers.getFirst("userID"));
+                List<?> ReceivingFriendList = friendService.getReceivingFriendList(userId);
+                List<?> SendingFriendList = friendService.getSendingFriendList(userId);
                 for(Object
                         friend : SendingFriendList) {
                     myFriendList.add((UserInfoDto) friend);
@@ -64,8 +71,8 @@ public class FriendController {
                     myFriendList.add((UserInfoDto) friend);
                 }
             } else {
-                List<?> ReceivingFriendList = friendService.getReceivingFriendListLike(headers.getFirst("userID"), nickname);
-                List<?> SendingFriendList = friendService.getSendingFriendListLike(headers.getFirst("userID"), nickname);
+                List<?> ReceivingFriendList = friendService.getReceivingFriendListLike(userId, nickname);
+                List<?> SendingFriendList = friendService.getSendingFriendListLike(userId, nickname);
                 for(Object
                         friend : SendingFriendList) {
                     myFriendList.add((UserInfoDto) friend);
@@ -111,8 +118,8 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "수락할 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public String acceptFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
-        String result = friendService.acceptFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
+    public String acceptFriend(@ApiIgnore @RequestBody Map<String, String> req, @RequestHeader HttpHeaders ruId) throws Exception {
+        String result = friendService.acceptFriend(req.get("SendingUserNickname"), ruId.getFirst("receivingUserId"));
         if (Objects.equals(result, "success")) {
             return "success";
         } else {
@@ -127,8 +134,8 @@ public class FriendController {
             @ApiImplicitParam(name = "sendingUserId", value = "자신의 userID", dataType = "String", paramType = "header", example = "1"),
             @ApiImplicitParam(name = "receivingUserId", value = "요청을 받을 사람의 userID", dataType = "String", paramType = "header", example = "2")
     })
-    public String rejectOrDeleteFriend(@RequestHeader HttpHeaders suId, @RequestHeader HttpHeaders ruId) throws Exception {
-        String result = friendService.rejectOrDeleteFriend(suId.getFirst("sendingUserId"), ruId.getFirst("receivingUserId"));
+    public String rejectOrDeleteFriend(@ApiIgnore @RequestBody Map<String, String> req, @RequestHeader HttpHeaders ruId) throws Exception {
+        String result = friendService.rejectOrDeleteFriend(req.get("SendingUserNickname"), ruId.getFirst("receivingUserId"));
         if (Objects.equals(result, "success")) {
             return "success";
         } else {

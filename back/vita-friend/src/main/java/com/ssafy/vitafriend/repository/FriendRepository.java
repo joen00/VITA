@@ -43,5 +43,10 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
 
     Friend findByFriendSendingUser_userNicknameAndFriendReceivingUser_userId(String sendingUserNickname, String receivingUserId);
     Friend findByFriendSendingUser_userIdAndFriendReceivingUser_userNickname(String sendingUserId, String receivingUserNickname);
+    // 유저 토큰으로 바꾸면서 수정한 부분
+    Friend findByFriendReceivingUser_userIdAndFriendSendingUser_userNickname(String sendingUserId, String receivingUserNickname);
+
+    Friend findByFriendSendingUser_userIdAndFriendReceivingUser_userNicknameAndFriendStatus(String sendingUserId, String receivingUserNickname, String friendStatus);
+    Friend findByFriendReceivingUser_userIdAndFriendSendingUser_userNicknameAndFriendStatus(String sendingUserId, String receivingUserNickname, String friendStatus);
 
 }

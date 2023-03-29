@@ -202,8 +202,8 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
-    public String acceptFriend(String sendingUserId, String receivingUserId) {
-        Friend currentRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userIdAndFriendStatus(sendingUserId, receivingUserId, "applied");
+    public String acceptFriend(String sendingUserNickname, String receivingUserId) {
+        Friend currentRelation = friendRepository.findByFriendReceivingUser_userIdAndFriendSendingUser_userNicknameAndFriendStatus(receivingUserId, sendingUserNickname, "applied");
         currentRelation.acceptFriendRelation();
         if (currentRelation == null) {
             return "fail";
@@ -213,9 +213,9 @@ public class FriendServiceImpl implements FriendService{
     }
 
     @Override
-    public String rejectOrDeleteFriend(String sendingUserId, String receivingUserId) {
-        Friend rejectOrDeleteRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userId(sendingUserId, receivingUserId);
-        Friend rejectOrDeleteReverseRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userId(receivingUserId, sendingUserId);
+    public String rejectOrDeleteFriend(String sendingUserNickname, String receivingUserId) {
+        Friend rejectOrDeleteRelation = friendRepository.findByFriendSendingUser_userIdAndFriendReceivingUser_userNickname(receivingUserId, sendingUserNickname);
+        Friend rejectOrDeleteReverseRelation = friendRepository.findByFriendReceivingUser_userIdAndFriendSendingUser_userNickname(receivingUserId, sendingUserNickname);
         if (rejectOrDeleteRelation != null) {
             friendRepository.deleteById(rejectOrDeleteRelation.getFriendId());
             return "success";

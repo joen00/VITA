@@ -29,3 +29,6 @@ spring:
         format_sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+# jwt
+jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
