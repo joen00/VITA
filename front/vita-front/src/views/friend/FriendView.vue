@@ -57,6 +57,7 @@ import FriendSleep from "@/components/friend/FriendSleep.vue";
 
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 // const SERVER_URL = "http://localhost:8080/friend";
 // const SERVER_URL = "https://j8b106.p.ssafy.io:8000/friend";
@@ -75,6 +76,7 @@ export default {
     FriendStress,
     FriendSleep,
   },
+
   data: () => ({
     totalranks: [
       // { id: 1, name: "김광배", score: "50" },
@@ -86,12 +88,17 @@ export default {
     VueHeaderTitle: "랭킹",
     VueHeaderContent: "친구들의 순위를 확인해보세요.",
   }),
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     getFriendTotalRankList() {
       axios
         .get(this.$store.state.serverBaseUrl + `/friend` + `/rank/total`, {
           headers: {
-            userID: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {

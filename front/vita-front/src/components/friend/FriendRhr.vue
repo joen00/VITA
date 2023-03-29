@@ -16,6 +16,8 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
+
 // const SERVER_URL = "http://localhost:8080/friend";
 // const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
 // 유저 검색하거나 친구추가 테스트용
@@ -28,15 +30,21 @@ export default {
   props: {
     msg: String,
   },
+
   data: () => ({
     rhrRanks: [],
   }),
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     getFriendRhrRankList() {
       axios
         .get(this.$store.state.serverBaseUrl + `/friend` + `/rank/rhr`, {
           headers: {
-            userID: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {
@@ -54,6 +62,7 @@ export default {
         });
     },
   },
+  
   created() {
     this.getFriendRhrRankList();
   },

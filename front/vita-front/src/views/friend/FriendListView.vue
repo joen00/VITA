@@ -82,6 +82,7 @@
 import FriendAddModal from "@/components/friend/FriendAddModal.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 // const SERVER_URL = "http://localhost:8080/friend";
 // const SERVER_URL = "https://j8b106.p.ssafy.io:8084/friend";
@@ -96,6 +97,7 @@ export default {
     FriendAddModal,
     VueHeader,
   },
+  
   data: () => ({
     friendlist: [
       // { id: 1, name: "김광배", score: "10" },
@@ -110,13 +112,18 @@ export default {
     VueHeaderTitle: "프렌즈",
     VueHeaderContent: "친구들의 정보를 확인해보세요.",
   }),
+  
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     getFriendList(inputValue) {
       console.log(inputValue);
       axios
         .get(this.$store.state.serverBaseUrl + `/friend` + `/${inputValue}`, {
           headers: {
-            userID: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {
@@ -131,7 +138,7 @@ export default {
       axios
         .delete(this.$store.state.serverBaseUrl + `/friend`, {
           headers: {
-            sendingUserId: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
             receivingUserId: user_id,
           },
         })
@@ -147,7 +154,7 @@ export default {
       axios
         .get(this.$store.state.serverBaseUrl + `/friend` + `/applyList`, {
           headers: {
-            userID: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {
@@ -162,7 +169,7 @@ export default {
         .put(this.$store.state.serverBaseUrl + `/friend`, null, {
           headers: {
             sendingUserId: sendingUserId,
-            receivingUserId: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {

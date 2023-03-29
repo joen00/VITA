@@ -44,13 +44,10 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 // const SERVER_URL = "http://localhost:8080/friend";
-const SERVER_URL = "https://j8b106.p.ssafy.io/api/friend";
-// 유저 검색하거나 친구추가 테스트용
-// user_id : 2703564897, user_name: 박서윤, user_nickname: bboong
-// user_id : 2715879100, user_name: 이강윤, user_nickname: asdf
-const MY_USER_ID = 2715879100;
+// const SERVER_URL = "https://j8b106.p.ssafy.io/api/friend";
 
 export default {
   name: "FriendAddModal",
@@ -62,13 +59,18 @@ export default {
     ],
     inputValue: "",
   }),
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
   methods: {
     getSearchFriendList(inputValue) {
       console.log(inputValue);
       axios
         .get(this.$store.state.serverBaseUrl + `/friend` + `/apply/` + `${inputValue}`, {
           headers: {
-            userID: this.$store.state.myUserId,
+            Authorization: `Bearer ${this.token}`,
           },
         })
         .then((response) => {
@@ -87,7 +89,7 @@ export default {
           { user_nickname: user_nickname },
           {
             headers: {
-              userID: this.$store.state.myUserId,
+              Authorization: `Bearer ${this.token}`,
             },
           }
         )
@@ -96,6 +98,7 @@ export default {
         });
     },
   },
+  
   created() {
     this.getSearchFriendList("");
   },
