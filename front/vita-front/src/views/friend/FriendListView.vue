@@ -136,16 +136,14 @@ export default {
     },
     deleteOrRejectFriend(SendingUserNickname) {
       axios
-        .delete(this.$store.state.serverBaseUrl + `/friend`,
-          { data: 
-            { SendingUserNickname: SendingUserNickname }
+        .delete(this.$store.state.serverBaseUrl + `/friend`, { 
+          headers: {
+            Authorization: `Bearer ${this.token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${this.token}`,
-            },
+          data: { 
+            SendingUserNickname: SendingUserNickname
           }
-        )
+        })
         .then((response) => {
           console.log(response);
           this.friendpostlist = [];
