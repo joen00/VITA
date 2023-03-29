@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserBadgeRepository extends JpaRepository<UserBadge, Integer> {
+public interface UserBadgeRepository extends JpaRepository<UserBadge, Long> {
 
-    List<UserBadge> findAllByUser(User user);
+    List<UserBadge> findAllByUser(String userId);
 
 }

@@ -1,19 +1,24 @@
 package com.ssafy.vitauser.service;
 
 import com.ssafy.vitauser.dto.ExtraInfoDto;
+import com.ssafy.vitauser.entity.user.Badge;
 import com.ssafy.vitauser.entity.user.User;
+import com.ssafy.vitauser.entity.user.UserBadge;
 import com.ssafy.vitauser.repository.UserRepository;
+import com.ssafy.vitauser.repository.mypage.BadgeRepository;
+import com.ssafy.vitauser.repository.mypage.UserBadgeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final BadgeRepository badgeRepository;
+    private final UserBadgeRepository userBadgeRepository;
 
     public User getUser(String userId) {
         return userRepository.findByUserId(userId);
@@ -44,6 +49,24 @@ public class UserService {
         user.setUserPublic(extraInfoDto.isUserPublic());
 
         try {
+            /* 최초 회원가입 시 유저 뱃지 Init + SignUp 뱃지 Get */
+            List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(userId);
+
+            if (userBadgesList.size() == 0) {
+                List<Badge> badgeList = badgeRepository.findAll();
+                for (Badge badge : badgeList) {
+                    UserBadge userBadge = UserBadge.builder()
+                            .user(user)
+                            .userBadgeId(badge.getBadgeId())
+                            .userBadgeGet(false)
+                            .build();
+
+                    if (badge.getBadgeName().equals("signup")) {
+                        userBadge.builder().userBadgeGet(true).build();
+                    }
+                    userBadgeRepository.save(userBadge);
+                }
+            }
             userRepository.save(user);
         } catch (Exception e) {};
 
