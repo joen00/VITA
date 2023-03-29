@@ -3,6 +3,8 @@ package com.ssafy.vitawearable.controller;
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,7 @@ import java.util.List;
 public class EnergyController {
     private final Wearable wearable;
     private final WearablePast wearablePast;
+    private final UserUtil userUtil;
     // 활동량 달별 데이터
     @ApiOperation(
             value = "활동량 월별 데이터 요청",
@@ -57,9 +61,15 @@ public class EnergyController {
             response = EnergyDailyDto.class,
             responseContainer = "List"
     )
+//    @GetMapping("/daily")
+//    public ResponseEntity<List<EnergyDailyDto>> loadEnergyDaily(@RequestHeader("token") String token) {
+//        String userId = wearable.getUserId(token);
+//        return new ResponseEntity<>(wearable.energyDaily(userId), HttpStatus.valueOf(200));
+//    }
     @GetMapping("/daily")
-    public ResponseEntity<List<EnergyDailyDto>> loadEnergyDaily(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<EnergyDailyDto>> loadEnergyDaily(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.energyDaily(userId), HttpStatus.valueOf(200));
     }
 
