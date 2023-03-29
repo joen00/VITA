@@ -20,23 +20,21 @@
           <div id="main-middle1-div">
             <div id="main-middle1-div-item">
               <img style="width: 100%; height: 65%;" src="../../public/main/maingraph.png">
-              <pre id="main-middle1-div-p" style="height: 15%;">
-    “발음을 교정하고 싶은데,
-    학원 가격이 너무 부담돼요”</pre>
+              <pre id="main-middle1-div-p" style="height: 15%;">“건강정보 받고 싶은데,
+     모르겠어요.”</pre>
+              <div style="font-weight:550; color: gray; font-size:12px; margin-top: 1rem; height: 10%;">20살 대학생 김00 </div>
+            </div>
+            <div id="main-middle1-div-item">
+              <img style="width: 100%; height: 65%;" src="../../public/main/maingraph.png">
+              <pre id="main-middle1-div-p" style="height: 15%;">“건강정보 받고 싶은데,
+     모르겠어요.”</pre>
               <div style="font-weight:550; color: gray; font-size:12px; margin-top: 1rem; height: 10%;">20살 대학생 김00 </div>
             </div>
             <div id="main-middle1-div-item">
               <img style="width: 100%; height: 65%;" src="../../public/main/maingraph.png">
               <pre id="main-middle1-div-p" style="height: 15%;">
-    “발음을 교정하고 싶은데,
-    학원 가격이 너무 부담돼요”</pre>
-              <div style="font-weight:550; color: gray; font-size:12px; margin-top: 1rem; height: 10%;">20살 대학생 김00 </div>
-            </div>
-            <div id="main-middle1-div-item">
-              <img style="width: 100%; height: 65%;" src="../../public/main/maingraph.png">
-              <pre id="main-middle1-div-p" style="height: 15%;">
-    “발음을 교정하고 싶은데,
-    학원 가격이 너무 부담돼요”</pre>
+“건강정보 받고 싶은데,
+     모르겠어요.”</pre>
               <div style="font-weight:550; color: gray; font-size:12px; margin-top: 1rem; height: 10%;">20살 대학생 김00 </div>
             </div>
           </div>
