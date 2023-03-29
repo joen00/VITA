@@ -3,6 +3,8 @@ package com.ssafy.vitawearable.controller;
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,7 @@ import java.util.List;
 public class SleepController {
     private final Wearable wearable;
     private final WearablePast wearablePast;
+    private final UserUtil userUtil;
 
     // 수면 달별 데이터
     @ApiOperation(
@@ -33,8 +37,9 @@ public class SleepController {
             responseContainer = "List"
     )
     @GetMapping("/monthly")
-    public ResponseEntity<List<SleepMonthlyDto>> sleepMonthly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<SleepMonthlyDto>> sleepMonthly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.sleepMonthly(userId), HttpStatus.valueOf(200));
     }
 
@@ -46,8 +51,9 @@ public class SleepController {
             responseContainer = "List"
     )
     @GetMapping("/weekly")
-    public ResponseEntity<List<SleepWeeklyDto>> sleepWeekly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<SleepWeeklyDto>> sleepWeekly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.sleepWeekly(userId), HttpStatus.valueOf(200));
     }
 
@@ -59,8 +65,9 @@ public class SleepController {
             responseContainer = "List"
     )
     @GetMapping("/daily")
-    public ResponseEntity<List<SleepDailyDto>> sleepDaily(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<SleepDailyDto>> sleepDaily(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.sleepDaily(userId), HttpStatus.valueOf(200));
     }
 
@@ -71,8 +78,9 @@ public class SleepController {
             response = SleepPastAndNowDto.class
     )
     @GetMapping("/past")
-    public ResponseEntity<SleepPastAndNowDto> stepPast(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<SleepPastAndNowDto> stepPast(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.sleepPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }

@@ -3,6 +3,8 @@ package com.ssafy.vitawearable.controller;
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,7 @@ import java.util.List;
 public class RhrController {
     private final Wearable wearable;
     private final WearablePast wearablePast;
+    private final UserUtil userUtil;
 
     // 심박수 월별 데이터
     @ApiOperation(
@@ -33,8 +37,9 @@ public class RhrController {
             responseContainer = "List"
     )
     @GetMapping("/monthly")
-    public ResponseEntity<List<RhrMonthlyDto>> rhrMonthly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<RhrMonthlyDto>> rhrMonthly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.rhrMonthly(userId), HttpStatus.valueOf(200));
     }
 
@@ -46,8 +51,9 @@ public class RhrController {
             responseContainer = "List"
     )
     @GetMapping("/weekly")
-    public ResponseEntity<List<RhrWeeklyDto>> rhrWeekly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<RhrWeeklyDto>> rhrWeekly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.rhrWeekly(userId), HttpStatus.valueOf(200));
     }
 
@@ -59,8 +65,9 @@ public class RhrController {
             responseContainer = "List"
     )
     @GetMapping("/daily")
-    public ResponseEntity<List<RhrDailyDto>> rhrDaily(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<RhrDailyDto>> rhrDaily(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.rhrDaily(userId), HttpStatus.valueOf(200));
     }
 
@@ -71,8 +78,9 @@ public class RhrController {
             response = RhrPastAndNowDto.class
     )
     @GetMapping("/past")
-    public ResponseEntity<RhrPastAndNowDto> rhrPast(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<RhrPastAndNowDto> rhrPast(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.rhrPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }

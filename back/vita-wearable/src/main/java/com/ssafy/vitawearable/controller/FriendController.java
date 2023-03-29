@@ -37,11 +37,6 @@ public class FriendController {
             response = FriendDto.class,
             responseContainer = "List"
     )
-//    @GetMapping("")
-//    public ResponseEntity<List<FriendDto>> friendList(@RequestHeader("token") String token) {
-//        String userId = wearable.getUserId(token);
-//        return new ResponseEntity<>(wearableFriend.getFriendList(userId), HttpStatus.valueOf(200));
-//    }
     @GetMapping("")
     public ResponseEntity<List<FriendDto>> friendList(HttpServletRequest request) {
         String accessToken = HeaderUtil.getAccessToken(request);
@@ -70,8 +65,9 @@ public class FriendController {
             responseContainer = "List"
     )
     @GetMapping("/user")
-    public ResponseEntity<UserAverageDto> userAverage(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<UserAverageDto> userAverage(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
     }
 

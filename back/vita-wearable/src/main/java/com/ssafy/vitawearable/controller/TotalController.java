@@ -6,6 +6,8 @@ import com.ssafy.vitawearable.dto.TotalScoreDto;
 import com.ssafy.vitawearable.dto.TotalScoreYearDto;
 import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,6 +25,7 @@ import java.util.List;
 public class TotalController {
     private final Wearable wearable;
     private final Score score;
+    private final UserUtil userUtil;
 
     // 종합 점수 반환(프론트에선 최근것을 왼쪽에, 나머지 5개를 오른쪽에 배치)
     @ApiOperation(
@@ -31,8 +35,9 @@ public class TotalController {
             responseContainer = "List"
     )
     @GetMapping("/score")
-    public ResponseEntity<List<TotalScoreDto>> totalScore(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<TotalScoreDto>> totalScore(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(score.totalScore(userId), HttpStatus.valueOf(200));
     }
 
@@ -45,8 +50,9 @@ public class TotalController {
             responseContainer = "List"
     )
     @GetMapping("/user/score/{year}")
-    public ResponseEntity<List<TotalScoreYearDto>> totalDailyScore(@RequestHeader("token") String token, @PathVariable int year) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<TotalScoreYearDto>> totalDailyScore(HttpServletRequest request, @PathVariable int year) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(score.yearTotalScore(userId,year),HttpStatus.valueOf(200));
     }
 }

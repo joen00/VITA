@@ -35,11 +35,6 @@ public class AverageController {
             notes = "사용자 평균 데이터 리스트",
             response = UserAverageDto.class
     )
-//    @GetMapping("/user")
-//    public ResponseEntity<UserAverageDto> userAverage(@RequestHeader("token") String token) {
-//        String userId = wearable.getUserId(token);
-//        return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
-//    }
     @GetMapping("/user")
     public ResponseEntity<UserAverageDto> userAverage(HttpServletRequest request) {
         String accessToken = HeaderUtil.getAccessToken(request);

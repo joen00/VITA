@@ -36,8 +36,9 @@ public class EnergyController {
             responseContainer = "List"
     )
     @GetMapping("/monthly")
-    public ResponseEntity<List<EnergyMonthlyDto>> loadEnergyMonthly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<EnergyMonthlyDto>> loadEnergyMonthly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.energyMonthly(userId), HttpStatus.valueOf(200));
     }
 
@@ -49,8 +50,9 @@ public class EnergyController {
             responseContainer = "List"
     )
     @GetMapping("/weekly")
-    public ResponseEntity<List<EnergyWeeklyDto>> loadEnergyWeekly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<EnergyWeeklyDto>> loadEnergyWeekly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.energyWeekly(userId), HttpStatus.valueOf(200));
     }
 
@@ -61,11 +63,6 @@ public class EnergyController {
             response = EnergyDailyDto.class,
             responseContainer = "List"
     )
-//    @GetMapping("/daily")
-//    public ResponseEntity<List<EnergyDailyDto>> loadEnergyDaily(@RequestHeader("token") String token) {
-//        String userId = wearable.getUserId(token);
-//        return new ResponseEntity<>(wearable.energyDaily(userId), HttpStatus.valueOf(200));
-//    }
     @GetMapping("/daily")
     public ResponseEntity<List<EnergyDailyDto>> loadEnergyDaily(HttpServletRequest request) {
         String accessToken = HeaderUtil.getAccessToken(request);
@@ -80,8 +77,9 @@ public class EnergyController {
             response = EnergyPastAndNowDto.class
     )
     @GetMapping("/past")
-    public ResponseEntity<EnergyPastAndNowDto> stepPast(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<EnergyPastAndNowDto> stepPast(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.energyPastAndNow(userId), HttpStatus.valueOf(200));
     }
 

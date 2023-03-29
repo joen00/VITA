@@ -3,6 +3,8 @@ package com.ssafy.vitawearable.controller;
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
+import com.ssafy.vitawearable.util.HeaderUtil;
+import com.ssafy.vitawearable.util.UserUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -21,6 +24,7 @@ import java.util.List;
 public class WeightController {
     private final Wearable wearable;
     private final WearablePast wearablePast;
+    private final UserUtil userUtil;
 
     // 체중 월간 데이터
     @ApiOperation(
@@ -30,8 +34,9 @@ public class WeightController {
             responseContainer = "List"
     )
     @GetMapping("/monthly")
-    public ResponseEntity<List<WeightMonthlyDto>> weightMonthly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<WeightMonthlyDto>> weightMonthly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.weightMonthly(userId), HttpStatus.valueOf(200));
     }
 
@@ -43,8 +48,9 @@ public class WeightController {
             responseContainer = "List"
     )
     @GetMapping("/weekly")
-    public ResponseEntity<List<WeightWeeklyDto>> weightWeekly(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<WeightWeeklyDto>> weightWeekly(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.weightWeekly(userId), HttpStatus.valueOf(200));
     }
 
@@ -56,8 +62,9 @@ public class WeightController {
             responseContainer = "List"
     )
     @GetMapping("/daily")
-    public ResponseEntity<List<WeightDailyDto>> weightDaily(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<List<WeightDailyDto>> weightDaily(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearable.weightDaily(userId), HttpStatus.valueOf(200));
     }
 
@@ -68,8 +75,9 @@ public class WeightController {
             response = WeightPastAndNowDto.class
     )
     @GetMapping("/past")
-    public ResponseEntity<WeightPastAndNowDto> stepPast(@RequestHeader("token") String token) {
-        String userId = wearable.getUserId(token);
+    public ResponseEntity<WeightPastAndNowDto> stepPast(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.weightPastAndNow(userId), HttpStatus.valueOf(200));
     }
 }
