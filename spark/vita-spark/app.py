@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from sqlalchemy import text
 import pandas as pd
 import glob
@@ -52,8 +52,9 @@ def makeDay(db, file, userId):
     day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
 
-@app.route('/upload/<userId>')
-def upload(userId):
+@app.route('/upload')
+def upload():
+    userId = request.args.get('userId')
     db = common.connectDB()
     s3 = common.connectS3()
     common.decompress(s3, userId)
