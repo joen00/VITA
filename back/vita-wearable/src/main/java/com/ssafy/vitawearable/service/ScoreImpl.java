@@ -83,6 +83,7 @@ public class ScoreImpl implements Score{
         UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1);
         UserAverageDto userAverageDto = mapper.map(userAverage, UserAverageDto.class);
         userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
+        userAverageDto.setUserImg(userAverage.getUser().getUserImg());
         return mapper.map(userAverage, UserAverageDto.class);
     }
 

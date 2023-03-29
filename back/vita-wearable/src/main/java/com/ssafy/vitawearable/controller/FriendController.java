@@ -70,5 +70,4 @@ public class FriendController {
         String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(score.userAverage(userId), HttpStatus.valueOf(200));
     }
-
 }

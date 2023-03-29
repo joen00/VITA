@@ -12,6 +12,7 @@ import java.sql.Time;
 // 해당 유저의 평균 데이터 Dto
 public class UserAverageDto {
     private String userNickname;
+    private String userImg;
     private int userAverageStep;
     private int userAverageEnergy;
     private int userAverageRhr;

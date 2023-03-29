@@ -9,4 +9,5 @@ import lombok.Setter;
 public class FriendDto {
     private String userId;
     private String userNickname;
+    private String userImg;
 }
