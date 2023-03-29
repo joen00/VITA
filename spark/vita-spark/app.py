@@ -20,10 +20,12 @@ def makeDF(type, csv):
 
 def makeDay(db, file, userId):
     with db.connect() as conn:
-        sleep_date = conn.execute(text("SELECT max(daily_sleep_start) FROM daily_sleep WHERE user_id = '" + userId + "'")).fetchone()
-        day_date = conn.execute(text("SELECT max(date) FROM daily_wearable WHERE user_id = '" + userId + "'")).fetchone()
-        conn.execute(text(f"DELETE FROM daily_sleep WHERE daily_sleep_start = '{sleep_date}'"))
-        conn.execute(text(f"DELETE FROM daily_wearable WHERE date = '{day_date}'"))
+        sleep_date = conn.execute(text("SELECT max(daily_sleep_start) FROM daily_sleep WHERE user_id = '" + userId + "'")).fetchone()[0]
+        day_date = conn.execute(text("SELECT max(date) FROM daily_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
+        if sleep_date: conn.execute(text(f"DELETE FROM daily_sleep WHERE daily_sleep_start = '{sleep_date}' AND user_id = '{userId}'"))
+        if day_date: conn.execute(text(f"DELETE FROM daily_wearable WHERE date = '{day_date}' AND user_id = '{userId}'"))
+        conn.commit()
+        conn.close()
 
     for csv in file:
         if 'weight' in csv:
@@ -39,11 +41,13 @@ def makeDay(db, file, userId):
         if 'sleep_stage' in csv:
             sleep_stage_list = makeDF(sleep_stage, csv)
             sleep_stage_list['user_id'] = userId
-            common.saveDB(db, 'daily_sleep', sleep_stage_list[sleep_stage_list['date'] >= sleep_date])
+            if sleep_date: common.saveDB(db, 'daily_sleep', sleep_stage_list[sleep_stage_list['daily_sleep_start'] >= sleep_date])
+            else: common.saveDB(db, 'daily_sleep', sleep_stage_list)
 
     day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list)
     day['user_id'] = userId
-    common.saveDB(db, 'daily_wearable', day[day['date'] >= day_date])
+    if day_date: common.saveDB(db, 'daily_wearable', day[pd.to_datetime(day['date']).dt.date >= pd.to_datetime(day_date)])
+    else: common.saveDB(db, 'daily_wearable', day)
     
     day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
@@ -63,14 +67,19 @@ def upload(userId):
     average = common.avgDF(month)
 
     with db.connect() as conn:
-        week_date = conn.execute(text("SELECT max(date) FROM weekly_wearable WHERE user_id = '" + userId + "'")).fetchone()
-        month_date = conn.execute(text("SELECT max(date) FROM monthly_wearable WHERE user_id = '" + userId + "'")).fetchone()
-        conn.execute(text(f"DELETE FROM weekly_wearable WHERE date = '{week_date}'"))
-        conn.execute(text(f"DELETE FROM monthly_wearable WHERE date = '{month_date}'"))
-        conn.execute(text(f"DELETE FROM user_average WHERE user_id = '{userId}'"))
+        week_date = conn.execute(text("SELECT max(date) FROM weekly_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
+        if week_date: conn.execute(text(f"DELETE FROM weekly_wearable WHERE date = '{week_date}' AND user_id = '{userId}'"))
+        month_date = conn.execute(text("SELECT max(date) FROM monthly_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
+        if month_date: conn.execute(text(f"DELETE FROM monthly_wearable WHERE date = '{month_date}' AND user_id = '{userId}'"))
+        isExist = conn.execute(text(f"SELECT user_id FROM user_average WHERE user_id = '{userId}'")).fetchone
+        if isExist: conn.execute(text(f"DELETE FROM user_average WHERE user_id = '{userId}'"))
+        conn.commit()
+        conn.close()
 
-    common.saveDB(db, 'weekly_wearable', week[day['date'] >= week_date])
-    common.saveDB(db, 'monthly_wearable', month[day['date'] >= month_date])
+    if week_date: common.saveDB(db, 'weekly_wearable', week[day['date'] >= pd.to_datetime(week_date)])
+    else: common.saveDB(db, 'weekly_wearable', week)
+    if month_date: common.saveDB(db, 'monthly_wearable', month[day['date'] >= pd.to_datetime(month_date)])
+    else: common.saveDB(db, 'monthly_wearable', month)
     common.saveDB(db, 'user_average', average)
 
     return f'Hello, {userId}!'
