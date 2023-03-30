@@ -77,6 +77,7 @@ def upload():
     rq.urlretrieve(url, userId + ".zip")
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
     files = glob.glob('samsunghealth/*')
+    print(files)
     if files.count('samsunghealth\\jsons') == 0:
         files = glob.glob(files[0] + '/*')
 
