@@ -49,47 +49,27 @@ public class UserService {
         user.setUserPublic(extraInfoDto.isUserPublic());
 
         try {
-//            /* 최초 회원가입 시 유저 뱃지 Init + SignUp 뱃지 Get */
-//            List<Badge> badgeList = badgeRepository.findAll();
-//            for (Badge badge : badgeList) {
-//                UserBadge userBadge;
-//
-//                if (badge.getBadgeName().equals("signup")) {
-//                    userBadge = UserBadge.builder()
-//                            .userBadgeGet(true)
-//                            .user(user)
-//                            .badge(badge)
-//                            .build();
-//                }
-//                else {
-//                    userBadge = UserBadge.builder()
-//                            .userBadgeGet(false)
-//                            .user(user)
-//                            .badge(badge)
-//                            .build();
-//                }
-//                userBadgeRepository.save(userBadge);
-//            }
-            System.out.println("user badge get");
             /* 최초 회원가입 시 유저 뱃지 Init + SignUp 뱃지 Get */
             List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(user);
-//            System.out.println("userBadgesList.size() = " + userBadgesList.size());
-            for (UserBadge badge : userBadgesList) {
-                System.out.println("badge.getUserBadgeId() = " + badge.getUserBadgeId());
-                System.out.println("badge.isUserBadgeGet() = " + badge.isUserBadgeGet());
-            }
 
             if (userBadgesList.isEmpty()) {
                 List<Badge> badgeList = badgeRepository.findAll();
                 for (Badge badge : badgeList) {
-                    UserBadge userBadge = UserBadge.builder()
-                            .user(user)
-                            .userBadgeId(badge.getBadgeId())
-                            .userBadgeGet(false)
-                            .build();
+                    UserBadge userBadge;
 
                     if (badge.getBadgeName().equals("signup")) {
-                        userBadge.builder().userBadgeGet(true).build();
+                        userBadge = UserBadge.builder()
+                                .userBadgeGet(true)
+                                .user(user)
+                                .badge(badge)
+                                .build();
+                    }
+                    else {
+                        userBadge = UserBadge.builder()
+                                .userBadgeGet(false)
+                                .user(user)
+                                .badge(badge)
+                                .build();
                     }
                     userBadgeRepository.save(userBadge);
                 }
