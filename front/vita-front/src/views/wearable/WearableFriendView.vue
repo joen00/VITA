@@ -174,11 +174,8 @@ export default {
           this.data.push(res.data);
           this.energyData = this.data.map(function (e) {
             var str = e.userImg;
-            console.log(str);
             let str1 = str.substr(0, 4);
-            console.log(str1);
             let str2 = str.substr(4);
-            console.log(str2);
             let kakaoimgurl = str1 + "s" + str2;
             console.log(kakaoimgurl);
 
@@ -187,25 +184,45 @@ export default {
             "value":e.userAverageEnergy, 
             "bulletSettings": { src:kakaoimgurl }};
           })
-          this.rhrData = this.data.map(function(e){
+          this.rhrData = this.data.map(function (e) {
+            var str = e.userImg;
+            let str1 = str.substr(0, 4);
+            let str2 = str.substr(4);
+            let kakaoimgurl = str1 + "s" + str2;
+            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageRhr, 
             "bulletSettings": { src:kakaoimgurl }};
           })
-          this.sleepData = this.data.map(function(e){
+          this.sleepData = this.data.map(function (e) {
+            var str = e.userImg;
+            let str1 = str.substr(0, 4);
+            let str2 = str.substr(4);
+            let kakaoimgurl = str1 + "s" + str2;
+            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageSleep, 
             "bulletSettings": { src:kakaoimgurl }};
           })
-          this.stressData = this.data.map(function(e){
+          this.stressData = this.data.map(function (e) {
+            var str = e.userImg;
+            let str1 = str.substr(0, 4);
+            let str2 = str.substr(4);
+            let kakaoimgurl = str1 + "s" + str2;
+            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageStress, 
             "bulletSettings": { src:kakaoimgurl }};
           })
-          this.walkData = this.data.map(function(e){
+          this.walkData = this.data.map(function (e) {
+            var str = e.userImg;
+            let str1 = str.substr(0, 4);
+            let str2 = str.substr(4);
+            let kakaoimgurl = str1 + "s" + str2;
+            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageStep, 
