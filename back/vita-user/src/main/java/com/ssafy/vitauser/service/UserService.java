@@ -51,8 +51,13 @@ public class UserService {
         try {
             /* 최초 회원가입 시 유저 뱃지 Init + SignUp 뱃지 Get */
             List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(userId);
+            System.out.println("userBadgesList.size() = " + userBadgesList.size());
+            for (UserBadge badge : userBadgesList) {
+                System.out.println("badge.getUserBadgeId() = " + badge.getUserBadgeId());
+                System.out.println("badge.isUserBadgeGet() = " + badge.isUserBadgeGet());
+            }
 
-            if (userBadgesList.size() == 0) {
+            if (userBadgesList.isEmpty()) {
                 List<Badge> badgeList = badgeRepository.findAll();
                 for (Badge badge : badgeList) {
                     UserBadge userBadge = UserBadge.builder()
