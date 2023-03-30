@@ -78,7 +78,7 @@ def upload():
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
     files = glob.glob('samsunghealth/*')
     print(files)
-    if files.count('samsunghealth\\jsons') == 0:
+    if files.count('samsunghealth\\jsons') == 0 and files.count('samsunghealth/jsons') == 0:
         files = glob.glob(files[0] + '/*')
 
     day = makeDay(db, files, userId)
