@@ -8,42 +8,59 @@
 
       <b-container class="bv-example-row container h-30" id="mypage-container">
         <b-col class="left">
-          <b-row class="profile">
+          <div class="profile">
             <!-- 유저 아바타 -->
-            <b-col class="avatar">
+            <div class="avatar">
               <img id="img-avatar" :src="require(`/public/user/avatar.png`)" />
-            </b-col>
+            </div>
 
             <!-- 유저 신체 정보 -->
-            <b-col class="info">
-              <b-row class="nickname">
+            <div class="info">
+              <b-button id="btn-edit" @click="editInfo"><img src="@/assets/edit.png" id="btn-edit-img"></b-button>
+              <div class="nickname">
                 {{ nickname }}
-              </b-row>
-              <b-row class="item" v-for="info in UserInfo" :key="info">
-                <b-col cols="3" class="icon">
-                  <b-row
-                    ><img
+              </div>
+              <div class="item" v-for="info in UserInfo" :key="info">
+                <div class="icon">
+                  <img
                       id="item-img"
                       :src="require(`/public/user/${info.attr}.png`)"
-                  /></b-row>
-                </b-col>
-                <b-col cols="9" class="data">
-                  <b-row class="info-data">{{ info.data }}</b-row>
-                  <b-row class="info-desc">{{ info.desc }}</b-row>
-                </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
+                  />
+                </div>
+                <div class="data">
+                  <div class="info-data">{{ info.data }}</div>
+                  <div class="info-desc">{{ info.desc }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="info">
+            <b-button id="btn-edit" @click="toggleEditMode"><img src="@/assets/edit.png" id="btn-edit-img"></b-button>
+            <div class="nickname">
+              {{ nickname }}
+            </div>
+            <div class="item" v-for="info in UserInfo" :key="info">
+              <div class="icon">
+                <img
+                  id="item-img"
+                  :src="require(`/public/user/${info.attr}.png`)"
+                />
+              </div>
+              <div class="data" :contenteditable="isEditMode">{{ info.data }}</div>
+              <div class="info-desc">{{ info.desc }}</div>
+            </div>
+          </div>
+          </div> -->
 
           <!-- 캘린더 -->
-          <b-row class="calander">
+          <div class="calander">
             <VDatePicker
               title-position="middle"
               :attributes="attrs"
               @dayclick="dayclick"
               ref="datepicker"
             />
-          </b-row>
+          </div>
         </b-col>
         <!-- left 끝 -->
 
@@ -148,6 +165,7 @@ export default {
     ],
     VueHeaderTitle: "마이페이지",
     VueHeaderContent: "나의 정보를 확인해보세요.",
+    isEditMode: false,
   }),
 
   computed: {
@@ -206,10 +224,19 @@ export default {
           const deletedItem = this.slides.splice(foundIndex, 1);
           console.log(deletedItem);
           this.slides.splice(0, 0, deletedItem[0]);
-          // console.log(found);
         }
       }
     },
+    toggleEditMode() {
+        this.isEditMode = !this.isEditMode;
+        const dataElements = document.querySelectorAll('.data[contenteditable="true"]');
+        // Remove the contenteditable attribute from any other data elements that might be in edit mode
+        dataElements.forEach((element) => {
+          if (element !== event.target) {
+            element.removeAttribute('contenteditable');
+          }
+        });
+      }
   },
   created() {
     this.getUserInfo();
@@ -242,7 +269,7 @@ export default {
 .left {
   margin-top: 1rem;
   width: 40%;
-  height: 84%;
+  height: 80%;
   float: left;
 }
 .right {
@@ -255,22 +282,27 @@ export default {
 }
 .profile {
   padding: 30px;
+  display: flex;
 }
 .avatar {
   float: left;
-}
-.icon {
-  float: left;
-}
-.item {
-  padding: 8px;
+  width: 50%;
 }
 .info {
   float: left;
-  padding-left: 30px;
+  width: 50%;
+}
+.item {
+  padding: 8px;
+  display: flex;
+}
+.icon {
+  float: left;
+  width: 20%;
 }
 .data {
   float: left;
+  width: 80%;
 }
 .nickname {
   font-family: "Inter";
@@ -282,15 +314,25 @@ export default {
   text-align: center;
 }
 .btn-fileupload {
-  background-color: #3695be;
-  border-radius: 10px;
-  font-size: 12px;
-  float: left;
+  height: 30px;
   border: none;
-  padding-inline: 20px;
-}
-.btn-fileupload {
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: solid 2px #3695be;
+  border-radius: 12px;
+  float: left;
   margin: 10px;
+  padding-inline: 20px;
+  padding-block: 4px;
+}
+.btn-fileupload:hover {
+  border: none;
+  color: #3695be;
+  border: solid 2px #3695be;
+  background: rgb(255, 255, 255);
 }
 .badge-list {
   height: 200px;
@@ -316,6 +358,8 @@ export default {
 }
 #item-img {
   padding: 0.7rem;
+  width: 55px;
+  height: 55px;
 }
 .info.data {
   font-size: 17px;
@@ -323,5 +367,13 @@ export default {
 .info-desc {
   color: rgb(150, 150, 150);
   font-size: 13px;
+}
+#btn-edit {
+  width: 30px;
+  height: 30px;
+}
+#btn-edit-img {
+  width: 20px;
+  height: 20px;
 }
 </style>

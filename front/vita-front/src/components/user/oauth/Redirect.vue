@@ -15,6 +15,9 @@ export default {
     const userNickname = this.$route.query.userNickname
     console.log('userNickname', userNickname)
 
+    const userProfileImg = this.$route.query.userProfileImg
+    console.log('userProfileImg', userProfileImg)
+
     if (token) {
       this.setToken(token)
       this.fetchUser()
@@ -22,6 +25,10 @@ export default {
 
     if (userNickname) { 
       this.setUserNickname(userNickname)
+    }
+
+    if (userProfileImg) {
+      this.setUserProfileImg(userProfileImg)
     }
 
     // 추가 정보 미기입시 추가정보 페이지로 replace
@@ -34,7 +41,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchUser']),
-    ...mapMutations(['setToken','setUserNickname'])
+    ...mapMutations(['setToken','setUserNickname','setUserProfileImg'])
   }
 }
 </script>

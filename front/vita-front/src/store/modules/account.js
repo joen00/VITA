@@ -5,11 +5,13 @@ export default {
     user: null,
     token: null,
     userNickname: null,
+    userProfileImg: null,
   },
   getters: {
     user: state => state.user,
     token: state => state.token,
-    userNickname: state => state.userNickname
+    userNickname: state => state.userNickname,
+    userProfileImg: state => state.userProfileImg
   },
   actions: {
     fetchUser({ state, commit }, callback) {
@@ -32,6 +34,9 @@ export default {
     },
     setUserNickname(state, userNickname) {
       state.userNickname = userNickname
+    },
+    setUserProfileImg(state, userProfileImg) {
+      state.userProfileImg = userProfileImg
     }
   }
 }

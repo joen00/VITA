@@ -21,6 +21,11 @@ axios.defaults.baseURL = `${BACKEND_DOMAIN}${BACKEND_PORT}`
 // const BACKEND_DOMAIN = process.env.BACKEND_DOMAIN === null ? `${location.protocol}//${location.hostname}` : process.env.BACKEND_DOMAIN
 // axios.defaults.baseURL = `j8b106.p.ssafy.io:8085`
 
+// JS SDK init
+const KAKAKO_API_KEY = '2aab5a9403a1dafc16cdb799021db6e5';
+window.Kakao.init(KAKAKO_API_KEY);
+//
+
 new Vue({
   router,
   store,
