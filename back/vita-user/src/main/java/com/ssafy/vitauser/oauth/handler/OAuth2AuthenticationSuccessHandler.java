@@ -1,7 +1,9 @@
 package com.ssafy.vitauser.oauth.handler;
 
 import com.ssafy.vitauser.config.properties.AppProperties;
+import com.ssafy.vitauser.entity.user.Badge;
 import com.ssafy.vitauser.entity.user.User;
+import com.ssafy.vitauser.entity.user.UserBadge;
 import com.ssafy.vitauser.entity.user.UserRefreshToken;
 import com.ssafy.vitauser.oauth.entity.ProviderType;
 import com.ssafy.vitauser.oauth.entity.RoleType;
@@ -12,6 +14,8 @@ import com.ssafy.vitauser.oauth.token.AuthToken;
 import com.ssafy.vitauser.oauth.token.AuthTokenProvider;
 import com.ssafy.vitauser.repository.UserRefreshTokenRepository;
 import com.ssafy.vitauser.repository.UserRepository;
+import com.ssafy.vitauser.repository.mypage.BadgeRepository;
+import com.ssafy.vitauser.repository.mypage.UserBadgeRepository;
 import com.ssafy.vitauser.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -31,6 +35,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static com.ssafy.vitauser.oauth.repository.OAuth2AuthorizationRequestBasedOnCookieRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
@@ -43,6 +48,8 @@ import static com.ssafy.vitauser.oauth.repository.OAuth2AuthorizationRequestBase
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+    private final BadgeRepository badgeRepository;
+    private final UserBadgeRepository userBadgeRepository;
     private final AuthTokenProvider tokenProvider;
     private final AppProperties appProperties;
     private final UserRepository userRepository;
@@ -119,6 +126,31 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .build().toUriString();
         }
         else {
+            System.out.println("user badge get");
+            /* 최초 회원가입 시 유저 뱃지 Init + SignUp 뱃지 Get */
+            List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(userInfo.getId());
+            System.out.println("userBadgesList.size() = " + userBadgesList.size());
+            for (UserBadge badge : userBadgesList) {
+                System.out.println("badge.getUserBadgeId() = " + badge.getUserBadgeId());
+                System.out.println("badge.isUserBadgeGet() = " + badge.isUserBadgeGet());
+            }
+
+            if (userBadgesList.isEmpty()) {
+                List<Badge> badgeList = badgeRepository.findAll();
+                for (Badge badge : badgeList) {
+                    UserBadge userBadge = UserBadge.builder()
+                            .user(loginUser)
+                            .userBadgeId(badge.getBadgeId())
+                            .userBadgeGet(false)
+                            .build();
+
+                    if (badge.getBadgeName().equals("signup")) {
+                        userBadge.builder().userBadgeGet(true).build();
+                    }
+                    userBadgeRepository.save(userBadge);
+                }
+            }
+
             return UriComponentsBuilder.fromUriString(targetUrl)
                     .queryParam("token", accessToken.getToken())
                     .queryParam("extraInfoFlag", true)
