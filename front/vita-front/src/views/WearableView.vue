@@ -279,15 +279,15 @@ export default {
           let lastIndex = this.totalscore.length - 1;
           this.lastTotalscore = this.totalscore[lastIndex];
           console.log(this.lastTotalscore);
+          this.series[0].data = this.totalscore.map(function (e) {
+          return e.totalScore;
+          });
+          this.chartOptions.xaxis.categories = this.totalscore.map(function (e) {
+            const week = ["일", "월", "화", "수", "목", "금", "토"];
+            const dayOfWeek = week[new Date(e.date).getDay()];
+            return dayOfWeek;
+          });
         });
-      this.series[0].data = this.totalscore.map(function (e) {
-        return e.totalScore;
-      });
-      this.chartOptions.xaxis.categories = this.totalscore.map(function (e) {
-        const week = ["일", "월", "화", "수", "목", "금", "토"];
-        const dayOfWeek = week[new Date(e.date).getDay()];
-        return dayOfWeek;
-      });
     },
     // makePDF (selector = 'body') {
     // 	window.html2canvas = html2canvas //Vue.js 특성상 window 객체에 직접 할당해야한다.
