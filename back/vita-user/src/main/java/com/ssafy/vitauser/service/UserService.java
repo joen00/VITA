@@ -51,14 +51,21 @@ public class UserService {
         try {
             List<Badge> badgeList = badgeRepository.findAll();
             for (Badge badge : badgeList) {
-                UserBadge userBadge = UserBadge.builder()
-                        .user(user)
-                        .userBadgeId(badge.getBadgeId())
-                        .userBadgeGet(false)
-                        .build();
+                UserBadge userBadge;
 
                 if (badge.getBadgeName().equals("signup")) {
-                    userBadge.builder().userBadgeGet(true).build();
+                    userBadge = UserBadge.builder()
+                            .userBadgeGet(true)
+                            .user(user)
+                            .badge(badge)
+                            .build();
+                }
+                else {
+                    userBadge = UserBadge.builder()
+                            .userBadgeGet(false)
+                            .user(user)
+                            .badge(badge)
+                            .build();
                 }
                 userBadgeRepository.save(userBadge);
             }
