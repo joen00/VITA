@@ -51,7 +51,7 @@ def makeDay(db, file, userId):
             else: common.saveDB(db, 'daily_sleep', sleep_stage_list.fillna(0))
 
     day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list)
-    day['daily_wearble_score'] = 0
+    day['daily_wearable_score'] = 0
     day['user_id'] = userId
     if day_date: common.saveDB(db, 'daily_wearable', day[pd.to_datetime(day['date']).dt.date >= pd.to_datetime(day_date)].fillna(0))
     else: common.saveDB(db, 'daily_wearable', day.fillna(0))
@@ -67,7 +67,7 @@ def upload():
     with db.connect() as conn:
         url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
     
-    rq.urlretrieve("https://vita-project-bucket.s3.ap-northeast-2.amazonaws.com/%EC%82%BC%EC%84%B1%ED%97%AC%EC%8A%A4.zip", userId + ".zip")
+    rq.urlretrieve(url, userId + ".zip")
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
     files = glob.glob('samsunghealth/*')
     if files.count('samsunghealth\\jsons') == 0:
