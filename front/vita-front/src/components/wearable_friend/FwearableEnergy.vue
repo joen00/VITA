@@ -175,34 +175,6 @@ export default {
       //       src: "https://www.amcharts.com/lib/images/faces/A04.png",
       //     },
       //   },
-      //   {
-      //     name: "Damon",
-      //     value: 65456,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/C02.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Patrick",
-      //     value: 45724,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/D02.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Joen",
-      //     value: 13654,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/E01.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Mark",
-      //     value: 13654,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/E01.png",
-      //     },
-      //   },
       // ];
 
       series.bullets.push(function () {

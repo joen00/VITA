@@ -162,7 +162,6 @@ export default {
 
       // Set data
       var data = this.walkData
-
       series.bullets.push(function () {
         return am5.Bullet.new(root, {
           locationY: 1,
