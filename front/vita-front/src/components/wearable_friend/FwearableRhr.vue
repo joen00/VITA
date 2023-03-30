@@ -72,14 +72,14 @@ export default {
     this.franks = [];
 
     for (var data of sortData) {
+      console.log(data);
       count += 1;
       this.franks.push({id: count, name: data.userNickname, img: data.img})
-      if (count < 5) {
+      if (count >= 5) {
         break;
       }
     }
     console.log(this.franks)
-    console.log(this.rhrData)
 
     am5.ready(() => {
       // Create root element
