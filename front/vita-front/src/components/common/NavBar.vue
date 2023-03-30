@@ -159,7 +159,15 @@ export default {
   align-items: center;
 }
 .bp-header-container .bp-header .bp-account .account-button {
+<<<<<<< Updated upstream
   width: 85px;
+=======
+  background: #3592ba;
+  color: #fff;
+  cursor: pointer;
+  font-size: smaller;
+  width: 80px;
+>>>>>>> Stashed changes
   height: 60%;
   border: none;
   color: rgb(255, 255, 255);
@@ -172,6 +180,7 @@ export default {
   float: left;
 }
 .bp-header-container .bp-header .bp-account .account-button:hover {
+<<<<<<< Updated upstream
   border: none;
   color: #fff;
   font-weight: 600;
@@ -181,6 +190,10 @@ export default {
   margin-left: 26rem;
   margin-right: 1rem;
   float: left;
+=======
+  background: #d4ecf7;
+  color: #106285;
+>>>>>>> Stashed changes
 }
 .bp-header-container .account-dropdown {
   width: 100px;
@@ -269,7 +282,11 @@ li {
   align-items: center;
 }
 #user-profile-nickname {
+<<<<<<< Updated upstream
   color: #125e7f;
+=======
+  color: #172176;
+>>>>>>> Stashed changes
   padding: 5px;
   margin: 15px 40px 15px 10px;
 }
