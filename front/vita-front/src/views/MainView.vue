@@ -133,7 +133,7 @@
         <div id="main-middle2-div">
           <!-- div2 시작 -->
           <div id="main-middle2-div-img">
-            <img style="width: 70%" src="@/../public/main/animation2.gif" />
+            <img style="width: 77%" src="@/../public/main/animation3.gif" />
           </div>
           <div id="main-middle2-div-items">
             <p style="font-size: 1.8rem; font-weight: 800; color: #4e8aff">
@@ -220,6 +220,9 @@
           to="/wearable"
           >VITA 시작하기</b-button
         >
+        <div class="kakao-share" @click="kakaoShare">
+          카카오 공유하기
+        </div>
       </div>
     </div>
   </div>
@@ -228,10 +231,46 @@
 <script>
 export default {
   name: "MainView",
+  head() {
+    return {
+          script: [
+              {src: '//developers.kakao.com/sdk/js/kakao.min.js'},
+          ],
+      }
+  },
+
+  methods: {
+    kakaoShare() {
+      window.Kakao.Share.sendCustom({
+        templateId: 91901,
+        installTalk: true
+      });
+    },
+  },
 };
 </script>
 
 <style>
+.kakao-share {
+  width: 300px;
+  height: 50px;
+  line-height: 50px;
+  color: black;
+  text-align: center;
+  background: #ffe812;
+  font-size: 15px;
+  margin-left:auto; 
+  margin-right: auto;
+  margin-top: 1rem;
+  width: 15%;
+  height: 45px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+
+
 #main-middle2-div-img {
   width: 50%;
   height: 100%;
