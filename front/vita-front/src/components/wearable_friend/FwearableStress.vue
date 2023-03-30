@@ -65,7 +65,7 @@ export default {
 
     // 등수 매기기
     let sortData = this.stressData.sort(function(a,b) {
-      return a.userAverageStress - b.userAverageStress;
+      return a.value - b.value;
     })
     let count = 0;
     this.franks = [];

@@ -65,7 +65,7 @@ export default {
 
     // 등수 매기기
     let sortData = this.walkData.sort(function(a,b) {
-      return b.userAverageWalk - a.userAverageWalk;
+      return b.value - a.value;
     })
     let count = 0;
     this.franks = [];

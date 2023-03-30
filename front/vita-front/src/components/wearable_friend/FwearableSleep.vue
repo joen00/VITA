@@ -64,7 +64,7 @@ export default {
 
     // 등수 매기기
     let sortData = this.sleepData.sort(function(a,b) {
-      return b.userAverageSleep - a.userAverageSleep;
+      return b.value - a.value;
     })
     let count = 0;
     this.franks = [];
