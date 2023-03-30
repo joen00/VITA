@@ -38,9 +38,6 @@ import java.util.Arrays;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final BadgeRepository badgeRepository;
-    private final UserBadgeRepository userBadgeRepository;
     private final UserRepository userRepository;
     private final CorsProperties corsProperties;
     private final AppProperties appProperties;
@@ -141,8 +138,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
         return new OAuth2AuthenticationSuccessHandler(
-                badgeRepository,
-                userBadgeRepository,
                 tokenProvider,
                 appProperties,
                 userRepository,
