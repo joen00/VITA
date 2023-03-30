@@ -14,6 +14,8 @@ import com.ssafy.vitauser.oauth.service.CustomUserDetailsService;
 import com.ssafy.vitauser.oauth.token.AuthTokenProvider;
 import com.ssafy.vitauser.repository.UserRefreshTokenRepository;
 import com.ssafy.vitauser.repository.UserRepository;
+import com.ssafy.vitauser.repository.mypage.BadgeRepository;
+import com.ssafy.vitauser.repository.mypage.UserBadgeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +39,8 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final BadgeRepository badgeRepository;
+    private final UserBadgeRepository userBadgeRepository;
     private final UserRepository userRepository;
     private final CorsProperties corsProperties;
     private final AppProperties appProperties;
@@ -137,6 +141,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
         return new OAuth2AuthenticationSuccessHandler(
+                badgeRepository,
+                userBadgeRepository,
                 tokenProvider,
                 appProperties,
                 userRepository,
