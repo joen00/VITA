@@ -12,11 +12,11 @@
             a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
 
     div#login-section
-      div.user-profile(v-if="isLoggedIn")
+      div.user-profile(v-if="!isLoggedIn")
           img(:src="getUserProfileImg"  id="user-profile-img")
           p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
-  
-      .bp-account
+
+      div.bp-account
         button.account-button(
           v-if='!isLoggedIn'
           type='button'
@@ -167,9 +167,6 @@ export default {
   background: #3695be;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  margin-left: 26rem;
-  margin-right: 1rem;
-  float: left;
 }
 .bp-header-container .bp-header .bp-account .account-button:hover {
   border: none;
@@ -178,9 +175,6 @@ export default {
   background: #125e7f;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  margin-left: 26rem;
-  margin-right: 1rem;
-  float: left;
 }
 .bp-header-container .account-dropdown {
   width: 100px;
