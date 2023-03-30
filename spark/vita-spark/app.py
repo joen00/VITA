@@ -56,7 +56,7 @@ def makeDay(db, file, userId):
     if day_date: common.saveDB(db, 'daily_wearable', day[pd.to_datetime(day['date']).dt.date >= pd.to_datetime(day_date)].fillna(0))
     else: common.saveDB(db, 'daily_wearable', day.fillna(0))
     
-    day_merge = pd.merge(day.drop('daily_wearble_score', axis = 'columns'), sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
+    day_merge = pd.merge(day.drop('daily_wearable_score', axis = 'columns'), sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
 
 @app.route('/upload', methods=['POST'])
@@ -67,9 +67,12 @@ def upload():
     with db.connect() as conn:
         url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
     
-    if os.path.isfile(userId + ".zip"):
-            os.remove(userId + ".zip")
-            shutil.rmtree('./samsunghealth/')
+    paths = glob.glob('./*', recursive=True)
+    for path in paths:
+        if 'zip' in path:
+            os.remove(path)
+        if 'samsunghealth' in path:
+            shutil.rmtree(path)
 
     rq.urlretrieve(url, userId + ".zip")
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
@@ -92,9 +95,9 @@ def upload():
         conn.commit()
         conn.close()
 
-    if week_date: common.saveDB(db, 'weekly_wearable', week[day['date'] >= pd.to_datetime(week_date)].fillna(0))
+    if week_date: common.saveDB(db, 'weekly_wearable', week[week['date'] >= pd.to_datetime(week_date)].fillna(0))
     else: common.saveDB(db, 'weekly_wearable', week.fillna(0))
-    if month_date: common.saveDB(db, 'monthly_wearable', month[day['date'] >= pd.to_datetime(month_date)].fillna(0))
+    if month_date: common.saveDB(db, 'monthly_wearable', month[month['date'] >= pd.to_datetime(month_date)].fillna(0))
     else: common.saveDB(db, 'monthly_wearable', month.fillna(0))
     common.saveDB(db, 'user_average', average.fillna(0))
 
@@ -110,3 +113,4 @@ def main():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True, ssl_context =("cert.pem", "privkey.pem"))
+    app.run('0.0.0.0', port=5000, debug=True)
