@@ -60,13 +60,13 @@ def makeDay(db, file, userId):
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    userId = request.get_json()['userId'].astype(int)
+    userId = str(request.get_json()['userId'])
 
     db = common.connectDB()
     with db.connect() as conn:
         url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
     
-    rq.urlretrieve(url, userId + ".zip")
+    rq.urlretrieve("https://vita-project-bucket.s3.ap-northeast-2.amazonaws.com/%EC%82%BC%EC%84%B1%ED%97%AC%EC%8A%A4.zip", userId + ".zip")
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
     files = glob.glob('samsunghealth/*')
     if files.count('samsunghealth\\jsons') == 0:
