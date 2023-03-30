@@ -78,7 +78,7 @@ public class StressController {
             response = StressPastAndNowDto.class
     )
     @GetMapping("/past")
-    public ResponseEntity<StressPastAndNowDto> stepPast(HttpServletRequest request) {
+    public ResponseEntity<StressPastAndNowDto> StressPast(HttpServletRequest request) {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.stressPastAndNow(userId), HttpStatus.valueOf(200));

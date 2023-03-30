@@ -336,9 +336,9 @@ public class WearablePastImpl implements WearablePast {
                 .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
                         .equals(lastExportWeek)).findAny();
         if (nowWeekWearable.isPresent()) {
-            stressPastAndNowDto.setWeekNowWearableStress(0);
-        } else {
             stressPastAndNowDto.setWeekNowWearableStress(nowWeekWearable.get().getWeeklyWearableStress());
+        } else {
+            stressPastAndNowDto.setWeekNowWearableStress(0);
         }
 
         // 이전 주 값 넣어주기
@@ -346,9 +346,9 @@ public class WearablePastImpl implements WearablePast {
                 .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
                         .equals(pastExportWeek)).findAny();
         if (pastWeekWearable.isPresent()) {
-            stressPastAndNowDto.setWeekPastWearableStress(0);
-        } else {
             stressPastAndNowDto.setWeekPastWearableStress(pastWeekWearable.get().getWeeklyWearableStress());
+        } else {
+            stressPastAndNowDto.setWeekPastWearableStress(0);
         }
 
 //        // 현재 주 값 넣어주기
@@ -377,9 +377,9 @@ public class WearablePastImpl implements WearablePast {
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
                         w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
         if (nowMonthWearable.isPresent()) {
-            stressPastAndNowDto.setWeekNowWearableStress(0);
-        } else {
             stressPastAndNowDto.setWeekNowWearableStress(nowMonthWearable.get().getMonthlyWearableStress());
+        } else {
+            stressPastAndNowDto.setWeekNowWearableStress(0);
         }
 
         // 이전 달 값 넣어주기
@@ -387,9 +387,9 @@ public class WearablePastImpl implements WearablePast {
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
                         w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
         if (pastMonthWearable.isPresent()) {
-            stressPastAndNowDto.setWeekPastWearableStress(0);
-        } else {
             stressPastAndNowDto.setWeekPastWearableStress(pastMonthWearable.get().getMonthlyWearableStress());
+        } else {
+            stressPastAndNowDto.setWeekPastWearableStress(0);
         }
 
 //        // 현재 달 값 넣어주기
