@@ -6,7 +6,6 @@
         :ComponentHeaderContent="ComponentHeaderContent"
       />
     </div>
-    {{ rhrData }}
     <div id="wearable-friend-Rhr">
       <div id="wearable-friend-Rhr-Left">
         <div id="wearable-friend-Rhr-Left-div">
@@ -66,20 +65,18 @@ export default {
 
     // 등수 매기기
     let sortData = this.rhrData.sort(function(a,b) {
-      return b.userAverageRhr - a.userAverageRhr;
+      return a.userAverageRhr - b.userAverageRhr;
     })
     let count = 0;
     this.franks = [];
 
     for (var data of sortData) {
-      console.log(data);
       count += 1;
-      this.franks.push({id: count, name: data.userNickname, img: data.img})
+      this.franks.push({id: count, name: data.name, img: data.bulletSettings.src})
       if (count >= 5) {
         break;
       }
     }
-    console.log(this.franks)
 
     am5.ready(() => {
       // Create root element
@@ -165,43 +162,6 @@ export default {
 
       // Set data
       var data = this.rhrData;
-      // var data = [
-      //   {
-      //     name: "John",
-      //     value: 35654,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/A04.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Damon",
-      //     value: 65456,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/C02.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Patrick",
-      //     value: 45724,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/D02.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Joen",
-      //     value: 13654,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/E01.png",
-      //     },
-      //   },
-      //   {
-      //     name: "Mark",
-      //     value: 13654,
-      //     bulletSettings: {
-      //       src: "https://www.amcharts.com/lib/images/faces/E01.png",
-      //     },
-      //   },
-      // ];
 
       series.bullets.push(function () {
         return am5.Bullet.new(root, {

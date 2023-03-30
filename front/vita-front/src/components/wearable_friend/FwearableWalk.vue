@@ -27,7 +27,7 @@
             {{ rank.id }}
             <b-avatar
               variant="info"
-              src="https://placekitten.com/300/300"
+              :src="rank.img"
             ></b-avatar>
             {{ rank.name }}
           </div>
@@ -58,16 +58,26 @@ export default {
       ComponentHeaderTitle: "걸음수",
       ComponentHeaderContent:
         "친구들과 나의 평균 걸음수 기록을 비교해 보여줘요.",
-      franks: [
-        { id: 1, name: "김뿡1" },
-        { id: 2, name: "김뿡2" },
-        { id: 3, name: "김뿡3" },
-        { id: 4, name: "김뿡4" },
-        { id: 5, name: "김뿡5" },
-      ],
+      franks: [],
     };
   },
   mounted() {
+
+    // 등수 매기기
+    let sortData = this.walkData.sort(function(a,b) {
+      return b.userAverageWalk - a.userAverageWalk;
+    })
+    let count = 0;
+    this.franks = [];
+
+    for (var data of sortData) {
+      count += 1;
+      this.franks.push({id: count, name: data.name, img: data.bulletSettings.src})
+      if (count >= 5) {
+        break;
+      }
+    }
+
     am5.ready(() => {
       // Create root element
       // https://www.amcharts.com/docs/v5/getting-started/#Root_element
@@ -151,43 +161,7 @@ export default {
       });
 
       // Set data
-      var data = [
-        {
-          name: "John",
-          value: 35654,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/A04.png",
-          },
-        },
-        {
-          name: "Damon",
-          value: 65456,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/C02.png",
-          },
-        },
-        {
-          name: "Patrick",
-          value: 45724,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/D02.png",
-          },
-        },
-        {
-          name: "Joen",
-          value: 13654,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/E01.png",
-          },
-        },
-        {
-          name: "Mark",
-          value: 13654,
-          bulletSettings: {
-            src: "https://www.amcharts.com/lib/images/faces/E01.png",
-          },
-        },
-      ];
+      var data = this.walkData
 
       series.bullets.push(function () {
         return am5.Bullet.new(root, {
