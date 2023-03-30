@@ -47,13 +47,13 @@ def makeDay(db, file, userId):
         if 'sleep_stage' in csv:
             sleep_stage_list = makeDF(sleep_stage, csv)
             sleep_stage_list['user_id'] = userId
-            if sleep_date: common.saveDB(db, 'daily_sleep', sleep_stage_list[sleep_stage_list['daily_sleep_start'] >= sleep_date])
-            else: common.saveDB(db, 'daily_sleep', sleep_stage_list)
+            if sleep_date: common.saveDB(db, 'daily_sleep', sleep_stage_list[sleep_stage_list['daily_sleep_start'] >= sleep_date].fillna(0))
+            else: common.saveDB(db, 'daily_sleep', sleep_stage_list.fillna(0))
 
     day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list)
     day['user_id'] = userId
-    if day_date: common.saveDB(db, 'daily_wearable', day[pd.to_datetime(day['date']).dt.date >= pd.to_datetime(day_date)])
-    else: common.saveDB(db, 'daily_wearable', day)
+    if day_date: common.saveDB(db, 'daily_wearable', day[pd.to_datetime(day['date']).dt.date >= pd.to_datetime(day_date)].fillna(0))
+    else: common.saveDB(db, 'daily_wearable', day.fillna(0))
     
     day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
@@ -87,11 +87,11 @@ def upload():
         conn.commit()
         conn.close()
 
-    if week_date: common.saveDB(db, 'weekly_wearable', week[day['date'] >= pd.to_datetime(week_date)])
-    else: common.saveDB(db, 'weekly_wearable', week)
-    if month_date: common.saveDB(db, 'monthly_wearable', month[day['date'] >= pd.to_datetime(month_date)])
-    else: common.saveDB(db, 'monthly_wearable', month)
-    common.saveDB(db, 'user_average', average)
+    if week_date: common.saveDB(db, 'weekly_wearable', week[day['date'] >= pd.to_datetime(week_date)].fillna(0))
+    else: common.saveDB(db, 'weekly_wearable', week.fillna(0))
+    if month_date: common.saveDB(db, 'monthly_wearable', month[day['date'] >= pd.to_datetime(month_date)].fillna(0))
+    else: common.saveDB(db, 'monthly_wearable', month.fillna(0))
+    common.saveDB(db, 'user_average', average.fillna(0))
 
     if os.path.isfile(userId + ".zip"):
         os.remove(userId + ".zip")
