@@ -44,6 +44,7 @@ public class WearableImpl implements Wearable {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, StepWeeklyDto.class))
+                .limit(48)
                 .sorted(Comparator.comparing(StepWeeklyDto::getDate))
                 .collect(Collectors.toList());
     }
@@ -54,6 +55,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, StepDailyDto.class))
+                .limit(100)
                 .sorted(Comparator.comparing(StepDailyDto::getDate))
                 .collect(Collectors.toList());
     }
@@ -76,6 +78,7 @@ public class WearableImpl implements Wearable {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, EnergyWeeklyDto.class))
+                .limit(48)
                 .sorted(Comparator.comparing(EnergyWeeklyDto::getDate))
                 .collect(Collectors.toList());
     }
@@ -86,6 +89,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, EnergyDailyDto.class))
+                .limit(100)
                 .sorted(Comparator.comparing(EnergyDailyDto::getDate))
                 .collect(Collectors.toList());
     }
@@ -106,6 +110,7 @@ public class WearableImpl implements Wearable {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, RhrWeeklyDto.class))
+                .limit(48)
                 .sorted(Comparator.comparing(RhrWeeklyDto::getDate))
                 .collect(Collectors.toList());
 
@@ -117,6 +122,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, RhrDailyDto.class))
+                .limit(100)
                 .sorted(Comparator.comparing(RhrDailyDto::getDate))
                 .collect(Collectors.toList());
 
@@ -139,6 +145,7 @@ public class WearableImpl implements Wearable {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, SleepWeeklyDto.class))
+                .limit(48)
                 .sorted(Comparator.comparing(SleepWeeklyDto::getDate))
                 .collect(Collectors.toList());
 
@@ -150,6 +157,7 @@ public class WearableImpl implements Wearable {
         List<DailySleep> dailyWearables = dailySleepRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, SleepDailyDto.class))
+                .limit(100)
                 .sorted(Comparator.comparing(SleepDailyDto::getDailySleepStart))
                 .collect(Collectors.toList());
     }
@@ -171,6 +179,7 @@ public class WearableImpl implements Wearable {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, StressWeeklyDto.class))
+                .limit(48)
                 .sorted(Comparator.comparing(StressWeeklyDto::getDate))
                 .collect(Collectors.toList());
 
@@ -182,6 +191,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, StressDailyDto.class))
+                .limit(100)
                 .sorted(Comparator.comparing(StressDailyDto::getDate))
                 .collect(Collectors.toList());
 
@@ -204,6 +214,7 @@ public class WearableImpl implements Wearable {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
                 .map(weekly -> mapper.map(weekly, WeightWeeklyDto.class))
+                .limit(48)
                 .sorted(Comparator.comparing(WeightWeeklyDto::getDate))
                 .collect(Collectors.toList());
 
@@ -215,6 +226,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
                 .map(daily -> mapper.map(daily, WeightDailyDto.class))
+                .limit(100)
                 .sorted(Comparator.comparing(WeightDailyDto::getDate))
                 .collect(Collectors.toList());
 
