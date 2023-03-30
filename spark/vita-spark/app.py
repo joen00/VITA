@@ -60,7 +60,7 @@ def makeDay(db, file, userId):
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    userId = request.get_json()['userId']
+    userId = request.get_json()['userId'].astype(int)
 
     db = common.connectDB()
     with db.connect() as conn:
@@ -104,4 +104,5 @@ def main():
     return "Hello, Vita!"
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True, ssl_context =("cert.pem", "privkey.pem"))
+    # app.run('0.0.0.0', port=5000, debug=True, ssl_context =("cert.pem", "privkey.pem"))
+    app.run('0.0.0.0', port=5000, debug=True)
