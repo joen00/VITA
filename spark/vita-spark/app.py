@@ -51,11 +51,12 @@ def makeDay(db, file, userId):
             else: common.saveDB(db, 'daily_sleep', sleep_stage_list.fillna(0))
 
     day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list)
+    day['daily_wearble_score'] = 0
     day['user_id'] = userId
     if day_date: common.saveDB(db, 'daily_wearable', day[pd.to_datetime(day['date']).dt.date >= pd.to_datetime(day_date)].fillna(0))
     else: common.saveDB(db, 'daily_wearable', day.fillna(0))
     
-    day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
+    day_merge = pd.merge(day.drop('daily_wearble_score', axis = 'columns'), sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
 
 @app.route('/upload', methods=['POST'])
