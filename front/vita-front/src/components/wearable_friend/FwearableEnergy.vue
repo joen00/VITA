@@ -63,13 +63,16 @@ export default {
   },
   mounted() {
 
-    // 등수 매기기
-    let sortData = this.energyData.sort(function(a,b) {
+    // 정렬
+    let sortData = this.energyData
+    sortData.sort(function(a,b) {
       return b.value - a.value;
     })
+    console.log(sortData)
+
+    // 5명만 뽑아내기
     let count = 0;
     this.franks = [];
-
     for (var data of sortData) {
       console.log(data);
       count += 1;
