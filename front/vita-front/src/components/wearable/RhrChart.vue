@@ -8,7 +8,6 @@
         :series="series"
       ></apexchart>
     </div>
-    <!-- {{ data}} -->
   </div>
 </template>
   
