@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.websocket.OnClose;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.Period;
@@ -17,6 +18,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -327,33 +330,81 @@ public class WearablePastImpl implements WearablePast {
         List<WeeklyWearable> weeklyWearableList = weeklyWearableRepo.findByUser_UserId(userId);
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
 
+
         // 현재 주 값 넣어주기
-        stressPastAndNowDto.setWeekNowWearableStress(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(lastExportWeek))
-                        .findFirst().get().getWeeklyWearableStress());
+        Optional<WeeklyWearable> nowWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(lastExportWeek)).findAny();
+        if (nowWeekWearable.isPresent()) {
+            stressPastAndNowDto.setWeekNowWearableStress(0);
+        } else {
+            stressPastAndNowDto.setWeekNowWearableStress(nowWeekWearable.get().getWeeklyWearableStress());
+        }
 
         // 이전 주 값 넣어주기
-        stressPastAndNowDto.setWeekPastWearableStress(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(pastExportWeek))
-                        .findFirst().get().getWeeklyWearableStress());
+        Optional<WeeklyWearable> pastWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(pastExportWeek)).findAny();
+        if (pastWeekWearable.isPresent()) {
+            stressPastAndNowDto.setWeekPastWearableStress(0);
+        } else {
+            stressPastAndNowDto.setWeekPastWearableStress(pastWeekWearable.get().getWeeklyWearableStress());
+        }
+
+//        // 현재 주 값 넣어주기
+//        Optional<WeeklyWearable> weeklyWearable = weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek)).findAny();
+//        stressPastAndNowDto.setWeekNowWearableStress(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst()
+//                        .get()
+//                        .getWeeklyWearableStress());
+//
+//        // 이전 주 값 넣어주기
+//        stressPastAndNowDto.setWeekPastWearableStress(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst()
+//                        .get()
+//                        .getWeeklyWearableStress());
 
         // 현재 달 값 넣어주기
-        stressPastAndNowDto.setMonthNowWearableStress(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                                w.getDate().getMonth() == LastExportTime.getMonth())
-                        .findFirst().get().getMonthlyWearableStress());
+        Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+        if (nowMonthWearable.isPresent()) {
+            stressPastAndNowDto.setWeekNowWearableStress(0);
+        } else {
+            stressPastAndNowDto.setWeekNowWearableStress(nowMonthWearable.get().getMonthlyWearableStress());
+        }
 
         // 이전 달 값 넣어주기
-        stressPastAndNowDto.setMonthPastWearableStress(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
-                        .findFirst().get().getMonthlyWearableStress());
+        Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+        if (pastMonthWearable.isPresent()) {
+            stressPastAndNowDto.setWeekPastWearableStress(0);
+        } else {
+            stressPastAndNowDto.setWeekPastWearableStress(pastMonthWearable.get().getMonthlyWearableStress());
+        }
+
+//        // 현재 달 값 넣어주기
+//        stressPastAndNowDto.setMonthNowWearableStress(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.getMonth())
+//                        .findFirst().get().getMonthlyWearableStress());
+//
+//        // 이전 달 값 넣어주기
+//        stressPastAndNowDto.setMonthPastWearableStress(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
+//                        .findFirst().get().getMonthlyWearableStress());
 
         // 이번 년도 값 평균 구해서 넣어주기
         stressPastAndNowDto.setYearNowWearableStress(
