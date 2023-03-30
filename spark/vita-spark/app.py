@@ -67,6 +67,10 @@ def upload():
     with db.connect() as conn:
         url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
     
+    if os.path.isfile(userId + ".zip"):
+            os.remove(userId + ".zip")
+            shutil.rmtree('./samsunghealth/')
+
     rq.urlretrieve(url, userId + ".zip")
     zipfile.ZipFile(userId + ".zip").extractall('./samsunghealth/')
     files = glob.glob('samsunghealth/*')
