@@ -47,7 +47,7 @@ public class MypageService {
     public List<UserBadgeResponseDto> selectAllBadge(String id){
         User user = mypageRepository.findByUserId(id);
         // 회원에 해당하는 userBadge가 나온다.
-        List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(id);
+        List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(user);
         List<UserBadgeResponseDto> userBadgeResponseList = new ArrayList<>();
 
         for (UserBadge ub : userBadgesList) {

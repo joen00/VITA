@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface UserBadgeRepository extends JpaRepository<UserBadge, Long> {
 
-    List<UserBadge> findAllByUser(String userId);
+    List<UserBadge> findAllByUser(User user);
 
 }
