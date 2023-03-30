@@ -12,7 +12,7 @@
             a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
 
     div#login-section
-      div.user-profile(v-if="!isLoggedIn")
+      div.user-profile(v-if="isLoggedIn")
           img(:src="getUserProfileImg"  id="user-profile-img")
           p#user-profile-nickname <strong>{{ getUserNickname }}</strong>
 
