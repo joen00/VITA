@@ -58,9 +58,9 @@ def makeDay(db, file, userId):
     day_merge = pd.merge(day, sleep_stage.sleepDF(sleep_stage_list), on='date', how='outer')
     return day_merge
 
-@app.route('/upload')
+@app.route('/upload', methods=['POST'])
 def upload():
-    userId = request.args.get('userId')
+    userId = request.get_json()['userId']
 
     db = common.connectDB()
     with db.connect() as conn:
