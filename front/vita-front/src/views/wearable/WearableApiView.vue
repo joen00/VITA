@@ -44,6 +44,7 @@
   // import AwearableSleepStage from '@/components/wearable_api/AwearableSleepStage.vue';
   import VueHeader from '@/components/common/VueHeader.vue';
   import axios from "axios";
+  import { mapGetters } from "vuex";
   
   export default {
     name: "App",
@@ -68,6 +69,9 @@
     },
     created() {
       this.getApiData();
+    },
+    computed: {
+      ...mapGetters(["token", "user"]),
     },
     methods: {
       async getApiData() {
