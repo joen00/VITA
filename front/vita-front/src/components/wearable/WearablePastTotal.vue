@@ -71,7 +71,7 @@ export default {
             size: 1,
             },
             xaxis: {
-            categories: categories,
+            categories: this.categories,
             // title: {
             //   text: "day",
             // },
@@ -95,7 +95,7 @@ export default {
             series: [
                 {
                 name: "종합 점수",
-                data: data,
+                data: this.data,
                 },
             ],
             }
