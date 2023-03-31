@@ -8,7 +8,7 @@
 
       <b-container class="bv-example-row container h-30" id="mypage-container">
         <b-row class="up">
-          <b-col class="left">
+          <div class="left">
             <div class="profile">
               <!-- 유저 아바타 -->
               <div class="avatar">
@@ -50,9 +50,9 @@
                 </div>
               </div>
             </div>
-          </b-col>
+          </div>
 
-          <b-col class="right">
+          <div class="right">
             <b-row>
               <b-col id="btn-fileupload"
                 ><b-button
@@ -64,12 +64,12 @@
 
             <!-- 뱃지 리스트 -->
             <b-row class="badge-list"></b-row>
-          </b-col>
+          </div>
         </b-row>
 
         <b-row class="down">
           <!-- 캘린더 -->
-          <b-col class="left">
+          <div class="left">
             <div class="calander">
               <VDatePicker
                 title-position="middle"
@@ -78,15 +78,15 @@
                 ref="datepicker"
               />
             </div>
-          </b-col>
+          </div>
 
           <!-- 히스토리 -->
-          <b-col class="right">
+          <div class="right">
             <b-row class="history" id="history">
               <carousel-3d
                 ref="hitoryCarousel"
                 :width="400"
-                :height="240"
+                :height="300"
                 :key="componentKey"
               >
                 <slide
@@ -107,11 +107,12 @@
                       }"
                       :src="require(`/public/user/${slide.src}.png`)"
                     />
+                    <div class="carousel-bottom"><span class="carousel-date">{{ slide.index }}</span></div>
                   </template>
                 </slide>
               </carousel-3d>
             </b-row>
-          </b-col>
+          </div>
         </b-row>
       </b-container>
     </div>
@@ -146,23 +147,23 @@ export default {
     ],
     componentKey: 0,
     slides: [
-      { index: "0302", src: "mytotal_1" },
-      { index: "0307", src: "mytotal_2" },
-      { index: "0323", src: "mytotal_3" },
+      { index: "2023-03-02", src: "mytotal_1" },
+      { index: "2023-03-07", src: "mytotal_2" },
+      { index: "2023-03-23", src: "mytotal_3" },
     ],
     attrs: [
       {
-        key: "0302",
+        key: "2023-03-02",
         highlight: "gray",
         dates: "2023-03-02",
       },
       {
-        key: "0307",
+        key: "2023-03-07",
         highlight: "gray",
         dates: "2023-03-07",
       },
       {
-        key: "0323",
+        key: "2023-03-23",
         highlight: "gray",
         dates: "2023-03-23",
       },
@@ -292,22 +293,28 @@ export default {
 .container {
   height: 100%;
 }
+.up {
+  display: flex;
+}
+.down {
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  display: flex;
+}
 .left {
   margin-top: 1rem;
   width: 40%;
-  height: 80%;
   float: left;
 }
 .right {
   width: 60%;
-  height: 84%;
   float: left;
   margin-top: 1rem;
   margin: 0 auto;
-  padding: 30px;
+  padding: 20px;
 }
 .profile {
-  padding: 30px;
+  padding: 40px;
   display: flex;
 }
 .avatar {
@@ -319,11 +326,12 @@ export default {
   margin-bottom: 10px;
 }
 .info {
+  margin-left: 20px;
   float: left;
   width: 50%;
 }
 .item {
-  padding: 4px;
+  padding: 1px;
   display: flex;
 }
 .icon {
@@ -375,7 +383,7 @@ export default {
   background: #ffffff;
 }
 .history {
-  margin-top: 50px;
+  margin-top: 2rem;
 }
 .vc-container {
   width: 400px;
@@ -383,8 +391,11 @@ export default {
 #carousel {
   border-radius: 10px;
   border: none;
-  box-shadow: 3px 7px 7px rgba(0, 0, 0, 0.25);
-  background: #ffffff;
+  background: transparent;
+}
+.carousel-bottom {
+  justify-content: center;
+  text-align: center;
 }
 #img-avatar {
   width: 200px;
@@ -396,11 +407,11 @@ export default {
   height: 55px;
 }
 .info.data {
-  font-size: 17px;
+  font-size: 15px;
 }
 .info-desc {
   color: rgb(150, 150, 150);
-  font-size: 13px;
+  font-size: 12px;
 }
 #btn-edit-img {
   width: 25px;
@@ -408,5 +419,12 @@ export default {
 }
 #btn-edit-img:hover {
   content:url("@/assets/edit-hover.png")
+}
+.carousel-date {
+  font-size: 13px;
+  color: #fff;
+  background: #3695be;
+  border-radius: 15px;
+  padding: 2px 25px;
 }
 </style>
