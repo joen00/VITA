@@ -12,7 +12,10 @@
             <div class="profile">
               <!-- 유저 아바타 -->
               <div class="avatar">
-                <img id="img-avatar" :src="require(`/public/user/avatar.png`)" />
+                <img
+                  id="img-avatar"
+                  :src="require(`/public/user/avatar.png`)"
+                />
               </div>
 
               <!-- 유저 신체 정보 -->
@@ -20,15 +23,32 @@
                 <div class="info-header">
                   <div class="nickname">{{ nickname }}</div>
                   <div class="edit">
-                      <img src="@/assets/edit.png" @click="editInfo" id="btn-edit-img">
+                    <img
+                      src="@/assets/edit.png"
+                      @click="editInfo"
+                      id="btn-edit-img"
+                    />
                   </div>
                 </div>
-                <div class="item" v-for="(info, index) in UserInfo" :key="index">
+                <div
+                  class="item"
+                  v-for="(info, index) in UserInfo"
+                  :key="index"
+                >
                   <div class="icon">
-                    <img :src="require(`/public/user/${info.attr}.png`)" id="item-img">
+                    <img
+                      :src="require(`/public/user/${info.attr}.png`)"
+                      id="item-img"
+                    />
                   </div>
                   <div class="data">
-                    <div v-if="info.editable && info.attr != 'gender' && info.attr != 'phoneType'">
+                    <div
+                      v-if="
+                        info.editable &&
+                        info.attr != 'gender' &&
+                        info.attr != 'phoneType'
+                      "
+                    >
                       <b-input v-model="info.data" />
                     </div>
                     <div v-else-if="info.editable && info.attr == 'phoneType'">
@@ -43,7 +63,9 @@
                       </b-form-group>
                     </div>
                     <div v-else>
-                      <div class="info-data">{{ info.data }}{{ info.unit }}</div>
+                      <div class="info-data">
+                        {{ info.data }}{{ info.unit }}
+                      </div>
                     </div>
                     <div class="info-desc">{{ info.desc }}</div>
                   </div>
@@ -59,7 +81,8 @@
                   class="btn-fileupload d-inline-flex"
                   @click="$router.push(`/fileupload`)"
                   >파일 업로드 하러 가기</b-button
-                ></b-col>
+                ></b-col
+              >
             </b-row>
 
             <!-- 뱃지 리스트 -->
@@ -105,9 +128,11 @@
                         onLeft: leftIndex >= 0,
                         onRight: rightIndex >= 0,
                       }"
-                      :src="require(`/public/user/${slide.src}.png`)"
+                      :src="slide.src"
                     />
-                    <div class="carousel-bottom"><span class="carousel-date">{{ slide.index }}</span></div>
+                    <div class="carousel-bottom">
+                      <span class="carousel-date">{{ slide.index }}</span>
+                    </div>
                   </template>
                 </slide>
               </carousel-3d>
@@ -139,38 +164,55 @@ export default {
     nickname: `뿡뿡 아영`,
     gender: "female",
     UserInfo: [
-      { attr: "weight", data: "40.0", desc: "체중", unit: "kg", editable: false  },
-      { attr: "gender", data: "여자", desc: "성별", unit:"", editable: false  },
-      { attr: "age", data: "10", desc: "나이", unit:"세", editable: false  },
-      { attr: "height", data: "180.2", desc: "키", unit:"cm", editable: false  },
-      { attr: "phoneType", data: "APPLE", desc: "휴대폰타입", editrable: false }
+      {
+        attr: "weight",
+        data: "40.0",
+        desc: "체중",
+        unit: "kg",
+        editable: false,
+      },
+      { attr: "gender", data: "여자", desc: "성별", unit: "", editable: false },
+      { attr: "age", data: "10", desc: "나이", unit: "세", editable: false },
+      {
+        attr: "height",
+        data: "180.2",
+        desc: "키",
+        unit: "cm",
+        editable: false,
+      },
+      {
+        attr: "phoneType",
+        data: "APPLE",
+        desc: "휴대폰타입",
+        editrable: false,
+      },
     ],
     componentKey: 0,
     slides: [
-      { index: "2023-03-02", src: "mytotal_1" },
-      { index: "2023-03-07", src: "mytotal_2" },
-      { index: "2023-03-23", src: "mytotal_3" },
+      // { index: "2023-03-02", src: "mytotal_1" },
+      // { index: "2023-03-07", src: "mytotal_2" },
+      // { index: "2023-03-23", src: "mytotal_3" },
     ],
     attrs: [
-      {
-        key: "2023-03-02",
-        highlight: "gray",
-        dates: "2023-03-02",
-      },
-      {
-        key: "2023-03-07",
-        highlight: "gray",
-        dates: "2023-03-07",
-      },
-      {
-        key: "2023-03-23",
-        highlight: "gray",
-        dates: "2023-03-23",
-      },
+      // {
+      //   key: "2023-03-02",
+      //   highlight: "gray",
+      //   dates: "2023-03-02",
+      // },
+      // {
+      //   key: "2023-03-07",
+      //   highlight: "gray",
+      //   dates: "2023-03-07",
+      // },
+      // {
+      //   key: "2023-03-23",
+      //   highlight: "gray",
+      //   dates: "2023-03-23",
+      // },
     ],
     phoneTypeOptions: [
-          { text: 'SAMSUNG', value: 'SAMSUNG' },
-          { text: 'APPLE', value: 'APPLE' },
+      { text: "SAMSUNG", value: "SAMSUNG" },
+      { text: "APPLE", value: "APPLE" },
     ],
     VueHeaderTitle: "마이페이지",
     VueHeaderContent: "나의 정보를 확인해보세요.",
@@ -196,7 +238,8 @@ export default {
           console.log(response);
           (this.nickname = response.data.userNickname),
             (this.UserInfo[0].data = response.data.userWeight),
-            (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
+            (this.UserInfo[1].data =
+              response.data.userGender == "female" ? "여자" : "남자"),
             (this.UserInfo[2].data = response.data.userAge),
             (this.UserInfo[3].data = response.data.userHeight),
             (this.UserInfo[4].data = response.data.userPhoneType);
@@ -244,7 +287,8 @@ export default {
 
       if (this.UserInfo[0].editable == false) {
         axios
-          .put(this.$store.state.serverBaseUrl + `/users/mypage/update`, 
+          .put(
+            this.$store.state.serverBaseUrl + `/users/mypage/update`,
             {
               userWeight: this.UserInfo[0].data,
               userAge: this.UserInfo[2].data,
@@ -254,7 +298,7 @@ export default {
             {
               headers: {
                 Authorization: `Bearer ${this.token}`,
-              },         
+              },
             }
           )
           .then((response) => {
@@ -418,7 +462,7 @@ export default {
   height: 25px;
 }
 #btn-edit-img:hover {
-  content:url("@/assets/edit-hover.png")
+  content: url("@/assets/edit-hover.png");
 }
 .carousel-date {
   font-size: 13px;
