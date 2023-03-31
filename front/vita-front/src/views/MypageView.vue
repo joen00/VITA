@@ -255,13 +255,13 @@ export default {
         .then((response) => {
           response.data.map((data) => {
             this.slides.push({
-              index: data.created_date,
-              src: data.user_history_img,
+              index: data.createdDate,
+              src: data.userHistoryImg,
             });
             this.attrs.push({
-              key: data.created_date,
+              key: data.createdDate,
               highlight: "gray",
-              dates: data.created_date,
+              dates: data.createdDate,
             });
           });
           console.log(response);
