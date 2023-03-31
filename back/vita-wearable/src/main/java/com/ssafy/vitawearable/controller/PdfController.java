@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.Objects;
 
@@ -25,12 +26,10 @@ public class PdfController {
     private final UserUtil userUtil;
 
     @PostMapping
-    public String saveHistoryImage(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) {
-//        String accessToken = HeaderUtil.getAccessToken(request);
-//        String userId = userUtil.getUserId(accessToken);
-        System.out.println(headers.getFirst("userId"));
-//        System.out.println(req.get("image"));
-        String result = pdfService.saveHistoryImage(headers.getFirst("userId"), req.get("image"));
+    public String saveHistoryImage(HttpServletRequest request, @RequestBody Map<String, String> req) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
+        String result = pdfService.saveHistoryImage(userId, req.get("image"));
         if (Objects.equals(result, "SUCCESS")) {
             return "SUCCESS";
         } else {
