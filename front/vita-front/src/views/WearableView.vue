@@ -207,9 +207,7 @@ export default {
           return e.totalScore;
           });
           this.categories = this.totalscore.map(function (e) {
-            const week = ["일", "월", "화", "수", "목", "금", "토"];
-            const dayOfWeek = week[new Date(e.date).getDay()];
-            return dayOfWeek;
+            return e.date;
           });
           componentKey += 1;
         });

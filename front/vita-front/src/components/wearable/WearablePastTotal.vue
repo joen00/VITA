@@ -73,7 +73,8 @@ export default {
             size: 1,
             },
             xaxis: {
-            categories: this.categories,
+                type: "datetime",
+                categories: this.categories,
             // title: {
             //   text: "day",
             // },
@@ -109,7 +110,7 @@ export default {
 
 <style>
 #wearable-middle-right-div-right {
-  width: 60%;
+  width: 100%;
   height: 90%;
 }
 </style>
