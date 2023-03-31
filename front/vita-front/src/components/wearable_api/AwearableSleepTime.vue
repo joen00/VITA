@@ -51,9 +51,9 @@
         var chart = root.container.children.push(am5xy.XYChart.new(root, {
             panX: true,
             panY: true,
-            wheelX: "panX",
-            wheelY: "zoomX",
-            pinchZoomX: true
+            // wheelX: "panX",
+            // wheelY: "zoomX",
+            // pinchZoomX: true
         }));
 
         chart.get("colors").set("colors", [
