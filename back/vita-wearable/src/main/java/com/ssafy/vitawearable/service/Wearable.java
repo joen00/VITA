@@ -59,12 +59,4 @@ public interface Wearable {
     // 무게 일별
     List<WeightDailyDto> weightDaily(String userId);
 
-    // 활동량 이전과 비교
-//    WeightPastNowDto weightPastNow(String userId);
-
-
-    // jwt 토큰에서 userId 추출
-    String getUserId(String token);
-
-
 }

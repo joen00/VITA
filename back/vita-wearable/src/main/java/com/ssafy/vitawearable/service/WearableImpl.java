@@ -222,7 +222,9 @@ public class WearableImpl implements Wearable {
     public List<WeightMonthlyDto> weightMonthly(String userId) {
         List<MonthlyWearable> monthlyWeight = monthlyWearableRepo.findByUser_UserId(userId);
         return monthlyWeight.stream()
-                .filter(data -> data.getMonthlyWearableWeight() != 0)
+                .filter(data -> data.getMonthlyWearableWeight() != 0
+                        && data.getMonthlyWearableFat() != 0
+                        && data.getMonthlyWearableMuscle() != 0)
                 .map(monthly -> mapper.map(monthly, WeightMonthlyDto.class))
                 .limit(12)
                 .sorted(Comparator.comparing(WeightMonthlyDto::getDate))
@@ -235,7 +237,9 @@ public class WearableImpl implements Wearable {
     public List<WeightWeeklyDto> weightWeekly(String userId) {
         List<WeeklyWearable> weeklyWearable = weeklyWearableRepo.findByUser_UserId(userId);
         return weeklyWearable.stream()
-                .filter(data -> data.getWeeklyWearableWeight() != 0)
+                .filter(data -> data.getWeeklyWearableWeight() != 0
+                        && data.getWeeklyWearableFat() != 0
+                        && data.getWeeklyWearableMuscle() != 0)
                 .map(weekly -> mapper.map(weekly, WeightWeeklyDto.class))
                 .limit(12)
                 .sorted(Comparator.comparing(WeightWeeklyDto::getDate))
@@ -248,25 +252,13 @@ public class WearableImpl implements Wearable {
     public List<WeightDailyDto> weightDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         return dailyWearables.stream()
-                .filter(data -> data.getDailyWearableWeight() != 0)
+                .filter(data -> data.getDailyWearableWeight() != 0
+                        && data.getDailyWearableFat() != 0
+                        && data.getDailyWearableMuscle() != 0)
                 .map(daily -> mapper.map(daily, WeightDailyDto.class))
                 .limit(20)
                 .sorted(Comparator.comparing(WeightDailyDto::getDate))
                 .collect(Collectors.toList());
 
-    }
-
-    // token에서 userId 추출. claims에서 subject안에 있는게 맞나?
-    @Override
-    public String getUserId(String token) {
-        // user 서버의 secretKey
-        String secretKey = "8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds";
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(secretKey.getBytes())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getSubject();
     }
 }

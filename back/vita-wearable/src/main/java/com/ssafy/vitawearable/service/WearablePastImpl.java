@@ -49,32 +49,64 @@ public class WearablePastImpl implements WearablePast {
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
 
         // 현재 주 값 넣어주기
-        stepPastAndNowDto.setWeekNowWearableStep(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(lastExportWeek))
-                        .findFirst().get().getWeeklyWearableStep());
+//        stepPastAndNowDto.setWeekNowWearableStep(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst().get().getWeeklyWearableStep());
+        Optional<WeeklyWearable> nowWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(lastExportWeek)).findAny();
+        if (nowWeekWearable.isPresent()) {
+            stepPastAndNowDto.setWeekNowWearableStep(nowWeekWearable.get().getWeeklyWearableStep());
+        } else {
+            stepPastAndNowDto.setWeekNowWearableStep(0);
+        }
 
         // 이전 주 값 넣어주기
-        stepPastAndNowDto.setWeekPastWearableStep(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(pastExportWeek))
-                        .findFirst().get().getWeeklyWearableStep());
+//        stepPastAndNowDto.setWeekPastWearableStep(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst().get().getWeeklyWearableStep());
+        Optional<WeeklyWearable> pastWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(pastExportWeek)).findAny();
+        if (pastWeekWearable.isPresent()) {
+            stepPastAndNowDto.setWeekPastWearableStep(pastWeekWearable.get().getWeeklyWearableStep());
+        } else {
+            stepPastAndNowDto.setWeekPastWearableStep(0);
+        }
 
         // 현재 달 값 넣어주기
-        stepPastAndNowDto.setMonthNowWearableStep(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                                w.getDate().getMonth() == LastExportTime.getMonth())
-                        .findFirst().get().getMonthlyWearableStep());
+//        stepPastAndNowDto.setMonthNowWearableStep(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.getMonth())
+//                        .findFirst().get().getMonthlyWearableStep());
+        Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+        if (nowMonthWearable.isPresent()) {
+            stepPastAndNowDto.setWeekNowWearableStep(nowMonthWearable.get().getMonthlyWearableStep());
+        } else {
+            stepPastAndNowDto.setWeekNowWearableStep(0);
+        }
 
         // 이전 달 값 넣어주기
-        stepPastAndNowDto.setMonthPastWearableStep(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
-                        .findFirst().get().getMonthlyWearableStep());
+//        stepPastAndNowDto.setMonthPastWearableStep(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
+//                        .findFirst().get().getMonthlyWearableStep());
+        Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+        if (pastMonthWearable.isPresent()) {
+            stepPastAndNowDto.setWeekPastWearableStep(pastMonthWearable.get().getMonthlyWearableStep());
+        } else {
+            stepPastAndNowDto.setWeekPastWearableStep(0);
+        }
 
         // 이번 년도 값 평균 구해서 넣어주기
         stepPastAndNowDto.setYearNowWearableStep(
@@ -114,32 +146,75 @@ public class WearablePastImpl implements WearablePast {
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
 
         // 현재 주 값 넣어주기
-        energyPastAndNowDto.setWeekNowWearableEnergy(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(lastExportWeek))
-                        .findFirst().get().getWeeklyWearableEnergy());
+        Optional<WeeklyWearable> nowWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(lastExportWeek)).findAny();
+        if (nowWeekWearable.isPresent()) {
+            energyPastAndNowDto.setWeekNowWearableEnergy(nowWeekWearable.get().getWeeklyWearableEnergy());
+        } else {
+            energyPastAndNowDto.setWeekNowWearableEnergy(0L);
+        }
 
         // 이전 주 값 넣어주기
-        energyPastAndNowDto.setWeekPastWearableEnergy(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(pastExportWeek))
-                        .findFirst().get().getWeeklyWearableEnergy());
+        Optional<WeeklyWearable> pastWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(pastExportWeek)).findAny();
+        if (pastWeekWearable.isPresent()) {
+            energyPastAndNowDto.setWeekPastWearableEnergy(pastWeekWearable.get().getWeeklyWearableEnergy());
+        } else {
+            energyPastAndNowDto.setWeekPastWearableEnergy(0L);
+        }
+
+
 
         // 현재 달 값 넣어주기
-        energyPastAndNowDto.setMonthNowWearableEnergy(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                                w.getDate().getMonth() == LastExportTime.getMonth())
-                        .findFirst().get().getMonthlyWearableEnergy());
+        Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+        if (nowMonthWearable.isPresent()) {
+            energyPastAndNowDto.setWeekNowWearableEnergy(nowMonthWearable.get().getMonthlyWearableEnergy());
+        } else {
+            energyPastAndNowDto.setWeekNowWearableEnergy(0L);
+        }
 
         // 이전 달 값 넣어주기
-        energyPastAndNowDto.setMonthPastWearableEnergy(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
-                        .findFirst().get().getMonthlyWearableEnergy());
+        Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+        if (pastMonthWearable.isPresent()) {
+            energyPastAndNowDto.setWeekPastWearableEnergy(pastMonthWearable.get().getMonthlyWearableEnergy());
+        } else {
+            energyPastAndNowDto.setWeekPastWearableEnergy(0L);
+        }
+        
+        
+//        // 현재 주 값 넣어주기
+//        energyPastAndNowDto.setWeekNowWearableEnergy(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst().get().getWeeklyWearableEnergy());
+//
+//        // 이전 주 값 넣어주기
+//        energyPastAndNowDto.setWeekPastWearableEnergy(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst().get().getWeeklyWearableEnergy());
+//
+//        // 현재 달 값 넣어주기
+//        energyPastAndNowDto.setMonthNowWearableEnergy(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.getMonth())
+//                        .findFirst().get().getMonthlyWearableEnergy());
+//
+//        // 이전 달 값 넣어주기
+//        energyPastAndNowDto.setMonthPastWearableEnergy(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
+//                        .findFirst().get().getMonthlyWearableEnergy());
 
         // 이번 년도 값 평균 구해서 넣어주기
         energyPastAndNowDto.setYearNowWearableEnergy(
@@ -179,32 +254,75 @@ public class WearablePastImpl implements WearablePast {
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
 
         // 현재 주 값 넣어주기
-        rhrPastAndNowDto.setWeekNowWearableRhr(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(lastExportWeek))
-                        .findFirst().get().getWeeklyWearableRhr());
+        Optional<WeeklyWearable> nowWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(lastExportWeek)).findAny();
+        if (nowWeekWearable.isPresent()) {
+            rhrPastAndNowDto.setWeekNowWearableRhr(nowWeekWearable.get().getWeeklyWearableRhr());
+        } else {
+            rhrPastAndNowDto.setWeekNowWearableRhr(0);
+        }
 
         // 이전 주 값 넣어주기
-        rhrPastAndNowDto.setWeekPastWearableRhr(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(pastExportWeek))
-                        .findFirst().get().getWeeklyWearableRhr());
+        Optional<WeeklyWearable> pastWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(pastExportWeek)).findAny();
+        if (pastWeekWearable.isPresent()) {
+            rhrPastAndNowDto.setWeekPastWearableRhr(pastWeekWearable.get().getWeeklyWearableRhr());
+        } else {
+            rhrPastAndNowDto.setWeekPastWearableRhr(0);
+        }
+
+
 
         // 현재 달 값 넣어주기
-        rhrPastAndNowDto.setMonthNowWearableRhr(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                                w.getDate().getMonth() == LastExportTime.getMonth())
-                        .findFirst().get().getMonthlyWearableRhr());
+        Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+        if (nowMonthWearable.isPresent()) {
+            rhrPastAndNowDto.setWeekNowWearableRhr(nowMonthWearable.get().getMonthlyWearableRhr());
+        } else {
+            rhrPastAndNowDto.setWeekNowWearableRhr(0);
+        }
 
         // 이전 달 값 넣어주기
-        rhrPastAndNowDto.setMonthPastWearableRhr(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
-                        .findFirst().get().getMonthlyWearableRhr());
+        Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+        if (pastMonthWearable.isPresent()) {
+            rhrPastAndNowDto.setWeekPastWearableRhr(pastMonthWearable.get().getMonthlyWearableRhr());
+        } else {
+            rhrPastAndNowDto.setWeekPastWearableRhr(0);
+        }
+        
+        
+//        // 현재 주 값 넣어주기
+//        rhrPastAndNowDto.setWeekNowWearableRhr(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst().get().getWeeklyWearableRhr());
+//
+//        // 이전 주 값 넣어주기
+//        rhrPastAndNowDto.setWeekPastWearableRhr(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst().get().getWeeklyWearableRhr());
+//
+//        // 현재 달 값 넣어주기
+//        rhrPastAndNowDto.setMonthNowWearableRhr(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.getMonth())
+//                        .findFirst().get().getMonthlyWearableRhr());
+//
+//        // 이전 달 값 넣어주기
+//        rhrPastAndNowDto.setMonthPastWearableRhr(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
+//                        .findFirst().get().getMonthlyWearableRhr());
 
         // 이번 년도 값 평균 구해서 넣어주기
         rhrPastAndNowDto.setYearNowWearableRhr(
@@ -244,32 +362,75 @@ public class WearablePastImpl implements WearablePast {
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
 
         // 현재 주 값 넣어주기
-        sleepPastAndNowDto.setWeekNowWearableSleep(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(lastExportWeek))
-                        .findFirst().get().getWeeklyWearableSleep());
+        Optional<WeeklyWearable> nowWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(lastExportWeek)).findAny();
+        if (nowWeekWearable.isPresent()) {
+            sleepPastAndNowDto.setWeekNowWearableSleep(nowWeekWearable.get().getWeeklyWearableSleep());
+        } else {
+            sleepPastAndNowDto.setWeekNowWearableSleep(0);
+        }
 
         // 이전 주 값 넣어주기
-        sleepPastAndNowDto.setWeekPastWearableSleep(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(pastExportWeek))
-                        .findFirst().get().getWeeklyWearableSleep());
+        Optional<WeeklyWearable> pastWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(pastExportWeek)).findAny();
+        if (pastWeekWearable.isPresent()) {
+            sleepPastAndNowDto.setWeekPastWearableSleep(pastWeekWearable.get().getWeeklyWearableSleep());
+        } else {
+            sleepPastAndNowDto.setWeekPastWearableSleep(0);
+        }
+
+
 
         // 현재 달 값 넣어주기
-        sleepPastAndNowDto.setMonthNowWearableSleep(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                                w.getDate().getMonth() == LastExportTime.getMonth())
-                        .findFirst().get().getMonthlyWearableSleep());
+        Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+        if (nowMonthWearable.isPresent()) {
+            sleepPastAndNowDto.setWeekNowWearableSleep(nowMonthWearable.get().getMonthlyWearableSleep());
+        } else {
+            sleepPastAndNowDto.setWeekNowWearableSleep(0);
+        }
 
         // 이전 달 값 넣어주기
-        sleepPastAndNowDto.setMonthPastWearableSleep(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
-                        .findFirst().get().getMonthlyWearableSleep());
+        Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+        if (pastMonthWearable.isPresent()) {
+            sleepPastAndNowDto.setWeekPastWearableSleep(pastMonthWearable.get().getMonthlyWearableSleep());
+        } else {
+            sleepPastAndNowDto.setWeekPastWearableSleep(0);
+        }
+        
+        
+//        // 현재 주 값 넣어주기
+//        sleepPastAndNowDto.setWeekNowWearableSleep(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst().get().getWeeklyWearableSleep());
+//
+//        // 이전 주 값 넣어주기
+//        sleepPastAndNowDto.setWeekPastWearableSleep(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst().get().getWeeklyWearableSleep());
+//
+//        // 현재 달 값 넣어주기
+//        sleepPastAndNowDto.setMonthNowWearableSleep(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.getMonth())
+//                        .findFirst().get().getMonthlyWearableSleep());
+//
+//        // 이전 달 값 넣어주기
+//        sleepPastAndNowDto.setMonthPastWearableSleep(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
+//                        .findFirst().get().getMonthlyWearableSleep());
 
         // 이번 년도 값 평균 구해서 넣어주기
         sleepPastAndNowDto.setYearNowWearableSleep(
@@ -351,26 +512,7 @@ public class WearablePastImpl implements WearablePast {
             stressPastAndNowDto.setWeekPastWearableStress(0);
         }
 
-//        // 현재 주 값 넣어주기
-//        Optional<WeeklyWearable> weeklyWearable = weeklyWearableList.stream()
-//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-//                                .equals(lastExportWeek)).findAny();
-//        stressPastAndNowDto.setWeekNowWearableStress(
-//                weeklyWearableList.stream()
-//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-//                                .equals(lastExportWeek))
-//                        .findFirst()
-//                        .get()
-//                        .getWeeklyWearableStress());
-//
-//        // 이전 주 값 넣어주기
-//        stressPastAndNowDto.setWeekPastWearableStress(
-//                weeklyWearableList.stream()
-//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-//                                .equals(pastExportWeek))
-//                        .findFirst()
-//                        .get()
-//                        .getWeeklyWearableStress());
+
 
         // 현재 달 값 넣어주기
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
@@ -392,6 +534,26 @@ public class WearablePastImpl implements WearablePast {
             stressPastAndNowDto.setWeekPastWearableStress(0);
         }
 
+//        // 현재 주 값 넣어주기
+//        Optional<WeeklyWearable> weeklyWearable = weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek)).findAny();
+//        stressPastAndNowDto.setWeekNowWearableStress(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst()
+//                        .get()
+//                        .getWeeklyWearableStress());
+//
+//        // 이전 주 값 넣어주기
+//        stressPastAndNowDto.setWeekPastWearableStress(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst()
+//                        .get()
+//                        .getWeeklyWearableStress());
 //        // 현재 달 값 넣어주기
 //        stressPastAndNowDto.setMonthNowWearableStress(
 //                monthlyWearableList.stream()
@@ -444,32 +606,74 @@ public class WearablePastImpl implements WearablePast {
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
 
         // 현재 주 값 넣어주기
-        weightPastAndNowDto.setWeekNowWearableWeight(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(lastExportWeek))
-                        .findFirst().get().getWeeklyWearableWeight());
+        Optional<WeeklyWearable> nowWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(lastExportWeek)).findAny();
+        if (nowWeekWearable.isPresent()) {
+            weightPastAndNowDto.setWeekNowWearableWeight(nowWeekWearable.get().getWeeklyWearableWeight());
+        } else {
+            weightPastAndNowDto.setWeekNowWearableWeight(0.0f);
+        }
 
         // 이전 주 값 넣어주기
-        weightPastAndNowDto.setWeekPastWearableWeight(
-                weeklyWearableList.stream()
-                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
-                                .equals(pastExportWeek))
-                        .findFirst().get().getWeeklyWearableWeight());
+        Optional<WeeklyWearable> pastWeekWearable = weeklyWearableList.stream()
+                .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+                        .equals(pastExportWeek)).findAny();
+        if (pastWeekWearable.isPresent()) {
+            weightPastAndNowDto.setWeekPastWearableWeight(pastWeekWearable.get().getWeeklyWearableWeight());
+        } else {
+            weightPastAndNowDto.setWeekPastWearableWeight(0.0f);
+        }
+
+
 
         // 현재 달 값 넣어주기
-        weightPastAndNowDto.setMonthNowWearableWeight(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                                w.getDate().getMonth() == LastExportTime.getMonth())
-                        .findFirst().get().getMonthlyWearableWeight());
+        Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+        if (nowMonthWearable.isPresent()) {
+            weightPastAndNowDto.setWeekNowWearableWeight(nowMonthWearable.get().getMonthlyWearableWeight());
+        } else {
+            weightPastAndNowDto.setWeekNowWearableWeight(0.0f);
+        }
 
         // 이전 달 값 넣어주기
-        weightPastAndNowDto.setMonthPastWearableWeight(
-                monthlyWearableList.stream()
-                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
-                        .findFirst().get().getMonthlyWearableWeight());
+        Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
+                .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+        if (pastMonthWearable.isPresent()) {
+            weightPastAndNowDto.setWeekPastWearableWeight(pastMonthWearable.get().getMonthlyWearableWeight());
+        } else {
+            weightPastAndNowDto.setWeekPastWearableWeight(0.0f);
+        }
+        
+//        // 현재 주 값 넣어주기
+//        weightPastAndNowDto.setWeekNowWearableWeight(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(lastExportWeek))
+//                        .findFirst().get().getWeeklyWearableWeight());
+//
+//        // 이전 주 값 넣어주기
+//        weightPastAndNowDto.setWeekPastWearableWeight(
+//                weeklyWearableList.stream()
+//                        .filter(w -> w.getDate().format(DateTimeFormatter.ofPattern("yyyy w"))
+//                                .equals(pastExportWeek))
+//                        .findFirst().get().getWeeklyWearableWeight());
+//
+//        // 현재 달 값 넣어주기
+//        weightPastAndNowDto.setMonthNowWearableWeight(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.getMonth())
+//                        .findFirst().get().getMonthlyWearableWeight());
+//
+//        // 이전 달 값 넣어주기
+//        weightPastAndNowDto.setMonthPastWearableWeight(
+//                monthlyWearableList.stream()
+//                        .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
+//                                w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth())
+//                        .findFirst().get().getMonthlyWearableWeight());
 
         // 이번 년도 값 평균 구해서 넣어주기
         Double nowYearAvg = monthlyWearableList.stream()
