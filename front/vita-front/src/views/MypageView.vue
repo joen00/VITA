@@ -28,8 +28,19 @@
                     <img :src="require(`/public/user/${info.attr}.png`)" id="item-img">
                   </div>
                   <div class="data">
-                    <div v-if="info.editable && info.attr != 'gender'">
+                    <div v-if="info.editable && info.attr != 'gender' && info.attr != 'phoneType'">
                       <b-input v-model="info.data" />
+                    </div>
+                    <div v-else-if="info.editable && info.attr == 'phoneType'">
+                      <!-- 라디오 버튼으로 바꾸기 -->
+                      <b-form-group>
+                        <b-form-radio-group
+                          v-model="UserInfo[4].data"
+                          :options="phoneTypeOptions"
+                          size="sm"
+                          buttons
+                        ></b-form-radio-group>
+                      </b-form-group>
                     </div>
                     <div v-else>
                       <div class="info-data">{{ info.data }}{{ info.unit }}</div>
@@ -131,6 +142,7 @@ export default {
       { attr: "gender", data: "여자", desc: "성별", unit:"", editable: false  },
       { attr: "age", data: "10", desc: "나이", unit:"세", editable: false  },
       { attr: "height", data: "180.2", desc: "키", unit:"cm", editable: false  },
+      { attr: "phoneType", data: "APPLE", desc: "휴대폰타입", editrable: false }
     ],
     componentKey: 0,
     slides: [
@@ -154,6 +166,10 @@ export default {
         highlight: "gray",
         dates: "2023-03-23",
       },
+    ],
+    phoneTypeOptions: [
+          { text: 'SAMSUNG', value: 'SAMSUNG' },
+          { text: 'APPLE', value: 'APPLE' },
     ],
     VueHeaderTitle: "마이페이지",
     VueHeaderContent: "나의 정보를 확인해보세요.",
@@ -181,7 +197,8 @@ export default {
             (this.UserInfo[0].data = response.data.userWeight + "kg"),
             (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
             (this.UserInfo[2].data = response.data.userAge + "살"),
-            (this.UserInfo[3].data = response.data.userHeight + "cm");
+            (this.UserInfo[3].data = response.data.userHeight + "cm"),
+            (this.UserInfo[4].data = response.data.userPhoneType);
         });
     },
     getUserHistory() {
@@ -225,9 +242,23 @@ export default {
       });
 
       if (this.UserInfo[0].editable == false) {
-        // this.UserInfo.forEach((info) => {
-        //   console.log(info.data)
-        // });
+        axios
+          .put(this.$store.state.serverBaseUrl + `/users/mypage/update`, 
+            {
+              userAge: this.UserInfo.attr("age").data,
+              userHeight: this.UserInfo.attr("height").data,
+              userWeight: this.UserInfo.attr("weight").data,
+              userPhoneType: this.UserInfo.attr("phoneType").data,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${this.token}`,
+              },         
+            }
+          )
+          .then((response) => {
+            console.log(response);
+          });
       }
     },
   },
