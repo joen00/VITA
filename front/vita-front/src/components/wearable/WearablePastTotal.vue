@@ -7,12 +7,12 @@
             {{ data }}
             {{ categories }}
             <div id="pastchart">
-            <VueApexCharts
+            <apexchart
                 type="line"
                 height="260"
                 :options="chartOptions"
                 :series="series"
-            ></VueApexCharts>
+            ></apexchart>
             </div>
         </div>
     </div>
@@ -24,11 +24,15 @@ import VueApexCharts from "vue-apexcharts";
 export default {
     name: "WearablePastTotal",
     components: {
-        VueApexCharts,
+        apexchart: VueApexCharts,
     },
     props: {
         data: Array,
         categories: Array,
+    },
+    computed() {
+        this.data = this.data;
+        this.categories = this.categories;
     },
     data: function () {
     return {
