@@ -245,10 +245,10 @@ export default {
         axios
           .put(this.$store.state.serverBaseUrl + `/users/mypage/update`, 
             {
-              userAge: this.UserInfo.attr("age").data,
-              userHeight: this.UserInfo.attr("height").data,
-              userWeight: this.UserInfo.attr("weight").data,
-              userPhoneType: this.UserInfo.attr("phoneType").data,
+              userAge: this.UserInfo[0].data,
+              userHeight: this.UserInfo[2].data,
+              userWeight: this.UserInfo[3].data,
+              userPhoneType: this.UserInfo[4].data,
             },
             {
               headers: {
@@ -258,12 +258,7 @@ export default {
           )
           .then((response) => {
             console.log(response);
-            (this.nickname = response.data.userNickname),
-            (this.UserInfo[0].data = response.data.userWeight),
-            (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
-            (this.UserInfo[2].data = response.data.userAge),
-            (this.UserInfo[3].data = response.data.userHeight),
-            (this.UserInfo[4].data = response.data.userPhoneType);
+            this.getUserInfo();
           });
       }
     },
