@@ -1,10 +1,7 @@
 package com.ssafy.vitawearable.service;
 
 import com.ssafy.vitawearable.dto.*;
-import com.ssafy.vitawearable.entity.ApiAverage;
-import com.ssafy.vitawearable.entity.DailyWearable;
-import com.ssafy.vitawearable.entity.TotalScore;
-import com.ssafy.vitawearable.entity.UserAverage;
+import com.ssafy.vitawearable.entity.*;
 import com.ssafy.vitawearable.repo.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +17,7 @@ import java.util.stream.Stream;
 @Service
 // 평균 및 총합점수 관련 서비스
 public class ScoreImpl implements Score{
+    private final UserRepo userRepo;
     private final ApiAverageRepo apiAverageRepo;
     private final DailyWearableRepo dailyWearableRepo;
     private final UserAverageRepo userAverageRepo;
@@ -80,20 +78,49 @@ public class ScoreImpl implements Score{
     // 해당 유저 평균값 구하기
     @Override
     public UserAverageDto userAverage(String userId) {
-        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1);
-        UserAverageDto userAverageDto = mapper.map(userAverage, UserAverageDto.class);
-        userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
-        userAverageDto.setUserImg(userAverage.getUser().getUserImg());
-        return mapper.map(userAverage, UserAverageDto.class);
+        List<UserAverage> userAverageList = userAverageRepo.findByUser_UserId(userId);
+        UserAverageDto userAverageDto = new UserAverageDto();
+        if (userAverageList.isEmpty()) {
+            User user = userRepo.findUserByUserId(userId);
+            userAverageDto.setUserImg(user.getUserImg());
+            userAverageDto.setUserNickname(user.getUserNickname());
+        } else {
+            UserAverage userAverage = userAverageList.get(userAverageRepo.findByUser_UserId(userId).size()-1);
+            userAverageDto = mapper.map(userAverage, UserAverageDto.class);
+            userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
+            userAverageDto.setUserImg(userAverage.getUser().getUserImg());
+        }
+//        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1);
+//        UserAverageDto userAverageDto = mapper.map(userAverage, UserAverageDto.class);
+//        userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
+//        userAverageDto.setUserImg(userAverage.getUser().getUserImg());
+        return userAverageDto;
     }
 
     @Override
     public List<UserAverageDto> friendAverage(List<String> friendIdList) {
-        return friendIdList.stream()
-                .map(userId -> userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1))
-                .map(m -> mapper.map(m,UserAverageDto.class))
-                .collect(Collectors.toList());
+        List<UserAverageDto> userAverageDtoList = new ArrayList<>();
+        for (String userId:friendIdList) {
+            List<UserAverage> userAverageList = userAverageRepo.findByUser_UserId(userId);
+            UserAverageDto userAverageDto = new UserAverageDto();
+            if (userAverageList.isEmpty()) {
+                User user = userRepo.findUserByUserId(userId);
+                userAverageDto.setUserImg(user.getUserImg());
+                userAverageDto.setUserNickname(user.getUserNickname());
+            } else {
+                UserAverage userAverage = userAverageList.get(userAverageRepo.findByUser_UserId(userId).size()-1);
+                userAverageDto = mapper.map(userAverage, UserAverageDto.class);
+                userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
+                userAverageDto.setUserImg(userAverage.getUser().getUserImg());
+            }
+            userAverageDtoList.add(userAverageDto);
+        }
+        return userAverageDtoList;
 
+//        return friendIdList.stream()
+//                .map(userId -> userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1))
+//                .map(m -> mapper.map(m,UserAverageDto.class))
+//                .collect(Collectors.toList());
     }
 
     // api 종합점수
