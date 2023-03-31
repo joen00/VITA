@@ -101,20 +101,20 @@ public class ScoreImpl implements Score{
     public ApiAverageDto apiTotalAverage() {
         List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
         ApiAverageDto apiAverageDto = new ApiAverageDto();
-        apiAverageDto.setApiAverageStep(
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStep).sum() /
+        apiAverageDto.setApiAverageStep((int)
+                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageStep).sum() /
                 apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStepCnt).sum());
-        apiAverageDto.setApiAverageEnergy(
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergy).sum() /
+        apiAverageDto.setApiAverageEnergy((int)
+                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageEnergy).sum() /
                 apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergyCnt).sum());
-        apiAverageDto.setApiAverageRhr(
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhr).sum() /
+        apiAverageDto.setApiAverageRhr((int)
+                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageRhr).sum() /
                 apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhrCnt).sum());
-        apiAverageDto.setApiAverageStress(
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStress).sum() /
+        apiAverageDto.setApiAverageStress((int)
+                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageStress).sum() /
                 apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStressCnt).sum());
-        apiAverageDto.setApiAverageSleep(
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleep).sum() /
+        apiAverageDto.setApiAverageSleep((int)
+                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageSleep).sum() /
                 apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleepCnt).sum());
 
 //        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().

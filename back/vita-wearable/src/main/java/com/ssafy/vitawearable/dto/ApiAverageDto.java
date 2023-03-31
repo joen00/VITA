@@ -12,8 +12,8 @@ public class ApiAverageDto {
     private int apiAverageRhr;
     private int apiAverageStress;
     private int apiAverageSleep;
-    private int apiAverageLight;
-    private int apiAverageRem;
-    private int apiAverageAwake;
-    private int apiAverageDeep;
+//    private int apiAverageLight;
+//    private int apiAverageRem;
+//    private int apiAverageAwake;
+//    private int apiAverageDeep;
 }
