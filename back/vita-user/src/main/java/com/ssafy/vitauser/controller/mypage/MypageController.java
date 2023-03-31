@@ -1,6 +1,7 @@
 package com.ssafy.vitauser.controller.mypage;
 
 import com.ssafy.vitauser.dto.mypage.UserBadgeResponseDto;
+import com.ssafy.vitauser.dto.mypage.UserInfoUpdateRequestDto;
 import com.ssafy.vitauser.oauth.token.AuthTokenProvider;
 import com.ssafy.vitauser.service.mypage.AwsS3Service;
 import com.ssafy.vitauser.service.mypage.MypageService;
@@ -66,5 +67,16 @@ public class MypageController {
         mypageService.updateUpload(userId, url);
         // flask 서버로 userId 보내주기 위해 userId를 API 응답으로 반환시킴
         return new ResponseEntity<String>(userId, HttpStatus.ACCEPTED);
+    }
+
+    @ApiOperation(value = "유저 정보 수정", notes = "성공하면 success.", response = String.class)
+    @PutMapping("/update")
+    public ResponseEntity<?> updateUserInfo(@RequestParam("UserInfoUpdateRequestDto") UserInfoUpdateRequestDto userInfoUpdateRequestDto, HttpServletRequest request) throws Exception {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = authTokenProvider.getUserId(accessToken);
+
+        mypageService.updateUserInfo(userInfoUpdateRequestDto, userId);
+
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

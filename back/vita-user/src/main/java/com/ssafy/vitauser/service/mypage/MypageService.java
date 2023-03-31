@@ -1,10 +1,7 @@
 package com.ssafy.vitauser.service.mypage;
 
 
-import com.ssafy.vitauser.dto.mypage.UserBadgeResponseDto;
-import com.ssafy.vitauser.dto.mypage.UserHistoryResponseDto;
-import com.ssafy.vitauser.dto.mypage.UserInfoResponseDto;
-import com.ssafy.vitauser.dto.mypage.UserUploadRequestDto;
+import com.ssafy.vitauser.dto.mypage.*;
 import com.ssafy.vitauser.entity.user.*;
 import com.ssafy.vitauser.repository.mypage.*;
 import lombok.RequiredArgsConstructor;
@@ -94,4 +91,17 @@ public class MypageService {
 
     }
 
+    @Transactional
+    public boolean updateUserInfo(UserInfoUpdateRequestDto userInfoUpdateRequestDto, String userId) {
+        User user = mypageRepository.findByUserId(userId);
+
+        if (user != null) {
+            user.setUserAge(userInfoUpdateRequestDto.getUserAge());
+            user.setUserHeight(userInfoUpdateRequestDto.getUserHeight());
+            user.setUserWeight(userInfoUpdateRequestDto.getUserWeight());
+            user.setUserPhoneType(userInfoUpdateRequestDto.getUserPhoneType());
+            
+        }
+        return true;
+    }
 }
