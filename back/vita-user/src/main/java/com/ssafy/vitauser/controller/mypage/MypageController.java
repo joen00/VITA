@@ -71,7 +71,7 @@ public class MypageController {
 
     @ApiOperation(value = "유저 정보 수정", notes = "성공하면 success.", response = String.class)
     @PutMapping("/update")
-    public ResponseEntity<?> updateUserInfo(@RequestParam("UserInfoUpdateRequestDto") UserInfoUpdateRequestDto userInfoUpdateRequestDto, HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> updateUserInfo(@RequestBody UserInfoUpdateRequestDto userInfoUpdateRequestDto, HttpServletRequest request) throws Exception {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = authTokenProvider.getUserId(accessToken);
 
