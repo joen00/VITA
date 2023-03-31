@@ -23,6 +23,18 @@ public class UserAverageDto {
     private int userAverageAwake;
     private int userAverageDeep;
 
+    public UserAverageDto() {
+        this.userAverageStep = 0;
+        this.userAverageEnergy = 0;
+        this.userAverageRhr = 0;
+        this.userAverageStress = 0;
+        this.userAverageSleep = 0;
+        this.userAverageLight = 0;
+        this.userAverageRem = 0;
+        this.userAverageAwake = 0;
+        this.userAverageDeep = 0;
+    }
+
 //    public UserAverageDto(UserAverage userAverage) {
 //        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
 //        userAverageEnergy = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
