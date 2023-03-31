@@ -7,109 +7,101 @@
       />
 
       <b-container class="bv-example-row container h-30" id="mypage-container">
-        <b-col class="left">
-          <div class="profile">
-            <!-- 유저 아바타 -->
-            <div class="avatar">
-              <img id="img-avatar" :src="require(`/public/user/avatar.png`)" />
-            </div>
+        <b-row class="up">
+          <b-col class="left">
+            <div class="profile">
+              <!-- 유저 아바타 -->
+              <div class="avatar">
+                <img id="img-avatar" :src="require(`/public/user/avatar.png`)" />
+              </div>
 
-            <!-- 유저 신체 정보 -->
-            <div class="info">
-              <b-button id="btn-edit" @click="editInfo"><img src="@/assets/edit.png" id="btn-edit-img"></b-button>
-              <div class="nickname">
-                {{ nickname }}
-              </div>
-              <div class="item" v-for="info in UserInfo" :key="info">
-                <div class="icon">
-                  <img
-                      id="item-img"
-                      :src="require(`/public/user/${info.attr}.png`)"
-                  />
+              <!-- 유저 신체 정보 -->
+              <div class="info">
+                <div class="info-header">
+                  <div class="nickname">{{ nickname }}</div>
+                  <div class="edit">
+                      <img src="@/assets/edit.png" @click="editInfo" id="btn-edit-img">
+                  </div>
                 </div>
-                <div class="data">
-                  <div class="info-data">{{ info.data }}</div>
-                  <div class="info-desc">{{ info.desc }}</div>
+                <div class="item" v-for="(info, index) in UserInfo" :key="index">
+                  <div class="icon">
+                    <img :src="require(`/public/user/${info.attr}.png`)" id="item-img">
+                  </div>
+                  <div class="data">
+                    <div v-if="info.editable && info.attr != 'gender'">
+                      <b-input v-model="info.data" />
+                    </div>
+                    <div v-else>
+                      <div class="info-data">{{ info.data }}{{ info.unit }}</div>
+                    </div>
+                    <div class="info-desc">{{ info.desc }}</div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- <div class="info">
-            <b-button id="btn-edit" @click="toggleEditMode"><img src="@/assets/edit.png" id="btn-edit-img"></b-button>
-            <div class="nickname">
-              {{ nickname }}
-            </div>
-            <div class="item" v-for="info in UserInfo" :key="info">
-              <div class="icon">
-                <img
-                  id="item-img"
-                  :src="require(`/public/user/${info.attr}.png`)"
-                />
-              </div>
-              <div class="data" :contenteditable="isEditMode">{{ info.data }}</div>
-              <div class="info-desc">{{ info.desc }}</div>
-            </div>
-          </div>
-          </div> -->
+          </b-col>
 
+          <b-col class="right">
+            <b-row>
+              <b-col id="btn-fileupload"
+                ><b-button
+                  class="btn-fileupload d-inline-flex"
+                  @click="$router.push(`/fileupload`)"
+                  >파일 업로드 하러 가기</b-button
+                ></b-col>
+            </b-row>
+
+            <!-- 뱃지 리스트 -->
+            <b-row class="badge-list"></b-row>
+          </b-col>
+        </b-row>
+
+        <b-row class="down">
           <!-- 캘린더 -->
-          <div class="calander">
-            <VDatePicker
-              title-position="middle"
-              :attributes="attrs"
-              @dayclick="dayclick"
-              ref="datepicker"
-            />
-          </div>
-        </b-col>
-        <!-- left 끝 -->
-
-        <!-- right 시작 -->
-        <b-col class="right">
-          <b-row>
-            <b-col id="btn-fileupload"
-              ><b-button
-                class="btn-fileupload d-inline-flex"
-                @click="$router.push(`/fileupload`)"
-                >파일 업로드 하러 가기</b-button
-              ></b-col
-            >
-          </b-row>
-
-          <!-- 뱃지 리스트 -->
-          <b-row class="badge-list"> </b-row>
+          <b-col class="left">
+            <div class="calander">
+              <VDatePicker
+                title-position="middle"
+                :attributes="attrs"
+                @dayclick="dayclick"
+                ref="datepicker"
+              />
+            </div>
+          </b-col>
 
           <!-- 히스토리 -->
-          <b-row class="history" id="history">
-            <carousel-3d
-              ref="hitoryCarousel"
-              :width="400"
-              :height="240"
-              :key="componentKey"
-            >
-              <slide
-                id="carousel"
-                v-for="(slide, i) in slides"
-                :index="i"
-                :key="i"
+          <b-col class="right">
+            <b-row class="history" id="history">
+              <carousel-3d
+                ref="hitoryCarousel"
+                :width="400"
+                :height="240"
+                :key="componentKey"
               >
-                <template
-                  slot-scope="{ index, isCurrent, leftIndex, rightIndex }"
+                <slide
+                  id="carousel"
+                  v-for="(slide, i) in slides"
+                  :index="i"
+                  :key="i"
                 >
-                  <img
-                    :data-index="index"
-                    :class="{
-                      current: isCurrent,
-                      onLeft: leftIndex >= 0,
-                      onRight: rightIndex >= 0,
-                    }"
-                    :src="require(`/public/user/${slide.src}.png`)"
-                  />
-                </template>
-              </slide>
-            </carousel-3d>
-          </b-row>
-        </b-col>
+                  <template
+                    slot-scope="{ index, isCurrent, leftIndex, rightIndex }"
+                  >
+                    <img
+                      :data-index="index"
+                      :class="{
+                        current: isCurrent,
+                        onLeft: leftIndex >= 0,
+                        onRight: rightIndex >= 0,
+                      }"
+                      :src="require(`/public/user/${slide.src}.png`)"
+                    />
+                  </template>
+                </slide>
+              </carousel-3d>
+            </b-row>
+          </b-col>
+        </b-row>
       </b-container>
     </div>
   </div>
@@ -135,10 +127,10 @@ export default {
     nickname: `뿡뿡 아영`,
     gender: "female",
     UserInfo: [
-      { attr: "weight", data: "40.0kg", desc: "체중" },
-      { attr: "gender", data: "여자", desc: "성별" },
-      { attr: "age", data: "10세", desc: "나이" },
-      { attr: "height", data: "180.2cm", desc: "키" },
+      { attr: "weight", data: "40.0", desc: "체중", unit: "kg", editable: false  },
+      { attr: "gender", data: "여자", desc: "성별", unit:"", editable: false  },
+      { attr: "age", data: "10", desc: "나이", unit:"세", editable: false  },
+      { attr: "height", data: "180.2", desc: "키", unit:"cm", editable: false  },
     ],
     componentKey: 0,
     slides: [
@@ -165,7 +157,7 @@ export default {
     ],
     VueHeaderTitle: "마이페이지",
     VueHeaderContent: "나의 정보를 확인해보세요.",
-    isEditMode: false,
+    editMode: false,
   }),
 
   computed: {
@@ -187,7 +179,7 @@ export default {
           console.log(response);
           (this.nickname = response.data.userNickname),
             (this.UserInfo[0].data = response.data.userWeight + "kg"),
-            (this.UserInfo[1].data = response.data.userGender),
+            (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
             (this.UserInfo[2].data = response.data.userAge + "살"),
             (this.UserInfo[3].data = response.data.userHeight + "cm");
         });
@@ -227,17 +219,19 @@ export default {
         }
       }
     },
-    toggleEditMode() {
-        this.isEditMode = !this.isEditMode;
-        const dataElements = document.querySelectorAll('.data[contenteditable="true"]');
-        // Remove the contenteditable attribute from any other data elements that might be in edit mode
-        dataElements.forEach((element) => {
-          if (element !== event.target) {
-            element.removeAttribute('contenteditable');
-          }
-        });
+    editInfo() {
+      this.UserInfo.forEach((info) => {
+        info.editable = !info.editable;
+      });
+
+      if (this.UserInfo[0].editable == false) {
+        // this.UserInfo.forEach((info) => {
+        //   console.log(info.data)
+        // });
       }
+    },
   },
+
   created() {
     this.getUserInfo();
     this.getUserHistory();
@@ -288,36 +282,45 @@ export default {
   float: left;
   width: 50%;
 }
+.info-header {
+  display: flex;
+  margin-bottom: 10px;
+}
 .info {
   float: left;
   width: 50%;
 }
 .item {
-  padding: 8px;
+  padding: 4px;
   display: flex;
 }
 .icon {
   float: left;
-  width: 20%;
+  width: 30%;
+  padding: 0 10px 10px 10px;
 }
 .data {
   float: left;
-  width: 80%;
+  width: 70%;
 }
 .nickname {
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 2rem;
+  width: 90%;
+}
+.edit {
+  width: 10%;
 }
 .calander {
   text-align: center;
 }
 .btn-fileupload {
-  height: 30px;
+  height: 35px;
   border: none;
   color: rgb(255, 255, 255);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   background: #3695be;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -325,8 +328,7 @@ export default {
   border-radius: 12px;
   float: left;
   margin: 10px;
-  padding-inline: 20px;
-  padding-block: 4px;
+  padding-inline: 25px;
 }
 .btn-fileupload:hover {
   border: none;
@@ -341,7 +343,7 @@ export default {
   background: #ffffff;
 }
 .history {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .vc-container {
   width: 400px;
@@ -368,12 +370,11 @@ export default {
   color: rgb(150, 150, 150);
   font-size: 13px;
 }
-#btn-edit {
-  width: 30px;
-  height: 30px;
-}
 #btn-edit-img {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
+}
+#btn-edit-img:hover {
+  content:url("@/assets/edit-hover.png")
 }
 </style>
