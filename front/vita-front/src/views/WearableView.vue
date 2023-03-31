@@ -172,7 +172,7 @@ export default {
     WearablePastTotal,
   },
   data: () => ({
-    totalData: [],
+    data: [],
     categories:[],
     componentKey: 0,
     totalscore: [],
