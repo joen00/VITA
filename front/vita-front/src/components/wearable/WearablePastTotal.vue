@@ -4,8 +4,6 @@
             <div style="font-size: 1.1rem; font-weight: 800">
             과거 종합 점수 그래프
             </div>
-            {{ data }}
-            {{ categories }}
             <div id="pastchart">
             <apexchart
                 type="line"
@@ -29,10 +27,6 @@ export default {
     props: {
         data: Array,
         categories: Array,
-    },
-    computed() {
-        this.data = this.data;
-        this.categories = this.categories;
     },
     data: function () {
     return {

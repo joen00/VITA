@@ -189,8 +189,8 @@ export default {
   },
 
   methods: {
-    totalScore() {
-      axios
+    async totalScore() {
+      await axios
         .get("https://j8b106.p.ssafy.io/api/wearable/" + "score", {
           // await axios.get('http://localhost:8083/wearable/' + 'score', {
           headers: {
@@ -202,14 +202,13 @@ export default {
           this.totalscore = res.data;
           let lastIndex = this.totalscore.length - 1;
           this.lastTotalscore = this.totalscore[lastIndex];
-          console.log(this.lastTotalscore);
           this.data = this.totalscore.map(function (e) {
           return e.totalScore;
           });
           this.categories = this.totalscore.map(function (e) {
             return e.date;
           });
-          componentKey += 1;
+          this.componentKey += 1;
         });
     },
     // makePDF (selector = 'body') {
