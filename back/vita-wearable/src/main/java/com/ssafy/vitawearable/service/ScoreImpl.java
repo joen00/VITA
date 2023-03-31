@@ -102,20 +102,20 @@ public class ScoreImpl implements Score{
         List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
         ApiAverageDto apiAverageDto = new ApiAverageDto();
         apiAverageDto.setApiAverageStep((int)
-                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageStep).sum() /
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStepCnt).sum());
+                (apiAverageList.stream().mapToLong(ApiAverage::getApiAverageStep).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStepCnt).sum()));
         apiAverageDto.setApiAverageEnergy((int)
-                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageEnergy).sum() /
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergyCnt).sum());
+                (apiAverageList.stream().mapToLong(ApiAverage::getApiAverageEnergy).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergyCnt).sum()));
         apiAverageDto.setApiAverageRhr((int)
-                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageRhr).sum() /
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhrCnt).sum());
+                (apiAverageList.stream().mapToLong(ApiAverage::getApiAverageRhr).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhrCnt).sum()));
         apiAverageDto.setApiAverageStress((int)
-                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageStress).sum() /
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStressCnt).sum());
+                (apiAverageList.stream().mapToLong(ApiAverage::getApiAverageStress).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStressCnt).sum()));
         apiAverageDto.setApiAverageSleep((int)
-                apiAverageList.stream().mapToLong(ApiAverage::getApiAverageSleep).sum() /
-                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleepCnt).sum());
+                (apiAverageList.stream().mapToLong(ApiAverage::getApiAverageSleep).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleepCnt).sum()));
 
 //        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().
 //                mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
