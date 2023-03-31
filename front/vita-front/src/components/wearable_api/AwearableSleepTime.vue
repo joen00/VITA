@@ -29,6 +29,10 @@
       ComponentHeader,
       DoctorAdvice
     },
+    props: {
+      userData: Number,
+      apiData: Number,
+    },
     data() {
       return {
         ComponentHeaderTitle: "수면 시간",
@@ -122,11 +126,11 @@
         var data = [
             {
                 target: "나",
-                value: 48
+                value: this.userData
             }, 
             {
                 target: "평균",
-                value: 32
+                value: this.apiData
             }
         ];
 

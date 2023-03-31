@@ -29,6 +29,10 @@
     ComponentHeader,
     DoctorAdvice,
   },
+    props: {
+      userData: Number,
+      apiData: Number,
+    },
     data() {
       return {
         ComponentHeaderTitle: "걸음수",
@@ -121,11 +125,11 @@
         var data = [
             {
                 target: "나",
-                value: 3000
+                value: this.userData
             }, 
             {
                 target: "평균",
-                value: 3300
+                value: this.apiData
             }
         ];
 
