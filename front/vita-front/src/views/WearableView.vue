@@ -128,19 +128,7 @@
               <b-button id="total-score-rank">친구 순위 : 1등</b-button>
             </div>
             <!-- 유저 종합점수 그래프 -->
-            <div id="wearable-middle-right-div-right">
-              <div style="font-size: 1.1rem; font-weight: 800">
-                과거 종합 점수 그래프
-              </div>
-              <div id="pastchart">
-                <VueApexCharts
-                  type="line"
-                  height="260"
-                  :options="chartOptions"
-                  :series="series"
-                ></VueApexCharts>
-              </div>
-            </div>
+            <WearablePastTotal :key="componentKey" :data="data" :categories="categories"></WearablePastTotal>
           </div>
         </div>
       </div>
@@ -160,13 +148,13 @@
 
 <script>
 import VueHeader from "@/components/common/VueHeader.vue";
-import VueApexCharts from "vue-apexcharts";
 import WearableTotal from "@/components/wearable/WearableTotal.vue";
 import WearableStep from "@/components/wearable/WearableStep.vue";
 import WearableWeight from "@/components/wearable/WearableWeight.vue";
 import WearableEnergy from "@/components/wearable/WearableEnergy.vue";
 import WearableRhr from "@/components/wearable/WearableRhr.vue";
 import WearableStress from "@/components/wearable/WearableStress.vue";
+import WearablePastTotal from "@/components/wearable/WearablePastTotal.vue"
 import axios from "axios";
 import { mapGetters } from "vuex";
 // import html2canvas from "html2canvas"
@@ -175,92 +163,34 @@ export default {
   name: "FriendView",
   components: {
     VueHeader,
-    VueApexCharts,
     WearableTotal,
     WearableStep,
     WearableWeight,
     WearableEnergy,
     WearableRhr,
     WearableStress,
+    WearablePastTotal,
   },
   data: () => ({
+    totalData: [],
+    categories:[],
+    componentKey: 0,
     totalscore: [],
     lastTotalscore: {},
     VueHeaderTitle: "마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
-    series: [
-      {
-        name: "종합 점수",
-        data: [],
-      },
-    ],
-    chartOptions: {
-      chart: {
-        height: 200,
-        type: "line",
-        dropShadow: {
-          // 그림자 넣는 곳
-          enabled: true,
-          color: "#000",
-          top: 18,
-          left: 6,
-          blur: 10,
-          opacity: 0.1,
-        },
-        toolbar: {
-          show: false,
-        },
-      },
-      colors: ["#77B6EA"], // 색상 지정하는 곳
-      dataLabels: {
-        enabled: true,
-      },
-      stroke: {
-        // 그래프 형식 없으면 완젼 꺽은선으로 나옴
-        curve: "smooth",
-      },
-      // title: {
-      //   text: "과거 종합 점수 그래프",
-      //   align: "left",
-      // },
-      grid: {
-        // 이건 잘 모르겠음
-        borderColor: "#e7e7e7",
-        row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5,
-        },
-      },
-      markers: {
-        size: 1,
-      },
-      xaxis: {
-        categories: [],
-        // title: {
-        //   text: "day",
-        // },
-      },
-      yaxis: {
-        // title: {
-        //   text: "체중",
-        // },
-        min: 0,
-        max: 100,
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "right",
-        floating: true,
-        offsetY: -25,
-        offsetX: -5,
-      },
-    },
   }),
-  // created() {
-  //   this.totalScore();
-  // },
-  mounted() {
-    axios
+  created() {
+    this.totalScore();
+  },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+
+  methods: {
+    totalScore() {
+      axios
         .get("https://j8b106.p.ssafy.io/api/wearable/" + "score", {
           // await axios.get('http://localhost:8083/wearable/' + 'score', {
           headers: {
@@ -273,46 +203,17 @@ export default {
           let lastIndex = this.totalscore.length - 1;
           this.lastTotalscore = this.totalscore[lastIndex];
           console.log(this.lastTotalscore);
-          this.series[0].data = this.totalscore.map(function (e) {
+          this.data = this.totalscore.map(function (e) {
           return e.totalScore;
           });
-          this.chartOptions.xaxis.categories = this.totalscore.map(function (e) {
+          this.categories = this.totalscore.map(function (e) {
             const week = ["일", "월", "화", "수", "목", "금", "토"];
             const dayOfWeek = week[new Date(e.date).getDay()];
             return dayOfWeek;
           });
+          componentKey += 1;
         });
-  },
-
-  computed: {
-    ...mapGetters(["token", "user"]),
-  },
-
-  methods: {
-    // totalScore() {
-    //   axios
-    //     .get("https://j8b106.p.ssafy.io/api/wearable/" + "score", {
-    //       // await axios.get('http://localhost:8083/wearable/' + 'score', {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${this.token}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       this.totalscore = res.data;
-    //       let lastIndex = this.totalscore.length - 1;
-    //       this.lastTotalscore = this.totalscore[lastIndex];
-    //       console.log(this.lastTotalscore);
-    //       this.series[0].data = this.totalscore.map(function (e) {
-    //       return e.totalScore;
-    //       });
-    //       this.chartOptions.xaxis.categories = this.totalscore.map(function (e) {
-    //         const week = ["일", "월", "화", "수", "목", "금", "토"];
-    //         const dayOfWeek = week[new Date(e.date).getDay()];
-    //         return dayOfWeek;
-    //       });
-    //     });
-    // },
+    },
     // makePDF (selector = 'body') {
     // 	window.html2canvas = html2canvas //Vue.js 특성상 window 객체에 직접 할당해야한다.
     // 	let that = this
