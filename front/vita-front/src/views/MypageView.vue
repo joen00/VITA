@@ -194,10 +194,10 @@ export default {
         .then((response) => {
           console.log(response);
           (this.nickname = response.data.userNickname),
-            (this.UserInfo[0].data = response.data.userWeight + "kg"),
+            (this.UserInfo[0].data = response.data.userWeight),
             (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
-            (this.UserInfo[2].data = response.data.userAge + "살"),
-            (this.UserInfo[3].data = response.data.userHeight + "cm"),
+            (this.UserInfo[2].data = response.data.userAge),
+            (this.UserInfo[3].data = response.data.userHeight),
             (this.UserInfo[4].data = response.data.userPhoneType);
         });
     },
@@ -258,6 +258,12 @@ export default {
           )
           .then((response) => {
             console.log(response);
+            (this.nickname = response.data.userNickname),
+            (this.UserInfo[0].data = response.data.userWeight),
+            (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
+            (this.UserInfo[2].data = response.data.userAge),
+            (this.UserInfo[3].data = response.data.userHeight),
+            (this.UserInfo[4].data = response.data.userPhoneType);
           });
       }
     },
