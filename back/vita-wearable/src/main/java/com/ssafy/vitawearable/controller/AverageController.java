@@ -58,7 +58,7 @@ public class AverageController {
     @ApiOperation(
             value = "API 선택 평균 데이터 리스트 전체",
             notes = "API 선택 평균 데이터 리스트 전체",
-            response = EnergyDailyDto.class
+            response = ApiAverageDto.class
     )
 
     @GetMapping("/{userAge}/{userSex}")

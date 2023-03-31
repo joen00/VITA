@@ -101,24 +101,39 @@ public class ScoreImpl implements Score{
     public ApiAverageDto apiTotalAverage() {
         List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
         ApiAverageDto apiAverageDto = new ApiAverageDto();
-        apiAverageDto.setApiAverageStep((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageStep).average().getAsDouble());
-        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
-        apiAverageDto.setApiAverageRhr((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-        apiAverageDto.setApiAverageStress((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-        apiAverageDto.setApiAverageSleep((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageSleep).average().getAsDouble());
-        apiAverageDto.setApiAverageLight((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
-        apiAverageDto.setApiAverageRem((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
-        apiAverageDto.setApiAverageAwake((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageAwake).average().getAsDouble());
-        apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().
-                mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
+        apiAverageDto.setApiAverageStep(
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStep).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStepCnt).sum());
+        apiAverageDto.setApiAverageEnergy(
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergy).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageEnergyCnt).sum());
+        apiAverageDto.setApiAverageRhr(
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhr).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageRhrCnt).sum());
+        apiAverageDto.setApiAverageStress(
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStress).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageStressCnt).sum());
+        apiAverageDto.setApiAverageSleep(
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleep).sum() /
+                apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleepCnt).sum());
+
+//        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
+//        apiAverageDto.setApiAverageRhr((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
+//        apiAverageDto.setApiAverageStress((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
+//        apiAverageDto.setApiAverageSleep((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageSleep).average().getAsDouble());
+
+//        apiAverageDto.setApiAverageLight((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
+//        apiAverageDto.setApiAverageRem((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
+//        apiAverageDto.setApiAverageAwake((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageAwake).average().getAsDouble());
+//        apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().
+//                mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
         return apiAverageDto;
     }
 
