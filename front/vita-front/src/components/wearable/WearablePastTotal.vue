@@ -4,6 +4,8 @@
             <div style="font-size: 1.1rem; font-weight: 800">
             과거 종합 점수 그래프
             </div>
+            {{ data }}
+            {{ categories }}
             <div id="pastchart">
             <VueApexCharts
                 type="line"
