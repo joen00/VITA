@@ -65,8 +65,11 @@
         userData: {},
       };
     },
+    created() {
+      this.getApiData();
+    },
     methods: {
-      async apiData() {
+      async getApiData() {
         await axios
           .get("https://j8b106.p.ssafy.io/api/wearable/average", {
             headers: {
@@ -87,9 +90,9 @@
             .then((res) => {
               this.userData = res.data
               console.log(this.userData);
+              this.componentKey += 1;
             });
           });
-          this.componentKey += 1;
       }
     },
   };
