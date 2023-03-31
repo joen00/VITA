@@ -100,8 +100,9 @@ public class MypageService {
             user.setUserHeight(userInfoUpdateRequestDto.getUserHeight());
             user.setUserWeight(userInfoUpdateRequestDto.getUserWeight());
             user.setUserPhoneType(userInfoUpdateRequestDto.getUserPhoneType());
-            
+            mypageRepository.save(user);
+            return true;
         }
-        return true;
+        return false;
     }
 }

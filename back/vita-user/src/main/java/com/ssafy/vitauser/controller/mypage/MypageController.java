@@ -75,8 +75,6 @@ public class MypageController {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = authTokenProvider.getUserId(accessToken);
 
-        mypageService.updateUserInfo(userInfoUpdateRequestDto, userId);
-
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(mypageService.updateUserInfo(userInfoUpdateRequestDto, userId), HttpStatus.ACCEPTED);
     }
 }
