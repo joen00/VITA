@@ -35,7 +35,7 @@
                       <!-- 라디오 버튼으로 바꾸기 -->
                       <b-form-group>
                         <b-form-radio-group
-                          v-model="UserInfo[4].data"
+                          v-model="info.data"
                           :options="phoneTypeOptions"
                           size="sm"
                           buttons
@@ -245,9 +245,9 @@ export default {
         axios
           .put(this.$store.state.serverBaseUrl + `/users/mypage/update`, 
             {
-              userAge: this.UserInfo[0].data,
-              userHeight: this.UserInfo[2].data,
-              userWeight: this.UserInfo[3].data,
+              userWeight: this.UserInfo[0].data,
+              userAge: this.UserInfo[2].data,
+              userHeight: this.UserInfo[3].data,
               userPhoneType: this.UserInfo[4].data,
             },
             {
