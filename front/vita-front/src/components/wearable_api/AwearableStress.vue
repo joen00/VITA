@@ -29,6 +29,10 @@
       ComponentHeader,
       DoctorAdvice
     },
+    props: {
+      userData: Number,
+      apiData: Number,
+    },
     data() {
       return {
         ComponentHeaderTitle: "스트레스",
@@ -122,11 +126,11 @@
         var data = [
             {
                 target: "나",
-                value: 100
+                value: this.userData
             }, 
             {
                 target: "평균",
-                value: 300
+                value: this.apiData
             }
         ];
 
