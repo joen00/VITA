@@ -43,7 +43,8 @@
   import AwearableSleepTime from '@/components/wearable_api/AwearableSleepTime.vue';
   // import AwearableSleepStage from '@/components/wearable_api/AwearableSleepStage.vue';
   import VueHeader from '@/components/common/VueHeader.vue';
-
+  import axios from "axios";
+  
   export default {
     name: "App",
     components: { 
