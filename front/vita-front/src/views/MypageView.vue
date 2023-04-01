@@ -362,6 +362,7 @@ export default {
 .profile {
   padding: 40px;
   display: flex;
+  align-items: center;
 }
 .avatar {
   float: left;
