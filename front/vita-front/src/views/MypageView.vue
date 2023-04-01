@@ -184,7 +184,7 @@ export default {
         attr: "phoneType",
         data: "APPLE",
         desc: "휴대폰타입",
-        editrable: false,
+        editable: false,
       },
     ],
     componentKey: 0,
@@ -221,6 +221,9 @@ export default {
 
   computed: {
     ...mapGetters(["token", "user"]),
+    getSlides() {
+      return this.slides;
+    },
   },
 
   methods: {
@@ -253,13 +256,14 @@ export default {
           },
         })
         .then((response) => {
+          this.componentKey++;
           response.data.map((data) => {
             this.slides.push({
-              index: data.createdDate,
+              index: data.createdDate.substr(0, 10),
               src: data.userHistoryImg,
             });
             this.attrs.push({
-              key: data.createdDate,
+              key: data.createdDate.substr(0, 10),
               highlight: "gray",
               dates: data.createdDate,
             });
@@ -270,13 +274,10 @@ export default {
     dayclick(day) {
       if (day.attributes[0]) {
         if (day.attributes[0].highlight.base.color == "gray") {
-          this.componentKey++;
           const foundIndex = this.slides.findIndex(
             (slide) => slide.index === day.attributes[0].key
           );
-          const deletedItem = this.slides.splice(foundIndex, 1);
-          console.log(deletedItem);
-          this.slides.splice(0, 0, deletedItem[0]);
+          this.$refs.hitoryCarousel.goSlide(foundIndex);
         }
       }
     },
