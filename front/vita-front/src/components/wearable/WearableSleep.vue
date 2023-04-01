@@ -231,12 +231,7 @@
             },
           })
           .then((res) => {
-            this.data = res.data.map(function (e) {
-              return e.dailyWearableSleep;
-            });
-            this.date = res.data.map(function (e) {
-              return e.date;
-            });
+            this.data = res.data
             this.componentKey += 1;
             this.isdaily = ture;
           });
