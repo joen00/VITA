@@ -95,6 +95,7 @@
           <div class="left">
             <div class="calander">
               <VDatePicker
+                timezone="UTC"
                 title-position="middle"
                 :attributes="attrs"
                 @dayclick="dayclick"
