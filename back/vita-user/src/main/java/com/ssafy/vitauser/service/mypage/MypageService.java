@@ -84,6 +84,17 @@ public class MypageService {
         if (updateUserUpload != null){
             updateUserUpload.updateUpload(updateUserUpload.getUserUploadId(), user, url);
         }else {
+            // 회원에 해당하는 userBadge가 나온다.
+            List<UserBadge> userBadgesList = userBadgeRepository.findAllByUser(user);
+            for(UserBadge userBadge : userBadgesList){
+                // 3번 뱃지 true로 바꿔주기
+                if (userBadge.getBadge().getBadgeId()==3){
+                    Long userBadgeId = userBadge.getUserBadgeId();
+                    UserBadge u= userBadgeRepository.findByUserBadgeId(userBadgeId);
+                    u.updateUserBadge(userBadgeId,true,user,userBadge.getBadge());
+                }
+            }
+
             UserUploadRequestDto userUploadRequestDto = new UserUploadRequestDto(user, url);
             userUploadRepository.save(userUploadRequestDto.ToEntity());
         }

@@ -35,4 +35,14 @@ public class UserBadge {
         this.badge = badge;
     }
 
+    public boolean updateUserBadge(Long userBadgeId, boolean userBadgeGet, User user, Badge badge){
+        this.userBadgeId = userBadgeId;
+        this.userBadgeGet = userBadgeGet;
+        this.user = user;
+        this.badge = badge;
+        return true;
+    }
+
+
+
 }
