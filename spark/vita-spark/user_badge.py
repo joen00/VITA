@@ -20,4 +20,4 @@ def maxScore(db, userId):
 
     if result[0] != None:
         return result[0]
-    else: return 0
+    else: return -1

@@ -110,8 +110,8 @@ def totalScore(df, userId, db):
     if (step + energy + rhr + stress + sleep) >= 475:
         id = user_badge.findId(db, 'score')
         user_badge.giveBagde(db, userId, id)
-
+    
     # 10점 상승 뱃지
-    if (step + energy + rhr + stress + sleep) >= maxScore + 50:
+    if (maxScore != -1) & ((step + energy + rhr + stress + sleep) >= maxScore + 50):
         id = user_badge.findId(db, 'upgrade')
         user_badge.giveBagde(db, userId, id)
