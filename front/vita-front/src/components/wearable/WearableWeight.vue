@@ -349,6 +349,12 @@ export default {
 </script>
   
   <style>
+
+#weight-week-now-progess {
+  background: #3027e5;
+  border-radius: 10px;
+}
+
 #weight-month-now-progess {
   background: #27e58a;
   border-radius: 10px;

@@ -7,8 +7,8 @@
           <VueHeader :VueHeaderTitle = VueHeaderTitle :VueHeaderContent = VueHeaderContent />
           <div id="extraDesc">{{ VueHeaderContentDesc }}</div>
           <div id="btn-section">
-            <b-button class="btn-datatype">전체</b-button>
-            <b-button class="btn-datatype">연령 & 성별</b-button>
+            <b-button class="btn-datatype" @click="getApiData()">전체</b-button>
+            <b-button class="btn-datatype" @click="getApiCustomData()">연령 & 성별</b-button>
           </div>
           <div class="description">{{ description }}</div>
         </div>
@@ -84,7 +84,6 @@
           })
           .then((res) => {
             this.apiData = res.data
-            console.log(this.apiData);
             axios
             .get("https://j8b106.p.ssafy.io/api/wearable/average/user", {
               headers: {
@@ -94,7 +93,29 @@
             })
             .then((res) => {
               this.userData = res.data
-              console.log(this.userData);
+              this.componentKey += 1;
+            });
+          });
+      },
+      async getApiCustomData() {
+        await axios
+          .get("https://j8b106.p.ssafy.io/api/wearable/average/custom", {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.token}`,
+            },
+          })
+          .then((res) => {
+            this.apiData = res.data
+            axios
+            .get("https://j8b106.p.ssafy.io/api/wearable/average/user", {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.token}`,
+              },
+            })
+            .then((res) => {
+              this.userData = res.data
               this.componentKey += 1;
             });
           });

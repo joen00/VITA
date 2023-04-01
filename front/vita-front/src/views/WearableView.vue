@@ -16,7 +16,7 @@
             id="wearable-middle-left-up"
             style="font-size: 1.7rem; font-weight: 800; margin-left: 5rem"
           >
-            김아영
+          유저이름
           </div>
           <div id="wearable-middle-left-down">
             <div id="wearable-profile-avatar">
@@ -155,9 +155,13 @@
           style="margin-top: 10rem"
           id="pdf-stress"
         ></wearable-stress>
+        <wearable-sleep
+          style="margin-top: 10rem"
+          id="pdf-sleep"
+        ></wearable-sleep>
       </div>
 
-      <button id="btn-step" @click="getPdf">PDF 다운로드!</button>
+      <button id="btn-pdf" @click="getPdf">PDF 다운로드</button>
       <div class="mb-5"></div>
     </div>
   </div>
@@ -171,6 +175,7 @@ import WearableWeight from "@/components/wearable/WearableWeight.vue";
 import WearableEnergy from "@/components/wearable/WearableEnergy.vue";
 import WearableRhr from "@/components/wearable/WearableRhr.vue";
 import WearableStress from "@/components/wearable/WearableStress.vue";
+import WearableSleep from "@/components/wearable/WearableSleep.vue";
 import WearablePastTotal from "@/components/wearable/WearablePastTotal.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
@@ -187,6 +192,7 @@ export default {
     WearableEnergy,
     WearableRhr,
     WearableStress,
+    WearableSleep,
     WearablePastTotal,
   },
   data: () => ({
@@ -197,6 +203,7 @@ export default {
     lastTotalscore: {},
     VueHeaderTitle: "마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
+    // userNickname: user.userNickname,
   }),
   created() {
     this.totalScore();
@@ -238,6 +245,7 @@ export default {
       let pdfEnergy = document.querySelector("#pdf-energy");
       let pdfRhr = document.querySelector("#pdf-rhr");
       let pdfStress = document.querySelector("#pdf-stress");
+      let pdfSleep = document.querySelector("#pdf-sleep");
 
       let doc = new pdf.PdfDocument({
         header: {
@@ -328,6 +336,19 @@ export default {
         });
         doc.moveDown();
       });
+      // 수면 차트 추출
+      await html2canvas(pdfSleep, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        console.log(dataUrl);
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      });
       doc.end();
     },
   },
@@ -335,7 +356,7 @@ export default {
 </script>
 
 <style>
-#btn-step {
+#btn-pdf {
   width: 20%;
   height: 35px;
   border: none;
@@ -346,7 +367,7 @@ export default {
   border-radius: 12px;
   margin-bottom: 1rem;
 }
-#btn-step:hover {
+#btn-pdf:hover {
   width: 20%;
   height: 35px;
   border: none;
