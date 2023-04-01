@@ -12,28 +12,24 @@ import java.util.Map;
 @Setter
 public class TotalScoreYearDto {
     private String name;
-//    private List<xy> data;
-    private List<Map<String,Integer>> data;
-//    public static class xy {
-//        private x x;
-//        private y y;
-//        public static class x {
-//            private String dayString;
-//        }
-//        public static class y {
-//            private String dayValue;
-//        }
-//    }
+    private List<xy> data;
 
     public TotalScoreYearDto(int month) {
         this.name = month + "월";
-        List<Map<String,Integer>> series = new ArrayList<>();
+        List<xy> series = new ArrayList<>();
         for (int i = 1; i <= 31 ; i++ ) {
-            Map<String,Integer> data = new HashMap<>();
-            data.put("x",i);
-            data.put("y",0);
+            xy data = new xy();
+            data.setX(String.valueOf(i));
+            data.setY(0);
             series.add(data);
         }
         this.data = series;
+    }
+
+    @Getter
+    @Setter
+    public static class xy {
+        private String x;
+        private int y;
     }
 }
