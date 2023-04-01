@@ -52,19 +52,26 @@ public class ScoreImpl implements Score{
     public List<TotalScoreYearDto> yearTotalScore(String userId, int year) {
         mapper.getConfiguration().setAmbiguityIgnored(true);
         List<TotalScoreYearDto> totalScoreYearDtoList = new ArrayList<TotalScoreYearDto>();
-        for (int i=1; i < 13; i++) { totalScoreYearDtoList.add(new TotalScoreYearDto(i)); }
+        for (int i=1; i < 13; i++) {
+
+            totalScoreYearDtoList.add(new TotalScoreYearDto(i)); }
         List<DailyTotalScoreDto> dailyWearablesDtoList = dailyWearableRepo.findByUser_UserId(userId).stream()
                 .filter(daily -> daily.getDate().getYear() == year)
                 .sorted(Comparator.comparing(DailyWearable::getDate))
                 .map(daily -> mapper.map(daily, DailyTotalScoreDto.class))
                 .collect(Collectors.toList());
         for (DailyTotalScoreDto data:dailyWearablesDtoList) {
+            // 월, 일 추출(인덱스용)
             int month = data.getDate().getMonthValue();
-            Map<String,Integer> xy = new HashMap<>();
-//            totalScoreYearDtoList.get(month-1).getData().;
-            xy.put("x",data.getDate().getDayOfMonth());
-            xy.put("y",data.getDailyWearableScore());
-            totalScoreYearDtoList.get(month-1).getData().add(xy);
+            int day = data.getDate().getDayOfMonth();
+            // 값 넣어주기
+            totalScoreYearDtoList.get(month-1).getData().get(day-1).put("y",data.getDailyWearableScore());
+//            Map<String,Integer> xy = new HashMap<>();
+////            totalScoreYearDtoList.get(month-1).getData().;
+//
+//            xy.put("x",data.getDate().getDayOfMonth());
+//            xy.put("y",data.getDailyWearableScore());
+//            totalScoreYearDtoList.get(month-1).getData().add(xy);
         }
         // 비어있는 날짜 넣어주기
 //        for (TotalScoreYearDto data:totalScoreYearDtoList) {
