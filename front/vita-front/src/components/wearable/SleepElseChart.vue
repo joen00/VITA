@@ -5,8 +5,13 @@
 </template>
 
 <script>
+import VueApexCharts from "vue-apexcharts";
+
 export default {
     name: "SleepElseChart",
+    components: {
+        apexchart: VueApexCharts,
+    },
     props: {
         awakedata: Array,
         lightdata: Array,
@@ -14,20 +19,24 @@ export default {
         deepdata: Array,
         date: Array
     },
-    data: () => ({
+    data: function () {
+    return {
         series: [{
             name: 'awake',
             data: this.awakedata
-          }, {
+          }, 
+          {
             name: 'light',
             data: this.lightdata
-          }, {
+          }, 
+          {
             name: 'remdata',
             data: this.remdata
-          }, {
+          }, 
+          {
             name: 'deep',
             data: this.deepdata
-          }],
+        }],
         chartOptions: {
             chart: {
               type: 'bar',
@@ -77,7 +86,7 @@ export default {
               opacity: 1
             }
         }
-    }),
+    }}
 }
 </script>
 
