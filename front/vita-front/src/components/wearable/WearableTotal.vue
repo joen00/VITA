@@ -5,8 +5,8 @@
         <div id="total-middle-left">
             <div id="total-middle-left-div">
                 <div id="chart">
-                    <!-- <apexchart type="heatmap" height="300" :options="chartOptions" :series="data"></apexchart> -->
-                    <apexchart type="heatmap" height="300" :options="chartOptions" :series="data"></apexchart>
+                    {{ data }}
+                    <apexchart type="heatmap" height="300" :options="chartOptions" :series="chartData"></apexchart>
                 </div>
 
 
@@ -28,40 +28,6 @@ import ComponentHeader from "@/components/common/ComponentHeader.vue";
 import VueApexCharts from "vue-apexcharts";
 import axios from 'axios'
 import { mapGetters } from "vuex";
-
-// function generateData(count, yrange) {
-//     var i = 0;
-//     var series = [];
-//     while (i < count) {
-//     var x = (i + 1).toString();
-//     var y =
-//     Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-//     series.push({
-//         x: x,
-//         y: y
-//     });
-//     i++;
-//     }
-//     return series;
-// }
-
-function generateData(count, data) {
-    var i = 0;
-    var series = [];
-    while (i < count) {
-    var x = (i + 1).toString();
-    var y =
-    Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-    series.push({
-        x: x,
-        y: y
-    });
-    i++;
-    }
-    return series;
-}
 
 export default {
   name: "WearableTotal",
@@ -102,19 +68,10 @@ export default {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}`,
       },
-      }).then(res => {
-        // console.log(res.data)
-        this.data = res.data
-        // this.data = res.data.map(function(e){
-        //   return {"dailyWearableScore": e.dailyWearableScore, "date": e.date};
-        // })
-        res.data.map(function(e){
-          this.data["name"]
-        })
-        // this.data = res.data
-      })
-      // this.componentKey += 1;  
-      },
+        }).then(res => {
+          this.data = res.data;
+          },
+        )} 
     }
 }
 </script>
