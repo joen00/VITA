@@ -14,7 +14,7 @@
               <div class="avatar">
                 <img
                   id="img-avatar"
-                  :src="require(`/public/user/avatar.png`)"
+                  :src="require(`/public/user/${avatar}.png`)"
                 />
               </div>
 
@@ -161,8 +161,8 @@ export default {
     VDatePicker,
   },
   data: () => ({
-    nickname: `뿡뿡 아영`,
-    gender: "female",
+    nickname: "뿡뿡 아영",
+    avatar: "avatar0",
     UserInfo: [
       {
         attr: "weight",
@@ -241,11 +241,11 @@ export default {
           console.log(response);
           (this.nickname = response.data.userNickname),
             (this.UserInfo[0].data = response.data.userWeight),
-            (this.UserInfo[1].data =
-              response.data.userGender == "female" ? "여자" : "남자"),
+            (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
             (this.UserInfo[2].data = response.data.userAge),
             (this.UserInfo[3].data = response.data.userHeight),
-            (this.UserInfo[4].data = response.data.userPhoneType);
+            (this.UserInfo[4].data = response.data.userPhoneType),
+            (this.UserInfo[5].data = response.data.userAvatar);
         });
     },
     getUserHistory() {

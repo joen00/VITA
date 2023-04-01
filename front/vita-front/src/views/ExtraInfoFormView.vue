@@ -80,6 +80,7 @@
                     v-model="form.gender"
                     :options="optionsGender"
                     buttons
+                    size="sm"
                   ></b-form-radio-group>
                 </b-col>
               </b-row>
@@ -142,6 +143,7 @@
                     id="radio-group-phone-type"
                     v-model="form.phoneType"
                     :options="optionsPhoneType"
+                    size="sm"
                     buttons
                   ></b-form-radio-group>
                 </b-col>
@@ -158,14 +160,38 @@
                     v-model="form.userPublic"
                     :options="publics"
                     buttons
+                    size="sm"
                   ></b-form-radio-group>
                 </b-col>
+              </b-row>
+
+              <!-- 캐릭터 선택 -->
+              <b-row>
+                  <b-col sm="2">
+                    <label for="input-avatar">아바타:</label>
+                  </b-col>
+                  <b-col sm="10">
+                    <b-row cols="5">
+                      <div 
+                        v-for="(index) in 10" 
+                        :key="index">
+                        <b-col class="div-avatar"> 
+                          <input type="radio" :id="`select-avatar${ index }`" class="test-avatar" name="select-avatar" v-model="form.userAvatar" :value="`avatar${index}`">
+                          <label :for="`select-avatar${ index }`" class="label-avatar">
+                            <div class="div-img-avatar">
+                              <img :src="require(`/public/user-avatar/avatar${index}.png`)" id="img-avatar">
+                            </div>
+                          </label>
+                        </b-col>
+                      </div>
+                    </b-row>
+                  </b-col>
               </b-row>
 
               <b-row class="my-5">
                 <b-col sm="2"></b-col>
                 <b-col sm="10">
-                  <b-button type="submit" variant="primary">Submit</b-button>
+                  <b-button type="submit" variant="primary">완료!</b-button>
                 </b-col>
               </b-row>
             </b-container>
@@ -204,6 +230,7 @@ export default {
         gender: "male",
         phoneType: "SAMSUNG",
         userPublic: true,
+        userAvatar: "avatar1"
       },
       optionsGender: [
         { text: "남자", value: "male" },
@@ -221,6 +248,7 @@ export default {
       isCheckNickname: false,
       isDupNickname: true,
       validationNicknameMsg: "",
+      selectedAvatar: "avatar1",
     };
   },
 
@@ -288,7 +316,6 @@ export default {
         .put(
           SERVER_URL + `/extrainfo`,
           {
-            // extraInfoDto: JSON.stringify(this.form),
             nickname: this.form.nickname,
             age: this.form.age,
             height: this.form.height,
@@ -296,6 +323,7 @@ export default {
             gender: this.form.gender,
             phoneType: this.form.phoneType,
             userPublic: this.form.userPublic,
+            userAvatar: this.form.userAvatar,
           },
           {
             headers: {
@@ -383,5 +411,20 @@ label {
 
 #dupNicknameCheck {
   margin-left: 20px;
+}
+
+#img-avatar {
+  width: 120px;
+  height: 180px; 
+  object-fit: contain;
+}
+
+.div-avatar input[type=radio] {
+  display: none;
+}
+
+.div-avatar input[type=radio]:checked +label #img-avatar{
+    border: 3px solid gold;
+    border-radius: 10px;
 }
 </style>
