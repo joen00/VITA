@@ -14,7 +14,7 @@
               <div class="avatar">
                 <img
                   id="img-avatar"
-                  :src="require(`/public/user/${avatar}.png`)"
+                  :src="require(`/public/user-avatar/${avatar}.png`)"
                 />
               </div>
 
