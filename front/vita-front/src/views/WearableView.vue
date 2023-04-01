@@ -128,8 +128,12 @@
               <b-button id="total-score-rank">친구 순위 : 1등</b-button>
             </div>
             <!-- 유저 종합점수 그래프 -->
-            <div id="WearablePastTotal" >
-            <WearablePastTotal :key="componentKey" :data="data" :categories="categories"></WearablePastTotal>
+            <div id="WearablePastTotal">
+              <WearablePastTotal
+                :key="componentKey"
+                :data="data"
+                :categories="categories"
+              ></WearablePastTotal>
             </div>
           </div>
         </div>
@@ -137,14 +141,25 @@
 
       <div id="wearable-footer">
         <wearable-total></wearable-total>
-        <wearable-weight style="margin-top: 10rem"></wearable-weight>
-        <wearable-step style="margin-top: 10rem"></wearable-step>
-        <wearable-energy style="margin-top: 10rem"></wearable-energy>
-        <wearable-rhr style="margin-top: 10rem"></wearable-rhr>
-        <wearable-stress style="margin-top: 10rem"></wearable-stress>
+        <wearable-weight
+          style="margin-top: 10rem"
+          id="pdf-weight"
+        ></wearable-weight>
+        <wearable-step style="margin-top: 10rem" id="pdf-step"></wearable-step>
+        <wearable-energy
+          style="margin-top: 10rem"
+          id="pdf-energy"
+        ></wearable-energy>
+        <wearable-rhr style="margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
+        <wearable-stress
+          style="margin-top: 10rem"
+          id="pdf-stress"
+        ></wearable-stress>
       </div>
-    </div>
 
+      <button id="btn-step" @click="getPdf">PDF 다운로드!</button>
+      <div class="mb-5"></div>
+    </div>
   </div>
 </template>
 
@@ -156,10 +171,11 @@ import WearableWeight from "@/components/wearable/WearableWeight.vue";
 import WearableEnergy from "@/components/wearable/WearableEnergy.vue";
 import WearableRhr from "@/components/wearable/WearableRhr.vue";
 import WearableStress from "@/components/wearable/WearableStress.vue";
-import WearablePastTotal from "@/components/wearable/WearablePastTotal.vue"
+import WearablePastTotal from "@/components/wearable/WearablePastTotal.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
-// import html2canvas from "html2canvas"
+import html2canvas from "html2canvas";
+import * as pdf from "@grapecity/wijmo.pdf";
 
 export default {
   name: "FriendView",
@@ -175,7 +191,7 @@ export default {
   },
   data: () => ({
     data: [],
-    categories:[],
+    categories: [],
     componentKey: 0,
     totalscore: [],
     lastTotalscore: {},
@@ -205,7 +221,7 @@ export default {
           let lastIndex = this.totalscore.length - 1;
           this.lastTotalscore = this.totalscore[lastIndex];
           this.data = this.totalscore.map(function (e) {
-          return e.totalScore;
+            return e.totalScore;
           });
           this.categories = this.totalscore.map(function (e) {
             return e.date;
@@ -213,52 +229,135 @@ export default {
           this.componentKey += 1;
         });
     },
-    // makePDF (selector = 'body') {
-    // 	window.html2canvas = html2canvas //Vue.js 특성상 window 객체에 직접 할당해야한다.
-    // 	let that = this
-    // 	let pdf = new jsPDF('p', 'mm', 'a4')
-    // 	let canvas = pdf.canvas
-    // 	const pageWidth = 210 //캔버스 너비 mm
-    // 	const pageHeight = 295 //캔버스 높이 mm
-    // 	canvas.width = pageWidth
 
-    // 	let ele = document.querySelector(selector)
-    // 	let width = ele.offsetWidth // 셀렉트한 요소의 px 너비
-    // 	let height = ele.offsetHeight // 셀렉트한 요소의 px 높이
-    // 	let imgHeight = pageWidth * height/width // 이미지 높이값 px to mm 변환
+    // 유저 히스토리 이미지 저장 및 pdf 추출하는 함수
+    async getPdf() {
+      let historyImage = document.querySelector("#wearable-middle");
+      let pdfWeight = document.querySelector("#pdf-weight");
+      let pdfStep = document.querySelector("#pdf-step");
+      let pdfEnergy = document.querySelector("#pdf-energy");
+      let pdfRhr = document.querySelector("#pdf-rhr");
+      let pdfStress = document.querySelector("#pdf-stress");
 
-    // 	if(!ele){
-    // 		console.warn(selector + ' is not exist.')
-    // 		return false
-    // 	}
+      let doc = new pdf.PdfDocument({
+        header: {
+          height: 0, // no header
+        },
+        footer: {
+          height: 0, // no footer
+        },
+        ended: (sender, args) => pdf.saveBlob(args.blob, "Document.pdf"),
+      });
 
-    // 	html2canvas(ele, {
-    // 		onrendered: function(canvas) {
-    // 			let position = 0
-    // 			const imgData = canvas.toDataURL('image/png')
-    // 			pdf.addImage(imgData, 'png', 0, position, pageWidth, imgHeight, undefined, 'slow')
-
-    // 			//Paging 처리
-    // 			let heightLeft = imgHeight //페이징 처리를 위해 남은 페이지 높이 세팅.
-    // 			heightLeft -= pageHeight
-    // 			while (heightLeft >= 0) {
-    // 				position = heightLeft - imgHeight
-    // 				pdf.addPage();
-    // 				pdf.addImage(imgData, 'png', 0, position, pageWidth, imgHeight)
-    // 				heightLeft -= pageHeight
-    // 			}
-
-    // 			pdf.save(that.propTitle.toLowerCase() +'.pdf')
-    // 		},
-
-    // 	});
-
-    // },
+      // 유저 히스토리 이미지 저장 먼저 한 다음에
+      await html2canvas(historyImage, {
+        y: -150,
+        height: 700,
+        backgroundColor: "#E2F2FA",
+      }).then((dataUrl) => {
+        console.log(dataUrl.toDataURL());
+        axios.post(
+          this.$store.state.serverBaseUrl + `/wearable/savehistory`,
+          { image: dataUrl.toDataURL() },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        );
+      });
+      // 체중 차트 추출
+      await html2canvas(pdfWeight, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        console.log(dataUrl);
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
+      // 걸음 차트 추출
+      await html2canvas(pdfStep, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        console.log(dataUrl);
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      });
+      // 에너지 차트 추출
+      await html2canvas(pdfEnergy, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        console.log(dataUrl);
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
+      // 심박변이 차트 추출
+      await html2canvas(pdfRhr, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        console.log(dataUrl);
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      });
+      // 스트레스 차트 추출
+      await html2canvas(pdfStress, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        console.log(dataUrl);
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
+      doc.end();
+    },
   },
 };
 </script>
 
 <style>
+#btn-step {
+  width: 20%;
+  height: 35px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+#btn-step:hover {
+  width: 20%;
+  height: 35px;
+  border: none;
+  color: #3695be;
+  border: solid 2px #3695be;
+  font-weight: 600;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+
 #total-score-rank {
   width: 60%;
   height: 35px;
