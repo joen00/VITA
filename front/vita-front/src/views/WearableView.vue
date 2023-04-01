@@ -157,7 +157,7 @@
         ></wearable-stress>
       </div>
 
-      <button id="btn-step" @click="getPdf">PDF 다운로드!</button>
+      <button id="btn-pdf" @click="getPdf">PDF 다운로드</button>
       <div class="mb-5"></div>
     </div>
   </div>
@@ -335,7 +335,7 @@ export default {
 </script>
 
 <style>
-#btn-step {
+#btn-pdf {
   width: 20%;
   height: 35px;
   border: none;
@@ -346,7 +346,7 @@ export default {
   border-radius: 12px;
   margin-bottom: 1rem;
 }
-#btn-step:hover {
+#btn-pdf:hover {
   width: 20%;
   height: 35px;
   border: none;
