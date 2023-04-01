@@ -5,8 +5,7 @@
         <div id="total-middle-left">
             <div id="total-middle-left-div">
                 <div id="chart">
-                    {{ data }}
-                    <apexchart type="heatmap" height="300" :options="chartOptions" :series="chartData"></apexchart>
+                    <apexchart type="heatmap" height="300" :options="chartOptions" :series="data"></apexchart>
                 </div>
 
 
