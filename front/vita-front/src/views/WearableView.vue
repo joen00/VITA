@@ -16,7 +16,7 @@
             id="wearable-middle-left-up"
             style="font-size: 1.7rem; font-weight: 800; margin-left: 5rem"
           >
-          유저이름
+            유저이름
           </div>
           <div id="wearable-middle-left-down">
             <div id="wearable-profile-avatar">
@@ -31,31 +31,7 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://i.pinimg.com/564x/b2/27/28/b2272880cfa1c884b8483ac429560c66.jpg"
-                ></b-avatar
-                >&nbsp;&nbsp;
-                {{ lastTotalscore.totalScoreEnergy }}
-              </div>
-              <div class="wearable-profile-info-p">
-                <b-avatar
-                  variant="info"
-                  src="https://i.pinimg.com/564x/98/c7/36/98c7364218f044cb2802e5ec443942a4.jpg"
-                ></b-avatar
-                >&nbsp;&nbsp;
-                {{ lastTotalscore.totalScoreRhr }}
-              </div>
-              <div class="wearable-profile-info-p">
-                <b-avatar
-                  variant="info"
-                  src="https://i.pinimg.com/564x/0d/c6/cb/0dc6cb0f86a98762bebb797d00416305.jpg"
-                ></b-avatar
-                >&nbsp;&nbsp;
-                {{ lastTotalscore.totalScoreSleep }}
-              </div>
-              <div class="wearable-profile-info-p">
-                <b-avatar
-                  variant="info"
-                  src="https://i.pinimg.com/564x/a2/5c/0e/a25c0e1d891282d456e6295712412d89.jpg"
+                  src="https://img.freepik.com/premium-psd/babies-shoe-isometric-icon-isolated-3d-illustration_47987-7353.jpg?w=740"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreStep }}
@@ -63,10 +39,34 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://i.pinimg.com/564x/ab/d6/de/abd6de76e5daddc92f01f7ced1a825be.jpg"
+                  src="https://img.freepik.com/free-psd/3d-icon-environmental-ecology_23-2150022931.jpg?w=740&t=st=1680362562~exp=1680363162~hmac=119a6992d9cd8a5e26621cd33174453017604506addd49b2e7f0ae052d607d0c"
+                ></b-avatar
+                >&nbsp;&nbsp;
+                {{ lastTotalscore.totalScoreEnergy }}
+              </div>
+              <div class="wearable-profile-info-p">
+                <b-avatar
+                  variant="info"
+                  src="https://img.freepik.com/free-psd/3d-rendering-ui-icon_23-2149182291.jpg?w=740&t=st=1680362600~exp=1680363200~hmac=da0a1ca00d6ea5052ac453d74b153d1a791507c67455be361203f6d66237008b"
+                ></b-avatar
+                >&nbsp;&nbsp;
+                {{ lastTotalscore.totalScoreRhr }}
+              </div>
+              <div class="wearable-profile-info-p">
+                <b-avatar
+                  variant="info"
+                  src="https://img.freepik.com/free-psd/3d-rendering-emoji-icon_23-2149878836.jpg?w=740&t=st=1680362651~exp=1680363251~hmac=933c4ead45553f36fe2560ee7e6f79d014cacb173a7447cf0da70cf255f5a6bc"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreStress }}
+              </div>
+              <div class="wearable-profile-info-p">
+                <b-avatar
+                  variant="info"
+                  src="https://img.freepik.com/premium-psd/3d-icon-furniture-with-bed_23-2150092300.jpg?w=740"
+                ></b-avatar
+                >&nbsp;&nbsp;
+                {{ lastTotalscore.totalScoreSleep }}
               </div>
             </div>
             <!-- <div class="wearable-profile-info-p">
@@ -146,8 +146,9 @@
           id="pdf-weight"
         ></wearable-weight>
         <wearable-step style="margin-top: 10rem" id="pdf-step"></wearable-step>
+        <step-word style="margin-top: 15rem"></step-word>
         <wearable-energy
-          style="margin-top: 10rem"
+          style="margin-top: 15rem"
           id="pdf-energy"
         ></wearable-energy>
         <wearable-rhr style="margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
@@ -155,8 +156,9 @@
           style="margin-top: 10rem"
           id="pdf-stress"
         ></wearable-stress>
+        <stress-word style="margin-top: 15rem"></stress-word>
         <wearable-sleep
-          style="margin-top: 10rem"
+          style="margin-top: 15rem"
           id="pdf-sleep"
         ></wearable-sleep>
       </div>
@@ -177,6 +179,8 @@ import WearableRhr from "@/components/wearable/WearableRhr.vue";
 import WearableStress from "@/components/wearable/WearableStress.vue";
 import WearableSleep from "@/components/wearable/WearableSleep.vue";
 import WearablePastTotal from "@/components/wearable/WearablePastTotal.vue";
+import StepWord from "@/components/wearable/StepWord.vue";
+import StressWord from "@/components/wearable/StressWord.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import html2canvas from "html2canvas";
@@ -194,6 +198,8 @@ export default {
     WearableStress,
     WearableSleep,
     WearablePastTotal,
+    StepWord,
+    StressWord,
   },
   data: () => ({
     data: [],
