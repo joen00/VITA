@@ -237,7 +237,7 @@
           .then((res) => {
             this.data = res.data
             this.componentKey += 1;
-            this.isdaily = ture;
+            this.isdaily = true;
           });
       },
       async monthSleep() {
