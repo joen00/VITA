@@ -7,7 +7,6 @@
           :VueHeaderContent="VueHeaderContent"
         />
       </div>
-      <!--
       <!--  중간 유저 정보부분 -->
       <div id="wearable-middle">
         <!--  유저 정보 왼쪽 부분 -->
@@ -17,7 +16,7 @@
             id="wearable-middle-left-up"
             style="font-size: 1.7rem; font-weight: 800; margin-left: 5rem"
           >
-          {{ userNickname }}
+          유저이름
           </div>
           <div id="wearable-middle-left-down">
             <div id="wearable-profile-avatar">
@@ -139,7 +138,6 @@
           </div>
         </div>
       </div>
-      -->
 
       <div id="wearable-footer">
         <wearable-total></wearable-total>
@@ -205,7 +203,7 @@ export default {
     lastTotalscore: {},
     VueHeaderTitle: "마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
-    userNickname: user.userNickname,
+    // userNickname: user.userNickname,
   }),
   created() {
     this.totalScore();
