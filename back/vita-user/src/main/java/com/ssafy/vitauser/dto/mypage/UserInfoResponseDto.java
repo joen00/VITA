@@ -22,11 +22,12 @@ public class UserInfoResponseDto {
     private String userPhoneType;
     private boolean userPublic;
     private int userScore;
+    private String userAvatar;
 
     @Builder
     public UserInfoResponseDto(String userId, String userName, String userImg, String userNickname, int userAge,
                                String userGender, float userHeight, float userWeight, String userPhoneType,
-                               boolean userPublic, int userScore ) {
+                               boolean userPublic, int userScore, String userAvatar) {
         this.userId = userId;
         this.userName = userName;
         this.userImg = userImg;
@@ -38,6 +39,7 @@ public class UserInfoResponseDto {
         this.userPhoneType=userPhoneType;
         this.userPublic=userPublic;
         this.userScore=userScore;
+        this.userAvatar=userAvatar;
     }
 
 }

@@ -36,6 +36,7 @@ public class MypageService {
                 .userPublic(user.isUserPublic())
                 .userWeight(user.getUserWeight())
                 .userScore(user.getUserScore())
+                .userAvatar(user.getUserAvatar())
                 .build();
         return userInfoResponseDto;
     }
