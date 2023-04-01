@@ -66,6 +66,7 @@ def dailyScore(df, userId, db):
     df = df.fillna(0)
 
     df['daily_wearable_score'] = ((df['step'] + df['energy'] + df['rhr'] + df['stress'] + df['sleep']) / 5).round(0)
+    df.loc[df['daily_wearable_score'] < 0, 'daily_wearable_score'] = 0
     return df['daily_wearable_score']
 
 # 총 점수 계산
