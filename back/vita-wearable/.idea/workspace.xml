@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5f1f2833-42c4-44f4-82bb-c7d204c1039d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/dto/TotalScoreYearDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/dto/TotalScoreYearDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/service/ScoreImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/service/ScoreImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/dto/TotalScoreYearDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/dto/TotalScoreYearDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/ScoreImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/ScoreImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/service/WearablePastImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/service/WearablePastImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearablePastImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearablePastImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +29,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -63,6 +64,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ssafy.vitawearable.repo" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.VitaWearableApplication">
     <configuration name="VitaWearableApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="com.ssafy.vita-wearable.main" />
@@ -95,7 +101,7 @@
       <workItem from="1680245538942" duration="7013000" />
       <workItem from="1680252923412" duration="384000" />
       <workItem from="1680332637354" duration="203000" />
-      <workItem from="1680333391349" duration="3282000" />
+      <workItem from="1680333391349" duration="8122000" />
     </task>
     <servers />
   </component>

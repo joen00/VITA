@@ -2,7 +2,8 @@ package com.ssafy.vitawearable.service;
 
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.entity.MonthlyWearable;
-import com.ssafy.vitawearable.entity.UserHistory;
+import com.ssafy.vitawearable.entity.UserUpload;
+import com.ssafy.vitawearable.entity.UserUpload;
 import com.ssafy.vitawearable.entity.WeeklyWearable;
 import com.ssafy.vitawearable.repo.*;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 public class WearablePastImpl implements WearablePast {
     private final MonthlyWearableRepo monthlyWearableRepo;
     private final WeeklyWearableRepo weeklyWearableRepo;
-    private final UserHistoryRepo userHistoryRepo;
+    private final UserUploadRepo userUploadRepo;
     private final ModelMapper mapper = new ModelMapper();
 
     @Override
@@ -38,16 +39,15 @@ public class WearablePastImpl implements WearablePast {
 
         StepPastAndNowDto stepPastAndNowDto = new StepPastAndNowDto();
         // 해당 유저의 userHistory 가져오기
-        List<UserHistory> userHistoryList = userHistoryRepo.findByUser_UserId(userId);
+        List<UserUpload> userUploadList = userUploadRepo.findByUser_UserId(userId);
         // userHistory중 마지막을 가져오고, 거기서 생성일(export날짜)를 가지고 연,주 데이터를 'yyyy w'포멧으로 가져오기
-        ZonedDateTime LastExportTime = userHistoryList.get(userHistoryList.size()-1).getCreatedDate();
+        ZonedDateTime LastExportTime = userUploadList.get(userUploadList.size()-1).getCreatedDate();
         String lastExportWeek = LastExportTime.format(DateTimeFormatter.ofPattern("yyyy w"));
         // 생성 주보다 이전 주 'yyyy w' 포멧
         String pastExportWeek = LastExportTime.minusDays(7).format(DateTimeFormatter.ofPattern("yyyy w"));
 
         List<WeeklyWearable> weeklyWearableList = weeklyWearableRepo.findByUser_UserId(userId);
         List<MonthlyWearable> monthlyWearableList = monthlyWearableRepo.findByUser_UserId(userId);
-
         // 현재 주 값 넣어주기
 //        stepPastAndNowDto.setWeekNowWearableStep(
 //                weeklyWearableList.stream()
@@ -86,11 +86,12 @@ public class WearablePastImpl implements WearablePast {
 //                        .findFirst().get().getMonthlyWearableStep());
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.getMonthValue())
+                .findAny();
         if (nowMonthWearable.isPresent()) {
-            stepPastAndNowDto.setWeekNowWearableStep(nowMonthWearable.get().getMonthlyWearableStep());
+            stepPastAndNowDto.setMonthNowWearableStep(nowMonthWearable.get().getMonthlyWearableStep());
         } else {
-            stepPastAndNowDto.setWeekNowWearableStep(0);
+            stepPastAndNowDto.setMonthNowWearableStep(0);
         }
 
         // 이전 달 값 넣어주기
@@ -101,11 +102,11 @@ public class WearablePastImpl implements WearablePast {
 //                        .findFirst().get().getMonthlyWearableStep());
         Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.minusMonths(1).getMonthValue()).findAny();
         if (pastMonthWearable.isPresent()) {
-            stepPastAndNowDto.setWeekPastWearableStep(pastMonthWearable.get().getMonthlyWearableStep());
+            stepPastAndNowDto.setMonthPastWearableStep(pastMonthWearable.get().getMonthlyWearableStep());
         } else {
-            stepPastAndNowDto.setWeekPastWearableStep(0);
+            stepPastAndNowDto.setMonthPastWearableStep(0);
         }
 
         // 이번 년도 값 평균 구해서 넣어주기
@@ -135,9 +136,9 @@ public class WearablePastImpl implements WearablePast {
 
         EnergyPastAndNowDto energyPastAndNowDto = new EnergyPastAndNowDto();
         // 해당 유저의 userHistory 가져오기
-        List<UserHistory> userHistoryList = userHistoryRepo.findByUser_UserId(userId);
+        List<UserUpload> userUploadList = userUploadRepo.findByUser_UserId(userId);
         // userHistory중 마지막을 가져오고, 거기서 생성일(export날짜)를 가지고 연,주 데이터를 'yyyy w'포멧으로 가져오기
-        ZonedDateTime LastExportTime = userHistoryList.get(userHistoryList.size()-1).getCreatedDate();
+        ZonedDateTime LastExportTime = userUploadList.get(userUploadList.size()-1).getCreatedDate();
         String lastExportWeek = LastExportTime.format(DateTimeFormatter.ofPattern("yyyy w"));
         // 생성 주보다 이전 주 'yyyy w' 포멧
         String pastExportWeek = LastExportTime.minusDays(7).format(DateTimeFormatter.ofPattern("yyyy w"));
@@ -170,21 +171,21 @@ public class WearablePastImpl implements WearablePast {
         // 현재 달 값 넣어주기
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.getMonthValue()).findAny();
         if (nowMonthWearable.isPresent()) {
-            energyPastAndNowDto.setWeekNowWearableEnergy(nowMonthWearable.get().getMonthlyWearableEnergy());
+            energyPastAndNowDto.setMonthNowWearableEnergy(nowMonthWearable.get().getMonthlyWearableEnergy());
         } else {
-            energyPastAndNowDto.setWeekNowWearableEnergy(0L);
+            energyPastAndNowDto.setMonthNowWearableEnergy(0L);
         }
 
         // 이전 달 값 넣어주기
         Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.minusMonths(1).getMonthValue()).findAny();
         if (pastMonthWearable.isPresent()) {
-            energyPastAndNowDto.setWeekPastWearableEnergy(pastMonthWearable.get().getMonthlyWearableEnergy());
+            energyPastAndNowDto.setMonthPastWearableEnergy(pastMonthWearable.get().getMonthlyWearableEnergy());
         } else {
-            energyPastAndNowDto.setWeekPastWearableEnergy(0L);
+            energyPastAndNowDto.setMonthPastWearableEnergy(0L);
         }
         
         
@@ -243,9 +244,9 @@ public class WearablePastImpl implements WearablePast {
 
         RhrPastAndNowDto rhrPastAndNowDto = new RhrPastAndNowDto();
         // 해당 유저의 userHistory 가져오기
-        List<UserHistory> userHistoryList = userHistoryRepo.findByUser_UserId(userId);
+        List<UserUpload> userUploadList = userUploadRepo.findByUser_UserId(userId);
         // userHistory중 마지막을 가져오고, 거기서 생성일(export날짜)를 가지고 연,주 데이터를 'yyyy w'포멧으로 가져오기
-        ZonedDateTime LastExportTime = userHistoryList.get(userHistoryList.size()-1).getCreatedDate();
+        ZonedDateTime LastExportTime = userUploadList.get(userUploadList.size()-1).getCreatedDate();
         String lastExportWeek = LastExportTime.format(DateTimeFormatter.ofPattern("yyyy w"));
         // 생성 주보다 이전 주 'yyyy w' 포멧
         String pastExportWeek = LastExportTime.minusDays(7).format(DateTimeFormatter.ofPattern("yyyy w"));
@@ -278,21 +279,21 @@ public class WearablePastImpl implements WearablePast {
         // 현재 달 값 넣어주기
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.getMonthValue()).findAny();
         if (nowMonthWearable.isPresent()) {
-            rhrPastAndNowDto.setWeekNowWearableRhr(nowMonthWearable.get().getMonthlyWearableRhr());
+            rhrPastAndNowDto.setMonthNowWearableRhr(nowMonthWearable.get().getMonthlyWearableRhr());
         } else {
-            rhrPastAndNowDto.setWeekNowWearableRhr(0);
+            rhrPastAndNowDto.setMonthNowWearableRhr(0);
         }
 
         // 이전 달 값 넣어주기
         Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.minusMonths(1).getMonthValue()).findAny();
         if (pastMonthWearable.isPresent()) {
-            rhrPastAndNowDto.setWeekPastWearableRhr(pastMonthWearable.get().getMonthlyWearableRhr());
+            rhrPastAndNowDto.setMonthPastWearableRhr(pastMonthWearable.get().getMonthlyWearableRhr());
         } else {
-            rhrPastAndNowDto.setWeekPastWearableRhr(0);
+            rhrPastAndNowDto.setMonthPastWearableRhr(0);
         }
         
         
@@ -351,9 +352,9 @@ public class WearablePastImpl implements WearablePast {
 
         SleepPastAndNowDto sleepPastAndNowDto = new SleepPastAndNowDto();
         // 해당 유저의 userHistory 가져오기
-        List<UserHistory> userHistoryList = userHistoryRepo.findByUser_UserId(userId);
+        List<UserUpload> userUploadList = userUploadRepo.findByUser_UserId(userId);
         // userHistory중 마지막을 가져오고, 거기서 생성일(export날짜)를 가지고 연,주 데이터를 'yyyy w'포멧으로 가져오기
-        ZonedDateTime LastExportTime = userHistoryList.get(userHistoryList.size()-1).getCreatedDate();
+        ZonedDateTime LastExportTime = userUploadList.get(userUploadList.size()-1).getCreatedDate();
         String lastExportWeek = LastExportTime.format(DateTimeFormatter.ofPattern("yyyy w"));
         // 생성 주보다 이전 주 'yyyy w' 포멧
         String pastExportWeek = LastExportTime.minusDays(7).format(DateTimeFormatter.ofPattern("yyyy w"));
@@ -386,21 +387,21 @@ public class WearablePastImpl implements WearablePast {
         // 현재 달 값 넣어주기
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.getMonthValue()).findAny();
         if (nowMonthWearable.isPresent()) {
-            sleepPastAndNowDto.setWeekNowWearableSleep(nowMonthWearable.get().getMonthlyWearableSleep());
+            sleepPastAndNowDto.setMonthNowWearableSleep(nowMonthWearable.get().getMonthlyWearableSleep());
         } else {
-            sleepPastAndNowDto.setWeekNowWearableSleep(0);
+            sleepPastAndNowDto.setMonthNowWearableSleep(0);
         }
 
         // 이전 달 값 넣어주기
         Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.minusMonths(1).getMonthValue()).findAny();
         if (pastMonthWearable.isPresent()) {
-            sleepPastAndNowDto.setWeekPastWearableSleep(pastMonthWearable.get().getMonthlyWearableSleep());
+            sleepPastAndNowDto.setMonthPastWearableSleep(pastMonthWearable.get().getMonthlyWearableSleep());
         } else {
-            sleepPastAndNowDto.setWeekPastWearableSleep(0);
+            sleepPastAndNowDto.setMonthPastWearableSleep(0);
         }
         
         
@@ -481,9 +482,9 @@ public class WearablePastImpl implements WearablePast {
 
         StressPastAndNowDto stressPastAndNowDto = new StressPastAndNowDto();
         // 해당 유저의 userHistory 가져오기
-        List<UserHistory> userHistoryList = userHistoryRepo.findByUser_UserId(userId);
+        List<UserUpload> userUploadList = userUploadRepo.findByUser_UserId(userId);
         // userHistory중 마지막을 가져오고, 거기서 생성일(export날짜)를 가지고 연,주 데이터를 'yyyy w'포멧으로 가져오기
-        ZonedDateTime LastExportTime = userHistoryList.get(userHistoryList.size()-1).getCreatedDate();
+        ZonedDateTime LastExportTime = userUploadList.get(userUploadList.size()-1).getCreatedDate();
         String lastExportWeek = LastExportTime.format(DateTimeFormatter.ofPattern("yyyy w"));
         // 생성 주보다 이전 주 'yyyy w' 포멧
         String pastExportWeek = LastExportTime.minusDays(7).format(DateTimeFormatter.ofPattern("yyyy w"));
@@ -517,21 +518,21 @@ public class WearablePastImpl implements WearablePast {
         // 현재 달 값 넣어주기
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.getMonthValue()).findAny();
         if (nowMonthWearable.isPresent()) {
-            stressPastAndNowDto.setWeekNowWearableStress(nowMonthWearable.get().getMonthlyWearableStress());
+            stressPastAndNowDto.setMonthNowWearableStress(nowMonthWearable.get().getMonthlyWearableStress());
         } else {
-            stressPastAndNowDto.setWeekNowWearableStress(0);
+            stressPastAndNowDto.setMonthNowWearableStress(0);
         }
 
         // 이전 달 값 넣어주기
         Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.minusMonths(1).getMonthValue()).findAny();
         if (pastMonthWearable.isPresent()) {
-            stressPastAndNowDto.setWeekPastWearableStress(pastMonthWearable.get().getMonthlyWearableStress());
+            stressPastAndNowDto.setMonthPastWearableStress(pastMonthWearable.get().getMonthlyWearableStress());
         } else {
-            stressPastAndNowDto.setWeekPastWearableStress(0);
+            stressPastAndNowDto.setMonthPastWearableStress(0);
         }
 
 //        // 현재 주 값 넣어주기
@@ -595,9 +596,9 @@ public class WearablePastImpl implements WearablePast {
 
         WeightPastAndNowDto weightPastAndNowDto = new WeightPastAndNowDto();
         // 해당 유저의 userHistory 가져오기
-        List<UserHistory> userHistoryList = userHistoryRepo.findByUser_UserId(userId);
+        List<UserUpload> userUploadList = userUploadRepo.findByUser_UserId(userId);
         // userHistory중 마지막을 가져오고, 거기서 생성일(export날짜)를 가지고 연,주 데이터를 'yyyy w'포멧으로 가져오기
-        ZonedDateTime LastExportTime = userHistoryList.get(userHistoryList.size()-1).getCreatedDate();
+        ZonedDateTime LastExportTime = userUploadList.get(userUploadList.size()-1).getCreatedDate();
         String lastExportWeek = LastExportTime.format(DateTimeFormatter.ofPattern("yyyy w"));
         // 생성 주보다 이전 주 'yyyy w' 포멧
         String pastExportWeek = LastExportTime.minusDays(7).format(DateTimeFormatter.ofPattern("yyyy w"));
@@ -630,21 +631,21 @@ public class WearablePastImpl implements WearablePast {
         // 현재 달 값 넣어주기
         Optional<MonthlyWearable> nowMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.getYear() &&
-                        w.getDate().getMonth() == LastExportTime.getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.getMonthValue()).findAny();
         if (nowMonthWearable.isPresent()) {
-            weightPastAndNowDto.setWeekNowWearableWeight(nowMonthWearable.get().getMonthlyWearableWeight());
+            weightPastAndNowDto.setMonthNowWearableWeight(nowMonthWearable.get().getMonthlyWearableWeight());
         } else {
-            weightPastAndNowDto.setWeekNowWearableWeight(0.0f);
+            weightPastAndNowDto.setMonthNowWearableWeight(0.0f);
         }
 
         // 이전 달 값 넣어주기
         Optional<MonthlyWearable> pastMonthWearable = monthlyWearableList.stream()
                 .filter(w -> w.getDate().getYear() == LastExportTime.minusMonths(1).getYear() &&
-                        w.getDate().getMonth() == LastExportTime.minusMonths(1).getMonth()).findAny();
+                        w.getDate().getMonthValue() == LastExportTime.minusMonths(1).getMonthValue()).findAny();
         if (pastMonthWearable.isPresent()) {
-            weightPastAndNowDto.setWeekPastWearableWeight(pastMonthWearable.get().getMonthlyWearableWeight());
+            weightPastAndNowDto.setMonthPastWearableWeight(pastMonthWearable.get().getMonthlyWearableWeight());
         } else {
-            weightPastAndNowDto.setWeekPastWearableWeight(0.0f);
+            weightPastAndNowDto.setMonthPastWearableWeight(0.0f);
         }
         
 //        // 현재 주 값 넣어주기
