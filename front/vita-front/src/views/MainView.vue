@@ -25,12 +25,12 @@
         <div id="main-middle1-div">
           <div id="main-middle1-div-item">
             <img
-              style="width: 100%; height: 65%"
-              src="../../public/main/maingraph.png"
+              style="width: 70%; height: 70%"
+              src="../../public/main/mainre1.png"
             />
             <pre id="main-middle1-div-p" style="height: 15%">
 “건강정보 받고 싶은데,
-     모르겠어요.”</pre
+        모르겠어요.”</pre
             >
             <div
               style="
@@ -46,12 +46,12 @@
           </div>
           <div id="main-middle1-div-item">
             <img
-              style="width: 100%; height: 65%"
-              src="../../public/main/maingraph.png"
+              style="width: 70%; height: 70%"
+              src="../../public/main/mainre2.png"
             />
             <pre id="main-middle1-div-p" style="height: 15%">
-“건강정보 받고 싶은데,
-     모르겠어요.”</pre
+“내가 건강한지 주변사람들과 
+         비교하고 싶어요”</pre
             >
             <div
               style="
@@ -62,17 +62,17 @@
                 height: 10%;
               "
             >
-              20살 대학생 김00
+              50살 대학생 이00
             </div>
           </div>
           <div id="main-middle1-div-item">
             <img
-              style="width: 100%; height: 65%"
-              src="../../public/main/maingraph.png"
+              style="width: 70%; height: 70%"
+              src="../../public/main/mainre4.png"
             />
             <pre id="main-middle1-div-p" style="height: 15%">
-“건강정보 받고 싶은데,
-     모르겠어요.”</pre
+“현재의 나와 과거의 나를 
+       비교하고싶어요”</pre
             >
             <div
               style="
@@ -83,7 +83,7 @@
                 height: 10%;
               "
             >
-              20살 대학생 김00
+              30살 대학생 박00
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
               "
             >
 삼성 헬스앱에서 건강정보
-내보내기기
+내보내기
             </pre>
             <pre
               style="
@@ -137,7 +137,7 @@
           </div>
           <div id="main-middle2-div-items">
             <p style="font-size: 1.8rem; font-weight: 800; color: #4e8aff">
-              Step 1.
+              Step 2.
             </p>
             <pre
               style="
@@ -147,8 +147,8 @@
                 font-style: normal;
               "
             >
-삼성 헬스앱에서 건강정보
-내보내기기
+HealthReport를 통해
+나의 건강 정보를 확인하세요.
             </pre>
             <pre
               style="
@@ -160,8 +160,8 @@
                 font-style: normal;
               "
             >
-가이드를 따라,
-삼성 헬스앱의 건강정보를 업로드하세요.
+그래프를 통해 쉽게 비교할 수 있고
+과거와 비교할 수 있습니다.
             </pre>
           </div>
           <!-- div2 끝 -->
@@ -169,18 +169,11 @@
         <div id="main-middle2-div">
           <!-- div3 시작 -->
           <div id="main-middle2-div-img">
-            <img
-              style="
-                box-shadow: 0px 0px 10px lightgray;
-                width: 100%;
-                border-radius: 25px;
-              "
-              src="@/../public/main/wearablegif.gif"
-            />
+            <img style="width: 77%" src="@/../public/main/animation4.gif" />
           </div>
           <div id="main-middle2-div-items">
             <p style="font-size: 1.8rem; font-weight: 800; color: #4e8aff">
-              Step 1.
+              Step 3.
             </p>
             <pre
               style="
@@ -190,8 +183,7 @@
                 font-style: normal;
               "
             >
-삼성 헬스앱에서 건강정보
-내보내기기
+친구들과 건강을 비교해보세요.
             </pre>
             <pre
               style="
@@ -203,16 +195,18 @@
                 font-style: normal;
               "
             >
-가이드를 따라,
-삼성 헬스앱의 건강정보를 업로드하세요.
+친구들을 등록한 후,
+건강 비교와 랭킹을 확인해보세요.
             </pre>
           </div>
           <!-- div3 끝 -->
         </div>
       </div>
       <div id="main-footer">
-        <div id="main-footer-title-p">건강한 일상을 위한 지름길</div>
-        <div id="main-footer-title-p">VITA와 함께 건강을 시각화하다</div>
+        <div id="main-footer-title-p">여러분의 건강을 관리하고,</div>
+        <div id="main-footer-title-p">
+          더 나은 생활을 위한 정보를 제공하는 Vita와 함께하세요.
+        </div>
         <b-button
           class="btn"
           v-b-modal.modal-scrollable
@@ -220,9 +214,7 @@
           to="/wearable"
           >VITA 시작하기</b-button
         >
-        <div class="kakao-share" @click="kakaoShare">
-          카카오 공유하기
-        </div>
+        <div class="kakao-share" @click="kakaoShare">카카오 공유하기</div>
       </div>
     </div>
   </div>
@@ -233,17 +225,15 @@ export default {
   name: "MainView",
   head() {
     return {
-          script: [
-              {src: '//developers.kakao.com/sdk/js/kakao.min.js'},
-          ],
-      }
+      script: [{ src: "//developers.kakao.com/sdk/js/kakao.min.js" }],
+    };
   },
 
   methods: {
     kakaoShare() {
       window.Kakao.Share.sendCustom({
         templateId: 91901,
-        installTalk: true
+        installTalk: true,
       });
     },
   },
@@ -259,7 +249,7 @@ export default {
   text-align: center;
   background: #ffe812;
   font-size: 15px;
-  margin-left:auto; 
+  margin-left: auto;
   margin-right: auto;
   margin-top: 1rem;
   width: 15%;
@@ -269,7 +259,6 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
 }
-
 
 #main-middle2-div-img {
   width: 50%;
@@ -353,7 +342,7 @@ export default {
 }
 
 #main-middle2 {
-  height: 200vh;
+  height: 300vh;
   background-color: #ffffff;
   display: flex;
   justify-content: center;
@@ -365,7 +354,7 @@ export default {
 
 #main-middle2-div {
   width: 100%;
-  height: 60vh;
+  height: 100vh;
   /* background-color: #c8cdff; */
   display: flex;
   justify-content: center;
@@ -503,4 +492,3 @@ export default {
   margin-bottom: 5rem;
 }
 </style>
-  
