@@ -337,6 +337,11 @@ export default {
 </script>
 
 <style>
+#stress-week-now-progess {
+  background: #3027e5;
+  border-radius: 10px;
+}
+
 #stress-month-now-progess {
   background: #27e58a;
   border-radius: 10px;

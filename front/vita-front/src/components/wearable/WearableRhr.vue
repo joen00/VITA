@@ -322,6 +322,11 @@ export default {
 </script>
 
 <style>
+#rhr-week-now-progess {
+  background: #3027e5;
+  border-radius: 10px;
+}
+
 #rhr-month-now-progess {
   background: #27e58a;
   border-radius: 10px;

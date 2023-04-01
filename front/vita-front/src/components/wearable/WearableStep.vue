@@ -326,6 +326,11 @@ export default {
 </script>
 
 <style>
+#walk-week-now-progess {
+  background: #3027e5;
+  border-radius: 10px;
+}
+
 #walk-month-now-progess {
   background: #27e58a;
   border-radius: 10px;
