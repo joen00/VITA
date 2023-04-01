@@ -32,5 +32,6 @@ public class TotalScore {
     private int totalScoreSleep;
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+//    private ZonedDateTime createdDate;
     private ZonedDateTime createdDate;
 }

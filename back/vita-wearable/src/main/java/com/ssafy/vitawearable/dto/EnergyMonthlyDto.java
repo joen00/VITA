@@ -10,5 +10,6 @@ import java.time.ZonedDateTime;
 // 월간 에너지 데이터 Dto
 public class EnergyMonthlyDto {
     private Long monthlyWearableEnergy;
+//    private ZonedDateTime date;
     private ZonedDateTime date;
 }

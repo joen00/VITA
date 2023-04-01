@@ -10,5 +10,6 @@ import java.time.ZonedDateTime;
 // 주간 활동에너지 데이터 Dto
 public class EnergyWeeklyDto {
     private Long weeklyWearableEnergy;
+//    private ZonedDateTime date;
     private ZonedDateTime date;
 }

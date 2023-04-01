@@ -17,6 +17,7 @@ public class UserHistory {
     private Long userHistoryId;
     @Lob
     private String userHistoryImg;
+//    private ZonedDateTime createdDate;
     private ZonedDateTime createdDate;
 
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)

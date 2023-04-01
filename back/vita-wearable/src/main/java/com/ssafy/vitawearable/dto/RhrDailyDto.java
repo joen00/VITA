@@ -9,5 +9,6 @@ import java.time.ZonedDateTime;
 // 일일 심박수 데이터 Dto
 public class RhrDailyDto {
     private int dailyWearableRhr;
+//    private ZonedDateTime date;
     private ZonedDateTime date;
 }

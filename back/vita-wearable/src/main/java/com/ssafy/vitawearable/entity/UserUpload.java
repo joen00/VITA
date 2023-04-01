@@ -14,6 +14,7 @@ public class UserUpload {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userUploadId;
     private String userUploadImg;
+//    private ZonedDateTime createdDate;
     private ZonedDateTime createdDate;
 
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)

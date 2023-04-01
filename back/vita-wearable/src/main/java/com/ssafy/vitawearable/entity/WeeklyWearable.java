@@ -25,6 +25,7 @@ public class WeeklyWearable {
     private User user;
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    private ZonedDateTime date;
     private ZonedDateTime date;
     private Float weeklyWearableWeight;
     private Float weeklyWearableMuscle;
