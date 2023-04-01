@@ -246,7 +246,7 @@ export default {
             (this.UserInfo[2].data = response.data.userAge),
             (this.UserInfo[3].data = response.data.userHeight),
             (this.UserInfo[4].data = response.data.userPhoneType),
-            (this.UserInfo[5].data = response.data.userAvatar);
+            (this.avatar = response.data.userAvatar);
         });
     },
     getUserHistory() {
