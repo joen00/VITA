@@ -8,49 +8,63 @@
         />
       </div>
       <!-- 설명란 -->
-      <div id="fileuploadLeft">
-        <div>
-          <hooper style="height: 50%">
-            <slide>
-              <div>
-                <img
-                  width="80%"
-                  src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FccVdIO%2Fbtr41J0KddD%2Fir81Nks5a9nLkqLlkCYTKk%2Fimg.png"
-                />
-              </div>
-            </slide>
-            <slide>
-              <div>
-                <img
-                  width="80%"
-                  src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFVrAD%2Fbtr45lx4C4m%2FLKmrLEn0bWNwj0f3q9qDD1%2Fimg.png"
-                />
-              </div>
-            </slide>
-            <slide>
-              <div>
-                <img
-                  width="80%"
-                  src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FsW7IR%2Fbtr42z4Ewb9%2F8jZo4oAZ8BZQEDp5SqFfhk%2Fimg.png"
-                />
-              </div>
-            </slide>
+      <div id="fileupload">
+        <div id="fileuploadLeft">
+          <div>
+            <hooper style="height: 50%">
+              <slide>
+                <div>
+                  <p style="font-size: 1rem; font-weight: 800; color: #4e8aff">
+                    Step 1.
+                  </p>
+                  <img
+                    width="80%"
+                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FccVdIO%2Fbtr41J0KddD%2Fir81Nks5a9nLkqLlkCYTKk%2Fimg.png"
+                  />
+                </div>
+              </slide>
+              <slide>
+                <div>
+                  <p style="font-size: 1rem; font-weight: 800; color: #4e8aff">
+                    Step 2.
+                  </p>
+                  <img
+                    width="80%"
+                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFVrAD%2Fbtr45lx4C4m%2FLKmrLEn0bWNwj0f3q9qDD1%2Fimg.png"
+                  />
+                </div>
+              </slide>
+              <slide>
+                <div>
+                  <p style="font-size: 1rem; font-weight: 800; color: #4e8aff">
+                    Step 3.
+                  </p>
+                  <img
+                    width="80%"
+                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FsW7IR%2Fbtr42z4Ewb9%2F8jZo4oAZ8BZQEDp5SqFfhk%2Fimg.png"
+                  />
+                </div>
+              </slide>
 
-            <hooper-navigation slot="hooper-addons"></hooper-navigation>
-          </hooper>
+              <hooper-navigation slot="hooper-addons"></hooper-navigation>
+            </hooper>
+          </div>
         </div>
-      </div>
-      <!-- 파일 업로드 -->
-      <div id="fileuploadRight">
-        <b-form-file
-          v-model="file1"
-          :state="Boolean(file1)"
-          placeholder="Choose a file or drop it here..."
-          drop-placeholder="Drop file here..."
-        ></b-form-file>
-        <div class="mt-3">Selected file: {{ file1 }}</div>
-        <!-- 파일 업로드 버튼 -->
-        <b-button @click="uploadFile(file1)">파일 업로드</b-button>
+        <!-- 파일 업로드 -->
+        <div id="fileuploadRight">
+          <b-form-file
+            id="bootfile"
+            v-model="file1"
+            :state="Boolean(file1)"
+            placeholder="Choose a file or drop it here"
+            drop-placeholder="Drop file here..."
+          ></b-form-file>
+          <div class="mt-3">선택된 파일: {{ file1 }}</div>
+          <!-- 파일 업로드 버튼 -->
+          <b-button id="btn-fileuploads" @click="uploadFile(file1)"
+            >파일 업로드</b-button
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +76,8 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import { Hooper, Slide, Navigation as HooperNavigation } from "hooper";
 import "hooper/dist/hooper.css";
+
+// 파일 업로드
 
 export default {
   name: "FileUploadView",
@@ -132,15 +148,65 @@ export default {
 
 <style>
 /* ----------------------------------------- */
+#fileupload {
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+}
 #fileuploadLeft {
   width: 65%;
-
-  float: left;
   margin-top: 1rem;
 }
 #fileuploadRight {
+  height: 90%;
   width: 35%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+}
 
-  float: left;
+#bootfile__BV_file_outer_ {
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  height: 200px;
+}
+.mt-3 {
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  height: 50px;
+  width: 100%;
+  padding: 1rem;
+}
+.custom-file-label {
+  margin-top: 4.5rem;
+}
+
+/* 버튼 */
+#btn-fileuploads {
+  margin-top: 1rem;
+  width: 50%;
+  height: 35px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+
+#btn-fileuploads:hover {
+  width: 50%;
+  height: 35px;
+  border: none;
+  color: #3695be;
+  border: solid 2px #3695be;
+  font-weight: 600;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin-top: 1rem;
 }
 </style>
