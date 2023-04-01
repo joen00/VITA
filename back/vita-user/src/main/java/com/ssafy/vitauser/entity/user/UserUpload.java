@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -18,6 +19,8 @@ public class UserUpload {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userUploadId;
     private String userUploadImg;
+
+    private ZonedDateTime createdDate;
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -33,6 +36,7 @@ public class UserUpload {
         this.userUploadId = userUploadId;
         this.userUploadImg = url;
         this.user = user;
+        this.createdDate = ZonedDateTime.now();
     }
 
 }
