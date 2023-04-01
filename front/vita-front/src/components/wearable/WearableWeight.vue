@@ -7,11 +7,11 @@
     <div id="weight-middle">
       <div id="weight-middle-left-btn">
         <div id="weight-middle-left-btn-up">
-          <button id="btn-weight">1주</button>
+          <button id="btn-weight" v-on:click="weekWeight">1주</button>
           <br />
-          <button id="btn-weight">1개월</button>
+          <button id="btn-weight" v-on:click="monthWeight">1개월</button>
           <br />
-          <button id="btn-weight">1년</button>
+          <button id="btn-weight" v-on:click="yearWeight">1년</button>
         </div>
         <div id="weight-middle-left-btn-down">
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">

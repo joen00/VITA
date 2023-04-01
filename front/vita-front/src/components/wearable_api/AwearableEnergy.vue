@@ -29,6 +29,10 @@
       ComponentHeader,
       DoctorAdvice
     },
+    props: {
+      userData: Number,
+      apiData: Number,
+    },
     data() {
       return {
         ComponentHeaderTitle: "활동 에너지",
@@ -46,9 +50,9 @@
         var chart = root.container.children.push(am5xy.XYChart.new(root, {
             panX: true,
             panY: true,
-            wheelX: "panX",
-            wheelY: "zoomX",
-            pinchZoomX: true
+            // wheelX: "panX",
+            // wheelY: "zoomX",
+            // pinchZoomX: true
         }));
 
         chart.get("colors").set("colors", [
@@ -121,11 +125,11 @@
         var data = [
             {
                 target: "나",
-                value: 100
+                value: this.userData
             }, 
             {
                 target: "평균",
-                value: 300
+                value: this.apiData
             }
         ];
 

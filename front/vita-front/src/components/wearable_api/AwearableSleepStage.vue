@@ -29,6 +29,10 @@
       ComponentHeader,
       DoctorAdvice
     },
+    props: {
+      userData: Number,
+      apiData: Number,
+    },
     data() {
       return {
         ComponentHeaderTitle: "수면 단계",

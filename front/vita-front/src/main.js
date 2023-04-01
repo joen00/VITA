@@ -27,7 +27,6 @@ const KAKAKO_API_KEY = '2aab5a9403a1dafc16cdb799021db6e5';
 window.Kakao.init(KAKAKO_API_KEY);
 //
 
-
 new Vue({
   router,
   store,

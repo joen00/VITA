@@ -8,8 +8,15 @@
     div#menu-section
       nav.bp-nav
         ul.nav-list
-          li.nav-list-item(v-for='m in menu')
-            a.nav-list-item-link(@click='go(m.path)') {{ m.name }}
+          li.nav-list-item
+              a.nav-list-item-link(id="dropdown") HealthReport
+                div.dropdown-content
+                  a.drop-down(@click='go("/wearable")') My
+                  a.drop-down(@click='go("/wearablefriend")') Friend
+                  a.drop-down(@click='go("/wearableapi")') People
+              a.nav-list-item-link(@click='go("/friend")') Friend
+              a.nav-list-item-link(@click='go("/mypage")') MyPage
+
 
     div#login-section
       div.user-profile(v-if="isLoggedIn")
@@ -271,5 +278,34 @@ li {
   width: 35px;
   height: 35px;
   border-radius: 100%;
+}
+#dropdown {
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  margin-top: 20px;
+  padding-block: 1px;
+  border-radius: 0 0 15px 15px;
+}
+
+#dropdown:hover .dropdown-content {
+  background-color: #EAFBFF;
+}
+
+.dropdown-content a {
+  color: #FBD30D;
+  padding: 14px 16px;
+  margin: 12px 14px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: #125e7f;
+}
+
+#dropdown:hover .dropdown-content {
+  display: block;
 }
 </style>

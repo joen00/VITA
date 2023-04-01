@@ -16,15 +16,15 @@
         <div class="body">
             <b-container class="bv-example-row" id="chart-container">
                 <b-row class="my-5">
-                    <b-col><awearable-walk></awearable-walk></b-col>
-                    <b-col><awearable-energy></awearable-energy></b-col>
+                    <b-col><awearable-walk :key="componentKey" :apiData="apiData.apiAverageStep" :userData="userData.userAverageStep"></awearable-walk></b-col>
+                    <b-col><awearable-energy :key="componentKey" :apiData="apiData.apiAverageEnergy" :userData="userData.userAverageEnergy"></awearable-energy></b-col>
                 </b-row>
                 <b-row class="my-5">
-                    <b-col><awearable-heart></awearable-heart></b-col>
-                    <b-col><awearable-stress></awearable-stress></b-col>
+                    <b-col><awearable-heart :key="componentKey" :apiData="apiData.apiAverageRhr" :userData="userData.userAverageRhr"></awearable-heart></b-col>
+                    <b-col><awearable-stress :key="componentKey" :apiData="apiData.apiAverageStress" :userData="userData.userAverageStress"></awearable-stress></b-col>
                 </b-row>
                 <b-row class="my-5">
-                    <b-col><awearable-sleep-time></awearable-sleep-time></b-col>
+                    <b-col><awearable-sleep-time :key="componentKey" :apiData="apiData.apiAverageSleep" :userData="userData.userAverageSleep"></awearable-sleep-time></b-col>
                     <b-col></b-col>
                     <!-- <b-col><awearable-sleep-stage></awearable-sleep-stage></b-col> -->
                 </b-row>
@@ -43,7 +43,9 @@
   import AwearableSleepTime from '@/components/wearable_api/AwearableSleepTime.vue';
   // import AwearableSleepStage from '@/components/wearable_api/AwearableSleepStage.vue';
   import VueHeader from '@/components/common/VueHeader.vue';
-
+  import axios from "axios";
+  import { mapGetters } from "vuex";
+  
   export default {
     name: "App",
     components: { 
@@ -61,10 +63,43 @@
         VueHeaderContent : "사람들과 나의 건강 데이터를 비교해보세요.",
         VueHeaderContentDesc : '통계 자료에 기반한 건강 항목 별 평균 데이터와 나의 건강 데이터를 비교해줍니다.',
         description: "평균 데이터와의 비교는 최근 1년 동안의 데이터를 기준으로 평균을 계산해 비교해줍니다.",
+        apiData: {},
+        userData: {},
       };
     },
+    created() {
+      this.getApiData();
+    },
+    computed: {
+      ...mapGetters(["token", "user"]),
+    },
     methods: {
-    }
+      async getApiData() {
+        await axios
+          .get("https://j8b106.p.ssafy.io/api/wearable/average", {
+            headers: {
+              "Content-Type": "application/json",
+              // Authorization: `Bearer ${this.token}`,
+            },
+          })
+          .then((res) => {
+            this.apiData = res.data
+            console.log(this.apiData);
+            axios
+            .get("https://j8b106.p.ssafy.io/api/wearable/average/user", {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.token}`,
+              },
+            })
+            .then((res) => {
+              this.userData = res.data
+              console.log(this.userData);
+              this.componentKey += 1;
+            });
+          });
+      }
+    },
   };
 </script>
     

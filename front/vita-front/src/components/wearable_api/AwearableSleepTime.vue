@@ -29,6 +29,10 @@
       ComponentHeader,
       DoctorAdvice
     },
+    props: {
+      userData: Number,
+      apiData: Number,
+    },
     data() {
       return {
         ComponentHeaderTitle: "수면 시간",
@@ -47,9 +51,9 @@
         var chart = root.container.children.push(am5xy.XYChart.new(root, {
             panX: true,
             panY: true,
-            wheelX: "panX",
-            wheelY: "zoomX",
-            pinchZoomX: true
+            // wheelX: "panX",
+            // wheelY: "zoomX",
+            // pinchZoomX: true
         }));
 
         chart.get("colors").set("colors", [
@@ -122,11 +126,11 @@
         var data = [
             {
                 target: "나",
-                value: 48
+                value: this.userData
             }, 
             {
                 target: "평균",
-                value: 32
+                value: this.apiData
             }
         ];
 
