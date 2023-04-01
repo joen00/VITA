@@ -175,10 +175,25 @@ public class ScoreImpl implements Score{
 
     // 연별 유저 평균
     @Override
-    public ApiAverageDto apiCustomAverage(int userAge, String userSex) {
+    public ApiAverageDto apiCustomAverage(String userId) {
+        ApiAverageDto apiAverageDto = new ApiAverageDto();
+        User user = userRepo.findUserByUserId(userId);
+        String userSex = user.getUserGender();
+        int userAge = (user.getUserAge() / 10 + 1) * 10 ;
         List<ApiAverage> apiAverageList = apiAverageRepo.findAll();
         ApiAverage apiAverage = apiAverageList.stream()
-                .filter(i -> i.getSex().equals(userSex) && i.getAge() == userAge).collect(Collectors.toList()).get(0);
-        return mapper.map(apiAverage, ApiAverageDto.class);
+                .filter(i -> i.getSex().equals(userSex) && i.getAge() == userAge).findAny().get();
+
+        apiAverageDto.setApiAverageStep((int)(apiAverage.getApiAverageStep() / apiAverage.getApiAverageStepCnt()));
+        apiAverageDto.setApiAverageEnergy((int)
+                (apiAverage.getApiAverageEnergy() / apiAverage.getApiAverageEnergyCnt()));
+        apiAverageDto.setApiAverageRhr((int)
+                (apiAverage.getApiAverageRhr() / apiAverage.getApiAverageRhrCnt()));
+        apiAverageDto.setApiAverageStress((int)
+                (apiAverage.getApiAverageStress() / apiAverage.getApiAverageStressCnt()));
+        apiAverageDto.setApiAverageSleep((int)
+                (apiAverage.getApiAverageSleep() / apiAverage.getApiAverageSleepCnt()));
+
+        return apiAverageDto;
     }
 }

@@ -22,6 +22,6 @@ public interface Score {
     ApiAverageDto apiTotalAverage();
 
     // 요청받은 나이, 성별에 맞는 api 평균 데이터 반환
-    ApiAverageDto apiCustomAverage(int userAge, String userSex);
+    ApiAverageDto apiCustomAverage(String userId);
 
 }

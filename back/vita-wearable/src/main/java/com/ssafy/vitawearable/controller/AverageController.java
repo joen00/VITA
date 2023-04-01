@@ -61,8 +61,10 @@ public class AverageController {
             response = ApiAverageDto.class
     )
 
-    @GetMapping("/{userAge}/{userSex}")
-    public ResponseEntity<ApiAverageDto> apiCustomAverage(@PathVariable int userAge, @PathVariable String userSex) {
-        return new ResponseEntity<>(score.apiCustomAverage(userAge,userSex), HttpStatus.valueOf(200));
+    @GetMapping("/custom")
+    public ResponseEntity<ApiAverageDto> apiCustomAverage(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
+        return new ResponseEntity<>(score.apiCustomAverage(userId), HttpStatus.valueOf(200));
     }
 }
