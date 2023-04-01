@@ -71,6 +71,7 @@ public class User {
     private int userScore;
     private String userPhoneType;
     private boolean userPublic;
+    private String userAvatar;
 
     @Builder
     public User(
@@ -90,7 +91,8 @@ public class User {
             float userWeight,
             int userScore,
             String userPhoneType,
-            boolean userPublic
+            boolean userPublic,
+            String userAvatar
     ) {
         this.userId = userId;
         this.userName = userName;
@@ -109,6 +111,7 @@ public class User {
         this.userScore = userScore;
         this.userPhoneType = userPhoneType;
         this.userPublic = userPublic;
+        this.userAvatar = userAvatar != null ? userAvatar : "avatar0";
     }
 
 

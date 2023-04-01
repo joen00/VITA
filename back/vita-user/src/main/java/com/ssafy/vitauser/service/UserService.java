@@ -45,6 +45,9 @@ public class UserService {
         if (extraInfoDto.getPhoneType() != null) {
             user.setUserPhoneType(extraInfoDto.getPhoneType());
         }
+        if (extraInfoDto.getUserAvatar() != null) {
+            user.setUserAvatar(extraInfoDto.getUserAvatar());
+        }
 
         user.setUserPublic(extraInfoDto.isUserPublic());
 

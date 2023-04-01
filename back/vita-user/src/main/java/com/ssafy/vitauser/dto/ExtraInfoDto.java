@@ -11,8 +11,9 @@ public class ExtraInfoDto {
     private float weight;
     private String phoneType;
     private boolean userPublic;
+    private String userAvatar;
 
-    public ExtraInfoDto(String nickname, int age, String gender, float height, float weight, String phoneType, boolean userPublic) {
+    public ExtraInfoDto(String nickname, int age, String gender, float height, float weight, String phoneType, boolean userPublic, String userAvatar) {
         this.nickname = nickname;
         this.age = age;
         this.gender = gender;
@@ -20,5 +21,6 @@ public class ExtraInfoDto {
         this.weight = weight;
         this.phoneType = phoneType;
         this.userPublic = userPublic;
+        this.userAvatar = userAvatar;
     }
 }
