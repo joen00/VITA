@@ -2,14 +2,14 @@ import pandas as pd
 from datetime import timedelta
 
 # csv 파일 읽기
-def readCsv(csvName):
-    df = pd.read_csv(csvName, header=0, 
+def read_csv(csv_name):
+    df = pd.read_csv(csv_name, header=0, 
                      names=['start_time', 'sleep_id', 'custom', 'update_time', 'create_time', 'stage', 'time_offset', 'deviceuuid', 'pkg_name', 'end_time', 'datauuid', ''], 
                      skiprows=1)
     return df
 
-# 테이블 맞춤 일 데이터 처리
-def dayDF(df):
+# Samsung 일-시간 데이터 처리
+def samsung_day(df):
     df.rename(columns={'start_time':'daily_sleep_start', 'end_time':'daily_sleep_end', 'stage':'daily_sleep_stage'}, inplace=True)
     df = df[['daily_sleep_start', 'daily_sleep_end', 'daily_sleep_stage']]
     df['daily_sleep_start'] = pd.DatetimeIndex(df['daily_sleep_start']) + timedelta(hours=9)
@@ -20,7 +20,7 @@ def dayDF(df):
     return df
 
 # 주, 월 데이터 처리를 위한 일 데이터 처리
-def sleepDF(df):
+def sleep_day(df):
     df['daily_sleep_start'] = df.daily_sleep_start.astype(str).str.split(' ').str[0] # 날짜 형식
     df = df.drop('daily_sleep_end', axis = 'columns')
     df2 = df.groupby(['daily_sleep_start', 'daily_sleep_stage'], as_index=False).sum() # 날짜, 수면 단계별 합계

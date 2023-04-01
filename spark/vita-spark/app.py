@@ -19,9 +19,9 @@ import sleep_stage
 app = Flask(__name__)
 CORS(app)
 
-def makeDF(type, csv):
-    df = type.readCsv(csv)
-    day_df = type.dayDF(df)    
+def samsung(type, csv):
+    df = type.read_csv(csv)
+    day_df = type.samsung_day(df)
     return day_df
 
 def makeDay(db, file, userId):
@@ -35,22 +35,22 @@ def makeDay(db, file, userId):
 
     for csv in file:
         if 'weight' in csv:
-            weight_list = makeDF(weight, csv)
+            weight_list = samsung(weight, csv)
         if 'step_daily_trend' in csv:
-            step_daily_trend_list = makeDF(step_daily_trend, csv)
+            step_daily_trend_list = samsung(step_daily_trend, csv)
         if 'calories_burned' in csv:
-            calories_burned_list = makeDF(calories_burned, csv)
+            calories_burned_list = samsung(calories_burned, csv)
         if 'stress' in csv and 'histogram' not in csv:
-            stress_list = makeDF(stress, csv)
+            stress_list = samsung(stress, csv)
         if 'heart_rate' in csv and 'recovery' not in csv:
-            heart_rate_list = makeDF(heart_rate, csv)
+            heart_rate_list = samsung(heart_rate, csv)
         if 'sleep_stage' in csv:
-            sleep_stage_list = makeDF(sleep_stage, csv)
+            sleep_stage_list = samsung(sleep_stage, csv)
             sleep_stage_list['user_id'] = userId
             if sleep_date: common.saveDB(db, 'daily_sleep', sleep_stage_list[sleep_stage_list['daily_sleep_start'] >= sleep_date].fillna(0))
             else: common.saveDB(db, 'daily_sleep', sleep_stage_list.fillna(0))
 
-    day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list, sleep_stage.sleepDF(sleep_stage_list))
+    day = common.combine(calories_burned_list, step_daily_trend_list, stress_list, weight_list, heart_rate_list, sleep_stage.sleep_day(sleep_stage_list))
     day['daily_wearable_score'] = common.dailyScore(day, userId, db)
     day = day.drop(['step', 'energy', 'rhr', 'stress', 'sleep'], axis = 'columns')
     day['user_id'] = userId
