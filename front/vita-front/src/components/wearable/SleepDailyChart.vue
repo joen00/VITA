@@ -176,7 +176,7 @@
         series: [
           {
             name: "비수면",
-            data: data
+            data: this.data
               .filter((items) => items.dailySleepStage == "AWAKE")
               .map((filterd_items) => {
                 return {
@@ -193,7 +193,7 @@
           },
           {
             name: "렘수면",
-            data: data
+            data: this.data
               .filter((items) => items.dailySleepStage == "REM")
               .map((filterd_items) => {
                 return {
@@ -210,7 +210,7 @@
           },
           {
             name: "깊은수면",
-            data: data
+            data: this.data
               .filter((items) => items.dailySleepStage == "DEEP")
               .map((filterd_items) => {
                 return {
@@ -227,7 +227,7 @@
           },
           {
             name: "얕은수면",
-            data: data
+            data: this.data
               .filter((items) => items.dailySleepStage == "LIGHT")
               .map((filterd_items) => {
                 return {
