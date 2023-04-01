@@ -39,7 +39,7 @@
                 <SleepDailyChart :key="componentKey" :data="data" />
             </div>
             <div v-else>
-                <SleepElseChart :key="componentKey" :date="date" :data="data" />
+                <SleepElseChart :key="componentKey" :awakedata="awakedate" :remdata="remdata" :deepdata="deepda" :lightdata="lightdata" :data="data" />
             </div>
         </div>
         <div id="sleep-middle-right">
@@ -205,6 +205,10 @@
       ComponentHeaderTitle: "수면",
       ComponentHeaderContent: "나의 수면 기록을 보여줘요.",
       data: [],
+      awakedata: [],
+      lightdata: [],
+      remdata: [],
+      deepdata: [],
       date: [],
       past: [],
       isdaily: true,
@@ -245,15 +249,28 @@
             },
           })
           .then((res) => {
-            this.data = res.data.map(function (e) {
-              return e.weeklyWearableSleep;
-            });
+            this.awakedata = res.data.map(function (e) {
+              return e.weeklyWearableAwake;
+              }
+            );
+            this.lightdata = res.data.map(function (e) {
+              return e.weeklyWearableLight;
+              }
+            );
+            this.remdata = res.data.map(function (e) {
+              return e.weeklyWearableRem;
+              }
+            );
+            this.deepdata = res.data.map(function (e) {
+              return e.weeklyWearableDeep;
+              }
+            );
             this.date = res.data.map(function (e) {
               return e.date;
             });
             this.componentKey += 1;
             this.isdaily = false;
-          });
+          })
       },
       async yearSleep() {
         await axios
@@ -264,9 +281,22 @@
             },
           })
           .then((res) => {
-            this.data = res.data.map(function (e) {
-              return e.monthlyWearableSleep;
-            });
+            this.awakedata = res.data.map(function (e) {
+              return e.monthlyWearableAwake;
+              }
+            );
+            this.lightdata = res.data.map(function (e) {
+              return e.monthlyWearableLight;
+              }
+            );
+            this.remdata = res.data.map(function (e) {
+              return e.monthlyWearableRem;
+              }
+            );
+            this.deepdata = res.data.map(function (e) {
+              return e.monthlyWearableDeep;
+              }
+            );
             this.date = res.data.map(function (e) {
               return e.date;
             });
