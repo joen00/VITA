@@ -185,8 +185,14 @@
                   "-" +
                   new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(filterd_items.dailySleepStart).getTime(),
-                    new Date(filterd_items.dailySleepEnd).getTime(),
+                    new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
+                      new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ],
                 };
               }),
@@ -202,8 +208,14 @@
                   "-" +
                   new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(filterd_items.dailySleepStart).getTime(),
-                    new Date(filterd_items.dailySleepEnd).getTime(),
+                    new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
+                      new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ],
                 };
               }),
@@ -219,8 +231,14 @@
                   "-" +
                   new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(filterd_items.dailySleepStart).getTime(),
-                    new Date(filterd_items.dailySleepEnd).getTime(),
+                    new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
+                      new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ],
                 };
               }),
@@ -236,8 +254,14 @@
                   "-" +
                   new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(filterd_items.dailySleepStart).getTime(),
-                    new Date(filterd_items.dailySleepEnd).getTime(),
+                    new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
+                      new Date(2023,1,1,
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ],
                 };
               }),
