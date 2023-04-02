@@ -334,7 +334,6 @@ export default {
     ),
     linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
   width: 100%;
-  height: 42.5rem;
 }
 .container {
   height: 100%;
