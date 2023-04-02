@@ -9,10 +9,10 @@ def read_csv(csv_name):
 
 # Samsung 일별 데이터 처리
 def samsung_day(df):
-    df.rename(columns = {'weight':'daily_wearable_weight', 'skeletal_muscle_mass':'daily_wearable_muscle', 'body_fat_mass':'daily_wearable_fat', 'start_time':'date'}, inplace=True)
-    df = df[['daily_wearable_weight', 'daily_wearable_muscle', 'daily_wearable_fat', 'date']]
+    df.rename(columns={'weight':'daily_wearable_weight', 'skeletal_muscle_mass':'daily_wearable_muscle', 'body_fat_mass':'daily_wearable_fat', 'start_time':'date'}, inplace=True)
     df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
     df['daily_wearable_muscle'] = df['daily_wearable_muscle'].round(1) # 골격근량
     df['daily_wearable_fat'] = df['daily_wearable_fat'].round(1) # 체지방량
-    df2 = df.groupby('date', as_index=False).mean() # 날짜별 평균
-    return df2
+    df = df[['daily_wearable_weight', 'daily_wearable_muscle', 'daily_wearable_fat', 'date']]
+    df = df.groupby('date', as_index=False).mean().round(1) # 날짜별 평균
+    return df

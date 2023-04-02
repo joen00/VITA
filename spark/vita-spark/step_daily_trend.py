@@ -10,8 +10,8 @@ def read_csv(csv_name):
 
 # Samsung 일별 데이터 처리
 def samsung_day(df):
-    df.rename(columns = {'count':'daily_wearable_step', 'day_time':'date'}, inplace=True)
-    df = df[['daily_wearable_step', 'date']]
+    df.rename(columns={'count':'daily_wearable_step', 'day_time':'date'}, inplace=True)
     df['date'] = df['date'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)).astype(str) # 날짜 형식 변환
-    df2 = df.groupby('date', as_index=False).max() # 날짜별 최대값   
-    return df2
+    df = df[['daily_wearable_step', 'date']]
+    df = df.groupby('date', as_index=False).max() # 날짜별 최대값
+    return df

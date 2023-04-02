@@ -9,8 +9,8 @@ def read_csv(csv_name):
 
 # Samsung 일별 데이터 처리
 def samsung_day(df):
-    df.rename(columns = {'score':'daily_wearable_stress', 'start_time':'date'}, inplace=True)
-    df = df[['daily_wearable_stress', 'date']]
+    df.rename(columns={'score':'daily_wearable_stress', 'start_time':'date'}, inplace=True)
     df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
-    df2 = df.groupby('date', as_index=False).mean().round(0) # 날짜별 평균
-    return df2
+    df = df[['daily_wearable_stress', 'date']]
+    df = df.groupby('date', as_index=False).mean().round(0) # 날짜별 평균
+    return df

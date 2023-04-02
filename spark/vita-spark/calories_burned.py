@@ -11,7 +11,7 @@ def read_csv(csv_name):
 # Samsung 일별 데이터 처리
 def samsung_day(df):
     df.rename(columns={'com.samsung.shealth.calories_burned.day_time':'date', 'com.samsung.shealth.calories_burned.active_calorie':'daily_wearable_energy'}, inplace=True)
-    df = df[['daily_wearable_energy', 'date']]
     df['date'] = df['date'].apply(lambda d: datetime.date.fromtimestamp((float)(d)/1000.0)).astype(str) # 날짜 형식 변환
-    df = df.groupby('date', as_index=False).sum().round(0) # 날짜별 평균
+    df = df[['daily_wearable_energy', 'date']]
+    df = df.groupby('date', as_index=False).sum().round(0) # 날짜별 합계
     return df
