@@ -207,7 +207,7 @@ export default {
     componentKey: 0,
     totalscore: [],
     lastTotalscore: {},
-    VueHeaderTitle: "마이 헬스 데이터",
+    VueHeaderTitle: "3마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
     // userNickname: user.userNickname,
   }),
@@ -237,7 +237,7 @@ export default {
             return e.totalScore;
           });
           this.categories = this.totalscore.map(function (e) {
-            return e.date;
+            return e.createdDate;
           });
           this.componentKey += 1;
         });
@@ -286,7 +286,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -298,7 +298,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -311,7 +311,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -323,7 +323,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -336,7 +336,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -348,7 +348,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
