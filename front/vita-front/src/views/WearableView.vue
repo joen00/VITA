@@ -237,7 +237,7 @@ export default {
             return e.totalScore;
           });
           this.categories = this.totalscore.map(function (e) {
-            return e.date;
+            return e.createdDate;
           });
           this.componentKey += 1;
         });
