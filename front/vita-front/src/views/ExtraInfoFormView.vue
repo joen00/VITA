@@ -205,7 +205,7 @@
 <script>
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 const SERVER_URL = "https://j8b106.p.ssafy.io/api/users";
 // const SERVER_URL = "http://localhost:8085/users";
@@ -334,6 +334,7 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.status == 200) {
+            this.setUserNickname(this.form.nickname);
             this.$router.replace("/");
           }
         });
