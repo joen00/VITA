@@ -53,6 +53,7 @@ export default {
       // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
       var xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
+          baseInterval: { timeUnit: "day", count: 1 },
           categoryField: "day",
           startLocation: 0.5,
           endLocation: 0.5,
@@ -60,16 +61,15 @@ export default {
           tooltip: am5.Tooltip.new(root, {}),
         })
       );
-
+      
+      xAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
       xAxis.data.setAll(data);
 
       var yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
-          baseInterval: { timeUnit: "day", count: 1 },
           renderer: am5xy.AxisRendererY.new(root, {}),
         })
       );
-      yAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
 
       // Add series
       // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
