@@ -9,10 +9,132 @@
         ></apexchart>
       </div>
     </div>
-</template>
+  </template>
     
   <script>
   import VueApexCharts from "vue-apexcharts";
+  const sleep_data = [
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T01:21:00+09:00",
+        "dailySleepEnd": "2023-03-14T01:47:00+09:00",
+        "dailySleepTotal": 26
+    },
+    {
+        "dailySleepStage": "DEEP",
+        "dailySleepStart": "2023-03-14T01:47:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:12:00+09:00",
+        "dailySleepTotal": 25
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T02:12:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:15:00+09:00",
+        "dailySleepTotal": 3
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T02:15:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:18:00+09:00",
+        "dailySleepTotal": 3
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T02:18:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:19:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T02:19:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:24:00+09:00",
+        "dailySleepTotal": 5
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T02:24:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:25:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T02:25:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:26:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T02:26:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:27:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T02:27:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:42:00+09:00",
+        "dailySleepTotal": 15
+    },
+    {
+        "dailySleepStage": "DEEP",
+        "dailySleepStart": "2023-03-14T02:42:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:52:00+09:00",
+        "dailySleepTotal": 10
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T02:52:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:53:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "DEEP",
+        "dailySleepStart": "2023-03-14T02:53:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:54:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T02:54:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:55:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "DEEP",
+        "dailySleepStart": "2023-03-14T02:55:00+09:00",
+        "dailySleepEnd": "2023-03-14T02:58:00+09:00",
+        "dailySleepTotal": 3
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T02:58:00+09:00",
+        "dailySleepEnd": "2023-03-14T03:00:00+09:00",
+        "dailySleepTotal": 2
+    },
+    {
+        "dailySleepStage": "LIGHT",
+        "dailySleepStart": "2023-03-14T03:00:00+09:00",
+        "dailySleepEnd": "2023-03-14T03:07:00+09:00",
+        "dailySleepTotal": 7
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T03:57:00+09:00",
+        "dailySleepEnd": "2023-03-14T03:58:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T04:46:00+09:00",
+        "dailySleepEnd": "2023-03-14T04:47:00+09:00",
+        "dailySleepTotal": 1
+    },
+    {
+        "dailySleepStage": "AWAKE",
+        "dailySleepStart": "2023-03-14T05:07:00+09:00",
+        "dailySleepEnd": "2023-03-14T05:12:00+09:00",
+        "dailySleepTotal": 5
+    }
+]
   
   export default {
     name: "SleepGraph",
@@ -31,11 +153,6 @@
           },
           xaxis: {
             type: "datetime",
-            // labels: {
-            //   formatter: function(value, timestamp, opts) {
-            //   return opts.dateFormatter(new Date(timestamp)).format("HH-mm")
-            //   }
-            // }
           },
           plotOptions: {
             bar: {
@@ -64,29 +181,13 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
+                  new Date(filterd_items.dailySleepStart).getYear() + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
-                  ]
-                  // y: [
-                  //   new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes())
-                  //             .setHours(new Date(filterd_items.dailySleepStart).getHours()),
-                  //   new Date().setMinutes(new Date(filterd_items.dailySleepEnd).getMinutes())
-                  //             .setHours(new Date(filterd_items.dailySleepEnd).getHours()),
-                  // ],
-                  // y: [
-                  //   new Date(filterd_items.dailySleepStart).getTime(),
-                  //   new Date(filterd_items.dailySleepEnd).getTime(),
-                  // ],
+                    new Date(filterd_items.dailySleepStart).getTime(),
+                    new Date(filterd_items.dailySleepEnd).getTime(),
+                  ],
                 };
               }),
           },
@@ -97,29 +198,13 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
+                  new Date(filterd_items.dailySleepStart).getYear() + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
-                  ]
-                  // y: [
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepStart).getHours()),
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepEnd).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepEnd).getHours()),
-                  // ],
-                  // y: [
-                  //   new Date(filterd_items.dailySleepStart).getTime(),
-                  //   new Date(filterd_items.dailySleepEnd).getTime(),
-                  // ],
+                    new Date(filterd_items.dailySleepStart).getTime(),
+                    new Date(filterd_items.dailySleepEnd).getTime(),
+                  ],
                 };
               }),
           },
@@ -130,29 +215,13 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
+                  new Date(filterd_items.dailySleepStart).getYear() + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
-                  ]
-                  // y: [
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepStart).getHours()),
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepEnd).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepEnd).getHours()),
-                  // ],
-                  // y: [
-                  //   new Date(filterd_items.dailySleepStart).getTime(),
-                  //   new Date(filterd_items.dailySleepEnd).getTime(),
-                  // ],
+                    new Date(filterd_items.dailySleepStart).getTime(),
+                    new Date(filterd_items.dailySleepEnd).getTime(),
+                  ],
                 };
               }),
           },
@@ -163,42 +232,26 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
+                  new Date(filterd_items.dailySleepStart).getYear() + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  new Date(filterd_items.dailySleepStart).getMonth() ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
-                  ]
-                  // y: [
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepStart).getHours()),
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepEnd).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepEnd).getHours()),
-                  // ],
-                  // y: [
-                  //   new Date(filterd_items.dailySleepStart).getTime(),
-                  //   new Date(filterd_items.dailySleepEnd).getTime(),
-                  // ],
+                    new Date(filterd_items.dailySleepStart).getTime(),
+                    new Date(filterd_items.dailySleepEnd).getTime(),
+                  ],
                 };
               }),
           },
         ],
-      }
-    }
-  }
+      };
+    },
+  };
   </script>
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
   #sleepGraph {
-    width: 32rem;
+    width: 40rem;
     height: 400px;
     margin-top: 10rem;
     margin: auto;

@@ -223,6 +223,7 @@ export default {
           },
         })
         .then((res) => {
+          console.log(res.data);
           this.data = res.data.map(function (e) {
             // return {"Weight": e.dailyWearableWeight, "date": e.date.slice(0,10)};
             return {
@@ -232,6 +233,7 @@ export default {
               day: e.date,
             };
           });
+          console.log(this.data);
           // this.data = res.data
         });
       this.componentKey += 1;
