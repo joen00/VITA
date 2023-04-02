@@ -192,7 +192,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "WearableStep",
-  
+
   components: {
     ComponentHeader,
     StepChart,
@@ -211,11 +211,11 @@ export default {
     this.weekStep();
     this.pastAndNowStep();
   },
-  
+
   computed: {
     ...mapGetters(["token", "user"]),
   },
-  
+
   methods: {
     async weekStep() {
       await axios

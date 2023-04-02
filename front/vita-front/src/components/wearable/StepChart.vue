@@ -115,7 +115,7 @@ export default {
             centerY: am5.p50,
             width: 23,
             height: 23,
-            src: "../../../public/wearable/step.png",
+            src: "https://cdn-icons-png.flaticon.com/512/556/556196.png",
           })
         );
 

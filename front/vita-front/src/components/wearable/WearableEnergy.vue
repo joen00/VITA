@@ -222,7 +222,7 @@ export default {
   computed: {
     ...mapGetters(["token", "user"]),
   },
-  
+
   methods: {
     async weekEnergy() {
       await axios
