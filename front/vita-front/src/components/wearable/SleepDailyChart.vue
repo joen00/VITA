@@ -34,6 +34,7 @@
             labels: {
               formatter: function(value, timestamp, opts) {
               return opts.dateFormatter(new Date(timestamp)).format("HH-mm")
+              }
             }
           },
           plotOptions: {
@@ -160,7 +161,6 @@
       }
     }
   }
-}
   </script>
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
