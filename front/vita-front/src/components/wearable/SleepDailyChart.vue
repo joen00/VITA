@@ -64,10 +64,10 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepStart).getMinutes(),
                     new Date(filterd_items.dailySleepEnd).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepEnd).getMinutes(),
                   ],
                 };
@@ -85,10 +85,10 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepStart).getMinutes(),
                     new Date(filterd_items.dailySleepEnd).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepEnd).getMinutes(),
                   ],
                 };
@@ -106,10 +106,10 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepStart).getMinutes(),
                     new Date(filterd_items.dailySleepEnd).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepEnd).getMinutes(),
                   ],
                 };
@@ -127,10 +127,10 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepStart).getMinutes(),
                     new Date(filterd_items.dailySleepEnd).getHours() +
-                    "-" +
+                    ":" +
                     new Date(filterd_items.dailySleepEnd).getMinutes(),
                   ],
                   // y: [
