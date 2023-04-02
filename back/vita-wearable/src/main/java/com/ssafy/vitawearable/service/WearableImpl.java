@@ -170,10 +170,12 @@ public class WearableImpl implements Wearable {
     @Override
     public List<SleepDailyDto> sleepDaily(String userId) {
         List<DailySleep> dailyWearables = dailySleepRepo.findByUser_UserId(userId);
+        ZonedDateTime endTime = dailyWearables.get(dailyWearables.size()-1).getDailySleepStart().minusDays(7);
         return dailyWearables.stream()
-                .filter(data -> data.getDailySleepTotal() != 0)
+                .filter(data -> data.getDailySleepTotal() != 0 &&
+                        data.getDailySleepStart().compareTo(endTime) >= 0)
                 .map(daily -> mapper.map(daily, SleepDailyDto.class))
-                .limit(20)
+//                .limit(20)
                 .sorted(Comparator.comparing(SleepDailyDto::getDailySleepStart))
                 .collect(Collectors.toList());
     }
