@@ -59,9 +59,9 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  new Date(filterd_items.dailySleepStart).getYear() + 
+                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getMonth() ,
+                  new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getTime(),
                     new Date(filterd_items.dailySleepEnd).getTime(),
@@ -76,9 +76,9 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  new Date(filterd_items.dailySleepStart).getYear() + 
+                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getMonth() ,
+                  new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getTime(),
                     new Date(filterd_items.dailySleepEnd).getTime(),
@@ -93,9 +93,9 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  new Date(filterd_items.dailySleepStart).getYear() + 
+                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getMonth() ,
+                  new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getTime(),
                     new Date(filterd_items.dailySleepEnd).getTime(),
@@ -110,9 +110,9 @@
               .map((filterd_items) => {
                 return {
                   x: 
-                  new Date(filterd_items.dailySleepStart).getYear() + 
+                  (new Date(filterd_items.dailySleepStart).getMonth() + 1) + 
                   "-" +
-                  new Date(filterd_items.dailySleepStart).getMonth() ,
+                  new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(filterd_items.dailySleepStart).getTime(),
                     new Date(filterd_items.dailySleepEnd).getTime(),
@@ -129,7 +129,7 @@
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
   #sleepGraph {
-    width: 40rem;
+    width: 32rem;
     height: 400px;
     margin-top: 10rem;
     margin: auto;
