@@ -69,22 +69,18 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepStart).getHours(),
-                    new Date(filterd_items.dailySleepStart).getMinutes()),
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepEnd).getHours(),
-                    new Date(filterd_items.dailySleepEnd).getMinutes())
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ]
                   // y: [
                   //   new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes())
                   //             .setHours(new Date(filterd_items.dailySleepStart).getHours()),
                   //   new Date().setMinutes(new Date(filterd_items.dailySleepEnd).getMinutes())
-                  //             .setHours(new Date(filterd_items.dailySleepEnd).getHours()),
-                  // ],
-                  // y: [
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))
-                  //             .setHours(new Date(filterd_items.dailySleepStart).getHours()),
-                  //   (new Date().setMinutes(new Date(filterd_items.dailySleepEnd).getMinutes()))
                   //             .setHours(new Date(filterd_items.dailySleepEnd).getHours()),
                   // ],
                   // y: [
@@ -106,11 +102,13 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepStart).getHours(),
-                    new Date(filterd_items.dailySleepStart).getMinutes()),
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepEnd).getHours(),
-                    new Date(filterd_items.dailySleepEnd).getMinutes())
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ]
                   // y: [
                   //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))
@@ -137,11 +135,13 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepStart).getHours(),
-                    new Date(filterd_items.dailySleepStart).getMinutes()),
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepEnd).getHours(),
-                    new Date(filterd_items.dailySleepEnd).getMinutes())
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ]
                   // y: [
                   //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))
@@ -168,11 +168,13 @@
                   new Date(filterd_items.dailySleepStart).getDate() ,
                   y: [
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepStart).getHours(),
-                    new Date(filterd_items.dailySleepStart).getMinutes()),
+                      new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime(),
                     new Date(2023,1,1,
-                    new Date(filterd_items.dailySleepEnd).getHours(),
-                    new Date(filterd_items.dailySleepEnd).getMinutes())
+                      new Date(filterd_items.dailySleepEnd).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime()
                   ]
                   // y: [
                   //   (new Date().setMinutes(new Date(filterd_items.dailySleepStart).getMinutes()))

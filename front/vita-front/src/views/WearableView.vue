@@ -207,7 +207,7 @@ export default {
     componentKey: 0,
     totalscore: [],
     lastTotalscore: {},
-    VueHeaderTitle: "1마이 헬스 데이터",
+    VueHeaderTitle: "2마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
     // userNickname: user.userNickname,
   }),
