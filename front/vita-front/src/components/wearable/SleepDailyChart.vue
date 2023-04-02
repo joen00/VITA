@@ -31,11 +31,11 @@
           },
           xaxis: {
             type: "datetime",
-            labels: {
-              formatter: function(value, timestamp, opts) {
-              return opts.dateFormatter(new Date(timestamp)).format("HH-mm")
-              }
-            }
+            // labels: {
+            //   formatter: function(value, timestamp, opts) {
+            //   return opts.dateFormatter(new Date(timestamp)).format("HH-mm")
+            //   }
+            // }
           },
           plotOptions: {
             bar: {
