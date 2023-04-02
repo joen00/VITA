@@ -39,7 +39,7 @@
                 <SleepDailyChart :key="componentKey" :data="data" />
             </div>
             <div v-else>
-                <SleepElseChart :key="componentKey" :awakedata="awakedate" :remdata="remdata" :deepdata="deepda" :lightdata="lightdata" :date="date" />
+                <SleepElseChart :key="componentKey" :awakedata="awakedata" :remdata="remdata" :deepdata="deepdata" :lightdata="lightdata" :date="date" />
             </div>
         </div>
         <div id="sleep-middle-right">
