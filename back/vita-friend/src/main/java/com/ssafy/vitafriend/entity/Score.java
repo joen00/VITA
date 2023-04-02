@@ -24,7 +24,6 @@ public class Score {
     @JsonIgnore
     private User user;
 
-    private int totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;
