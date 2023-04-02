@@ -52,17 +52,14 @@ export default {
       // Create axes
       // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
       var xAxis = chart.xAxes.push(
-        am5xy.DateAxis.new(root, {
-          baseInterval: { timeUnit: "day", count: 1 },
-          // categoryField: "day",
+        am5xy.CategoryAxis.new(root, {
+          categoryField: "day".slice(0, 10),
           startLocation: 0.5,
           endLocation: 0.5,
           renderer: am5xy.AxisRendererX.new(root, {}),
           tooltip: am5.Tooltip.new(root, {}),
         })
       );
-      
-      xAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
       xAxis.data.setAll(data);
 
       var yAxis = chart.yAxes.push(
