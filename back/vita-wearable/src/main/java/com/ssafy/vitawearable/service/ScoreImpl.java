@@ -40,10 +40,10 @@ public class ScoreImpl implements Score{
                 .collect(Collectors.toList());
         // totalScore 구하기
         for (TotalScoreDto t:totalScoreDtoList) {
-            int totalScore = t.getTotalScoreEnergy() + t.getTotalScoreWeight() +
+            int totalScore = t.getTotalScoreEnergy() +
                     t.getTotalScoreSleep() + t.getTotalScoreRhr() +
                     t.getTotalScoreStep() + t.getTotalScoreStress();
-            t.setTotalScore(totalScore/6);
+            t.setTotalScore(totalScore/5);
         }
         return totalScoreDtoList;
     }

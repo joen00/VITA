@@ -11,7 +11,6 @@ import java.time.ZonedDateTime;
 public class TotalScoreDto {
     private ZonedDateTime date;
     private int totalScore;
-    private int totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;

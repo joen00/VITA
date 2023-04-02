@@ -24,7 +24,6 @@ public class TotalScore {
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private ZonedDateTime date;
-    private int totalScoreWeight;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;
