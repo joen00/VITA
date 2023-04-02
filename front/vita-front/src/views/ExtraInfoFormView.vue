@@ -358,6 +358,7 @@ export default {
           }
         });
     },
+    ...mapMutations(['setUserNickname'])
   },
 };
 </script>
