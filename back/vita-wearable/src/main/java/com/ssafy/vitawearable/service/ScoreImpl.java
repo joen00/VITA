@@ -66,8 +66,6 @@ public class ScoreImpl implements Score{
             int day = data.getDate().getDayOfMonth();
             // 값 넣어주기
             totalScoreYearDtoList.get(month-1).getData().get(day-1).setY(data.getDailyWearableScore());
-            System.out.println(totalScoreYearDtoList.get(month-1).getData().get(day-1).getX());
-            System.out.println(totalScoreYearDtoList.get(month-1).getData().get(day-1).getY());
 //            Map<String,Integer> xy = new HashMap<>();
 ////            totalScoreYearDtoList.get(month-1).getData().;
 //
