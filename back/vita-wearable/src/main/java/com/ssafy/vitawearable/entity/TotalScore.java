@@ -21,9 +21,6 @@ public class TotalScore {
     @ManyToOne(cascade = CascadeType.MERGE, targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @CreationTimestamp
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private ZonedDateTime date;
     private int totalScoreEnergy;
     private int totalScoreRhr;
     private int totalScoreStress;

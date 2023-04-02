@@ -34,7 +34,7 @@ public class ScoreImpl implements Score{
             skipCount = totalScoreList.size() - 5;
         }
         List<TotalScoreDto> totalScoreDtoList = totalScoreList.stream()
-                .sorted(Comparator.comparing(TotalScore::getDate))
+                .sorted(Comparator.comparing(TotalScore::getCreatedDate))
                 .skip(skipCount)
                 .map(totalScore -> mapper.map(totalScore, TotalScoreDto.class))
                 .collect(Collectors.toList());
