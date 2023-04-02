@@ -53,7 +53,7 @@ export default {
       // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
       var xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
-          categoryField: "day".slice(0, 10),
+          categoryField: "day",
           startLocation: 0.5,
           endLocation: 0.5,
           renderer: am5xy.AxisRendererX.new(root, {}),
