@@ -65,9 +65,11 @@ export default {
 
       var yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
+          baseInterval: { timeUnit: "day", count: 1 },
           renderer: am5xy.AxisRendererY.new(root, {}),
         })
       );
+      yAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
 
       // Add series
       // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
