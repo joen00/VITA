@@ -4,7 +4,7 @@
             <div id="AwalkLeft">
               <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
                 <div id="AwalkAdvice">
-                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
+                  <DoctorAdvice :Advice= getAdvice ></DoctorAdvice>
                 </div>
             </div>
             <div id="AwalkRight">
@@ -37,7 +37,11 @@
       return {
         ComponentHeaderTitle: "걸음수",
         ComponentHeaderContent: "나의 걸음수와 사람들의 평균을 비교해보세요.",
-        Advice: "잘 걷고 있어요. 앞으로도 꾸준히 걸어볼까요?"
+        Advice: [
+          { level: "less", text: "걷기는 건강한 일상의 시작이죠. 우리 조금만 더 걸어봐요!" },
+          { level: "avg", text: "잘 걷고 있어요. 앞으로도 꾸준히 걸어볼까요?" },
+          { level: "more", text: "우와 많이 걸었군요! 대단해요!" },
+        ]
       };
     },
     mounted() {
@@ -144,7 +148,21 @@
 
         }); // end am5.ready()
     // })
+  },
+    
+  computed: {
+    getAdvice() {
+      if (this.userData <= this.apiData * 0.7) {
+        return this.Advice[0].text;
+      }
+      else if (this.userData > this.apiData * 1.3) {
+        return this.Advice[2].text;
+      }
+      else {
+        return this.Advice[1].text;
+      }
     }
+  }
 }
 </script>
   
