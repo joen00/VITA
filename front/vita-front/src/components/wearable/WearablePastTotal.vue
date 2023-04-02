@@ -73,9 +73,12 @@ export default {
             xaxis: {
                 type: "datetime",
                 categories: this.categories,
-            // title: {
-            //   text: "day",
-            // },
+                labels: {
+                    formatter: function (value, timestamp, opts) {
+                    // return opts.dateFormatter(new Date(timestamp), "dd MMM");
+                    return opts.dateFormatter(new Date(timestamp), "yyyy-MM-dd");
+                    },
+                },
             },
             yaxis: {
             // title: {
