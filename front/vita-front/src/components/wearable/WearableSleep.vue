@@ -250,23 +250,24 @@
           .then((res) => {
             this.awakedata = res.data.map(function (e) {
               return e.weeklyWearableAwake;
-              }
-            );
+            });
+            console.log(this.awakedata)
             this.lightdata = res.data.map(function (e) {
               return e.weeklyWearableLight;
-              }
-            );
+            });
+            console.log(this.lightdata)
             this.remdata = res.data.map(function (e) {
               return e.weeklyWearableRem;
-              }
-            );
+            });
+            console.log(this.remdata)
             this.deepdata = res.data.map(function (e) {
               return e.weeklyWearableDeep;
-              }
-            );
+            });
+            console.log(this.deepdata)
             this.date = res.data.map(function (e) {
               return e.date;
             });
+            console.log(this.date)
             this.componentKey += 1;
             this.isdaily = false;
           })
@@ -282,23 +283,24 @@
           .then((res) => {
             this.awakedata = res.data.map(function (e) {
               return e.monthlyWearableAwake;
-              }
-            );
+            });
+            console.log(this.awakedata)
             this.lightdata = res.data.map(function (e) {
               return e.monthlyWearableLight;
-              }
-            );
+            });
+            console.log(this.lightdata)
             this.remdata = res.data.map(function (e) {
               return e.monthlyWearableRem;
-              }
-            );
+            });
+            console.log(this.remdata)
             this.deepdata = res.data.map(function (e) {
               return e.monthlyWearableDeep;
-              }
-            );
+            });
+            console.log(this.deepdata)
             this.date = res.data.map(function (e) {
               return e.date;
             });
+            console.log(this.date)
             this.componentKey += 1;
             this.isdaily = false;
           });

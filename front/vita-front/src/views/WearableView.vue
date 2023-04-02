@@ -286,7 +286,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -298,7 +298,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -311,7 +311,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -323,7 +323,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -336,7 +336,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
@@ -348,7 +348,7 @@ export default {
         height: 700,
         y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl);
+        // console.log(dataUrl);
         doc.drawImage(dataUrl.toDataURL(), null, null, {
           width: 480,
         });
