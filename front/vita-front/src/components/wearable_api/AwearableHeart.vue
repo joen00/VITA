@@ -4,7 +4,7 @@
             <div id="AheartLeft">
               <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
                 <div id="AheartAdvice">
-                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
+                  <DoctorAdvice :Advice= getAdvice ></DoctorAdvice>
                 </div>
             </div>
             <div id="AheartRight">
@@ -37,7 +37,11 @@
       return {
         ComponentHeaderTitle: "심박변이",
         ComponentHeaderContent: "나의 심박 변이와 사람들의 평균을 비교해보세요.",
-        Advice: "평균 심박수가 높습니다. 안정을 취하세요!",
+        Advice: [
+          { level: "less", text: "건강할수록 심박수가 감소한다는 사실, 알고계신가요?" },
+          { level: "avg", text: "건강할수록 심박수가 감소한다는 사실, 알고계신가요?" },
+          { level: "more", text: "평균 심박수가 높습니다. 심호흡으로 안정을 취해봐요." },
+        ]
       };
     },
     mounted() {
@@ -143,137 +147,21 @@
         chart.appear(1000, 100);
 
         }); // end am5.ready()
+  },
 
-
-//         root.setThemes([am5themes_Animated.new(root)]);
-
-//         // Create chart
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/
-// var chart = root.container.children.push(am5xy.XYChart.new(root, {
-//   panX: true,
-//   panY: true,
-//   wheelX: "panX",
-//   wheelY: "zoomX",
-//   pinchZoomX:true
-// }));
-
-// chart.get("colors").set("step", 3);
-
-
-// // Add cursor
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-// var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-// cursor.lineY.set("visible", false);
-
-
-// // Create axes
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-// var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
-//   maxDeviation: 0.3,
-//   baseInterval: {
-//     timeUnit: "day",
-//     count: 1
-//   },
-//   renderer: am5xy.AxisRendererX.new(root, {}),
-//   tooltip: am5.Tooltip.new(root, {})
-// }));
-
-// var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-//   maxDeviation: 0.3,
-//   renderer: am5xy.AxisRendererY.new(root, {})
-// }));
-
-
-// // Add series
-// // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-// var series = chart.series.push(am5xy.LineSeries.new(root, {
-//   name: "Series 1",
-//   xAxis: xAxis,
-//   yAxis: yAxis,
-//   valueYField: "value1",
-//   valueXField: "date",
-//   tooltip: am5.Tooltip.new(root, {
-//     labelText: "{valueX}: {valueY}\n{previousDate}: {value2}"
-//   })
-// }));
-
-// series.strokes.template.setAll({
-//   strokeWidth: 2
-// });
-
-// series.get("tooltip").get("background").set("fillOpacity", 0.5);
-
-// var series2 = chart.series.push(am5xy.LineSeries.new(root, {
-//   name: "Series 2",
-//   xAxis: xAxis,
-//   yAxis: yAxis,
-//   valueYField: "value2",
-//   valueXField: "date"
-// }));
-// series2.strokes.template.setAll({
-//   strokeDasharray: [2, 2],
-//   strokeWidth: 2
-// });
-
-// // Set date fields
-// // https://www.amcharts.com/docs/v5/concepts/data/#Parsing_dates
-// root.dateFormatter.setAll({
-//   dateFormat: "yyyy-MM-dd",
-//   dateFields: ["valueX"]
-// });
-
-
-// // Set data
-// var data = [{
-//   date: new Date(2019, 5, 12).getTime(),
-//   value1: 50,
-//   value2: 48,
-//   previousDate: new Date(2019, 5, 5)
-// }, {
-//   date: new Date(2019, 5, 13).getTime(),
-//   value1: 53,
-//   value2: 51,
-//   previousDate: "2019-05-06"
-// }, {
-//   date: new Date(2019, 5, 14).getTime(),
-//   value1: 56,
-//   value2: 58,
-//   previousDate: "2019-05-07"
-// }, {
-//   date: new Date(2019, 5, 15).getTime(),
-//   value1: 52,
-//   value2: 53,
-//   previousDate: "2019-05-08"
-// }, {
-//   date: new Date(2019, 5, 16).getTime(),
-//   value1: 48,
-//   value2: 44,
-//   previousDate: "2019-05-09"
-// }, {
-//   date: new Date(2019, 5, 17).getTime(),
-//   value1: 47,
-//   value2: 42,
-//   previousDate: "2019-05-10"
-// }, {
-//   date: new Date(2019, 5, 18).getTime(),
-//   value1: 59,
-//   value2: 55,
-//   previousDate: "2019-05-11"
-// }]
-
-// series.data.setAll(data);
-// series2.data.setAll(data);
-
-
-// // Make stuff animate on load
-// // https://www.amcharts.com/docs/v5/concepts/animations/
-// series.appear(1000);
-// series2.appear(1000);
-// chart.appear(1000, 100);
-
-//         }); // end am5.ready()
-    // })
+  computed: {
+    getAdvice() {
+      if (this.userData <= this.apiData * 0.7) {
+        return this.Advice[0].text;
+      }
+      else if (this.userData > this.apiData * 1.3) {
+        return this.Advice[2].text;
+      }
+      else {
+        return this.Advice[1].text;
+      }
     }
+  }
 }
 </script>
   

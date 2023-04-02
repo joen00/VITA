@@ -4,7 +4,7 @@
             <div id="AenergyLeft">
               <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
                 <div id="AenergyAdvice">
-                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
+                  <DoctorAdvice :Advice= getAdvice ></DoctorAdvice>
                 </div>
             </div>
             <div id="AenergyRight">
@@ -37,7 +37,11 @@
       return {
         ComponentHeaderTitle: "활동 에너지",
         ComponentHeaderContent: "나의 활동 에너지와 사람들의 평균을 비교해보세요.",
-        Advice: "규칙적인 활동은 건강한 몸에 도움이 된답니다.",
+        Advice: [
+          { level: "less", text: "활동량이 부족해요. 조금만 더 움직여볼까요?" },
+          { level: "avg", text: "좋아요! 규칙적인 활동은 건강한 몸에 도움이 된답니다." },
+          { level: "more", text: "대단해요! 굉장한 활동량인데요!" },
+        ]
       };
     },
     mounted() {
@@ -144,7 +148,21 @@
 
         }); // end am5.ready()
     // })
+  },
+
+  computed: {
+    getAdvice() {
+      if (this.userData <= this.apiData * 0.7) {
+        return this.Advice[0].text;
+      }
+      else if (this.userData > this.apiData * 1.3) {
+        return this.Advice[2].text;
+      }
+      else {
+        return this.Advice[1].text;
+      }
     }
+  }
 }
 </script>
   

@@ -4,7 +4,7 @@
             <div id="AstressLeft">
               <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
                 <div id="AstressAdvice">
-                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
+                  <DoctorAdvice :Advice= getAdvice ></DoctorAdvice>
                 </div>
             </div>
             <div id="AstressRight">
@@ -38,6 +38,11 @@
         ComponentHeaderTitle: "스트레스",
         ComponentHeaderContent: "나의 스트레스 지수와 사람들의 평균을 비교해보세요.",
         Advice: "스트레스가 많습니다! 명상을 통해 안정을 취하세요.",
+        Advice: [
+          { level: "less", text: "좋아요! 건강한 몸은 건강한 마음으로부터 오는 법이죠!" },
+          { level: "avg", text: "스트레스는 만병의 근원! 잠시 심호흡을 하며 쉬어가는 것은 어떨까요?" },
+          { level: "more", text: "스트레스가 많습니다! 잠시 심호흡을 하며 쉬어가는 것은 어떨까요?" },
+        ]
       };
     },
     mounted() {
@@ -145,7 +150,20 @@
 
         }); // end am5.ready()
     // })
+  },
+  computed: {
+    getAdvice() {
+      if (this.userData <= this.apiData * 0.7) {
+        return this.Advice[0].text;
+      }
+      else if (this.userData > this.apiData * 1.3) {
+        return this.Advice[2].text;
+      }
+      else {
+        return this.Advice[1].text;
+      }
     }
+  }
 }
 </script>
   

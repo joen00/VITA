@@ -4,7 +4,7 @@
             <div id="AsleepTimeLeft">
               <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
                 <div id="AsleepTimeAdvice">
-                  <DoctorAdvice :Advice= Advice ></DoctorAdvice>
+                  <DoctorAdvice :Advice= getAdvice ></DoctorAdvice>
                 </div>
             </div>
             <div id="AsleepTimeRight">
@@ -37,7 +37,11 @@
       return {
         ComponentHeaderTitle: "수면 시간",
         ComponentHeaderContent: "나의 수면 시간과 사람들의 평균을 비교해보세요.",
-        Advice: "잘 자고 있어요! 건강을 위해 규칙적인 수면은 필수!",
+        Advice: [
+          { level: "less", text: "수면 시간이 부족해요. 수면부족은 여러 질병의 원인이 됩니다." },
+          { level: "avg", text: "잘 자고 있어요! 활기찬 하루를 위해 충분한 수면은 필수!" },
+          { level: "more", text: "충분한 수면을 취하고 계시군요! 적정 수면시간은 하루 7~8시간입니다." },
+        ]
       };
     },
     mounted() {
@@ -145,7 +149,20 @@
         
         }); // end am5.ready()
     // })
+  },
+  computed: {
+    getAdvice() {
+      if (this.userData <= this.apiData * 0.7) {
+        return this.Advice[0].text;
+      }
+      else if (this.userData > this.apiData * 1.3) {
+        return this.Advice[2].text;
+      }
+      else {
+        return this.Advice[1].text;
+      }
     }
+  }
 }
 </script>
   
