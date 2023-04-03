@@ -95,6 +95,14 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          if (response == "success") {
+            alert(`${user_nickname}님에게 친구 신청을 보냈습니다.`)
+          } else {
+            alert("이미 친구 신청을 보낸 사용자입니다.")
+          }
+        })
+        .catch(() => {
+          alert("잘못된 요청입니다.")
         });
     },
   },

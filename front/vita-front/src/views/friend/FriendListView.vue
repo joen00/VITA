@@ -128,10 +128,12 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.friendlist = [];
-          response.data.map((data) => {
-            this.friendlist.push(data);
-          });
+          if (response.status == 200) {
+            this.friendlist = [];
+            response.data.map((data) => {
+              this.friendlist.push(data);
+            });
+          }
         });
     },
     deleteOrRejectFriend(SendingUserNickname) {
@@ -146,9 +148,7 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.friendpostlist = [];
           this.getFriendPostList();
-          this.friendlist = [];
           this.getFriendList();
         });
     },
@@ -161,9 +161,12 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          response.data.map((data) => {
-            this.friendpostlist.push(data);
-          });
+          if (response.status == 200) {
+            this.friendpostlist = []
+            response.data.map((data) => {
+              this.friendpostlist.push(data);
+            });
+          }
         });
     },
     acceptFriend(SendingUserNickname) {
@@ -178,9 +181,7 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          this.friendpostlist = [];
           this.getFriendPostList();
-          this.friendlist = [];
           this.getFriendList("");
           this.inputValue = ""
         });
