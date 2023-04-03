@@ -60,10 +60,15 @@
             drop-placeholder="Drop file here..."
           ></b-form-file>
           <div class="mt-3">선택된 파일: {{ file1 }}</div>
-          <!-- 파일 업로드 버튼 -->
-          <b-button id="btn-fileuploads" @click="uploadFile(file1)"
-            >파일 업로드</b-button
-          >
+          <!-- 파일 업로드 버튼(클릭 시 버튼에 processing 애니메이션이 적용됨) -->
+          <b-button v-if="uploadBtnState == 'normal'" id="btn-fileuploads" @click="uploadFile(file1)">
+            파일 업로드
+          </b-button>
+          <b-button v-else-if="uploadBtnState =='loading'" id="btn-fileuploads">
+            업로드 중...
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </b-button>
+          
         </div>
       </div>
     </div>
@@ -96,9 +101,16 @@ export default {
     file1: null,
     slide: 0,
     sliding: null,
+    uploadBtnState: "normal",
   }),
   computed: {
     ...mapGetters(["token", "user"]),
+    uploadBtnNormal() {
+      return this.uploadBtnState = "normal"
+    },
+    uploadBtnLoading() {
+      return this.uploadBtnState = "loading";
+    },
   },
   methods: {
     onSlideStart(slide) {
@@ -112,7 +124,7 @@ export default {
         alert("파일을 먼저 업로드 하세요!");
         return;
       }
-
+      this.uploadBtnLoading;
       const formData = new FormData();
       formData.append("multipartFile", file);
 
@@ -136,8 +148,20 @@ export default {
             })
             .then((response) => {
               console.log(response);
-            });
-        });
+              alert("파일 업로드가 완료되었습니다.")
+              this.uploadBtnNormal;
+            })
+            .catch(() => {
+              alert("파일 형식이 잘못되었습니다. 올바른 파일을 업로드하세요.")
+              this.uploadBtnNormal;
+            })
+            ;
+        })
+        .catch(() => {
+          this.uploadBtnNormal;
+          alert("파일 형식이 잘못되었습니다. 올바른 파일을 업로드하세요.")
+        })
+        ;
     },
     created() {
       console.log(this.serverBaseUrl);
