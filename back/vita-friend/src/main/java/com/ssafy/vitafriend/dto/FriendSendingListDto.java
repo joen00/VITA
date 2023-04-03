@@ -16,7 +16,7 @@ public class FriendSendingListDto extends UserInfoDto {
         this.userId = friend.getFriendReceivingUser().getUserId();
         this.userNickname = friend.getFriendReceivingUser().getUserNickname();
         this.userImg = friend.getFriendReceivingUser().getUserImg();
-        this.userScore = friend.getFriendReceivingUser().getUserScore();
+//        this.userScore = friend.getFriendReceivingUser().getUserScore();
         this.createdDate = friend.getFriendReceivingUser().getCreatedDate();
     }
 }
