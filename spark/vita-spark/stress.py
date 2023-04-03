@@ -14,3 +14,8 @@ def samsung_day(df):
     df = df[['daily_wearable_stress', 'date']]
     df = df.groupby('date', as_index=False).mean().round(0) # 날짜별 평균
     return df
+
+# Apple 일별 데이터 처리
+def apple_day(data):
+    df = pd.DataFrame(columns=['date', 'daily_wearable_stress'])
+    return df
