@@ -142,8 +142,10 @@ public class FriendController {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = authTokenProvider.getUserId(accessToken);
         String result = friendService.rejectOrDeleteFriend(req.get("SendingUserNickname"), userId);
-        if (Objects.equals(result, "success")) {
-            return "success";
+        if (Objects.equals(result, "rejected")) {
+            return "rejected";
+        } else if (Objects.equals(result, "deleted")) {
+            return "deleted";
         } else {
             return "fail";
         }
