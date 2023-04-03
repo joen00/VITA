@@ -50,7 +50,7 @@ export default {
         am5xy.DateAxis.new(root, {
           baseInterval: { timeUnit: "day", count: 1 },
           renderer: xRenderer,
-          start: 0.9951,
+          // start: 0.9951,
           tooltip: am5.Tooltip.new(root, {}),
         })
       );
@@ -92,13 +92,13 @@ export default {
         strokeWidth: 1,
       });
 
-      let i = -1;
+      // let i = -1;
       series.bullets.push(function () {
-        i++;
+        // i++;
 
-        if (i > 7) {
-          i = 0;
-        }
+        // if (i > 7) {
+        //   i = 0;
+        // }
 
         const container = am5.Container.new(root, {
           centerX: am5.p50,
