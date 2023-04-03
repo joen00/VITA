@@ -35,7 +35,7 @@
       <div id="step-middle-left">
         <!-- 그래프 그려지는 곳 -->
         <!-- <div id="stepchart"></div> -->
-        <StepChart :key="componentKey" :data="data" />
+        <StepChart :key="componentKey" :data="data" :timeUnit="timeUnit"/>
       </div>
       <!-- 오른쪽 과거와의 비교 -->
       <div id="step-middle-right">
@@ -203,6 +203,7 @@ export default {
     ComponentHeaderContent: "나의 걸음수 기록을 보여줘요.",
     data: [],
     past: [],
+    timeUnit: "",
     componentKey: 0,
   }),
 
@@ -233,6 +234,7 @@ export default {
           // this.data = res.data
         });
       this.componentKey += 1;
+      this.timeUnit = "day";
     },
     async monthStep() {
       await axios
@@ -250,6 +252,7 @@ export default {
           });
         });
       this.componentKey += 1;
+      this.state = "week";
     },
     async yearStep() {
       await axios
@@ -265,6 +268,7 @@ export default {
             return { Step: e.monthlyWearableStep, date: e.date };
           });
           this.componentKey += 1;
+          this.state = "month";
         });
     },
     async pastAndNowStep() {

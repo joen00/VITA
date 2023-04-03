@@ -13,6 +13,7 @@ export default {
   name: "StepChart",
   props: {
     data: Array,
+    timeUnit: String,
   },
   mounted() {
     am5.ready(() => {
@@ -48,7 +49,7 @@ export default {
 
       const xAxis = chart.xAxes.push(
         am5xy.DateAxis.new(root, {
-          baseInterval: { timeUnit: "week", count: 1 },
+          baseInterval: { timeUnit: this.timeUnit, count: 1 },
           renderer: xRenderer,
           // start: 0.9951,
           tooltip: am5.Tooltip.new(root, {}),
