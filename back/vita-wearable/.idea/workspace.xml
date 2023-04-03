@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5f1f2833-42c4-44f4-82bb-c7d204c1039d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/service/WearableImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/ssafy/vitawearable/service/WearableImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearableImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearableImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +104,7 @@
       <workItem from="1680333391349" duration="17684000" />
       <workItem from="1680360145064" duration="927000" />
       <workItem from="1680422306805" duration="5626000" />
-      <workItem from="1680483609274" duration="2505000" />
+      <workItem from="1680483609274" duration="5063000" />
     </task>
     <servers />
   </component>
