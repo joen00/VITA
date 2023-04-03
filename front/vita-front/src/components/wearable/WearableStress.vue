@@ -242,6 +242,15 @@ export default {
             console.log(dM);
             console.log(dD);
             return { Stress: e.dailyWearableStress, date: day };
+// =======
+//             let date = new Date(e.date)
+//             return { Stress: e.dailyWearableStress, 
+//                      date: e.date
+//                     //  date: date.getFullYear() + "-" + 
+//                     //  (date.getMonth()+1) + "-" +
+//                     //  date.getDate()
+//             };
+// >>>>>>> ce2b99f611402334d458d6cf239922fe61f14612
           });
           // this.data = res.data
         });
@@ -258,7 +267,13 @@ export default {
         .then((res) => {
           // this.data = res.data
           this.data = res.data.map(function (e) {
-            return { Stress: e.weeklyWearableStress, date: e.date };
+            let date = new Date(e.date)
+            return { Stress: e.weeklyWearableStress, 
+              date: e.date 
+              // date: date.getFullYear() + "-" + 
+              // (date.getMonth()+1) + "-" +
+              // date.getDate()
+            };
           });
         });
       this.componentKey += 1;
@@ -274,7 +289,13 @@ export default {
         .then((res) => {
           this.data = res.data;
           this.data = res.data.map(function (e) {
-            return { Stress: e.monthlyWearableStress, date: e.date };
+            let date = new Date(e.date)
+            return { Stress: e.monthlyWearableStress, 
+              date: e.date 
+              // date: date.getFullYear() + "-" + 
+              // (date.getMonth()+1) + "-" +
+              // date.getDate()
+            };
           });
           this.componentKey += 1;
         });
