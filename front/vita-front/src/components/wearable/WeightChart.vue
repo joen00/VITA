@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{  data  }}
     <div id="weightchartdiv"></div>
   </div>
 </template>
