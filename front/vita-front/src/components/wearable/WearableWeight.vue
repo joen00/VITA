@@ -229,7 +229,7 @@ export default {
               체중: e.dailyWearableWeight,
               골격근량: e.dailyWearableMuscle,
               체지방량: e.dailyWearableFat,
-              day: e.date.slice(0, 11),
+              day: e.date.slice(0, 10),
             };
            
           });

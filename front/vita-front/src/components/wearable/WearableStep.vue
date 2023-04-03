@@ -233,8 +233,8 @@ export default {
           });
           // this.data = res.data
         });
-      this.componentKey += 1;
       this.timeUnit = "day";
+      this.componentKey += 1;
     },
     async monthStep() {
       await axios
@@ -251,8 +251,8 @@ export default {
             return { Step: e.weeklyWearableStep, date: e.date };
           });
         });
+      this.timeUnit = "week";
       this.componentKey += 1;
-      this.state = "week";
     },
     async yearStep() {
       await axios
@@ -267,8 +267,8 @@ export default {
           this.data = res.data.map(function (e) {
             return { Step: e.monthlyWearableStep, date: e.date };
           });
+          this.timeUnit = "month";
           this.componentKey += 1;
-          this.state = "month";
         });
     },
     async pastAndNowStep() {

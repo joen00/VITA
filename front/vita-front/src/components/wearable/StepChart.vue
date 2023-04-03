@@ -43,6 +43,9 @@ export default {
       // The data
       let data = this.data;
 
+      console.log(this.timeUnit)
+
+
       const xRenderer = am5xy.AxisRendererX.new(root, {});
       xRenderer.grid.template.set("location", 0.5);
       xRenderer.labels.template.setAll({ location: 0.5, multiLocation: 0.5 });
