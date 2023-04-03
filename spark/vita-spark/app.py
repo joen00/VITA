@@ -103,9 +103,9 @@ def makeDay(db, userId, device):
         conn.commit()
         conn.close()
 
-    if 'samsung' in device:
+    if 'SAMSUNG' in device:
         result = samsung_df(userId)
-    if 'apple' in device:
+    if 'APPLE' in device:
         result = apple_df(userId)
 
     weight_df = result[0]
@@ -133,44 +133,49 @@ def upload():
     userId = request.args.get('userId')
     device = request.args.get('device')
 
-    db = common.connectDB()
-    with db.connect() as conn:
-        url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
+    try:
+        db = common.connectDB()
+        with db.connect() as conn:
+            url = conn.execute(text("SELECT user_upload_img FROM user_upload WHERE user_id = '" + userId + "'")).fetchone()[0]
 
-    rq.urlretrieve(url, userId + ".zip")
+        rq.urlretrieve(url, userId + ".zip")
 
-    day = makeDay(db, userId, device)
-    week = common.periodDF(day, '1W', userId)
-    month = common.periodDF(day, '1M', userId)
-    average = common.avgDF(month)
-    common.totalScore(average, userId, db)
+        day = makeDay(db, userId, device)
+        week = common.periodDF(day, '1W', userId)
+        month = common.periodDF(day, '1M', userId)
+        average = common.avgDF(month)
+        common.totalScore(average, userId, db)
 
-    with db.connect() as conn:
-        week_date = conn.execute(text("SELECT max(date) FROM weekly_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
-        if week_date: conn.execute(text(f"DELETE FROM weekly_wearable WHERE date = '{week_date}' AND user_id = '{userId}'"))
-        month_date = conn.execute(text("SELECT max(date) FROM monthly_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
-        if month_date: conn.execute(text(f"DELETE FROM monthly_wearable WHERE date = '{month_date}' AND user_id = '{userId}'"))
-        isExist = conn.execute(text(f"SELECT user_id FROM user_average WHERE user_id = '{userId}'")).fetchone
-        if isExist: conn.execute(text(f"DELETE FROM user_average WHERE user_id = '{userId}'"))
-        conn.commit()
-        conn.close()
+        with db.connect() as conn:
+            week_date = conn.execute(text("SELECT max(date) FROM weekly_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
+            if week_date: conn.execute(text(f"DELETE FROM weekly_wearable WHERE date = '{week_date}' AND user_id = '{userId}'"))
+            month_date = conn.execute(text("SELECT max(date) FROM monthly_wearable WHERE user_id = '" + userId + "'")).fetchone()[0]
+            if month_date: conn.execute(text(f"DELETE FROM monthly_wearable WHERE date = '{month_date}' AND user_id = '{userId}'"))
+            isExist = conn.execute(text(f"SELECT user_id FROM user_average WHERE user_id = '{userId}'")).fetchone
+            if isExist: conn.execute(text(f"DELETE FROM user_average WHERE user_id = '{userId}'"))
+            conn.commit()
+            conn.close()
 
-    if week_date: common.saveDB(db, 'weekly_wearable', week[week['date'] >= pd.to_datetime(week_date)].fillna(0))
-    else: common.saveDB(db, 'weekly_wearable', week.fillna(0))
-    if month_date: common.saveDB(db, 'monthly_wearable', month[month['date'] >= pd.to_datetime(month_date)].fillna(0))
-    else: common.saveDB(db, 'monthly_wearable', month.fillna(0))
-    common.saveDB(db, 'user_average', average.fillna(0))
+        if week_date: common.saveDB(db, 'weekly_wearable', week[week['date'] >= pd.to_datetime(week_date)].fillna(0))
+        else: common.saveDB(db, 'weekly_wearable', week.fillna(0))
+        if month_date: common.saveDB(db, 'monthly_wearable', month[month['date'] >= pd.to_datetime(month_date)].fillna(0))
+        else: common.saveDB(db, 'monthly_wearable', month.fillna(0))
+        common.saveDB(db, 'user_average', average.fillna(0))
 
-    paths = glob.glob('./*', recursive=True)
-    for path in paths:
-        if 'zip' in path:
-            os.remove(path)
-        if 'samsunghealth' in path:
-            shutil.rmtree(path)
-        if 'applehealth' in path:
-            shutil.rmtree(path)
-
-    return f'Hello, {userId}!'    
+        return f'Success, {userId}!'
+    
+    except:
+        return f'Fail, {userId}!'
+    
+    finally:
+        paths = glob.glob('./*', recursive=True)
+        for path in paths:
+            if 'zip' in path:
+                os.remove(path)
+            if 'samsunghealth' in path:
+                shutil.rmtree(path)
+            if 'applehealth' in path:
+                shutil.rmtree(path)
 
 @app.route('/')
 def main():
