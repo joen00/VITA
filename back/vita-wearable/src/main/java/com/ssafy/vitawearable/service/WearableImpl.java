@@ -264,16 +264,16 @@ public class WearableImpl implements Wearable {
     @Override
     public List<StressDailyDto> stressDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
-        int skipSize = dailyWearables.size()-20;
+        Stream<DailyWearable> DailyStream = dailyWearables.stream()
+                .filter(data -> data.getDailyWearableStress() != 0);
+        long skipSize = DailyStream.count() - 20;
         if (skipSize < 0) skipSize = 0;
+
         return dailyWearables.stream()
                 .filter(data -> data.getDailyWearableStress() != 0)
-                .map(daily -> mapper.map(daily, StressDailyDto.class))
-//                .limit(20)
                 .skip(skipSize)
-                .sorted(Comparator.comparing(StressDailyDto::getDate))
+                .map(weekly -> mapper.map(weekly, StressDailyDto.class))
                 .collect(Collectors.toList());
-
     }
 
     // 무게 달별
