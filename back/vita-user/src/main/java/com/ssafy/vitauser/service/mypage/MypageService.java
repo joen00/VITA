@@ -35,7 +35,6 @@ public class MypageService {
                 .userPhoneType(user.getUserPhoneType())
                 .userPublic(user.isUserPublic())
                 .userWeight(user.getUserWeight())
-                .userScore(user.getUserScore())
                 .userAvatar(user.getUserAvatar())
                 .build();
         return userInfoResponseDto;

@@ -79,7 +79,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 null,
                 0,
                 0,
-                0,
                 null,
                 true,
                 "avatar0"
