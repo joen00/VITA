@@ -56,6 +56,8 @@ export default {
 
       xRenderer.grid.template.set("forceHidden", true);
 
+
+      // 수정된 부분
       // var xAxis = chart.xAxes.push(
       //   am5xy.CategoryAxis.new(root, {
       //     maxDeviation: 7,
@@ -63,14 +65,19 @@ export default {
       //     renderer: xRenderer,
       //   })
       // );
+      
       var xAxis = chart.xAxes.push(
         am5xy.DateAxis.new(root, {
-          maxDeviation: 7,
-          categoryField: "date",
+          baseInterval: { timeUnit: "day", count: 1 },
           renderer: xRenderer,
+          start: 0.9951,
+          tooltip: am5.Tooltip.new(root, {}),
         })
       );
 
+
+
+      
       var yRenderer = am5radar.AxisRendererRadial.new(root, {});
       yRenderer.labels.template.set("centerX", am5.p50);
 
