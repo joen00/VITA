@@ -285,7 +285,8 @@ export default {
             this.past["weekNowPersent"] =
               (this.past.weekNowWearableEnergy /
                 this.past.weekPastWearableEnergy) *
-              100;
+                100 +
+              "%";
             this.past["weekPastPersent"] = 100 + "%";
           } else {
             this.past["weekNowPersent"] = 100 + "%";

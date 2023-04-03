@@ -317,7 +317,8 @@
             if (this.past.weekPastWearableSleep >= this.past.weekNowWearableSleep) {
               this.past["weekNowPersent"] =
                 (this.past.weekNowWearableSleep / this.past.weekPastWearableSleep) *
-                100;
+                100 +
+              "%";
               this.past["weekPastPersent"] = 100 + "%";
             } else {
               this.past["weekNowPersent"] = 100 + "%";

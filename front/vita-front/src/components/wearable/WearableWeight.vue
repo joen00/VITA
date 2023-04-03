@@ -223,7 +223,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
           this.data = res.data.map(function (e) {
             // return {"Weight": e.dailyWearableWeight, "date": e.date.slice(0,10)};
             return {
@@ -233,7 +232,6 @@ export default {
               day: new Date(e.date),
             };
           });
-          console.log(this.data);
           // this.data = res.data
         });
       this.componentKey += 1;
@@ -297,7 +295,8 @@ export default {
             this.past["weekNowPersent"] =
               (this.past.weekNowWearableWeight /
                 this.past.weekPastWearableWeight) *
-              100;
+              100 +
+              "%";
             this.past["weekPastPersent"] = 100 + "%";
           } else {
             this.past["weekNowPersent"] = 100 + "%";

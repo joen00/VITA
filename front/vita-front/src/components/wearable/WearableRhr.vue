@@ -280,7 +280,8 @@ export default {
           if (this.past.weekPastWearableRhr >= this.past.weekNowWearableRhr) {
             this.past["weekNowPersent"] =
               (this.past.weekNowWearableRhr / this.past.weekPastWearableRhr) *
-              100;
+              100 +
+              "%";
             this.past["weekPastPersent"] = 100 + "%";
           } else {
             this.past["weekNowPersent"] = 100 + "%";
