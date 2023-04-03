@@ -16,3 +16,11 @@ def samsung_day(df):
     df = df[['daily_wearable_weight', 'daily_wearable_muscle', 'daily_wearable_fat', 'date']]
     df = df.groupby('date', as_index=False).mean().round(1) # 날짜별 평균
     return df
+
+# Apple 일별 데이터 처리
+def apple_day(data):
+    df = pd.DataFrame(data, columns=['date', 'daily_wearable_weight', 'daily_wearable_muscle', 'daily_wearable_fat'])
+    df['daily_wearable_weight'] = df['daily_wearable_weight'].astype(float)
+    df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
+    df = df.groupby('date', as_index=False).mean().round(1) # 날짜별 평균
+    return df
