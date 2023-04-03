@@ -230,7 +230,18 @@ export default {
         })
         .then((res) => {
           this.data = res.data.map(function (e) {
-            return { Stress: e.dailyWearableStress, date: e.date };
+            d = e.date;
+            dY = d.getFullYear();
+            dM = d.getMonth() + 1;
+            dD = d.getDate();
+            day = `${dY}` + `${dM < 10 ? 0 + " " + dM : dM}`
+              + `${dD < 10 ? 0 + " " + dD : dD}`;
+            console.log(day);
+            console.log(d);
+            console.log(dY);
+            console.log(dM);
+            console.log(dD);
+            return { Stress: e.dailyWearableStress, date: day };
           });
           // this.data = res.data
         });
