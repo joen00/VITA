@@ -162,8 +162,15 @@
           id="pdf-sleep"
         ></wearable-sleep>
       </div>
-
-      <button id="btn-pdf" @click="getPdf">PDF 다운로드</button>
+      <!-- pdf 다운로드 버튼(클릭 시 버튼에 processing 애니메이션이 적용됨) -->
+      <button v-if="pdfBtnState == 'normal'" id="btn-pdf" @click="getPdf">
+        PDF 다운로드
+      </button>
+      <button v-else-if="pdfBtnState =='loading'" id="btn-pdf" @click="getPdf">
+        다운로드 중...
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+      
       <div class="mb-5"></div>
     </div>
   </div>
@@ -212,6 +219,7 @@ export default {
     VueHeaderTitle: "마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
     // userNickname: user.userNickname,
+    pdfBtnState: "normal",
   }),
   created() {
     this.totalScore();
@@ -220,6 +228,12 @@ export default {
 
   computed: {
     ...mapGetters(["token", "user"]),
+    pdfBtnNormal() {
+      return this.pdfBtnState = "normal"
+    },
+    pdfBtnLoading() {
+      return this.pdfBtnState = "loading";
+    },
   },
 
   methods: {
@@ -248,6 +262,7 @@ export default {
 
     // 유저 히스토리 이미지 저장 및 pdf 추출하는 함수
     async getPdf() {
+      this.pdfBtnLoading;
       let historyImage = document.querySelector("#wearable-middle");
       let pdfWeight = document.querySelector("#pdf-weight");
       let pdfStep = document.querySelector("#pdf-step");
@@ -281,7 +296,8 @@ export default {
               Authorization: `Bearer ${this.token}`,
             },
           }
-        );
+        )
+        ;
       });
       // 체중 차트 추출
       await html2canvas(pdfWeight, {
@@ -359,6 +375,7 @@ export default {
         doc.addPage();
       });
       doc.end();
+      this.pdfBtnNormal;
     },
     getUserInfo() {
       axios
