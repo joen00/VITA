@@ -230,26 +230,15 @@ export default {
         })
         .then((res) => {
           this.data = res.data.map(function (e) {
-            d = e.date;
-            dY = d.getFullYear();
-            dM = d.getMonth() + 1;
-            dD = d.getDate();
-            day = `${dY}` + `${dM < 10 ? 0 + " " + dM : dM}`
-              + `${dD < 10 ? 0 + " " + dD : dD}`;
-            console.log(day);
-            console.log(d);
-            console.log(dY);
-            console.log(dM);
-            console.log(dD);
-            return { Stress: e.dailyWearableStress, date: day };
+            // return { Stress: e.dailyWearableStress, date: day };
 // =======
-//             let date = new Date(e.date)
-//             return { Stress: e.dailyWearableStress, 
-//                      date: e.date
-//                     //  date: date.getFullYear() + "-" + 
-//                     //  (date.getMonth()+1) + "-" +
-//                     //  date.getDate()
-//             };
+            let date = new Date(e.date)
+            return { Stress: e.dailyWearableStress, 
+                    //  date: e.date
+                     date: date.getFullYear() + "-" + 
+                     (date.getMonth()+1) + "-" +
+                     date.getDate()
+            };
 // >>>>>>> ce2b99f611402334d458d6cf239922fe61f14612
           });
           // this.data = res.data

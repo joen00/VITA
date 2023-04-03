@@ -56,8 +56,15 @@ export default {
 
       xRenderer.grid.template.set("forceHidden", true);
 
+      // var xAxis = chart.xAxes.push(
+      //   am5xy.CategoryAxis.new(root, {
+      //     maxDeviation: 7,
+      //     categoryField: "date",
+      //     renderer: xRenderer,
+      //   })
+      // );
       var xAxis = chart.xAxes.push(
-        am5xy.CategoryAxis.new(root, {
+        am5xy.DateAxis.new(root, {
           maxDeviation: 7,
           categoryField: "date",
           renderer: xRenderer,
