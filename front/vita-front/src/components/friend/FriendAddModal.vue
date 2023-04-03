@@ -68,7 +68,7 @@ export default {
     getSearchFriendList(inputValue) {
       console.log(inputValue);
       axios
-        .get(this.$store.state.serverBaseUrl + `/friend` + `/apply/` + `${inputValue}`, {
+        .get(this.$store.state.serverBaseUrl + `/friend/apply/${inputValue}`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -85,7 +85,7 @@ export default {
     requestFriend(user_nickname) {
       axios
         .post(
-          this.$store.state.serverBaseUrl + `/friend` + `/apply`,
+          this.$store.state.serverBaseUrl + `/friend/apply`,
           { user_nickname: user_nickname },
           {
             headers: {
@@ -95,7 +95,7 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          if (response == "success") {
+          if (response.data == "success") {
             alert(`${user_nickname}님에게 친구 신청을 보냈습니다.`)
           } else {
             alert("이미 친구 신청을 보낸 사용자입니다.")

@@ -121,7 +121,7 @@ export default {
     getFriendList(inputValue) {
       console.log(inputValue);
       axios
-        .get(this.$store.state.serverBaseUrl + `/friend` + `/${inputValue}`, {
+        .get(this.$store.state.serverBaseUrl + `/friend/${inputValue}`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -133,6 +133,27 @@ export default {
             response.data.map((data) => {
               this.friendlist.push(data);
             });
+          } else {
+            this.friendlist = [];
+          }
+        });
+    },
+    getFriendPostList() {
+      axios
+        .get(this.$store.state.serverBaseUrl + `/friend/applyList`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status == 200) {
+            this.friendpostlist = []
+            response.data.map((data) => {
+              this.friendpostlist.push(data);
+            });
+          } else {
+            this.friendpostlist = []
           }
         });
     },
@@ -149,23 +170,13 @@ export default {
         .then((response) => {
           console.log(response);
           this.getFriendPostList();
-          this.getFriendList();
-        });
-    },
-    getFriendPostList() {
-      axios
-        .get(this.$store.state.serverBaseUrl + `/friend` + `/applyList`, {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status == 200) {
-            this.friendpostlist = []
-            response.data.map((data) => {
-              this.friendpostlist.push(data);
-            });
+          this.getFriendList("");
+          if (response.data == "rejected") {
+            alert(`${SendingUserNickname}님의 친구 요청을 거절하였습니다.`);
+          } else if (response.data == "deleted") {
+            alert(`${SendingUserNickname}님을 친구 목록에서 삭제하였습니다.`);
+          } else {
+            alert("이미 삭제된 친구입니다.");
           }
         });
     },
@@ -184,6 +195,7 @@ export default {
           this.getFriendPostList();
           this.getFriendList("");
           this.inputValue = ""
+          alert(`${SendingUserNickname}님의 친구 요청을 수락하였습니다.`)
         });
     },
   },
