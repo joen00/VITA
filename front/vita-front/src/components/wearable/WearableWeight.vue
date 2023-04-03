@@ -34,7 +34,7 @@
       </div>
       <div id="weight-middle-left">
         <!-- 그래프 그려지는 곳 -->
-        <WeightChart :key="componentKey" :data="data"></WeightChart>
+        <WeightChart :key="componentKey" :data="data" ></WeightChart>
       </div>
       <div id="weight-middle-right">
         <div id="weight-middle-right-div">
@@ -200,6 +200,7 @@ export default {
     ComponentHeaderContent: "나의 BMI 기록을 보여줘요.",
     data: [],
     past: {},
+
     componentKey: 0,
   }),
 
@@ -236,6 +237,7 @@ export default {
           
           // this.data = res.data
         });
+
       this.componentKey += 1;
     },
     async monthWeight() {
@@ -254,10 +256,11 @@ export default {
               체중: e.weeklyWearableWeight,
               골격근량: e.weeklyWearableMuscle,
               체지방량: e.weeklyWearableFat,
-              day: e.date,
+              day: e.date.slice(0, 10),
             };
           });
         });
+
       this.componentKey += 1;
     },
     async yearWeight() {
@@ -275,9 +278,10 @@ export default {
               체중: e.monthlyWearableWeight,
               골격근량: e.monthlyWearableMuscle,
               체지방량: e.monthlyWearableFat,
-              day: e.date,
+              day: e.date.slice(0, 10),
             };
           });
+
           this.componentKey += 1;
         });
     },
