@@ -3,6 +3,7 @@ package com.ssafy.vitawearable.service;
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.entity.*;
 import com.ssafy.vitawearable.repo.*;
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 @Service
 // 평균 및 총합점수 관련 서비스
 public class ScoreImpl implements Score{
+    private final WearableFriend wearableFriend;
     private final UserRepo userRepo;
     private final ApiAverageRepo apiAverageRepo;
     private final DailyWearableRepo dailyWearableRepo;
@@ -66,17 +68,7 @@ public class ScoreImpl implements Score{
             int day = data.getDate().getDayOfMonth();
             // 값 넣어주기
             totalScoreYearDtoList.get(month-1).getData().get(day-1).setY(data.getDailyWearableScore());
-//            Map<String,Integer> xy = new HashMap<>();
-////            totalScoreYearDtoList.get(month-1).getData().;
-//
-//            xy.put("x",data.getDate().getDayOfMonth());
-//            xy.put("y",data.getDailyWearableScore());
-//            totalScoreYearDtoList.get(month-1).getData().add(xy);
         }
-        // 비어있는 날짜 넣어주기
-//        for (TotalScoreYearDto data:totalScoreYearDtoList) {
-//            data.getData().
-//        }
 
         return totalScoreYearDtoList;
     }
@@ -97,10 +89,6 @@ public class ScoreImpl implements Score{
             userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
             userAverageDto.setUserImg(userAverage.getUser().getUserImg());
         }
-//        UserAverage userAverage = userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1);
-//        UserAverageDto userAverageDto = mapper.map(userAverage, UserAverageDto.class);
-//        userAverageDto.setUserNickname(userAverage.getUser().getUserNickname());
-//        userAverageDto.setUserImg(userAverage.getUser().getUserImg());
         return userAverageDto;
     }
 
@@ -123,11 +111,6 @@ public class ScoreImpl implements Score{
             userAverageDtoList.add(userAverageDto);
         }
         return userAverageDtoList;
-
-//        return friendIdList.stream()
-//                .map(userId -> userAverageRepo.findByUser_UserId(userId).get(userAverageRepo.findByUser_UserId(userId).size()-1))
-//                .map(m -> mapper.map(m,UserAverageDto.class))
-//                .collect(Collectors.toList());
     }
 
     // api 종합점수
@@ -150,24 +133,6 @@ public class ScoreImpl implements Score{
         apiAverageDto.setApiAverageSleep((int)
                 (apiAverageList.stream().mapToLong(ApiAverage::getApiAverageSleep).sum() /
                 apiAverageList.stream().mapToInt(ApiAverage::getApiAverageSleepCnt).sum()));
-
-//        apiAverageDto.setApiAverageEnergy((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageEnergy).average().getAsDouble());
-//        apiAverageDto.setApiAverageRhr((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-//        apiAverageDto.setApiAverageStress((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageRhr).average().getAsDouble());
-//        apiAverageDto.setApiAverageSleep((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageSleep).average().getAsDouble());
-
-//        apiAverageDto.setApiAverageLight((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageLight).average().getAsDouble());
-//        apiAverageDto.setApiAverageRem((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageRem).average().getAsDouble());
-//        apiAverageDto.setApiAverageAwake((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageAwake).average().getAsDouble());
-//        apiAverageDto.setApiAverageDeep((int)apiAverageList.stream().
-//                mapToInt(ApiAverage::getApiAverageDeep).average().getAsDouble());
         return apiAverageDto;
     }
 
@@ -193,5 +158,74 @@ public class ScoreImpl implements Score{
                 (apiAverage.getApiAverageSleep() / apiAverage.getApiAverageSleepCnt()));
 
         return apiAverageDto;
+    }
+
+    @Override
+    public List<Integer> rank(String userId) {
+        List<TotalScore> totalScoreList = totalScoreRepo.findByUser_UserId(userId);
+        int friendRank = 1;
+        int totalRank = 1;
+        List<Integer> result = new ArrayList<>();
+        // 유저 점수가 없으면 [0,0]으로 반환
+        if (totalScoreList.isEmpty()) {
+            result.add(0);
+            result.add(0);
+            return result;
+        }
+        // 유저 total score 추출
+        TotalScore recentUserTotalScore = totalScoreList.get(totalScoreList.size()-1);
+        int recentUserScore = (recentUserTotalScore.getTotalScoreEnergy() +
+                recentUserTotalScore.getTotalScoreSleep() +
+                recentUserTotalScore.getTotalScoreRhr() +
+                recentUserTotalScore.getTotalScoreStress() +
+                recentUserTotalScore.getTotalScoreStep()) / 5;
+
+        // 친구 userId 추출
+        List<FriendDto> friendDtoList = wearableFriend.getFriendList(userId);
+        List<String> friendUserIdList = friendDtoList.stream()
+                .map(FriendDto::getUserId)
+                .collect(Collectors.toList());
+
+        // 친구 점수와 비교해서 등수 반환
+        for (String friendId:friendUserIdList) {
+            List<TotalScore> friendTotalScoreList = totalScoreRepo.findByUser_UserId(friendId);
+            // 친구 점수가 없다면 다음 진행
+            if (friendTotalScoreList.isEmpty()) continue;
+            // 친구 total score 추출
+            TotalScore recentFriendTotalScore = friendTotalScoreList.get(friendTotalScoreList.size()-1);
+            int recentFriendScore = (recentFriendTotalScore.getTotalScoreEnergy() +
+                    recentFriendTotalScore.getTotalScoreSleep() +
+                    recentFriendTotalScore.getTotalScoreRhr() +
+                    recentFriendTotalScore.getTotalScoreStress() +
+                    recentFriendTotalScore.getTotalScoreStep()) / 5;
+            if (recentFriendScore > recentUserScore) {
+                friendRank += 1;
+            }
+        }
+
+        // 전체 유저 점수와 비교해서 등수 반환
+        List<User> allUser = userRepo.findAll();
+        List<String> otherUserIdList = allUser.stream()
+                .map(User::getUserId)
+                .collect(Collectors.toList());
+        otherUserIdList.remove(userId);
+        for (String otherUserId:otherUserIdList) {
+            List<TotalScore> otherTotalScoreList = totalScoreRepo.findByUser_UserId(otherUserId);
+            // 다른 유저 점수가 없다면 다음 진행
+            if (otherTotalScoreList.isEmpty()) continue;
+            // 다른 유저 total score 추출
+            TotalScore recentOtherTotalScore = otherTotalScoreList.get(otherTotalScoreList.size()-1);
+            int recentOtherScore = (recentOtherTotalScore.getTotalScoreEnergy() +
+                    recentOtherTotalScore.getTotalScoreSleep() +
+                    recentOtherTotalScore.getTotalScoreRhr() +
+                    recentOtherTotalScore.getTotalScoreStress() +
+                    recentOtherTotalScore.getTotalScoreStep()) / 5;
+            if (recentOtherScore > recentUserScore) {
+                totalRank += 1;
+            }
+        }
+        result.add(totalRank);
+        result.add(friendRank);
+        return result;
     }
 }

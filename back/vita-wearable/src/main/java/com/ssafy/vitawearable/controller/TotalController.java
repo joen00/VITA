@@ -23,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/wearable")
 public class TotalController {
-    private final Wearable wearable;
     private final Score score;
     private final UserUtil userUtil;
 
@@ -54,5 +53,19 @@ public class TotalController {
         String accessToken = HeaderUtil.getAccessToken(request);
         String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(score.yearTotalScore(userId,year),HttpStatus.valueOf(200));
+    }
+
+    // 전체유저 등수와 친구중에 등수 반환
+    @ApiOperation(
+            value = "연도별 데일리 종합 점수 데이터 요청",
+            notes = "userId를 통해 연도별 데일리 종합 점수를 json 형태로 반환한다",
+            response = DailyTotalScoreDto.class,
+            responseContainer = "List"
+    )
+    @GetMapping("/user/score/rank")
+    public ResponseEntity<List<Integer>> totalDailyScore(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
+        return new ResponseEntity<>(score.rank(userId),HttpStatus.valueOf(200));
     }
 }
