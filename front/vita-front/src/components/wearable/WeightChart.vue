@@ -70,7 +70,7 @@ export default {
         // })
       );
       // xAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
-      xAxis.data.setAll(data);
+      xAxis.data.setAll(data);   
 
       var yAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
