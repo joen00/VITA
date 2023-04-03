@@ -360,8 +360,7 @@ export default {
       });
       doc.end();
     },
-  },
-  getUserInfo() {
+    getUserInfo() {
       axios
         .get(this.$store.state.serverBaseUrl + `/users/mypage`, {
           headers: {
@@ -374,6 +373,7 @@ export default {
           this.avatar = response.data.userAvatar;
         });
     },
+  },
 };
 </script>
 
