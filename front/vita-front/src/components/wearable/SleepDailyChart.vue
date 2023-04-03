@@ -153,7 +153,7 @@
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
   #sleepGraph {
-    width: 40rem;
+    width: 32rem;
     height: 400px;
     margin-top: 10rem;
     margin: auto;
