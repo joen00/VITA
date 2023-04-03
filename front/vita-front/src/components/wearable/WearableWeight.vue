@@ -254,7 +254,7 @@ export default {
               체중: e.weeklyWearableWeight,
               골격근량: e.weeklyWearableMuscle,
               체지방량: e.weeklyWearableFat,
-              date: e.date,
+              day: e.date,
             };
           });
         });
@@ -275,7 +275,7 @@ export default {
               체중: e.monthlyWearableWeight,
               골격근량: e.monthlyWearableMuscle,
               체지방량: e.monthlyWearableFat,
-              date: e.date,
+              day: e.date,
             };
           });
           this.componentKey += 1;

@@ -234,7 +234,7 @@ export default {
 // =======
             // let date = new Date(e.date)
             return { Stress: e.dailyWearableStress, 
-                     date: new Date(e.date)
+                     date: new Date(e.date).getDate()
                     //  date: date.getFullYear() + "-" + 
                     //  (date.getMonth()+1) + "-" +
                     //  date.getDate()
