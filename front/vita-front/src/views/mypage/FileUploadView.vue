@@ -104,7 +104,7 @@ export default {
     uploadBtnState: "normal",
   }),
   computed: {
-    ...mapGetters(["token", "user"]),
+    ...mapGetters(["token", "user", "userPhoneType"]),
     uploadBtnNormal() {
       return this.uploadBtnState = "normal"
     },
@@ -144,11 +144,15 @@ export default {
           const userId = response.data;
           axios
             .get(`https://j8b106.p.ssafy.io:5000/upload`, {
-              params: { userId: userId },
+              params: { userId: userId, device: this.userPhoneType },
             })
             .then((response) => {
               console.log(response);
-              alert("파일 업로드가 완료되었습니다.")
+              if (response.data.substr(0, 1) == "S") {
+                alert("파일 업로드가 완료되었습니다.")
+              } else {
+                alert("파일 업로드에 실패하였습니다. 올바른 파일을 업로드하세요.")
+              }
               this.uploadBtnNormal;
             })
             .catch(() => {
