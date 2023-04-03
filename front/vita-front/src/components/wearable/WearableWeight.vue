@@ -7,12 +7,16 @@
     <div id="weight-middle">
       <div id="weight-middle-left-btn">
         <div id="weight-middle-left-btn-up">
-          <button id="btn-weight" v-on:click="weekWeight">1주</button>
-          <br />
-          <button id="btn-weight" v-on:click="monthWeight">1개월</button>
-          <br />
-          <button id="btn-weight" v-on:click="yearWeight">1년</button>
+          <input type="radio" name="weight-period" id="week" value="week" v-on:click="weekWeight" checked>
+          <label for="week">1주</label>
+
+          <input type="radio" name="weight-period" id="month" value="month" v-on:click="monthWeight">
+          <label for="month">1개월</label>
+
+          <input type="radio" name="weight-period" id="year" value="year" v-on:click="yearWeight">
+          <label for="year">1년</label>
         </div>
+        
         <div id="weight-middle-left-btn-down">
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
             체중
@@ -435,7 +439,12 @@ export default {
   /* align-items: center; */
 }
 
-#btn-weight {
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
   width: 70%;
   height: 35px;
   border: none;
@@ -445,8 +454,11 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   margin-bottom: 1rem;
+  text-align: center;
+  line-height: 35px;
 }
-#btn-weight:hover {
+
+input[type="radio"]:checked + label {
   width: 70%;
   height: 35px;
   border: none;
@@ -456,7 +468,13 @@ export default {
   background: rgb(255, 255, 255);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
+  cursor: pointer;
 }
+
+input[type="radio"]:hover + label {
+  cursor: pointer;
+}
+
 #weight-middle-left-btn-up {
   height: 70%;
 }
