@@ -62,7 +62,7 @@ public class MypageController {
         String userId = authTokenProvider.getUserId(accessToken);
 
         // 파일 저장함
-        String url = awsS3Service.uploadFileV1(multipartFile);
+        String url = awsS3Service.uploadFileV1(multipartFile, userId);
         // url update 해줌
         mypageService.updateUpload(userId, url);
         // flask 서버로 userId 보내주기 위해 userId를 API 응답으로 반환시킴
