@@ -300,7 +300,6 @@ export default {
         })
         .then((res) => {
           this.past = res.data;
-          console.log(this.past);
           if (
             this.past.weekPastWearableStress >= this.past.weekNowWearableStress
           ) {
