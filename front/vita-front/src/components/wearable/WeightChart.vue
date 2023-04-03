@@ -61,8 +61,6 @@ export default {
         // })
         am5xy.DateAxis.new(root, {
           baseInterval: { timeUnit: "day", count: 1 },
-          startLocation: 0.5,
-          endLocation: 0.5,
           renderer: am5xy.AxisRendererX.new(root, {}),
           tooltip: am5.Tooltip.new(root, {}),
         })
@@ -93,6 +91,11 @@ export default {
             }),
           })
         );
+
+        series.data.processor = am5.DataProcessor.new(root, {
+          dateFields: ["day"],
+          dateFormat: "yyyy-MM-dd"
+        });
 
         series.fills.template.setAll({
           fillOpacity: 0.5,
