@@ -482,11 +482,11 @@ export default {
   border-radius: 50px;
   margin-right: 1rem;
 }
-#wearable-profile-info {
-  /* background-color: #ace3fa; */
-  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 12px; */
-}
+/* #wearable-profile-info {
+  background-color: #ace3fa;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+} */
 
 #wearable-middle {
   width: 100%;
