@@ -66,6 +66,7 @@ export default {
           endLocation: 0.5,
           renderer: am5xy.AxisRendererX.new(root, {}),
           tooltip: am5.Tooltip.new(root, {}),
+          tooltipDateFormat: "yyyy-MM-dd",
         })
       );
       xAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
@@ -97,10 +98,10 @@ export default {
           })
         );
 
-        series.data.processor = am5.DataProcessor.new(root, {
-          dateFields: ["day"],
-          dateFormat: "yyyy-MM-dd"
-        });
+        // series.data.processor = am5.DataProcessor.new(root, {
+        //   dateFields: ["day"],
+        //   dateFormat: "yyyy-MM-dd"
+        // });
 
         series.fills.template.setAll({
           fillOpacity: 0.5,
@@ -121,6 +122,7 @@ export default {
         "scrollbarX",
         am5.Scrollbar.new(root, {
           orientation: "horizontal",
+          start : 0.7,
         })
       );
 
