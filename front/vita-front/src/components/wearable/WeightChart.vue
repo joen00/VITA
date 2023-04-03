@@ -89,8 +89,8 @@ export default {
             yAxis: yAxis,
             stacked: true,
             valueYField: field,
-            valueXField: "day",
-            // categoryXField: "day",
+            // valueXField: "day",
+            categoryXField: "day",
             tooltip: am5.Tooltip.new(root, {
               pointerOrientation: "horizontal",
               labelText: "[bold]{name}[/]\n{categoryX}: {valueY}",
