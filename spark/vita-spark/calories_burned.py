@@ -15,3 +15,11 @@ def samsung_day(df):
     df = df[['daily_wearable_energy', 'date']]
     df = df.groupby('date', as_index=False).sum().round(0) # 날짜별 합계
     return df
+
+# Apple 일별 데이터 처리
+def apple_day(data):
+    df = pd.DataFrame(data, columns=['date', 'daily_wearable_energy'])
+    df['date'] = df.date.str.split(' ').str[0] # 날짜 형식
+    df['daily_wearable_energy'] = df['daily_wearable_energy'].astype(float)
+    df = df.groupby('date', as_index=False).sum().round(0) # 날짜별 합계
+    return df
