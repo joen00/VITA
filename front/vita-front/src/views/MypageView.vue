@@ -86,7 +86,18 @@
             </b-row>
 
             <!-- 뱃지 리스트 -->
-            <b-row class="badge-list"></b-row>
+            <b-row class="badge-list">
+              <img
+                v-for="badgeId in badgeList"
+                :key="badgeId"
+                id="badge-img"
+                :src="require(`/public/user/badge${badgeId}.png`)">
+              <!-- <img id="badge-img" :src="require(`/public/user/badge1.png`)" >
+              <img id="badge-img" :src="require(`/public/user/badge2.png`)" >
+              <img id="badge-img" :src="require(`/public/user/badge3.png`)" >
+              <img id="badge-img" :src="require(`/public/user/badge4.png`)" >
+              <img id="badge-img" :src="require(`/public/user/badge5.png`)" > -->
+            </b-row>
           </div>
         </b-row>
 
@@ -215,6 +226,9 @@ export default {
       { text: "SAMSUNG", value: "SAMSUNG" },
       { text: "APPLE", value: "APPLE" },
     ],
+    badgeList: [
+      // { badgeId: 1 }
+    ],
     VueHeaderTitle: "마이페이지",
     VueHeaderContent: "나의 정보를 확인해보세요.",
     editMode: false,
@@ -309,11 +323,27 @@ export default {
           });
       }
     },
+    getBadge() {
+      axios
+        .get(this.$store.state.serverBaseUrl + `/users/mypage/badge`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((response) => {
+          response.data.map((badge) => {
+            if (badge.userBadgeGet) {
+              this.badgeList.push(badge.badgeId);
+            }
+          })
+        });
+    }
   },
 
   created() {
     this.getUserInfo();
     this.getUserHistory();
+    this.getBadge();
   },
 };
 </script>
@@ -423,6 +453,9 @@ export default {
   background: rgb(255, 255, 255);
 }
 .badge-list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
   height: 200px;
   border-radius: 20px;
   box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
@@ -451,6 +484,13 @@ export default {
   padding: 0.7rem;
   width: 55px;
   height: 55px;
+}
+#badge-img {
+  /* background: #3695be -10%; */
+  margin-left: 3px;
+  margin-right: 3px;
+  border-radius: 100px;
+  width: 145px;
 }
 .info.data {
   font-size: 15px;
