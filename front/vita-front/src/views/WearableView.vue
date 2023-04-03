@@ -16,14 +16,14 @@
             id="wearable-middle-left-up"
             style="font-size: 1.7rem; font-weight: 800; margin-left: 5rem"
           >
-            유저이름
+          {{ nickname }}
           </div>
           <div id="wearable-middle-left-down">
             <div id="wearable-profile-avatar">
               <img
                 id="wearable-profile-img-avatar"
                 style="width: 160px"
-                :src="require(`/public/user/avatar.png`)"
+                :src="require(`/public/user-avatar/${avatar}.png`)"
               />
             </div>
             <div id="wearable-profile-info">
@@ -205,6 +205,8 @@ export default {
     data: [],
     categories: [],
     componentKey: 0,
+    nickname: "유저 닉네임",
+    avatar: "avatar0",
     totalscore: [],
     lastTotalscore: {},
     VueHeaderTitle: "마이 헬스 데이터",
@@ -213,6 +215,7 @@ export default {
   }),
   created() {
     this.totalScore();
+    this.getUserInfo();
   },
 
   computed: {
@@ -358,6 +361,19 @@ export default {
       doc.end();
     },
   },
+  getUserInfo() {
+      axios
+        .get(this.$store.state.serverBaseUrl + `/users/mypage`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.nickname = response.data.userNickname;
+          this.avatar = response.data.userAvatar;
+        });
+    },
 };
 </script>
 
