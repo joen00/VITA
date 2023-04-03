@@ -232,12 +232,12 @@ export default {
           this.data = res.data.map(function (e) {
             // return { Stress: e.dailyWearableStress, date: day };
 // =======
-            let date = new Date(e.date)
+            // let date = new Date(e.date)
             return { Stress: e.dailyWearableStress, 
-                    //  date: e.date
-                     date: date.getFullYear() + "-" + 
-                     (date.getMonth()+1) + "-" +
-                     date.getDate()
+                     date: new Date(e.date)
+                    //  date: date.getFullYear() + "-" + 
+                    //  (date.getMonth()+1) + "-" +
+                    //  date.getDate()
             };
 // >>>>>>> ce2b99f611402334d458d6cf239922fe61f14612
           });

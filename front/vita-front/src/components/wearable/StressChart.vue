@@ -105,10 +105,10 @@ export default {
         tooltipText: "{categoryX}: {valueY}",
       });
 
-      series.data.processor = am5.DataProcessor.new(root, {
-        dateFormat: "yyyy-MM-dd",
-        dateFields: ["date"],
-      });
+      // series.data.processor = am5.DataProcessor.new(root, {
+      //   dateFormat: "yyyy-MM-dd",
+      //   dateFields: ["date"],
+      // });
 
       // Make each column to be of a different color
       series.columns.template.adapters.add("fill", function (fill, target) {
