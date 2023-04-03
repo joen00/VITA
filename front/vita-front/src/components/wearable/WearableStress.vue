@@ -232,10 +232,10 @@ export default {
           this.data = res.data.map(function (e) {
             let date = new Date(e.date)
             return { Stress: e.dailyWearableStress, 
-                    //  date: e.date
-                     date: date.getFullYear() + "-" + 
-                     (date.getMonth()+1) + "-" +
-                     date.getDate()
+                     date: e.date
+                    //  date: date.getFullYear() + "-" + 
+                    //  (date.getMonth()+1) + "-" +
+                    //  date.getDate()
             };
           });
           // this.data = res.data
@@ -255,10 +255,10 @@ export default {
           this.data = res.data.map(function (e) {
             let date = new Date(e.date)
             return { Stress: e.weeklyWearableStress, 
-              // date: e.date 
-              date: date.getFullYear() + "-" + 
-              (date.getMonth()+1) + "-" +
-              date.getDate()
+              date: e.date 
+              // date: date.getFullYear() + "-" + 
+              // (date.getMonth()+1) + "-" +
+              // date.getDate()
             };
           });
         });
@@ -277,10 +277,10 @@ export default {
           this.data = res.data.map(function (e) {
             let date = new Date(e.date)
             return { Stress: e.monthlyWearableStress, 
-              // date: e.date 
-              date: date.getFullYear() + "-" + 
-              (date.getMonth()+1) + "-" +
-              date.getDate()
+              date: e.date 
+              // date: date.getFullYear() + "-" + 
+              // (date.getMonth()+1) + "-" +
+              // date.getDate()
             };
           });
           this.componentKey += 1;
