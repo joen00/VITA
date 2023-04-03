@@ -257,7 +257,6 @@ export default {
         .then((res) => {
           // this.data = res.data
           this.data = res.data.map(function (e) {
-            // let date = new Date(e.date)
             return { Stress: e.weeklyWearableStress, 
               date: new Date(e.date)
               // date: date.getFullYear() + "-" + 
@@ -279,7 +278,6 @@ export default {
         .then((res) => {
           // this.data = res.data;
           this.data = res.data.map(function (e) {
-            // let date = new Date(e.date)
             return { Stress: e.monthlyWearableStress, 
               date: new Date(e.date)
               // date: date.getFullYear() + "-" + 
@@ -306,7 +304,8 @@ export default {
             this.past["weekNowPersent"] =
               (this.past.weekNowWearableStress /
                 this.past.weekPastWearableStress) *
-              100;
+                100 +
+              "%";
             this.past["weekPastPersent"] = 100 + "%";
           } else {
             this.past["weekNowPersent"] = 100 + "%";

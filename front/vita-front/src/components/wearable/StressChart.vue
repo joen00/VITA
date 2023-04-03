@@ -1,5 +1,9 @@
 <template>
-  <div id="stresschartdiv"></div>
+  <div>
+    {{ data }}
+    <div id="stresschartdiv"></div>
+  </div>
+  
 </template>
 
 <script>
