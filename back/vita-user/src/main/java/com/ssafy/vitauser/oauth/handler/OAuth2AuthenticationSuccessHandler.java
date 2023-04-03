@@ -129,6 +129,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                     .queryParam("extraInfoFlag", true)
                     .queryParam("userNickname", loginUser.getUserNickname())
                     .queryParam("userProfileImg", loginUser.getUserImg())
+                    .queryParam("userPhoneType", loginUser.getUserPhoneType())
                     .build().encode(StandardCharsets.UTF_8).toUriString();
         }
     }
