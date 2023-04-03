@@ -48,7 +48,7 @@ export default {
 
       const xAxis = chart.xAxes.push(
         am5xy.DateAxis.new(root, {
-          baseInterval: { timeUnit: "day", count: 1 },
+          baseInterval: { timeUnit: "week", count: 1 },
           renderer: xRenderer,
           // start: 0.9951,
           tooltip: am5.Tooltip.new(root, {}),
