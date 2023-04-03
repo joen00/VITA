@@ -17,7 +17,7 @@ public class UserInfoDto {
     protected String userNickname;
     protected String userId;
     protected String userImg;
-    protected int userScore;
+//    protected int userScore;
     protected String userHistoryImg;
     protected ZonedDateTime createdDate;
 

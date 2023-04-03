@@ -21,7 +21,7 @@ public class User {
     private String userId;
     private String userImg;
     private String userNickname;
-    private int userScore;
+//    private int userScore;
 
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
