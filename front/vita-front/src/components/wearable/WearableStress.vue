@@ -233,6 +233,7 @@ export default {
             // return { Stress: e.dailyWearableStress, date: day };
 // =======
             // let date = new Date(e.date)
+            // console.log("여기 " + new Date(e.date));
             return { Stress: e.dailyWearableStress, 
                      date: new Date(e.date)
                     //  date: date.getFullYear() + "-" + 
@@ -256,9 +257,9 @@ export default {
         .then((res) => {
           // this.data = res.data
           this.data = res.data.map(function (e) {
-            let date = new Date(e.date)
+            // let date = new Date(e.date)
             return { Stress: e.weeklyWearableStress, 
-              date: e.date 
+              date: new Date(e.date)
               // date: date.getFullYear() + "-" + 
               // (date.getMonth()+1) + "-" +
               // date.getDate()
@@ -276,11 +277,11 @@ export default {
           },
         })
         .then((res) => {
-          this.data = res.data;
+          // this.data = res.data;
           this.data = res.data.map(function (e) {
-            let date = new Date(e.date)
+            // let date = new Date(e.date)
             return { Stress: e.monthlyWearableStress, 
-              date: e.date 
+              date: new Date(e.date)
               // date: date.getFullYear() + "-" + 
               // (date.getMonth()+1) + "-" +
               // date.getDate()
