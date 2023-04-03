@@ -194,7 +194,7 @@ import html2canvas from "html2canvas";
 import * as pdf from "@grapecity/wijmo.pdf";
 
 export default {
-  name: "FriendView",
+  name: "WearableView",
   components: {
     VueHeader,
     WearableTotal,

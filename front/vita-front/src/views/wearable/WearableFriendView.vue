@@ -10,7 +10,7 @@
       <div id="header-contvueent2">
         * 친구는 한 번에 최대 4명까지만 추가 가능합니다.
       </div>
-      {{ selected }}
+      <!-- {{ selected }} -->
       <div id="wfriendlist">
         <!-- 여기 slide -->
         <div id="wfriendlistin">
@@ -121,7 +121,6 @@ export default {
     FwearableStress,
     FwearableSleep,
   },
-  methods: {},
   data() {
     return {
       componentKey: 0,
