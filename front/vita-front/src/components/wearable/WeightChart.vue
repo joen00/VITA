@@ -68,6 +68,7 @@ export default {
           tooltip: am5.Tooltip.new(root, {}),
         })
       );
+      xAxis.get("dateFormats")["day"] = "yyyy-MM-dd";
       xAxis.data.setAll(data);
 
       var yAxis = chart.yAxes.push(
