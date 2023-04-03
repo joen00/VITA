@@ -61,6 +61,8 @@ export default {
         // })
         am5xy.DateAxis.new(root, {
           baseInterval: { timeUnit: "day", count: 1 },
+          startLocation: 0.5,
+          endLocation: 0.5,
           renderer: am5xy.AxisRendererX.new(root, {}),
           tooltip: am5.Tooltip.new(root, {}),
         })
@@ -84,7 +86,8 @@ export default {
             yAxis: yAxis,
             stacked: true,
             valueYField: field,
-            categoryXField: "day",
+            valueXField: "day",
+            // categoryXField: "day",
             tooltip: am5.Tooltip.new(root, {
               pointerOrientation: "horizontal",
               labelText: "[bold]{name}[/]\n{categoryX}: {valueY}",
