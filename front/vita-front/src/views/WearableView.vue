@@ -124,8 +124,8 @@
                 친구 순위&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1등
               </div> -->
               <!-- 전체 순위, 친구 순위 끝-->
-              <b-button id="total-score-rank">전체 순위 : 1등</b-button>
-              <b-button id="total-score-rank">친구 순위 : 1등</b-button>
+              <b-button id="total-score-rank">전체 순위 : {{ totalRank }}등</b-button>
+              <b-button id="total-score-rank">친구 순위 : {{ friendRank }} 등</b-button>
             </div>
             <!-- 유저 종합점수 그래프 -->
             <div id="WearablePastTotal">
@@ -220,10 +220,13 @@ export default {
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
     // userNickname: user.userNickname,
     pdfBtnState: "normal",
+    totalRank: 0,
+    friendRank: 0,
   }),
   created() {
     this.totalScore();
     this.getUserInfo();
+    this.getUserRank();
   },
 
   computed: {
@@ -390,6 +393,18 @@ export default {
           this.avatar = response.data.userAvatar;
         });
     },
+    getUserRank() {
+      axios
+        .get(this.$store.state.serverBaseUrl + "/wearable/user/score/rank", {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((response) => {
+          this.totalRank = response.data[0];
+          this.friendRank = response.data[1];
+        });  
+    }
   },
 };
 </script>
