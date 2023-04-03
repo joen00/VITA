@@ -73,7 +73,6 @@ public class User {
     private String userGender;
     private float userHeight;
     private float userWeight;
-    private int userScore;
     private String userPhoneType;
     private String userPublic;
 
@@ -94,7 +93,6 @@ public class User {
             String userGender,
             float userHeight,
             float userWeight,
-            int userScore,
             String userPhoneType,
             String userPublic
     ) {
@@ -112,7 +110,6 @@ public class User {
         this.userGender = userGender;
         this.userHeight = userHeight;
         this.userWeight = userWeight;
-        this.userScore = userScore;
         this.userPhoneType = userPhoneType;
         this.userPublic = userPublic;
     }
