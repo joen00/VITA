@@ -230,11 +230,13 @@ export default {
         })
         .then((res) => {
           this.data = res.data.map(function (e) {
+            console.log(e.date)
+            console.log(new Date(e.date))
             // return { Stress: e.dailyWearableStress, date: day };
 // =======
             // let date = new Date(e.date)
             return { Stress: e.dailyWearableStress, 
-                     date: new Date(e.date).getDate()
+                     date: new Date(e.date)
                     //  date: date.getFullYear() + "-" + 
                     //  (date.getMonth()+1) + "-" +
                     //  date.getDate()
