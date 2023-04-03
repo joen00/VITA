@@ -26,8 +26,8 @@ public class AwsS3Service {
 //  @Value("${cloud.aws.s3.bucket}")
   private String S3Bucket = "vita-project-bucket"; // Bucket 이름
 
-  public String uploadFileV1(MultipartFile multipartFile) throws Exception{
-    String originalName = multipartFile.getOriginalFilename(); // 파일 이름
+  public String uploadFileV1(MultipartFile multipartFile, String userId) throws Exception{
+    String originalName = userId+".zip"; // 파일 이름
     long size = multipartFile.getSize(); // 파일 크기
     System.out.println("File Name: "+originalName+" File size: "+size);
 
