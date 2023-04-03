@@ -22,7 +22,9 @@ def samsung_day(df):
 # Apple 일-시간 데이터 처리
 def apple_day(data):
     df = pd.DataFrame(data, columns=['daily_sleep_start', 'daily_sleep_end', 'daily_sleep_stage'])
-    df['daily_sleep_total'] = pd.to_datetime(df['daily_sleep_end']) - pd.to_datetime(df['daily_sleep_start'])
+    df['daily_sleep_start'] = pd.to_datetime(df['daily_sleep_start'], format='%Y-%m-%d %H:%M:%S').dt.tz_convert(None)
+    df['daily_sleep_end'] = pd.to_datetime(df['daily_sleep_end'], format='%Y-%m-%d %H:%M:%S').dt.tz_convert(None)
+    df['daily_sleep_total'] = df['daily_sleep_end'] - df['daily_sleep_start']
     df['daily_sleep_total'] = df['daily_sleep_total'].apply(timedelta.total_seconds) / 60
     df = df[(df.daily_sleep_stage != 'HKCategoryValueSleepAnalysisInBed') & (df.daily_sleep_stage != 'HKCategoryValueSleepAnalysisAsleepUnspecified')]
     df = df.replace({'daily_sleep_stage': {'HKCategoryValueSleepAnalysisAwake': 'AWAKE', 'HKCategoryValueSleepAnalysisAsleepCore': 'LIGHT', 'HKCategoryValueSleepAnalysisAsleepDeep': 'DEEP', 'HKCategoryValueSleepAnalysisAsleepREM': 'REM'}})

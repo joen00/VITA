@@ -1,4 +1,6 @@
 import pandas as pd
+import datetime
+from numpy import NaN
 
 # csv 파일 읽기
 def read_csv(csv_name):
@@ -17,5 +19,6 @@ def samsung_day(df):
 
 # Apple 일별 데이터 처리
 def apple_day(data):
-    df = pd.DataFrame(columns=['date', 'daily_wearable_stress'])
+    data = [[datetime.datetime.now().date().strftime('%Y-%m-%d'), NaN]]
+    df = pd.DataFrame(data, columns=['date', 'daily_wearable_stress'])
     return df

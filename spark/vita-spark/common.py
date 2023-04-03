@@ -1,5 +1,6 @@
 import pandas as pd
 from functools import reduce
+from numpy import NaN
 
 import pymysql
 from sqlalchemy import create_engine
@@ -30,7 +31,7 @@ def combine(calories_burned, step_daily_trend, stress, weight, heart_rate, sleep
 # 주, 월 데이터 처리
 def periodDF(df, period, userId):
     df.date = pd.to_datetime(df.date)
-    df = df.resample(rule=period, on='date').mean().round(1)
+    df = df.replace(0, NaN).resample(rule=period, on='date').mean().round(1)
     df = df.reset_index()
     
     if period == '1W':
@@ -51,7 +52,7 @@ def avgDF(df):
     df.rename(columns = {'monthly_wearable_stress':'user_average_stress', 'monthly_wearable_rhr':'user_average_rhr', 'monthly_wearable_energy':'user_average_energy', 'monthly_wearable_step':'user_average_step',
                          'monthly_wearable_sleep':'user_average_sleep', 'monthly_wearable_awake':'user_average_awake', 'monthly_wearable_light':'user_average_light', 'monthly_wearable_deep':'user_average_deep', 'monthly_wearable_rem':'user_average_rem'}, inplace=True)
     df = df.groupby('user_id', as_index=False).mean().round(0) # 사용자 아이디별 평균
-    return df
+    return df.fillna(0)
 
 # 일별 점수 계산
 def dailyScore(df, userId, db):
