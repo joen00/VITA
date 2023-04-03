@@ -18,6 +18,9 @@ export default {
     const userProfileImg = this.$route.query.userProfileImg
     console.log('userProfileImg', userProfileImg)
 
+    const userPhoneType = this.$route.query.userPhoneType
+    console.log('userPhoneType', userPhoneType)
+
     if (token) {
       this.setToken(token)
       this.fetchUser()
@@ -31,6 +34,10 @@ export default {
       this.setUserProfileImg(userProfileImg)
     }
 
+    if (userPhoneType) {
+      this.setUserPhoneType(userPhoneType)
+    }
+
     // 추가 정보 미기입시 추가정보 페이지로 replace
     if (flag == 'false') {
       this.$router.replace('/extraInfoForm')
@@ -41,7 +48,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchUser']),
-    ...mapMutations(['setToken','setUserNickname','setUserProfileImg'])
+    ...mapMutations(['setToken','setUserNickname','setUserProfileImg','setUserPhoneType'])
   }
 }
 </script>
