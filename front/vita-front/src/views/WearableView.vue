@@ -151,30 +151,25 @@
       </div>
       <!-- ---------------------------------------------------------------------------------------------------------------------- -->
       <div id="wearable-footer">
-        <wearable-total data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat></wearable-total>
+        <wearable-total></wearable-total>
         <wearable-weight
-          style="margin-top: 10rem; --sal-duration: 1s; "
+          style="margin-top: 10rem;"
           id="pdf-weight"
-          data-sal="fade" data-sal-repeat
         ></wearable-weight>
-        <wearable-step data-sal="fade" data-sal-repeat style="--sal-duration: 1s; margin-top: 10rem" id="pdf-step"></wearable-step>
-        <step-word data-sal="fade" data-sal-repeat style="margin-top: 15rem; --sal-duration: 1s; "></step-word>
+        <wearable-step  style=" margin-top: 10rem" id="pdf-step"></wearable-step>
+        <step-word  style="margin-top: 15rem; "></step-word>
         <wearable-energy
-        data-sal="fade" data-sal-repeat
-          style="--sal-duration: 1s; margin-top: 15rem"
+          style=" margin-top: 15rem"
           id="pdf-energy"
         ></wearable-energy>
-        <wearable-rhr data-sal="fade" data-sal-repeat style="--sal-duration: 1s; margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
+        <wearable-rhr style="margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
         <wearable-stress
-        data-sal="fade" data-sal-repeat
-          style="margin-top: 10rem;--sal-duration: 1s;"
+          style="margin-top: 10rem;"
           id="pdf-stress"
-
         ></wearable-stress>
-        <stress-word  data-sal="fade" data-sal-repeat style="--sal-duration: 1s; margin-top: 15rem"></stress-word>
+        <stress-word  style=" margin-top: 15rem"></stress-word>
         <wearable-sleep
-        data-sal="fade" data-sal-repeat
-          style="margin-top: 15rem; --sal-duration: 1s;"
+          style="margin-top: 15rem; "
           id="pdf-sleep"
         ></wearable-sleep>
       </div>
@@ -208,13 +203,11 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import html2canvas from "html2canvas";
 import * as pdf from "@grapecity/wijmo.pdf";
-import sal from "sal.js";
+
 
 export default {
   name: "WearableView",
-  mounted() {
-    sal();
-  },
+
   components: {
     VueHeader,
     WearableTotal,
