@@ -125,7 +125,7 @@
               </div> -->
               <!-- 전체 순위, 친구 순위 끝-->
               <b-button id="total-score-rank">전체 순위 : {{ totalRank }}등</b-button>
-              <b-button id="total-score-rank">친구 순위 : {{ friendRank }} 등</b-button>
+              <b-button id="total-score-rank">친구 순위 : {{ friendRank }}등</b-button>
             </div>
             <!-- 유저 종합점수 그래프 -->
             <div id="WearablePastTotal">

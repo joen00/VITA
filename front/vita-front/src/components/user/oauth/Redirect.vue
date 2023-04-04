@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchUser']),
-    ...mapMutations(['setToken','setUserNickname','setUserProfileImg','setUserPhoneType'])
+    ...mapMutations(['setToken','setUserNickname','setUserProfileImg','`setUserPhoneType'])
   }
 }
 </script>

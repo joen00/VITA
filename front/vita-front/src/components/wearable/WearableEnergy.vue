@@ -7,11 +7,14 @@
     <div id="energy-middle">
       <div id="energy-middle-left-btn">
         <div id="energy-middle-left-btn-up">
-          <button id="btn-energy" v-on:click="weekEnergy">1주</button>
-          <br />
-          <button id="btn-energy" v-on:click="monthEnergy">1개월</button>
-          <br />
-          <button id="btn-energy" v-on:click="yearEnergy">1년</button>
+          <input type="radio" name="energy-period" id="week" value="week" v-on:click="weekEnergy" checked>
+          <label for="week">1주</label>
+
+          <input type="radio" name="energy-period" id="month" value="month" v-on:click="monthEnergy">
+          <label for="month">1개월</label>
+
+          <input type="radio" name="energy-period" id="year" value="year" v-on:click="yearEnergy">
+          <label for="year">1년</label>
         </div>
         <div id="energy-middle-left-btn-down">
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
@@ -418,7 +421,12 @@ export default {
   /* align-items: center; */
 }
 
-#btn-energy {
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
   width: 70%;
   height: 35px;
   border: none;
@@ -428,8 +436,11 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   margin-bottom: 1rem;
+  text-align: center;
+  line-height: 35px;
 }
-#btn-energy:hover {
+
+input[type="radio"]:checked + label {
   width: 70%;
   height: 35px;
   border: none;
@@ -439,7 +450,13 @@ export default {
   background: rgb(255, 255, 255);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
+  cursor: pointer;
 }
+
+input[type="radio"]:hover + label {
+  cursor: pointer;
+}
+
 #energy-middle-left-btn-up {
   height: 70%;
 }

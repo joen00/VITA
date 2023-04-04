@@ -7,11 +7,14 @@
     <div id="rhr-middle">
       <div id="rhr-middle-left-btn">
         <div id="rhr-middle-left-btn-up">
-          <button id="btn-rhr" v-on:click="weekRhr">1주</button>
-          <br />
-          <button id="btn-rhr" v-on:click="monthRhr">1개월</button>
-          <br />
-          <button id="btn-rhr" v-on:click="yearRhr">1년</button>
+          <input type="radio" name="rhr-period" id="week" value="week" v-on:click="weekRhr" checked>
+          <label for="week">1주</label>
+
+          <input type="radio" name="rhr-period" id="month" value="month" v-on:click="monthRhr">
+          <label for="month">1개월</label>
+
+          <input type="radio" name="rhr-period" id="year" value="year" v-on:click="yearRhr">
+          <label for="year">1년</label>
         </div>
         <div id="rhr-middle-left-btn-down">
           <div style="font-size: 18px; font-rhr: 800; color: #5b5a63">
@@ -403,7 +406,12 @@ export default {
   /* align-items: center; */
 }
 
-#btn-rhr {
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
   width: 70%;
   height: 35px;
   border: none;
@@ -413,8 +421,11 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   margin-bottom: 1rem;
+  text-align: center;
+  line-height: 35px;
 }
-#btn-rhr:hover {
+
+input[type="radio"]:checked + label {
   width: 70%;
   height: 35px;
   border: none;
@@ -424,7 +435,13 @@ export default {
   background: rgb(255, 255, 255);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
+  cursor: pointer;
 }
+
+input[type="radio"]:hover + label {
+  cursor: pointer;
+}
+
 #rhr-middle-left-btn-up {
   height: 70%;
 }

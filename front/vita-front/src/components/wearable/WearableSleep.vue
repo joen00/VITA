@@ -7,11 +7,14 @@
       <div id="sleep-middle">
         <div id="sleep-middle-left-btn">
           <div id="sleep-middle-left-btn-up">
-            <button id="btn-sleep" v-on:click="weekSleep">1주</button>
-            <br />
-            <button id="btn-sleep" v-on:click="monthSleep">1개월</button>
-            <br />
-            <button id="btn-sleep" v-on:click="yearSleep">1년</button>
+            <input type="radio" name="sleep-period" id="week" value="week" v-on:click="weekSleep" checked>
+            <label for="week">1주</label>
+
+            <input type="radio" name="sleep-period" id="month" value="month" v-on:click="monthSleep">
+            <label for="month">1개월</label>
+
+            <input type="radio" name="sleep-period" id="year" value="year" v-on:click="yearSleep">
+            <label for="year">1년</label>
           </div>
           <div id="sleep-middle-left-btn-down">
             <div style="font-size: 18px; font-sleep: 800; color: #5b5a63">
@@ -183,9 +186,9 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import axios from "axios";
   import ComponentHeader from "@/components/common/ComponentHeader.vue";
   import SleepElseChart from "@/components/wearable/SleepElseChart.vue";
@@ -359,133 +362,147 @@
   };
   </script>
   
-  <style>
-  #sleep-week-now-progess {
-    background: #3027e5;
-    border-radius: 10px;
-  }
-  
-  #sleep-month-now-progess {
-    background: #27e58a;
-    border-radius: 10px;
-  }
-  
-  #sleep-now-progress-p {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  #sleep-progress-p {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: black;
-  }
-  
-  #sleep-year-now-progess {
-    background: #f33249;
-    border-radius: 10px;
-  }
-  
-  #sleep-past-progess {
-    background: #d0d6e5;
-    border-radius: 10px;
-  }
-  
-  #sleep-middle-right-div-p {
-    font-size: 1rem;
-    font-weight: 800;
-    margin-left: -1rem;
-  }
-  #sleep-middle-right-div-h {
-    font-size: 1rem;
-    font-weight: 800;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  #sleep-middle {
-    height: 400px;
-    /* background-color: aqua; */
-    margin: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #sleep-middle-left-btn {
-    width: 12%;
-    height: 100%;
-    /* display: flex; */
-    /* justify-content: center;
-    align-items: center; */
-    /* background-color: rgb(255, 255, 255); */
-  }
-  #sleep-middle-left {
-    width: 44%;
-    height: 100%;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    background: #ffffff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-  }
-  
-  #sleep-middle-right {
-    margin-left: 2%;
-    width: 42%;
-    height: 100%;
-    /* background-color: rgb(0, 0, 0); */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* align-items: center; */
-  }
-  
-  #btn-sleep {
-    width: 70%;
-    height: 35px;
-    border: none;
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    background: #3695be;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-  }
-  #btn-sleep:hover {
-    width: 70%;
-    height: 35px;
-    border: none;
-    color: #3695be;
-    border: solid 2px #3695be;
-    font-weight: 600;
-    background: rgb(255, 255, 255);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
-  }
-  #sleep-middle-left-btn-up {
-    height: 70%;
-  }
-  #sleepchart {
-    width: 150%;
-    height: 90%;
-    margin-top: 1rem;
-    /* margin: auto; */
-  }
-  #sleep-middle-right-div {
-    width: 100%;
-    height: 28%;
-    background: #ffffff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-  
-    /* display: flex; 
+<style>
+#sleep-week-now-progess {
+  background: #3027e5;
+  border-radius: 10px;
+}
+
+#sleep-month-now-progess {
+  background: #27e58a;
+  border-radius: 10px;
+}
+
+#sleep-now-progress-p {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+#sleep-progress-p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: black;
+}
+
+#sleep-year-now-progess {
+  background: #f33249;
+  border-radius: 10px;
+}
+
+#sleep-past-progess {
+  background: #d0d6e5;
+  border-radius: 10px;
+}
+
+#sleep-middle-right-div-p {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-left: -1rem;
+}
+#sleep-middle-right-div-h {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#sleep-middle {
+  height: 400px;
+  /* background-color: aqua; */
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#sleep-middle-left-btn {
+  width: 12%;
+  height: 100%;
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  /* background-color: rgb(255, 255, 255); */
+}
+#sleep-middle-left {
+  width: 44%;
+  height: 100%;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+#sleep-middle-right {
+  margin-left: 2%;
+  width: 42%;
+  height: 100%;
+  /* background-color: rgb(0, 0, 0); */
+  display: flex;
   flex-direction: column;
-  justify-content: space-between; */
-  }
-  .row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 0;
-  }
-  </style>
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
+  width: 70%;
+  height: 35px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  background: #3695be;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 35px;
+}
+
+input[type="radio"]:checked + label {
+  width: 70%;
+  height: 35px;
+  border: none;
+  color: #3695be;
+  border: solid 2px #3695be;
+  font-weight: 600;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+input[type="radio"]:hover + label {
+  cursor: pointer;
+}
+
+#sleep-middle-left-btn-up {
+  height: 70%;
+}
+#sleepchart {
+  width: 150%;
+  height: 90%;
+  margin-top: 1rem;
+  /* margin: auto; */
+}
+#sleep-middle-right-div {
+  width: 100%;
+  height: 28%;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  /* display: flex; 
+flex-direction: column;
+justify-content: space-between; */
+}
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0;
+}
+</style>
