@@ -92,10 +92,11 @@
         }));
 
         var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-            maxDeviation: 0.3,
-            renderer: am5xy.AxisRendererY.new(root, {
-                strokeOpacity: 0.1
-            })
+          maxDeviation: 0.3,
+          min: 0,
+          renderer: am5xy.AxisRendererY.new(root, {
+              strokeOpacity: 0.1
+          })
         }));
 
 
