@@ -7,13 +7,13 @@
     <div id="step-middle">
       <div id="step-middle-left-btn">
         <div id="step-middle-left-btn-up">
-          <input type="radio" name="step-period" id="week" value="week" v-on:click="weekStep" checked>
+          <input type="radio" name="step-period" id="step-week" value="week" v-on:click="weekStep" checked>
           <label for="week">1주</label>
 
-          <input type="radio" name="step-period" id="month" value="month" v-on:click="monthStep">
+          <input type="radio" name="step-period" id="step-month" value="month" v-on:click="monthStep">
           <label for="month">1개월</label>
 
-          <input type="radio" name="step-period" id="year" value="year" v-on:click="yearStep">
+          <input type="radio" name="step-period" id="step-year" value="year" v-on:click="yearStep">
           <label for="year">1년</label>
         </div>
         <div id="step-middle-left-btn-down">

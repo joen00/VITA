@@ -7,13 +7,13 @@
     <div id="energy-middle">
       <div id="energy-middle-left-btn">
         <div id="energy-middle-left-btn-up">
-          <input type="radio" name="energy-period" id="week" value="week" v-on:click="weekEnergy" checked>
+          <input type="radio" name="energy-period" id="energy-week" value="week" v-on:click="weekEnergy" checked>
           <label for="week">1주</label>
 
-          <input type="radio" name="energy-period" id="month" value="month" v-on:click="monthEnergy">
+          <input type="radio" name="energy-period" id="energy-month" value="month" v-on:click="monthEnergy">
           <label for="month">1개월</label>
 
-          <input type="radio" name="energy-period" id="year" value="year" v-on:click="yearEnergy">
+          <input type="radio" name="energy-period" id="energy-year" value="year" v-on:click="yearEnergy">
           <label for="year">1년</label>
         </div>
         <div id="energy-middle-left-btn-down">

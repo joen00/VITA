@@ -7,13 +7,13 @@
     <div id="stress-middle">
       <div id="stress-middle-left-btn">
         <div id="stress-middle-left-btn-up">
-          <input type="radio" name="stress-period" id="week" value="week" v-on:click="weekStress" checked>
+          <input type="radio" name="stress-period" id="stress-week" value="week" v-on:click="weekStress" checked>
           <label for="week">1주</label>
 
-          <input type="radio" name="stress-period" id="month" value="month" v-on:click="monthStress">
+          <input type="radio" name="stress-period" id="stress-month" value="month" v-on:click="monthStress">
           <label for="month">1개월</label>
 
-          <input type="radio" name="stress-period" id="year" value="year" v-on:click="yearStress">
+          <input type="radio" name="stress-period" id="stress-year" value="year" v-on:click="yearStress">
           <label for="year">1년</label>
         </div>
         <div id="stress-middle-left-btn-down">
