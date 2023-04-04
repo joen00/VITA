@@ -42,7 +42,7 @@
         <!-- 그래프 그려지는 곳 -->
         <!-- <div id="energychart"></div> -->
         <div v-if="data.length == 0">
-          <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found">
+          <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found" width="200px">
           <p> 표시할 활동에너지 데이터가 없습니다 <br>
               tip : 충분한 걸음수 혹은 추가적인 운동 입력으로 데이터를 입력해주세요 </p>
         </div>

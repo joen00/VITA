@@ -22,8 +22,8 @@
       </div>
       <div id="weight-middle-left">
         <!-- 그래프 그려지는 곳 -->
-        <div v-if="data.length == 0">
-          <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found">
+        <div v-if="data.length == 0" >
+          <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found" width="200px">
           <p> 표시할 체중 데이터가 없습니다 <br>
               tip : 체지방, 근육량, 체중 데이터가 정상적으로 입력되어 있어야합니다. <br>
               체성분 검사를 통해 데이터를 입력해주세요. </p>

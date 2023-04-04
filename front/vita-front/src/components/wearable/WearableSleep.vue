@@ -43,7 +43,7 @@
           <!-- <div id="sleepchart"></div> -->
             <div v-if="isdaily">
               <div v-if="data.length == 0">
-                <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found">
+                <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found" width="200px">
                 <p> 표시할 수면 데이터가 없습니다 <br>
                     tip : 수면 측정을 활성화하여 데이터를 입력해주세요 </p>
               </div>
@@ -53,7 +53,7 @@
             </div>
             <div v-else>
               <div v-if="date.length == 0">
-                <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found">
+                <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found" width="200px">
                 <p> 표시할 수면 데이터가 없습니다 <br>
                     tip : 수면 측정을 활성화하여 데이터를 입력해주세요 </p>
               </div>
@@ -61,7 +61,7 @@
                 <SleepElseChart :key="componentKey" :awakedata="awakedata" :remdata="remdata" :deepdata="deepdata" :lightdata="lightdata" :date="date" />
               </div>
             </div>
-            
+
             <div v-if="infovalue" id="sleep-middle-left-child">여기</div>
         </div>
         <div id="sleep-middle-right">
