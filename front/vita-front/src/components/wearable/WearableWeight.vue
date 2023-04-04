@@ -22,7 +22,7 @@
       </div>
       <div id="weight-middle-left">
         <!-- 그래프 그려지는 곳 -->
-        <div v-if="data == []">
+        <div v-if="data.length == 0">
           <p> 해당 그래프 데이터가 없습니다 </p>
         </div>
         <div v-else>
