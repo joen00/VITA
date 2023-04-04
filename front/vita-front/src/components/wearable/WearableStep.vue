@@ -333,7 +333,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #walk-week-now-progess {
   background: #3027e5;
   border-radius: 10px;

@@ -325,7 +325,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #rhr-week-now-progess {
   background: #3027e5;
   border-radius: 10px;
