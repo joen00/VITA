@@ -28,6 +28,21 @@
           chart: {
             heigth: 450,
             type: "rangeBar",
+            // toolbar: {
+            //   show: true,
+            //   offsetX: 0,
+            //   offsetY: 0,
+            //   tools: {
+            //     download: false,
+            //     selection: false,
+            //     zoom: true,
+            //     zoomin: false,
+            //     zoomout: false,
+            //     pan: false,
+            //     reset: true | '<img src="/static/icons/reset.png" width="20">',
+            //     customIcons: []
+            //   }
+            // },
           },
           xaxis: {
             type: "datetime",
@@ -57,20 +72,34 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "AWAKE")
               .map((filterd_items) => {
+                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime();
+                let end_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                if (start_hour > end_hour) {
+                  end_time = new Date(2023,1,2,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                }
                 return {
                   x: 
                   (new Date(filterd_items.dailySleepStart).getMonth()+1) + 
-                  "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  "월" +
+                  new Date(filterd_items.dailySleepStart).getDate() + 
+                  "일" ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                      new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
+                  start_time,
+                  end_time
                   ],
                 };
               }),
@@ -80,43 +109,34 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "REM")
               .map((filterd_items) => {
+                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime();
+                let end_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                if (start_hour > end_hour) {
+                  end_time = new Date(2023,1,2,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                }
                 return {
                   x: 
                   (new Date(filterd_items.dailySleepStart).getMonth()+1) + 
-                  "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  "월" +
+                  new Date(filterd_items.dailySleepStart).getDate() + 
+                  "일" ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                      new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
-                  ],
-                };
-              }),
-          },
-          {
-            name: "깊은수면",
-            data: this.data
-              .filter((items) => items.dailySleepStage == "DEEP")
-              .map((filterd_items) => {
-                return {
-                  x: 
-                  (new Date(filterd_items.dailySleepStart).getMonth()+1) + 
-                  "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
-                  y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                      new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
+                  start_time,
+                  end_time
                   ],
                 };
               }),
@@ -126,20 +146,71 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "LIGHT")
               .map((filterd_items) => {
+                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      new Date(filterd_items.dailySleepStart).getMinutes())
+                    .getTime();
+                let end_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                if (start_hour > end_hour) {
+                  end_time = new Date(2023,1,2,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                }
                 return {
                   x: 
                   (new Date(filterd_items.dailySleepStart).getMonth()+1) + 
-                  "-" +
-                  new Date(filterd_items.dailySleepStart).getDate() ,
+                  "월" +
+                  new Date(filterd_items.dailySleepStart).getDate() + 
+                  "일" ,
                   y: [
-                    new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepStart).getHours(),
+                  start_time,
+                  end_time
+                  ],
+                };
+              }),
+          },
+          {
+            name: "깊은수면",
+            data: this.data
+              .filter((items) => items.dailySleepStage == "DEEP")
+              .map((filterd_items) => {
+                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepStart).getUTCHours(),
                       new Date(filterd_items.dailySleepStart).getMinutes())
-                    .getTime(),
-                      new Date(2023,1,1,
-                      new Date(filterd_items.dailySleepEnd).getHours(),
+                    .getTime();
+                let end_time = new Date(2023,1,1,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
                       new Date(filterd_items.dailySleepEnd).getMinutes())
-                    .getTime()
+                    .getTime();
+                if (start_hour > end_hour) {
+                  end_time = new Date(2023,1,2,
+                      // new Date(filterd_items.dailySleepStart).getHours(),
+                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      new Date(filterd_items.dailySleepEnd).getMinutes())
+                    .getTime();
+                }
+                return {
+                  x: 
+                  (new Date(filterd_items.dailySleepStart).getMonth()+1) + 
+                  "월" +
+                  new Date(filterd_items.dailySleepStart).getDate() + 
+                  "일" ,
+                  y: [
+                  start_time,
+                  end_time
                   ],
                 };
               }),

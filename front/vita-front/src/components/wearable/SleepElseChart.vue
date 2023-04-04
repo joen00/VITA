@@ -22,19 +22,19 @@ export default {
     data: function () {
     return {
         series: [{
-            name: 'awake',
+            name: '비수면',
             data: this.awakedata
           }, 
           {
-            name: 'light',
-            data: this.lightdata
-          }, 
-          {
-            name: 'remdata',
+            name: '렘수면',
             data: this.remdata
           }, 
           {
-            name: 'deep',
+            name: '얕은수면',
+            data: this.lightdata
+          }, 
+          {
+            name: '깊은수면',
             data: this.deepdata
         }],
         chartOptions: {

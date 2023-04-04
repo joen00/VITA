@@ -256,7 +256,6 @@ infovalue:false,
             // return { Stress: e.dailyWearableStress, date: day };
 // =======
             // let date = new Date(e.date)
-            // console.log("여기 " + new Date(e.date));
             return { Stress: e.dailyWearableStress, 
                      date: new Date(e.date)
                     //  date: date.getFullYear() + "-" + 
