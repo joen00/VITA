@@ -167,7 +167,11 @@
           id="pdf-energy"
           :score="lastTotalscore.totalScoreEnergy"
         ></wearable-energy>
-        <wearable-rhr style="margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
+        <wearable-rhr
+          style="margin-top: 10rem" 
+          id="pdf-rhr"
+          :score="lastTotalscore.totalScoreRhr"
+          ></wearable-rhr>
         <wearable-stress
           style="margin-top: 10rem;"
           id="pdf-stress"

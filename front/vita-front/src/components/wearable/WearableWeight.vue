@@ -19,25 +19,6 @@
             <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
           </div>
         </div>
-        
-        <div id="weight-middle-left-btn-down">
-          <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
-            체중
-          </div>
-          <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
-            종합점수
-          </div>
-          <div
-            style="
-              font-size: 60px;
-              margin-top: -0.8rem;
-              font-weight: 800;
-              color: #5b5a63;
-            "
-          >
-            80
-          </div>
-        </div>
       </div>
       <div id="weight-middle-left">
         <!-- 그래프 그려지는 곳 -->
