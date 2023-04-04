@@ -63,7 +63,7 @@ export default {
 
     go (path) {
       this.close()
-      if (this.$route.path !== path) this.$router.push(path)
+      if (this.$route.path !== path) this.$router.push(path).then(() => window.scrollTo(0, 0))
     },
     close () {
       this.isOpenAccountDropdown = false
