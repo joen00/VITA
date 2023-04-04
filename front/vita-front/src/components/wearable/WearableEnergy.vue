@@ -8,13 +8,13 @@
       <div id="energy-middle-left-btn">
         <div id="energy-middle-left-btn-up">
           <input type="radio" name="energy-period" id="energy-week" value="week" v-on:click="weekEnergy" checked>
-          <label for="week">1주</label>
+          <label for="energy-week">1주</label>
 
           <input type="radio" name="energy-period" id="energy-month" value="month" v-on:click="monthEnergy">
-          <label for="month">1개월</label>
+          <label for="energy-month">1개월</label>
 
           <input type="radio" name="energy-period" id="energy-year" value="year" v-on:click="yearEnergy">
-          <label for="year">1년</label>
+          <label for="energy-year">1년</label>
         </div>
         <div id="energy-middle-left-btn-down">
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">

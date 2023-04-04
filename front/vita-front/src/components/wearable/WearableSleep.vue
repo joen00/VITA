@@ -7,14 +7,14 @@
       <div id="sleep-middle">
         <div id="sleep-middle-left-btn">
           <div id="sleep-middle-left-btn-up">
-            <input type="radio" name="sleep-period" id="week" value="week" v-on:click="weekSleep" checked>
-            <label for="week">1주</label>
+            <input type="radio" name="sleep-period" id="sleep-week" value="week" v-on:click="weekSleep" checked>
+            <label for="sleep-week">1주</label>
 
-            <input type="radio" name="sleep-period" id="month" value="month" v-on:click="monthSleep">
-            <label for="month">1개월</label>
+            <input type="radio" name="sleep-period" id="sleep-month" value="month" v-on:click="monthSleep">
+            <label for="sleep-month">1개월</label>
 
-            <input type="radio" name="sleep-period" id="year" value="year" v-on:click="yearSleep">
-            <label for="year">1년</label>
+            <input type="radio" name="sleep-period" id="sleep-year" value="year" v-on:click="yearSleep">
+            <label for="sleep-year">1년</label>
           </div>
           <div id="sleep-middle-left-btn-down">
             <div style="font-size: 18px; font-sleep: 800; color: #5b5a63">

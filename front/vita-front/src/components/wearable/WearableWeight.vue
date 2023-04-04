@@ -8,13 +8,13 @@
       <div id="weight-middle-left-btn">
         <div id="weight-middle-left-btn-up">
           <input type="radio" name="weight-period" id="weight-week" value="week" v-on:click="weekWeight" checked>
-          <label for="week">1주</label>
+          <label for="weight-week">1주</label>
 
           <input type="radio" name="weight-period" id="weight-month" value="month" v-on:click="monthWeight">
-          <label for="month">1개월</label>
+          <label for="weight-month">1개월</label>
 
           <input type="radio" name="weight-period" id="weight-year" value="year" v-on:click="yearWeight">
-          <label for="year">1년</label>
+          <label for="weight-year">1년</label>
         </div>
         
         <div id="weight-middle-left-btn-down">
