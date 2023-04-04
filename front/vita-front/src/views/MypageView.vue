@@ -456,7 +456,7 @@ export default {
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  text-align: center;
+  text-align: left;
   height: 200px;
   border-radius: 20px;
   box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
