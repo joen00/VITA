@@ -3,11 +3,13 @@
     <ComponentHeader :ComponentHeaderTitle = ComponentHeaderTitle :ComponentHeaderContent = ComponentHeaderContent />
     <div id="total-middle">
         <div id="total-middle-left">
-            <div id="total-middle-left-div">
+            <div id="total-middle-left-div-mom">
                 <div id="chart">
                     <apexchart type="heatmap" height="300" :options="chartOptions" :series="data"></apexchart>
                 </div>
-
+                <div v-if="infovalue" id="total-middle-left-div-child">
+                    매일의 걸음수, 활동에너지, 심박수등 여러 항목을 종합하여 Vita만의 점수를 산출하여 나타낸 종합점수입니다.
+                </div>
 
             </div>
         </div>
@@ -25,6 +27,9 @@
 
             <input type="radio" name="btn-year" id="2021" value="2021" v-on:click="getTotalScore(2021)">
             <label for="2021">2021</label>
+            <div>
+              <img @click="info()" style="width: 10%" src="@/../public/wearable/question.png" />
+            </div>
         </div>
     </div>
   </div>
@@ -57,6 +62,8 @@ export default {
           },
           colors: ["#008FFB"],
         },
+        // 설명란
+        infovalue:false,
     }),
 
     created() {
@@ -67,7 +74,15 @@ export default {
     ...mapGetters(["token", "user"]),
     },
   
-    methods: {
+  methods: {
+    info() { 
+          if (this.infovalue == true) {
+            this.infovalue = false;
+          } else { 
+            this.infovalue = true;
+          }
+          console.log(this.infovalue)
+    },
       getTotalScore(year) {
         // axios.get(this.$store.state.url + 'score/' + year , {
         axios.get(this.$store.state.url + "score/" + year , {
@@ -100,12 +115,34 @@ export default {
     align-items: center; */
     /* background-color: rgb(56, 160, 160); */
 }
-#total-middle-left-div{
+/* 여기 */
+#total-middle-left-div-mom{
     width: 100%;
     height: 100%;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
+    position: relative;
+}
+#total-middle-left-div-child{
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    /* 부모랑 똑같이 */
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    opacity: 0.45;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+    padding: 4rem;
+    background-color: #bbe5f7;
+    color:black;
 }
 #total-middle-right{
     width: 20%;
