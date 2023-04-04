@@ -46,6 +46,9 @@
           },
           xaxis: {
             type: "datetime",
+            labels: {
+              datetimeUTC: false
+            }
           },
           plotOptions: {
             bar: {
