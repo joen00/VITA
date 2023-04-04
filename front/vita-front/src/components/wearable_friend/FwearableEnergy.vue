@@ -271,6 +271,9 @@ export default {
 }
 #wearable-friend-Energy-rank-img {
   margin-top: -30px;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
 }
 #wearable-friend-Energy-rank-item {
   font-weight: 600;

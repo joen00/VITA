@@ -55,9 +55,9 @@ export default {
   },
   data() {
     return {
-      ComponentHeaderTitle: "심박변이",
+      ComponentHeaderTitle: "심박수",
       ComponentHeaderContent:
-        "친구들과 나의 평균 심박변이 기록을 비교해 보여줘요.",
+        "친구들과 나의 평균 심박수 기록을 비교해 보여줘요.",
       franks: [],
     };
   },

@@ -35,8 +35,8 @@
     },
     data() {
       return {
-        ComponentHeaderTitle: "심박변이",
-        ComponentHeaderContent: "나의 심박 변이와 사람들의 평균을 비교해보세요.",
+        ComponentHeaderTitle: "심박수",
+        ComponentHeaderContent: "나의 심박수와 사람들의 평균을 비교해보세요.",
         Advice: [
           { level: "less", text: "건강할수록 심박수가 감소한다는 사실, 알고계신가요?" },
           { level: "avg", text: "건강할수록 심박수가 감소한다는 사실, 알고계신가요?" },
