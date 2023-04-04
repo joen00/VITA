@@ -15,6 +15,9 @@
 
           <input type="radio" name="step-period" id="step-year" value="year" v-on:click="yearStep">
           <label for="step-year">1년</label>
+          <div>
+            <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
+          </div>
         </div>
         <div id="step-middle-left-btn-down">
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
@@ -36,6 +39,7 @@
         <!-- 그래프 그려지는 곳 -->
         <!-- <div id="stepchart"></div> -->
         <StepChart :key="componentKey" :data="data" :timeUnit="timeUnit"/>
+        <div v-if="infovalue" id="step-middle-left-child">여기</div>
       </div>
       <!-- 오른쪽 과거와의 비교 -->
       <div id="step-middle-right">
@@ -212,6 +216,7 @@ export default {
     ComponentHeaderContent: "나의 걸음수 기록을 보여줘요.",
     data: [],
     past: [],
+    infovalue:false,
     timeUnit: "",
     componentKey: 0,
   }),
@@ -227,6 +232,14 @@ export default {
   },
 
   methods: {
+    info() { 
+          if (this.infovalue == true) {
+            this.infovalue = false;
+          } else { 
+            this.infovalue = true;
+          }
+          console.log(this.infovalue)
+    },
     async weekStep() {
       await axios
         .get(this.$store.state.url + "step/daily", {
@@ -407,6 +420,31 @@ export default {
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  position: relative;
+}
+#step-middle-left-child{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  /* 부모 */
+  position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    opacity: 0.45;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+    padding: 4rem;
+    background-color: #bbe5f7;
+    color:black;
 }
 
 #step-middle-right {

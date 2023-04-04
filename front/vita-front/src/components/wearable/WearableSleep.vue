@@ -15,6 +15,9 @@
 
             <input type="radio" name="sleep-period" id="sleep-year" value="year" v-on:click="yearSleep">
             <label for="sleep-year">1년</label>
+            <div>
+            <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
+          </div>
           </div>
           <div id="sleep-middle-left-btn-down">
             <div style="font-size: 18px; font-sleep: 800; color: #5b5a63">
@@ -44,6 +47,7 @@
             <div v-else>
                 <SleepElseChart :key="componentKey" :awakedata="awakedata" :remdata="remdata" :deepdata="deepdata" :lightdata="lightdata" :date="date" />
             </div>
+            <div v-if="infovalue" id="sleep-middle-left-child">여기</div>
         </div>
         <div id="sleep-middle-right">
           <div id="sleep-middle-right-div">
@@ -223,6 +227,7 @@
       date: [],
       past: [],
       isdaily: true,
+      infovalue:false,
       componentKey: 0,
     }),
   
@@ -236,7 +241,15 @@
       ...mapGetters(["token", "user"]),
     },
     
-    methods: {
+  methods: {
+    info() { 
+          if (this.infovalue == true) {
+            this.infovalue = false;
+          } else { 
+            this.infovalue = true;
+          }
+          console.log(this.infovalue)
+    },
       async weekSleep() {
         await axios
           .get(this.$store.state.url + "sleep/daily", {
@@ -438,7 +451,32 @@
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+  position: relative;
 }
+#sleep-middle-left-child{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  /* 부모 */
+  position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    opacity: 0.45;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+    padding: 4rem;
+    background-color: #bbe5f7;
+    color:black;
+}
+
 
 #sleep-middle-right {
   margin-left: 2%;
