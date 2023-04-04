@@ -10,6 +10,7 @@
   "dependencies": {
     "@amcharts/amcharts5": "^5.3.7",
     "@grapecity/wijmo.vue2.all": "^5.20222.877",
+    "aos": "^3.0.0-beta.6",
     "apexcharts": "^3.37.2",
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
@@ -20,6 +21,7 @@
     "hooper": "^0.3.4",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "sal.js": "^0.8.5",
     "v-calendar": "^2.4.1",
     "vue": "^2.7.14",
     "vue-apexcharts": "^1.6.2",

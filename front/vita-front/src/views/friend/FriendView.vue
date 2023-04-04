@@ -36,11 +36,11 @@
             각 종합점수
           </p>
           <div class="scroll">
-            <FriendWalk />
-            <FriendEnergy />
-            <FriendRhr />
-            <FriendStress />
-            <FriendSleep />
+            <FriendWalk data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat/>
+            <FriendEnergy data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat/>
+            <FriendRhr data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat/>
+            <FriendStress data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat/>
+            <FriendSleep data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat/>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ import FriendSleep from "@/components/friend/FriendSleep.vue";
 import VueHeader from "@/components/common/VueHeader.vue";
 import axios from "axios";
 import { mapGetters } from "vuex";
-
+import sal from "sal.js";
 // const SERVER_URL = "http://localhost:8080/friend";
 // const SERVER_URL = "https://j8b106.p.ssafy.io:8000/friend";
 // 유저 검색하거나 친구추가 테스트용
@@ -68,6 +68,9 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "FriendView",
+  mounted() {
+    sal();
+  },
   components: {
     VueHeader,
     FriendWalk,

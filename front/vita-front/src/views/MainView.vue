@@ -23,7 +23,7 @@
           나의 건강상태 알아보고 싶었던 적 없나요?
         </div>
         <div id="main-middle1-div">
-          <div id="main-middle1-div-item">
+          <div id="main-middle1-div-item" data-sal="slide-right" style="--sal-duration: 1s;" data-sal-repeat>
             <img
               style="width: 70%; height: 70%"
               src="../../public/main/mainre1.png"
@@ -44,7 +44,7 @@
               20살 대학생 김00
             </div>
           </div>
-          <div id="main-middle1-div-item">
+          <div id="main-middle1-div-item" data-sal="slide-up" style="--sal-duration: 1s; " data-sal-repeat>
             <img
               style="width: 70%; height: 70%"
               src="../../public/main/mainre2.png"
@@ -65,7 +65,7 @@
               50살 대학생 이00
             </div>
           </div>
-          <div id="main-middle1-div-item">
+          <div id="main-middle1-div-item" data-sal="slide-left" style="--sal-duration: 1s; " data-sal-repeat>
             <img
               style="width: 70%; height: 70%"
               src="../../public/main/mainre4.png"
@@ -94,7 +94,7 @@
           <p>건강리포트</p>
         </div>
         <!-- middle2 -->
-        <div id="main-middle2-div">
+        <div id="main-middle2-div" data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat>
           <!-- div 1 -->
           <div id="main-middle2-div-img">
             <img style="width: 70%" src="@/../public/main/animation2.gif" />
@@ -130,7 +130,7 @@
           </div>
           <!-- div1 끝 -->
         </div>
-        <div id="main-middle2-div">
+        <div id="main-middle2-div" data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat>
           <!-- div2 시작 -->
           <div id="main-middle2-div-img">
             <img style="width: 77%" src="@/../public/main/animation3.gif" />
@@ -166,7 +166,7 @@ HealthReport를 통해
           </div>
           <!-- div2 끝 -->
         </div>
-        <div id="main-middle2-div">
+        <div id="main-middle2-div" data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat>
           <!-- div3 시작 -->
           <div id="main-middle2-div-img">
             <img style="width: 77%" src="@/../public/main/animation4.gif" />
@@ -221,8 +221,12 @@ HealthReport를 통해
 </template>
 
 <script>
+import sal from "sal.js";
 export default {
   name: "MainView",
+  mounted() {
+    sal();
+  },
   head() {
     return {
       script: [{ src: "//developers.kakao.com/sdk/js/kakao.min.js" }],

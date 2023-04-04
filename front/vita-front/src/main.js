@@ -6,7 +6,9 @@ import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+//  sal
+import sal from "sal.js"
+import "sal.js/dist/sal.css";
 
 Vue.use(BootstrapVue)
 
@@ -26,8 +28,12 @@ const KAKAKO_API_KEY = '2aab5a9403a1dafc16cdb799021db6e5';
 window.Kakao.init(KAKAKO_API_KEY);
 //
 
+
 new Vue({
   router,
   store,
+  created() {
+    sal.init()
+  },
   render: h => h(App)
 }).$mount('#app')

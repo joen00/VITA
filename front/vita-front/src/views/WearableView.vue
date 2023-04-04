@@ -140,25 +140,30 @@
       </div>
 
       <div id="wearable-footer">
-        <wearable-total></wearable-total>
+        <wearable-total data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat></wearable-total>
         <wearable-weight
-          style="margin-top: 10rem"
+          style="margin-top: 10rem; --sal-duration: 1s; "
           id="pdf-weight"
+          data-sal="fade" data-sal-repeat
         ></wearable-weight>
-        <wearable-step style="margin-top: 10rem" id="pdf-step"></wearable-step>
-        <step-word style="margin-top: 15rem"></step-word>
+        <wearable-step data-sal="fade" data-sal-repeat style="--sal-duration: 1s; margin-top: 10rem" id="pdf-step"></wearable-step>
+        <step-word data-sal="fade" data-sal-repeat style="margin-top: 15rem; --sal-duration: 1s; "></step-word>
         <wearable-energy
-          style="margin-top: 15rem"
+        data-sal="fade" data-sal-repeat
+          style="--sal-duration: 1s; margin-top: 15rem"
           id="pdf-energy"
         ></wearable-energy>
-        <wearable-rhr style="margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
+        <wearable-rhr data-sal="fade" data-sal-repeat style="--sal-duration: 1s; margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
         <wearable-stress
-          style="margin-top: 10rem"
+        data-sal="fade" data-sal-repeat
+          style="margin-top: 10rem;--sal-duration: 1s;"
           id="pdf-stress"
+
         ></wearable-stress>
-        <stress-word style="margin-top: 15rem"></stress-word>
+        <stress-word  data-sal="fade" data-sal-repeat style="--sal-duration: 1s; margin-top: 15rem"></stress-word>
         <wearable-sleep
-          style="margin-top: 15rem"
+        data-sal="fade" data-sal-repeat
+          style="margin-top: 15rem; --sal-duration: 1s;"
           id="pdf-sleep"
         ></wearable-sleep>
       </div>
@@ -192,9 +197,13 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import html2canvas from "html2canvas";
 import * as pdf from "@grapecity/wijmo.pdf";
+import sal from "sal.js";
 
 export default {
   name: "WearableView",
+  mounted() {
+    sal();
+  },
   components: {
     VueHeader,
     WearableTotal,
