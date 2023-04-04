@@ -127,6 +127,7 @@
               <b-button id="total-score-rank">전체 순위 : {{ totalRank }}등</b-button>
               <b-button id="total-score-rank">친구 순위 : {{ friendRank }}등</b-button>
             </div>
+
             <!-- 유저 종합점수 그래프 -->
             <div id="WearablePastTotal">
               <WearablePastTotal
@@ -139,6 +140,16 @@
         </div>
       </div>
 
+      <!-- 히스토리 이미지를 뽑아내기 위한 div 태그. 실제로는 아무것도 안보이지만 pdf 다운로드를 누르면 여기에 이미지가 생성되었다가 사라짐 -->
+      <div id="history-img">
+        <img src="" id="history-score-chart" width="100%">
+        <div class="d-flex mb-5">
+          <img src="" id="history-step-chart" width="33.33333%">
+          <img src="" id="history-energy-chart" width="33.33333%">
+          <img src="" id="history-rhr-chart" width="33.33333%">
+        </div>
+      </div>
+      <!-- ---------------------------------------------------------------------------------------------------------------------- -->
       <div id="wearable-footer">
         <wearable-total data-sal="fade" style="--sal-duration: 1s; " data-sal-repeat></wearable-total>
         <wearable-weight
@@ -275,13 +286,14 @@ export default {
     // 유저 히스토리 이미지 저장 및 pdf 추출하는 함수
     async getPdf() {
       this.pdfBtnLoading;
-      let historyImage = document.querySelector("#wearable-middle");
+      let userInfo = document.querySelector("#wearable-middle");
       let pdfWeight = document.querySelector("#pdf-weight");
       let pdfStep = document.querySelector("#pdf-step");
       let pdfEnergy = document.querySelector("#pdf-energy");
       let pdfRhr = document.querySelector("#pdf-rhr");
       let pdfStress = document.querySelector("#pdf-stress");
       let pdfSleep = document.querySelector("#pdf-sleep");
+      let pdfScore = document.querySelector("#history-img");
 
       let doc = new pdf.PdfDocument({
         header: {
@@ -293,13 +305,86 @@ export default {
         ended: (sender, args) => pdf.saveBlob(args.blob, "Document.pdf"),
       });
 
-      // 유저 히스토리 이미지 저장 먼저 한 다음에
-      await html2canvas(historyImage, {
-        y: -150,
-        height: 700,
+      // ----------- 히스토리 이미지 만드는 부분 ------------------------
+      // 유저의 종합 점수, 과거 점수 정보 추출
+      await html2canvas(userInfo, { backgroundColor: "#E2F2FA", height: 380, y: -20 }).then((canvas) => {
+        document.querySelector("#history-score-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      })
+
+      // 체중 차트 추출
+      await html2canvas(pdfWeight, {
         backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
       }).then((dataUrl) => {
-        console.log(dataUrl.toDataURL());
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
+
+      // 걸음수 추출
+      await html2canvas(pdfStep, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
+        document.querySelector("#history-step-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      })
+
+      // 활동 에너지 추출
+      await html2canvas(pdfEnergy, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
+        document.querySelector("#history-energy-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      })
+
+      // 심박변이 추출
+      await html2canvas(pdfRhr, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
+        // console.log(canvas)
+        document.querySelector("#history-rhr-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      })
+      
+
+      // 스트레스 차트 추출
+      await html2canvas(pdfStress, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
+
+      // 수면 차트 추출
+      await html2canvas(pdfSleep, {
+        backgroundColor: "#E2F2FA",
+        height: 700,
+        y: -60,
+      }).then((dataUrl) => {
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
+
+      // 만들어진 히스토리 이미지를 DB에 저장
+      await html2canvas(pdfScore).then((dataUrl) => {
+        // console.log(dataUrl.toDataURL());
         axios.post(
           this.$store.state.serverBaseUrl + `/wearable/savehistory`,
           { image: dataUrl.toDataURL() },
@@ -308,86 +393,18 @@ export default {
               Authorization: `Bearer ${this.token}`,
             },
           }
-        )
-        ;
-      });
-      // 체중 차트 추출
-      await html2canvas(pdfWeight, {
-        backgroundColor: "#E2F2FA",
-        height: 700,
-        y: -60,
-      }).then((dataUrl) => {
-        console.log(dataUrl);
-        doc.drawImage(dataUrl.toDataURL(), null, null, {
-          width: 480,
+        ).then((response) => {
+          console.log(response)
         });
-        doc.moveDown();
-      });
-      // 걸음 차트 추출
-      await html2canvas(pdfStep, {
-        backgroundColor: "#E2F2FA",
-        height: 700,
-        y: -60,
-      }).then((dataUrl) => {
-        console.log(dataUrl);
-        doc.drawImage(dataUrl.toDataURL(), null, null, {
-          width: 480,
-        });
-        doc.moveDown();
-        doc.addPage();
-      });
-      // 에너지 차트 추출
-      await html2canvas(pdfEnergy, {
-        backgroundColor: "#E2F2FA",
-        height: 700,
-        y: -60,
-      }).then((dataUrl) => {
-        console.log(dataUrl);
-        doc.drawImage(dataUrl.toDataURL(), null, null, {
-          width: 480,
-        });
-        doc.moveDown();
-      });
-      // 심박변이 차트 추출
-      await html2canvas(pdfRhr, {
-        backgroundColor: "#E2F2FA",
-        height: 700,
-        y: -60,
-      }).then((dataUrl) => {
-        console.log(dataUrl);
-        doc.drawImage(dataUrl.toDataURL(), null, null, {
-          width: 480,
-        });
-        doc.moveDown();
-        doc.addPage();
-      });
-      // 스트레스 차트 추출
-      await html2canvas(pdfStress, {
-        backgroundColor: "#E2F2FA",
-        height: 700,
-        y: -60,
-      }).then((dataUrl) => {
-        console.log(dataUrl);
-        doc.drawImage(dataUrl.toDataURL(), null, null, {
-          width: 480,
-        });
-        doc.moveDown();
-      });
-      // 수면 차트 추출
-      await html2canvas(pdfSleep, {
-        backgroundColor: "#E2F2FA",
-        height: 700,
-        y: -60,
-      }).then((dataUrl) => {
-        console.log(dataUrl);
-        doc.drawImage(dataUrl.toDataURL(), null, null, {
-          width: 480,
-        });
-        doc.moveDown();
-        doc.addPage();
-      });
+      })
+
       doc.end();
+      // 버튼을 원래 상태로 복구
       this.pdfBtnNormal;
+      // 히스토리 이미지 추출용 태그들을 모두 제거함
+      document.getElementById("history-img").remove();
+
+      
     },
     getUserInfo() {
       axios
@@ -397,7 +414,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           this.nickname = response.data.userNickname;
           this.avatar = response.data.userAvatar;
         });
@@ -542,5 +559,8 @@ export default {
 }
 #wearable-footer {
   margin-top: 8rem;
+}
+#history-charts {
+  width: 20px;
 }
 </style>
