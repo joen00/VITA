@@ -158,7 +158,7 @@
 
 <script>
 import { Carousel3d, Slide } from "vue-carousel-3d";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 import VueHeader from "@/components/common/VueHeader.vue";
 import VDatePicker from "v-calendar/lib/components/date-picker.umd";
@@ -320,6 +320,7 @@ export default {
           .then((response) => {
             console.log(response);
             this.getUserInfo();
+            this.setUserPhoneType(this.UserInfo[4].data);
           });
       }
     },
@@ -337,7 +338,8 @@ export default {
             }
           })
         });
-    }
+    },
+    ...mapMutations(['setUserPhoneType'])
   },
 
   created() {
