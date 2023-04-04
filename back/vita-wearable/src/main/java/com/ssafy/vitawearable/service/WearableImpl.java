@@ -165,7 +165,7 @@ public class WearableImpl implements Wearable {
     public List<RhrDailyDto> rhrDaily(String userId) {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         Stream<DailyWearable> DailyStream = dailyWearables.stream()
-                .filter(data -> data.getDailyWearableStep() != 0);
+                .filter(data -> data.getDailyWearableRhr() != 0);
         long skipSize = DailyStream.count() - 20;
         if (skipSize < 0) skipSize = 0;
 
