@@ -48,13 +48,16 @@
         <div id="sleep-middle-right">
           <div id="sleep-middle-right-div">
             <div v-if="past.weekNowWearableSleep < past.weekPastWearableSleep">
-              <p id="sleep-middle-right-div-h">저번주가 더 수면이 높습니다</p>
+              <p id="sleep-middle-right-div-h">이번 주 평균 수면시간이 지난주보다 감소했습니다</p>
+            </div>
+            <div v-else-if="past.weekNowWearableSleep == past.weekPastWearableSleep">
+              <p id="sleep-middle-right-div-h">이번 주 평균 수면시간은 지난주와 동일합니다</p>
             </div>
             <div v-else>
-              <p id="sleep-middle-right-div-h">이번주가 더 수면이 높습니다</p>
+              <p id="sleep-middle-right-div-h">이번 주 평균 수면시간이 지난주보다 증가했습니다</p>
             </div>
             <div class="row">
-              <span id="sleep-middle-right-div-p" class="col-2">이번주</span>
+              <span id="sleep-middle-right-div-p" class="col-2">이번 주</span>
               <div class="progress col-9 px-0" id="weekNowWearableSleep">
                 <div
                   id="sleep-week-now-progess"
@@ -73,7 +76,7 @@
             </div>
   
             <div class="row">
-              <span id="sleep-middle-right-div-p" class="col-2">저번주</span>
+              <span id="sleep-middle-right-div-p" class="col-2">지난주</span>
               <div class="progress col-9 px-0" id="weekPastWearableSleep">
                 <div
                   id="sleep-past-progess"
@@ -94,13 +97,16 @@
   
           <div id="sleep-middle-right-div">
             <div v-if="past.monthNowWearableSleep < past.monthPastWearableSleep">
-              <p id="sleep-middle-right-div-h">전달이 더 수면이 높습니다</p>
+              <p id="sleep-middle-right-div-h">이번 달 평균 수면시간이 지난달보다 감소했습니다</p>
+            </div>
+            <div v-else-if="past.monthNowWearableSleep == past.monthPastWearableSleep">
+              <p id="sleep-middle-right-div-h">이번 달 평균 수면시간은 지난달과 동일합니다</p>
             </div>
             <div v-else>
-              <p id="sleep-middle-right-div-h">이번달이 더 수면이 높습니다</p>
+              <p id="sleep-middle-right-div-h">이번 달 평균 수면시간이 지난달보다 증가했습니다</p>
             </div>
             <div class="row">
-              <span id="sleep-middle-right-div-p" class="col-2">이번달</span>
+              <span id="sleep-middle-right-div-p" class="col-2">이번 달</span>
               <div class="progress col-9 px-0" id="monthNowWearableSleep">
                 <div
                   id="sleep-month-now-progess"
@@ -119,7 +125,7 @@
             </div>
   
             <div class="row">
-              <span id="sleep-middle-right-div-p" class="col-2">저번달</span>
+              <span id="sleep-middle-right-div-p" class="col-2">지난달</span>
               <div class="progress col-9 px-0" id="monthPastWearableSleep">
                 <div
                   id="sleep-past-progess"
@@ -140,12 +146,14 @@
   
           <div id="sleep-middle-right-div">
             <div v-if="past.yearNowWearableSleep < past.yearPastWearableSleep">
-              <p id="sleep-middle-right-div-h">작년에 더 수면이 높습니다</p>
+              <p id="sleep-middle-right-div-h">올해 평균 수면시간이 작년보다 감소했습니다</p>
+            </div>
+            <div v-else-if="past.yearNowWearableSleep == past.yearPastWearableSleep">
+              <p id="sleep-middle-right-div-h">올해 평균 수면시간은 작년과 동일합니다</p>
             </div>
             <div v-else>
-              <p id="sleep-middle-right-div-h">올해에 더 수면이 높습니다</p>
+              <p id="sleep-middle-right-div-h">올해 평균 수면시간이 작년보다 증가했습니다</p>
             </div>
-  
             <div class="row">
               <span id="sleep-middle-right-div-p" class="col-2">올해</span>
               <div class="progress col-9 px-0" id="yearNowWearableSleep">

@@ -43,13 +43,16 @@
       <div id="weight-middle-right">
         <div id="weight-middle-right-div">
           <div v-if="past.weekNowWearableWeight < past.weekPastWearableWeight">
-            <p id="weight-middle-right-div-h">저번주가 더 체중이 높습니다</p>
+            <p id="weight-middle-right-div-h">이번 주 평균 체중이 지난주보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.weekNowWearableWeight == past.weekPastWearableWeight">
+            <p id="weight-middle-right-div-h">이번 주 평균 체중은 지난주와 동일합니다</p>
           </div>
           <div v-else>
-            <p id="weight-middle-right-div-h">이번주가 더 체중이 높습니다</p>
+            <p id="weight-middle-right-div-h">이번 주 평균 체중이 지난주보다 증가했습니다</p>
           </div>
           <div class="row">
-            <span id="weight-middle-right-div-p" class="col-2">이번주</span>
+            <span id="weight-middle-right-div-p" class="col-2">이번 주</span>
             <div class="progress col-9 px-0" id="weekNowWearableWeight">
               <div
                 id="weight-week-now-progess"
@@ -68,7 +71,7 @@
           </div>
 
           <div class="row">
-            <span id="weight-middle-right-div-p" class="col-2">저번주</span>
+            <span id="weight-middle-right-div-p" class="col-2">지난주</span>
             <div class="progress col-9 px-0" id="weekPastWearableWeight">
               <div
                 id="weight-past-progess"
@@ -91,13 +94,16 @@
           <div
             v-if="past.monthNowWearableWeight < past.monthPastWearableWeight"
           >
-            <p id="weight-middle-right-div-h">전달이 더 체중이 높습니다</p>
+            <p id="weight-middle-right-div-h">이번 달 평균 체중이 지난달보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.monthNowWearableWeight == past.monthPastWearableWeight">
+            <p id="weight-middle-right-div-h">이번 달 평균 체중은 지난달과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="weight-middle-right-div-h">이번달이 더 체중이 높습니다</p>
+            <p id="weight-middle-right-div-h">이번 달 평균 체중이 지난달보다 증가했습니다</p>
           </div>
           <div class="row">
-            <span id="weight-middle-right-div-p" class="col-2">이번달</span>
+            <span id="weight-middle-right-div-p" class="col-2">이번 달</span>
             <div class="progress col-9 px-0" id="monthNowWearableWeight">
               <div
                 id="weight-month-now-progess"
@@ -116,7 +122,7 @@
           </div>
 
           <div class="row">
-            <span id="weight-middle-right-div-p" class="col-2">저번달</span>
+            <span id="weight-middle-right-div-p" class="col-2">지난달</span>
             <div class="progress col-9 px-0" id="monthPastWearableWeight">
               <div
                 id="weight-past-progess"
@@ -137,10 +143,13 @@
 
         <div id="weight-middle-right-div">
           <div v-if="past.yearNowWearableWeight < past.yearPastWearableWeight">
-            <p id="weight-middle-right-div-h">작년에 더 체중이 높습니다</p>
+            <p id="weight-middle-right-div-h">올해 평균 체중이 작년보다 감소했습니다</p>
+          </div>
+          <div v-if="past.yearNowWearableWeight == past.yearPastWearableWeight">
+            <p id="weight-middle-right-div-h">올해 평균 체중은 작년과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="weight-middle-right-div-h">올해에 더 체중이 높습니다</p>
+            <p id="weight-middle-right-div-h">올해 평균 체중이 작년보다 증가했습니다</p>
           </div>
 
           <div class="row">

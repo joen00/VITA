@@ -23,14 +23,11 @@
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
             종합점수
           </div>
-          <div
-            style="
+          <div style="
               font-size: 60px;
               margin-top: -0.8rem;
               font-weight: 800;
-              color: #5b5a63;
-            "
-          >
+              color: #5b5a63; ">
             80
           </div>
         </div>
@@ -44,16 +41,21 @@
         <div id="stress-middle-right-div">
           <div v-if="past.weekNowWearableStress < past.weekPastWearableStress">
             <p id="stress-middle-right-div-h">
-              저번주가 더 스트레스이 높습니다
+              이번 주 평균 스트레스가 지난주보다 감소했습니다
+            </p>
+          </div>
+          <div v-else-if="past.weekNowWearableStress == past.weekPastWearableStress">
+            <p id="stress-middle-right-div-h">
+              이번 주 평균 스트레스는 지난주와 동일합니다
             </p>
           </div>
           <div v-else>
             <p id="stress-middle-right-div-h">
-              이번주가 더 스트레스이 높습니다
+              이번 주 평균 스트레스가 지난주보다 증가했습니다
             </p>
           </div>
           <div class="row">
-            <span id="stress-middle-right-div-p" class="col-2">이번주</span>
+            <span id="stress-middle-right-div-p" class="col-2">이번 주</span>
             <div class="progress col-9 px-0" id="weekNowWearableStress">
               <div
                 id="stress-week-now-progess"
@@ -72,7 +74,7 @@
           </div>
 
           <div class="row">
-            <span id="stress-middle-right-div-p" class="col-2">저번주</span>
+            <span id="stress-middle-right-div-p" class="col-2">지난주</span>
             <div class="progress col-9 px-0" id="weekPastWearableStress">
               <div
                 id="stress-past-progess"
@@ -92,18 +94,19 @@
         </div>
 
         <div id="stress-middle-right-div">
-          <div
-            v-if="past.monthNowWearableStress < past.monthPastWearableStress"
-          >
-            <p id="stress-middle-right-div-h">전달이 더 스트레스이 높습니다</p>
+          <div v-if="past.monthNowWearableStress < past.monthPastWearableStress">
+            <p id="stress-middle-right-div-h">이번 달 평균 스트레스가 지난달보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.monthNowWearableStress == past.monthPastWearableStress">
+            <p id="stress-middle-right-div-h">이번 달 평균 스트레스는 지난달과 동일합니다</p>
           </div>
           <div v-else>
             <p id="stress-middle-right-div-h">
-              이번달이 더 스트레스이 높습니다
+              이번 달 평균 스트레스가 지난달보다 증가했습니다
             </p>
           </div>
           <div class="row">
-            <span id="stress-middle-right-div-p" class="col-2">이번달</span>
+            <span id="stress-middle-right-div-p" class="col-2">이번 달</span>
             <div class="progress col-9 px-0" id="monthNowWearableStress">
               <div
                 id="stress-month-now-progess"
@@ -122,7 +125,7 @@
           </div>
 
           <div class="row">
-            <span id="stress-middle-right-div-p" class="col-2">저번달</span>
+            <span id="stress-middle-right-div-p" class="col-2">지난달</span>
             <div class="progress col-9 px-0" id="monthPastWearableStress">
               <div
                 id="stress-past-progess"
@@ -143,10 +146,13 @@
 
         <div id="stress-middle-right-div">
           <div v-if="past.yearNowWearableStress < past.yearPastWearableStress">
-            <p id="stress-middle-right-div-h">작년에 더 스트레스이 높습니다</p>
+            <p id="stress-middle-right-div-h">올해 평균 스트레스가 작년보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.yearNowWearableStress == past.yearPastWearableStress">
+            <p id="stress-middle-right-div-h">올해 평균 스트레스는 작년과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="stress-middle-right-div-h">올해에 더 스트레스이 높습니다</p>
+            <p id="stress-middle-right-div-h">올해 평균 스트레스가 작년보다 증가했습니다</p>
           </div>
           <div class="row">
             <span id="stress-middle-right-div-p" class="col-2">올해</span>

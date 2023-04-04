@@ -23,14 +23,11 @@
           <div style="font-size: 18px; font-rhr: 800; color: #5b5a63">
             종합점수
           </div>
-          <div
-            style="
+          <div style="
               font-size: 60px;
               margin-top: -0.8rem;
               font-rhr: 800;
-              color: #5b5a63;
-            "
-          >
+              color: #5b5a63;">
             80
           </div>
         </div>
@@ -43,13 +40,16 @@
       <div id="rhr-middle-right">
         <div id="rhr-middle-right-div">
           <div v-if="past.weekNowWearableRhr < past.weekPastWearableRhr">
-            <p id="rhr-middle-right-div-h">저번주가 더 심박수이 높습니다</p>
+            <p id="rhr-middle-right-div-h">이번 주 평균 심박수가 지난주보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.weekNowWearableRhr == past.weekPastWearableRhr">
+            <p id="rhr-middle-right-div-h">이번 주 평균 심박수는 지난주와 동일합니다</p>
           </div>
           <div v-else>
-            <p id="rhr-middle-right-div-h">이번주가 더 심박수이 높습니다</p>
+            <p id="rhr-middle-right-div-h">이번 주 평균 심박수가 지난주보다 감소했습니다</p>
           </div>
           <div class="row">
-            <span id="rhr-middle-right-div-p" class="col-2">이번주</span>
+            <span id="rhr-middle-right-div-p" class="col-2">이번 주</span>
             <div class="progress col-9 px-0" id="weekNowWearableRhr">
               <div
                 id="rhr-week-now-progess"
@@ -68,7 +68,7 @@
           </div>
 
           <div class="row">
-            <span id="rhr-middle-right-div-p" class="col-2">저번주</span>
+            <span id="rhr-middle-right-div-p" class="col-2">지난주</span>
             <div class="progress col-9 px-0" id="weekPastWearableRhr">
               <div
                 id="rhr-past-progess"
@@ -89,13 +89,16 @@
 
         <div id="rhr-middle-right-div">
           <div v-if="past.monthNowWearableRhr < past.monthPastWearableRhr">
-            <p id="rhr-middle-right-div-h">전달이 더 심박수이 높습니다</p>
+            <p id="rhr-middle-right-div-h">이번 달 평균 심박수가 지난달보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.monthNowWearableRhr == past.monthPastWearableRhr">
+            <p id="rhr-middle-right-div-h">이번 달 평균 심박수는 지난달과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="rhr-middle-right-div-h">이번달이 더 심박수이 높습니다</p>
+            <p id="rhr-middle-right-div-h">이번 달 평균 심박수가 지난달보다 증가했습니다</p>
           </div>
           <div class="row">
-            <span id="rhr-middle-right-div-p" class="col-2">이번달</span>
+            <span id="rhr-middle-right-div-p" class="col-2">이번 달</span>
             <div class="progress col-9 px-0" id="monthNowWearableRhr">
               <div
                 id="rhr-month-now-progess"
@@ -114,7 +117,7 @@
           </div>
 
           <div class="row">
-            <span id="rhr-middle-right-div-p" class="col-2">저번달</span>
+            <span id="rhr-middle-right-div-p" class="col-2">지난달</span>
             <div class="progress col-9 px-0" id="monthPastWearableRhr">
               <div
                 id="rhr-past-progess"
@@ -135,10 +138,13 @@
 
         <div id="rhr-middle-right-div">
           <div v-if="past.yearNowWearableRhr < past.yearPastWearableRhr">
-            <p id="rhr-middle-right-div-h">작년에 더 심박수이 높습니다</p>
+            <p id="rhr-middle-right-div-h">올해 평균 심박수가 작년보다 감소했습니다</p>
+          </div>
+          <div v-else-if="past.yearNowWearableRhr == past.yearPastWearableRhr">
+            <p id="rhr-middle-right-div-h">올해 평균 심박수는 작년과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="rhr-middle-right-div-h">올해에 더 심박수이 높습니다</p>
+            <p id="rhr-middle-right-div-h">올해 평균 심박수가 작년보다 증가했습니다</p>
           </div>
 
           <div class="row">

@@ -23,14 +23,11 @@
           <div style="font-size: 18px; font-weight: 800; color: #5b5a63">
             종합점수
           </div>
-          <div
-            style="
+          <div style="
               font-size: 60px;
               margin-top: -0.8rem;
               font-weight: 800;
-              color: #5b5a63;
-            "
-          >
+              color: #5b5a63;">
             80
           </div>
         </div>
@@ -45,13 +42,16 @@
         <!-- 저번주 -->
         <div id="step-middle-right-div">
           <div v-if="past.weekNowWearableStep < past.weekPastWearableStep">
-            <p id="step-middle-right-div-h">저번주가 더 걸음수이 높습니다</p>
+            <p id="step-middle-right-div-h">이번 주 평균 걸음수가 지난주보다 줄었습니다</p>
+          </div>
+          <div v-else-if="past.weekNowWearableStep == past.weekPastWearableStep">
+            <p id="step-middle-right-div-h">이번 주 평균 걸음수는 지난주와 동일합니다</p>
           </div>
           <div v-else>
-            <p id="step-middle-right-div-h">이번주가 더 걸음수이 높습니다</p>
+            <p id="step-middle-right-div-h">이번 주 평균 걸음수가 지난주보다 늘었습니다</p>
           </div>
           <div class="row">
-            <span id="step-middle-right-div-p" class="col-2">이번주</span>
+            <span id="step-middle-right-div-p" class="col-2">이번 주</span>
             <div class="progress col-9 px-0" id="weekNowWearableStep">
               <div
                 id="walk-week-now-progess"
@@ -70,7 +70,7 @@
           </div>
 
           <div class="row">
-            <span id="step-middle-right-div-p" class="col-2">저번주</span>
+            <span id="step-middle-right-div-p" class="col-2">지난주</span>
             <div class="progress col-9 px-0" id="weekPastWearableStep">
               <div
                 id="walk-past-progess"
@@ -92,13 +92,16 @@
         <div id="step-middle-right-div">
           <!-- 전달 -->
           <div v-if="past.monthNowWearableStep < past.monthPastWearableStep">
-            <p id="step-middle-right-div-h">전달이 더 걸음수이 높습니다</p>
+            <p id="step-middle-right-div-h">이번 달 평균 걸음수가 지난달보다 줄었습니다</p>
+          </div>
+          <div v-else-if="past.monthNowWearableStep == past.monthPastWearableStep">
+            <p id="step-middle-right-div-h">이번 달 평균 걸음수는 지난달과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="step-middle-right-div-h">이번달이 더 걸음수이 높습니다</p>
+            <p id="step-middle-right-div-h">이번 달 평균 걸음수가 지난달보다 늘었습니다</p>
           </div>
           <div class="row">
-            <span id="step-middle-right-div-p" class="col-2">이번달</span>
+            <span id="step-middle-right-div-p" class="col-2">이번 달</span>
             <div class="progress col-9 px-0" id="monthNowWearableStep">
               <div
                 id="walk-month-now-progess"
@@ -117,7 +120,7 @@
           </div>
 
           <div class="row">
-            <span id="step-middle-right-div-p" class="col-2">저번달</span>
+            <span id="step-middle-right-div-p" class="col-2">지난달</span>
             <div class="progress col-9 px-0" id="monthPastWearableStep">
               <div
                 id="walk-past-progess"
@@ -138,10 +141,13 @@
         <!-- 작년 -->
         <div id="step-middle-right-div">
           <div v-if="past.yearNowWearableStep < past.yearPastWearableStep">
-            <p id="step-middle-right-div-h">작년에 더 걸음수이 높습니다</p>
+            <p id="step-middle-right-div-h">올해 평균 걸음수가 작년보다 줄었습니다</p>
+          </div>
+          <div v-else-if="past.yearNowWearableStep == past.yearPastWearableStep">
+            <p id="step-middle-right-div-h">올해 평균 걸음수는 작년과 동일합니다</p>
           </div>
           <div v-else>
-            <p id="step-middle-right-div-h">올해에 더 걸음수이 높습니다</p>
+            <p id="step-middle-right-div-h">올해 평균 걸음수가 작년보다 늘었습니다</p>
           </div>
 
           <div class="row">

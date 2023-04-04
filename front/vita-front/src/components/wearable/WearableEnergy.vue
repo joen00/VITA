@@ -44,16 +44,21 @@
         <div id="energy-middle-right-div">
           <div v-if="past.weekNowWearableEnergy < past.weekPastWearableEnergy">
             <p id="energy-middle-right-div-h">
-              저번주가 더 활동에너지이 높습니다
+              이번 주 평균 활동에너지가 지난주보다 감소했습니다
+            </p>
+          </div>
+          <div v-else-if="past.weekNowWearableEnergy == past.weekPastWearableEnergy">
+            <p id="energy-middle-right-div-h">
+              이번 주 평균 활동에너지는 지난주와 동일합니다
             </p>
           </div>
           <div v-else>
             <p id="energy-middle-right-div-h">
-              이번주가 더 활동에너지이 높습니다
+              이번 주 평균 활동에너지가 지난주보다 증가했습니다
             </p>
           </div>
           <div class="row">
-            <span id="energy-middle-right-div-p" class="col-2">이번주</span>
+            <span id="energy-middle-right-div-p" class="col-2">이번 주</span>
             <div class="progress col-9 px-0" id="weekNowWearableEnergy">
               <div
                 id="energy-week-now-progess"
@@ -72,7 +77,7 @@
           </div>
 
           <div class="row">
-            <span id="energy-middle-right-div-p" class="col-2">저번주</span>
+            <span id="energy-middle-right-div-p" class="col-2">지난주</span>
             <div class="progress col-9 px-0" id="weekPastWearableEnergy">
               <div
                 id="energy-past-progess"
@@ -92,20 +97,23 @@
         </div>
 
         <div id="energy-middle-right-div">
-          <div
-            v-if="past.monthNowWearableEnergy < past.monthPastWearableEnergy"
-          >
+          <div v-if="past.monthNowWearableEnergy < past.monthPastWearableEnergy">
             <p id="energy-middle-right-div-h">
-              전달이 더 활동에너지이 높습니다
+              이번 달 평균 활동에너지가 지난달보다 감소했습니다
+            </p>
+          </div>
+          <div v-else-if="past.monthNowWearableEnergy == past.monthPastWearableEnergy">
+            <p id="energy-middle-right-div-h">
+              이번 달 평균 활동에너지는 지난달과 동일합니다
             </p>
           </div>
           <div v-else>
             <p id="energy-middle-right-div-h">
-              이번달이 더 활동에너지이 높습니다
+              이번 달 평균 활동에너지가 지난달보다 증가했습니다
             </p>
           </div>
           <div class="row">
-            <span id="energy-middle-right-div-p" class="col-2">이번달</span>
+            <span id="energy-middle-right-div-p" class="col-2">이번 달</span>
             <div class="progress col-9 px-0" id="monthNowWearableEnergy">
               <div
                 id="energy-month-now-progess"
@@ -124,7 +132,7 @@
           </div>
 
           <div class="row">
-            <span id="energy-middle-right-div-p" class="col-2">저번달</span>
+            <span id="energy-middle-right-div-p" class="col-2">지난달</span>
             <div class="progress col-9 px-0" id="monthPastWearableEnergy">
               <div
                 id="energy-past-progess"
@@ -146,12 +154,17 @@
         <div id="energy-middle-right-div">
           <div v-if="past.yearNowWearableEnergy < past.yearPastWearableEnergy">
             <p id="energy-middle-right-div-h">
-              작년에 더 활동에너지이 높습니다
+              올해 평균 활동에너지가 작년보다 감소했습니다
+            </p>
+          </div>
+          <div v-if="past.yearNowWearableEnergy == past.yearPastWearableEnergy">
+            <p id="energy-middle-right-div-h">
+              올해 평균 활동에너지는 작년과 동일합니다
             </p>
           </div>
           <div v-else>
             <p id="energy-middle-right-div-h">
-              올해에 더 활동에너지이 높습니다
+              올해 평균 활동에너지가 작년보다 증가했습니다
             </p>
           </div>
           <div class="row">
