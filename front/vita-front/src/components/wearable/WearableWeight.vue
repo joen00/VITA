@@ -22,8 +22,14 @@
       </div>
       <div id="weight-middle-left">
         <!-- 그래프 그려지는 곳 -->
-        <WeightChart :key="componentKey" :data="data" ></WeightChart>
+        <div v-if="data == []">
+          <p> 해당 그래프 데이터가 없습니다 </p>
+        </div>
+        <div v-else>
+          <WeightChart :key="componentKey" :data="data" ></WeightChart>
+        </div>
         <div v-if="infovalue" id="weight-middle-left-child">여기</div>
+
       </div>
       <div id="weight-middle-right">
         <div id="weight-middle-right-div">
