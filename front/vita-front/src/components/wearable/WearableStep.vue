@@ -38,7 +38,15 @@
       <div id="step-middle-left">
         <!-- 그래프 그려지는 곳 -->
         <!-- <div id="stepchart"></div> -->
-        <StepChart :key="componentKey" :data="data" :timeUnit="timeUnit"/>
+        <div v-if="data.length == 0">
+          <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found">
+          <p> 표시할 걸음수 데이터가 없습니다 <br>
+              tip : 자동 걸음수 측정을 통해 데이터를 입력해주세요 </p>
+        </div>
+        <div v-else>
+          <StepChart :key="componentKey" :data="data" :timeUnit="timeUnit"/>
+        </div>
+        
         <div v-if="infovalue" id="step-middle-left-child">여기</div>
       </div>
       <!-- 오른쪽 과거와의 비교 -->

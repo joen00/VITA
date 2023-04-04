@@ -38,7 +38,15 @@
       <div id="stress-middle-left">
         <!-- 그래프 그려지는 곳 -->
         <!-- <div id="stresschart"></div> -->
-        <stressChart :key="componentKey" :data="data" />
+        <div v-if="data.length == 0">
+          <img :src="require(`/public/wearable/no_data_found.png`)" id="no_data_found">
+          <p> 표시할 스트레스 데이터가 없습니다 <br>
+              tip : 스트레스 측정 기능이 있는 기기 데이터가 있을때만 표시됩니다. 스트레스 측정 기능이 있다면 활성해주세요 </p>
+        </div>
+        <div v-else>
+          <stressChart :key="componentKey" :data="data" />
+        </div>
+        
         <div v-if="infovalue" id="stress-middle-left-child">여기</div>
       </div>
       <div id="stress-middle-right">
