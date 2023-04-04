@@ -73,7 +73,7 @@
               .filter((items) => items.dailySleepStage == "AWAKE")
               .map((filterd_items) => {
                 let start_hour = new Date(filterd_items.dailySleepStart).getHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
                       start_hour,
@@ -110,7 +110,7 @@
               .filter((items) => items.dailySleepStage == "REM")
               .map((filterd_items) => {
                 let start_hour = new Date(filterd_items.dailySleepStart).getHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
                       start_hour,
@@ -147,7 +147,7 @@
               .filter((items) => items.dailySleepStage == "LIGHT")
               .map((filterd_items) => {
                 let start_hour = new Date(filterd_items.dailySleepStart).getHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
                       start_hour,
@@ -184,7 +184,7 @@
               .filter((items) => items.dailySleepStage == "DEEP")
               .map((filterd_items) => {
                 let start_hour = new Date(filterd_items.dailySleepStart).getHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).getHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
                       start_hour,
