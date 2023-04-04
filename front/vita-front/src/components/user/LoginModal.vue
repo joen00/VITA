@@ -7,7 +7,7 @@
           .modal-content
             .modal-header
               h4.modal-title 로그인
-              button.close(@click='$emit("onCloseModal")') ×
+              button.close(@click='$emit("onCloseModal")') X
             .modal-body
               .socal_login_container
                 template(v-for='social in socials')
