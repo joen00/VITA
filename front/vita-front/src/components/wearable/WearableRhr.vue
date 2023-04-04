@@ -21,7 +21,7 @@
         </div>
         <div id="rhr-middle-left-btn-down">
           <div style="font-size: 18px; font-rhr: 800; color: #5b5a63">
-            심박변이
+            심박수
           </div>
           <div style="font-size: 18px; font-rhr: 800; color: #5b5a63">
             종합점수
