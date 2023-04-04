@@ -49,7 +49,6 @@ export default {
 
       // The data
       var data = this.data;
-      console.log("체중차트 console", data);
       // Create axes
       // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
       var xAxis = chart.xAxes.push(

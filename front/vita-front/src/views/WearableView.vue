@@ -156,21 +156,28 @@
           style="margin-top: 10rem;"
           id="pdf-weight"
         ></wearable-weight>
-        <wearable-step  style=" margin-top: 10rem" id="pdf-step"></wearable-step>
-        <step-word  style="margin-top: 15rem; "></step-word>
+        <wearable-step
+          style="margin-top: 10rem"
+          id="pdf-step"
+          :score="lastTotalscore.totalScoreStep"
+          ></wearable-step>
+        <step-word style="margin-top: 15rem"></step-word>
         <wearable-energy
           style=" margin-top: 15rem"
           id="pdf-energy"
+          :score="lastTotalscore.totalScoreEnergy"
         ></wearable-energy>
         <wearable-rhr style="margin-top: 10rem" id="pdf-rhr"></wearable-rhr>
         <wearable-stress
           style="margin-top: 10rem;"
           id="pdf-stress"
+          :score="lastTotalscore.totalScoreStress"
         ></wearable-stress>
         <stress-word  style=" margin-top: 15rem"></stress-word>
         <wearable-sleep
           style="margin-top: 15rem; "
           id="pdf-sleep"
+          :score="lastTotalscore.totalScoreSleep"
         ></wearable-sleep>
       </div>
       <!-- pdf 다운로드 버튼(클릭 시 버튼에 processing 애니메이션이 적용됨) -->

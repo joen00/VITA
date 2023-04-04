@@ -34,7 +34,7 @@
               color: #5b5a63;
             "
           >
-            80
+            {{ score }}
           </div>
         </div>
       </div>
@@ -234,6 +234,10 @@ export default {
 infovalue:false,
     componentKey: 0,
   }),
+
+  props: {
+    score: Number,
+  },
 
   // 데이터 가져오는 곳
   created() {
