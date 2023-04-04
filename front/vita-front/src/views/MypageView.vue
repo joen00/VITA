@@ -86,17 +86,14 @@
             </b-row>
 
             <!-- 뱃지 리스트 -->
-            <b-row class="badge-list">
-              <img
+            <b-row class="badge-container">
+              <div class="badge-list">
+               <img
                 v-for="badgeId in badgeList"
                 :key="badgeId"
                 id="badge-img"
-                :src="require(`/public/user/badge${badgeId}.png`)">
-              <!-- <img id="badge-img" :src="require(`/public/user/badge1.png`)" >
-              <img id="badge-img" :src="require(`/public/user/badge2.png`)" >
-              <img id="badge-img" :src="require(`/public/user/badge3.png`)" >
-              <img id="badge-img" :src="require(`/public/user/badge4.png`)" >
-              <img id="badge-img" :src="require(`/public/user/badge5.png`)" > -->
+                :src="require(`/public/badge/badge${badgeId}.png`)">
+              </div>
             </b-row>
           </div>
         </b-row>
@@ -454,14 +451,19 @@ export default {
   border: solid 2px #3695be;
   background: rgb(255, 255, 255);
 }
-.badge-list {
+.badge-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
+  align-items: center;
+  text-align: center;
   height: 200px;
   border-radius: 20px;
   box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
   background: #ffffff;
+}
+.badge-list {
+  width: 100%;
 }
 .history {
   margin-top: 2rem;
@@ -488,11 +490,9 @@ export default {
   height: 55px;
 }
 #badge-img {
-  /* background: #3695be -10%; */
-  margin-left: 3px;
-  margin-right: 3px;
-  border-radius: 100px;
-  width: 145px;
+  margin-inline: 10px;
+  width: 125px;
+  height: 125px;
 }
 .info.data {
   font-size: 15px;
