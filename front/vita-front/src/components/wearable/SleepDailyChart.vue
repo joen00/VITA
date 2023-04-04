@@ -72,22 +72,22 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "AWAKE")
               .map((filterd_items) => {
-                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_hour = new Date(filterd_items.dailySleepStart).getHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      start_hour,
                       new Date(filterd_items.dailySleepStart).getMinutes())
                     .getTime();
                 let end_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 if (start_hour > end_hour) {
                   end_time = new Date(2023,1,2,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 }
@@ -109,22 +109,22 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "REM")
               .map((filterd_items) => {
-                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_hour = new Date(filterd_items.dailySleepStart).getHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      start_hour,
                       new Date(filterd_items.dailySleepStart).getMinutes())
                     .getTime();
                 let end_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 if (start_hour > end_hour) {
                   end_time = new Date(2023,1,2,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 }
@@ -146,22 +146,22 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "LIGHT")
               .map((filterd_items) => {
-                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_hour = new Date(filterd_items.dailySleepStart).getHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      start_hour,
                       new Date(filterd_items.dailySleepStart).getMinutes())
                     .getTime();
                 let end_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 if (start_hour > end_hour) {
                   end_time = new Date(2023,1,2,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 }
@@ -183,22 +183,22 @@
             data: this.data
               .filter((items) => items.dailySleepStage == "DEEP")
               .map((filterd_items) => {
-                let start_hour = new Date(filterd_items.dailySleepStart).getUTCHours();
-                let end_hour = new Date(filterd_items.dailySleepEnd).getUTCHours();
+                let start_hour = new Date(filterd_items.dailySleepStart).getHours();
+                let end_hour = new Date(filterd_items.dailySleepEnd).geHours();
                 let start_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepStart).getUTCHours(),
+                      start_hour,
                       new Date(filterd_items.dailySleepStart).getMinutes())
                     .getTime();
                 let end_time = new Date(2023,1,1,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 if (start_hour > end_hour) {
                   end_time = new Date(2023,1,2,
                       // new Date(filterd_items.dailySleepStart).getHours(),
-                      new Date(filterd_items.dailySleepEnd).getUTCHours(),
+                      end_hour,
                       new Date(filterd_items.dailySleepEnd).getMinutes())
                     .getTime();
                 }
