@@ -83,4 +83,17 @@ public class StressController {
         String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.stressPastAndNow(userId), HttpStatus.valueOf(200));
     }
+
+    // 스트레스 less 날짜 반환
+    @ApiOperation(
+            value = "스트레스 less 날짜 반환",
+            notes = "userId를 통해 스트레스 less 날짜 반환한다",
+            response = String.class
+    )
+    @GetMapping("/less")
+    public ResponseEntity<String> stressLess(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
+        return new ResponseEntity<>(wearable.stressLess(userId), HttpStatus.valueOf(200));
+    }
 }

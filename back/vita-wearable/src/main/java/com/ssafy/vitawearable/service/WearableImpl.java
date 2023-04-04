@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -75,6 +76,22 @@ public class WearableImpl implements Wearable {
                 .skip(skipSize)
                 .map(weekly -> mapper.map(weekly, StepDailyDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String stepTop(String userId) {
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
+        Comparator<DailyWearable> comparatorByStep = Comparator.comparingInt(DailyWearable::getDailyWearableStep);
+        Optional<DailyWearable> topStepDailyWearable = dailyWearables.stream()
+                .max(comparatorByStep);
+        if (topStepDailyWearable.isPresent()) {
+            ZonedDateTime d = topStepDailyWearable.get().getDate();
+            return d.getYear() + "년 " +
+                    d.getMonthValue() + "월 " +
+                    d.getDayOfMonth() + "일 ";
+        } else {
+            return "";
+        }
     }
 
 
@@ -275,6 +292,25 @@ public class WearableImpl implements Wearable {
                 .map(weekly -> mapper.map(weekly, StressDailyDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String stressLess(String userId) {
+        List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId).stream()
+                .filter(d -> d.getDailyWearableStress() !=0)
+                .collect(Collectors.toList());
+        Comparator<DailyWearable> comparatorByStress = Comparator.comparingInt(DailyWearable::getDailyWearableStress);
+        Optional<DailyWearable> lessStressDailyWearable = dailyWearables.stream()
+                .min(comparatorByStress);
+        if (lessStressDailyWearable.isPresent()) {
+            ZonedDateTime d = lessStressDailyWearable.get().getDate();
+            return d.getYear() + "년 " +
+                    d.getMonthValue() + "월 " +
+                    d.getDayOfMonth() + "일 ";
+        } else {
+            return "";
+        }
+    }
+
 
     // 무게 달별
     @Override

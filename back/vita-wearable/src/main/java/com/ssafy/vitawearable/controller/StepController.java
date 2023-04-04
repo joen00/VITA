@@ -86,4 +86,17 @@ public class StepController {
         String userId = userUtil.getUserId(accessToken);
         return new ResponseEntity<>(wearablePast.stepPastAndNow(userId), HttpStatus.valueOf(200));
     }
+
+    // 걸음수 top 날짜 반환
+    @ApiOperation(
+            value = "걸음수 top 날짜 반환",
+            notes = "userId를 통해 걸음수 top 날짜 반환한다",
+            response = String.class
+    )
+    @GetMapping("/top")
+    public ResponseEntity<String> stepTop(HttpServletRequest request) {
+        String accessToken = HeaderUtil.getAccessToken(request);
+        String userId = userUtil.getUserId(accessToken);
+        return new ResponseEntity<>(wearable.stepTop(userId), HttpStatus.valueOf(200));
+    }
 }

@@ -14,6 +14,8 @@ public interface Wearable {
     // 걸음수 일별
     List<StepDailyDto> stepDaily(String userId);
 
+    String stepTop(String userId);
+
     // 활동량 달별
     List<EnergyMonthlyDto> energyMonthly(String userId);
 
@@ -49,6 +51,8 @@ public interface Wearable {
 
     // 스트레스 일별
     List<StressDailyDto> stressDaily(String userId);
+
+    String stressLess(String userId);
 
     // 무게 달별
     List<WeightMonthlyDto> weightMonthly(String userId);
