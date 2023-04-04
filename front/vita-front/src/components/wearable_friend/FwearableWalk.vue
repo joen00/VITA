@@ -167,8 +167,8 @@ export default {
           locationY: 1,
           sprite: am5.Picture.new(root, {
             templateField: "bulletSettings",
-            width: 50,
-            height: 50,
+            width: 30,
+            height: 30,
             centerX: am5.p50,
             centerY: am5.p50,
             shadowColor: am5.color(0x000000),
@@ -176,6 +176,7 @@ export default {
             shadowOffsetX: 4,
             shadowOffsetY: 4,
             shadowOpacity: 0.6,
+            radius: 10,
           }),
         });
       });
