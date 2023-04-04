@@ -139,7 +139,6 @@
           rgba(220, 243, 253, 0) 131.6%
       ),
       linear-gradient(239.1deg, #e2faff -29.57%, rgba(222, 243, 248, 0) 131.52%);
-      height: 1000vh;
       overflow: hidden;
       margin:0;
       background-size: cover;
@@ -197,5 +196,6 @@
   }
   #container {
     width: 100%;
+    margin-bottom: 200px;
   }
 </style>

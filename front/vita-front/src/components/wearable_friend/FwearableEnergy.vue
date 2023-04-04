@@ -191,7 +191,7 @@ export default {
             shadowOffsetX: 4,
             shadowOffsetY: 4,
             shadowOpacity: 0.6,
-            radius: 10,
+            radius: 20,
           }),
         });
       });
