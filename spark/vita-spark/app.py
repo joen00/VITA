@@ -166,7 +166,8 @@ def upload():
 
         return f'Success, {userId}!'
     
-    except:
+    except Exception as e:
+        print(e)
         return f'Fail, {userId}!'
     
     finally:
