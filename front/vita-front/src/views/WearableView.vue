@@ -31,7 +31,7 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://img.freepik.com/premium-psd/babies-shoe-isometric-icon-isolated-3d-illustration_47987-7353.jpg?w=740"
+                  :src="require(`/public/user/step_icon.png`)"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreStep }}
@@ -39,7 +39,7 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://img.freepik.com/free-psd/3d-icon-environmental-ecology_23-2150022931.jpg?w=740&t=st=1680362562~exp=1680363162~hmac=119a6992d9cd8a5e26621cd33174453017604506addd49b2e7f0ae052d607d0c"
+                  :src="require(`/public/user/energy_icon.png`)"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreEnergy }}
@@ -47,7 +47,7 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://img.freepik.com/free-psd/3d-rendering-ui-icon_23-2149182291.jpg?w=740&t=st=1680362600~exp=1680363200~hmac=da0a1ca00d6ea5052ac453d74b153d1a791507c67455be361203f6d66237008b"
+                  :src="require(`/public/user/rhr_icon.png`)"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreRhr }}
@@ -55,7 +55,7 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://img.freepik.com/free-psd/3d-rendering-emoji-icon_23-2149878836.jpg?w=740&t=st=1680362651~exp=1680363251~hmac=933c4ead45553f36fe2560ee7e6f79d014cacb173a7447cf0da70cf255f5a6bc"
+                  :src="require(`/public/user/stress_icon.png`)"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreStress }}
@@ -63,7 +63,7 @@
               <div class="wearable-profile-info-p">
                 <b-avatar
                   variant="info"
-                  src="https://img.freepik.com/premium-psd/3d-icon-furniture-with-bed_23-2150092300.jpg?w=740"
+                  :src="require(`/public/user/sleep_icon.png`)"
                 ></b-avatar
                 >&nbsp;&nbsp;
                 {{ lastTotalscore.totalScoreSleep }}

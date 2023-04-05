@@ -50,7 +50,7 @@
           <EnergyChart :key="componentKey" :data="data" />
         </div>
         
-        <div v-if="infovalue" id="energy-middle-left-child">여기</div>
+        <div v-if="infovalue" id="energy-middle-left-child">각종 활동으로 인해 얻어진 활동에너지를 표시합니다</div>
       </div>
       <div id="energy-middle-right">
         <div id="energy-middle-right-div">

@@ -47,7 +47,7 @@
           <StepChart :key="componentKey" :data="data" :timeUnit="timeUnit"/>
         </div>
         
-        <div v-if="infovalue" id="step-middle-left-child">여기</div>
+        <div v-if="infovalue" id="step-middle-left-child">스마트폰, 웨어러블을 통해 입력된 걸음수를 표시합니다</div>
       </div>
       <!-- 오른쪽 과거와의 비교 -->
       <div id="step-middle-right">

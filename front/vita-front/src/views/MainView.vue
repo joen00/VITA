@@ -9,7 +9,7 @@
             class="btn"
             v-b-modal.modal-scrollable
             id="btn-page"
-            to="/wearable"
+            to="/wearables"
             >VITA 시작하기</b-button
           >
         </div>
@@ -211,7 +211,7 @@ HealthReport를 통해
           class="btn"
           v-b-modal.modal-scrollable
           id="btn-footer-page"
-          to="/wearable"
+          to="/wearables"
           >VITA 시작하기</b-button
         >
         <div class="kakao-share" @click="kakaoShare">카카오 공유하기</div>

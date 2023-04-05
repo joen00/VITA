@@ -31,7 +31,7 @@
         <div v-else>
           <WeightChart :key="componentKey" :data="data" ></WeightChart>
         </div>
-        <div v-if="infovalue" id="weight-middle-left-child">여기</div>
+        <div v-if="infovalue" id="weight-middle-left-child">웨어러블로 통해 입력된 체중, 근골격량, 체지방량에 대한 비율을 표시합니다.</div>
 
       </div>
       <div id="weight-middle-right">

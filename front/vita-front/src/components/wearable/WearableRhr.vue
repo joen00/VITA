@@ -47,7 +47,7 @@
           <RhrChart :key="componentKey" :date="date" :data="data" />
         </div>
         
-        <div v-if="infovalue" id="rhr-middle-left-child">여기</div>
+        <div v-if="infovalue" id="rhr-middle-left-child">측정된 심박수 평균을 표시합니다.</div>
       </div>
       <div id="rhr-middle-right">
         <div id="rhr-middle-right-div">

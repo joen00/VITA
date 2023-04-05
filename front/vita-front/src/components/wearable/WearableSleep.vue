@@ -62,7 +62,7 @@
               </div>
             </div>
 
-            <div v-if="infovalue" id="sleep-middle-left-child">여기</div>
+            <div v-if="infovalue" id="sleep-middle-left-child">측정된 수면시간을 표시합니다. </div>
         </div>
         <div id="sleep-middle-right">
           <div id="sleep-middle-right-div">

@@ -47,7 +47,7 @@
           <stressChart :key="componentKey" :data="data" />
         </div>
         
-        <div v-if="infovalue" id="stress-middle-left-child">여기</div>
+        <div v-if="infovalue" id="stress-middle-left-child">측정된 스트레스 평균을 표시합니다.</div>
       </div>
       <div id="stress-middle-right">
         <div id="stress-middle-right-div">
