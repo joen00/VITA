@@ -48,7 +48,8 @@ export default {
         am5.Scrollbar.new(root, {
           orientation: "horizontal",
           exportable: false,
-          start: 0.7,
+          // start: 0.7,
+          start: 0.5, // 5개
         })
       );
 
