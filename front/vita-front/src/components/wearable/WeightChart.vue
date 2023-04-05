@@ -76,7 +76,7 @@ export default {
             xAxis: xAxis,
             yAxis: yAxis,
             stacked: true,
-            // valueYField: field,
+            valueYField: field,
             categoryXField: "day",
             tooltip: am5.Tooltip.new(root, {
               pointerOrientation: "horizontal",
@@ -84,6 +84,11 @@ export default {
             }),
           })
         );
+        
+        let yRenderer = yAxis.get("renderer");
+        yRenderer.ticks.template.setAll({
+          visible: false
+        });
 
         series.fills.template.setAll({
           fillOpacity: 0.5,
