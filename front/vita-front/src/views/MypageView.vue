@@ -372,7 +372,6 @@ export default {
 }
 .down {
   margin-top: 1rem;
-  margin-bottom: 5rem;
   display: flex;
 }
 .left {

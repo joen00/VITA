@@ -90,6 +90,7 @@
 
         <!-- 파일 업로드 -->
         <div id="fileuploadRight">
+          <p class="file-upload-desc">⭐ .zip 파일 형태로 업로드 해주세요!  ⭐</p>
           <b-form-file
             id="bootfile"
             v-model="file1"
@@ -385,5 +386,11 @@ export default {
 #label-samsung-inactive {
   color: rgb(199, 199, 199);
   font-size: 20px;
+}
+
+.file-upload-desc {
+  font-size: 1.2rem; 
+  font-weight: 600; 
+  color: #4e8aff; 
 }
 </style>

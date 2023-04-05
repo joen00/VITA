@@ -28,12 +28,12 @@
           v-if='!isLoggedIn'
           type='button'
           @click='$emit("onOpenLoginModal")'
-        ) 로그인
+        ) Login
         button.account-button.loggedin(
           v-else
           type='button'
           @click='logout'
-        ) 로그아웃
+        ) Logout
 </template>
 
 <script>
