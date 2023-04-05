@@ -32,8 +32,8 @@ export default {
     this.getWord();
   },
   methods: {
-    getWord() {
-      axios
+    async getWord() {
+      await axios
         .get(this.$store.state.url + "stress/less", {
           headers: {
             "Content-Type": "application/json",
