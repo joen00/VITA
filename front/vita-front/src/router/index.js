@@ -37,7 +37,7 @@ const routes = [
         component: FileUploadView
       },
       {
-        path: "/wearable",
+        path: "/wearables",
         name: "wearable",
         component: WearableView,
       },

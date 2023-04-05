@@ -240,7 +240,7 @@ export default {
     avatar: "avatar0",
     totalscore: [],
     lastTotalscore: {},
-    VueHeaderTitle: "마이 헬스 데이터1",
+    VueHeaderTitle: "마이 헬스 데이터",
     VueHeaderContent: "나의 종합 건강 점수를 확인해보세요.",
     // userNickname: user.userNickname,
     pdfBtnState: "normal",
