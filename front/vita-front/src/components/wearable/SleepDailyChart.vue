@@ -67,6 +67,9 @@
             position: "top",
             horizontalAlign: "left",
           },
+          dataLabels: {
+            enabled: true,
+          }
         },
   
         series: [
