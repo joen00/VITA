@@ -84,16 +84,6 @@ export default {
             }),
           })
         );
-        
-        let yRenderer = yAxis.get("renderer");
-        yRenderer.ticks.template.setAll({
-          visible: false
-        });
-
-        series.fills.template.setAll({
-          fillOpacity: 0.5,
-          visible: true,
-        });
 
         series.data.setAll(data);
         series.appear(1000);
