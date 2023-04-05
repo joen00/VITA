@@ -11,7 +11,7 @@
           li.nav-list-item
               a.nav-list-item-link(id="dropdown") HealthReport
                 div.dropdown-content
-                  a.drop-down(@click='go("/wearable")') My
+                  a.drop-down(@click='go("/wearables")') My
                   a.drop-down(@click='go("/wearablefriend")') Friend
                   a.drop-down(@click='go("/wearableapi")') People
               a.nav-list-item-link(@click='go("/friend")') Friend
@@ -47,7 +47,7 @@ export default {
     return {
       isOpenAccountDropdown: false,
       menu: [
-        { path: "/wearable", name: "MyHealth" },
+        { path: "/wearables", name: "MyHealth" },
         { path: "/friend", name: "Friend" },
         { path: "/mypage", name: "MyPage" }
       ]

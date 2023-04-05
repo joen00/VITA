@@ -38,7 +38,7 @@ const routes = [
       },
       {
         path: "/wearables",
-        name: "wearable",
+        name: "wearables",
         component: WearableView,
       },
       {
