@@ -13,6 +13,7 @@ import IndexPage from '@/components/common/Index'
 import OauthRedirect from '@/components/user/oauth/Redirect'
 import ExtraInfoFormView from '../views/ExtraInfoFormView.vue'
 import WearableApiView from '../views/wearable/WearableApiView.vue'
+import LoginFormView from '../views/LoginFormView.vue'
 
 Vue.use(VueRouter)
 
@@ -80,7 +81,12 @@ const routes = [
         path: '/extraInfoForm',
         name: 'ExtraInfoForm',
         component: ExtraInfoFormView
-      }
+      },
+      {
+        path: '/loginForm',
+        name: 'LoginFormView',
+        component: LoginFormView
+      },
     ]
   }
 ]

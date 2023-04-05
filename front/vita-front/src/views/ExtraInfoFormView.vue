@@ -309,9 +309,9 @@ export default {
         return false;
       }
 
-      console.log(JSON.stringify(this.form));
-      console.log(this.token);
-      console.log(`${this.token}`);
+      // console.log(JSON.stringify(this.form));
+      // console.log(this.token);
+      // console.log(`${this.token}`);
       axios
         .put(
           SERVER_URL + `/extrainfo`,
@@ -335,7 +335,7 @@ export default {
           console.log(response);
           if (response.status == 200) {
             this.setUserNickname(this.form.nickname);
-            this.$router.replace("/");
+            this.$router.replace("/fileupload");
           }
         });
     },
