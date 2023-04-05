@@ -68,7 +68,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         Stream<DailyWearable> DailyStream = dailyWearables.stream()
                 .filter(data -> data.getDailyWearableStep() != 0);
-        long skipSize = DailyStream.count() - 20;
+        long skipSize = DailyStream.count() - 10;
         if (skipSize < 0) skipSize = 0;
 
         return dailyWearables.stream()
@@ -134,7 +134,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         Stream<DailyWearable> DailyStream = dailyWearables.stream()
                 .filter(data -> data.getDailyWearableStep() != 0);
-        long skipSize = DailyStream.count() - 20;
+        long skipSize = DailyStream.count() - 10;
         if (skipSize < 0) skipSize = 0;
 
         return dailyWearables.stream()
@@ -183,7 +183,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         Stream<DailyWearable> DailyStream = dailyWearables.stream()
                 .filter(data -> data.getDailyWearableRhr() != 0);
-        long skipSize = DailyStream.count() - 20;
+        long skipSize = DailyStream.count() - 10;
         if (skipSize < 0) skipSize = 0;
 
         return dailyWearables.stream()
@@ -283,7 +283,7 @@ public class WearableImpl implements Wearable {
         List<DailyWearable> dailyWearables = dailyWearableRepo.findByUser_UserId(userId);
         Stream<DailyWearable> DailyStream = dailyWearables.stream()
                 .filter(data -> data.getDailyWearableStress() != 0);
-        long skipSize = DailyStream.count() - 20;
+        long skipSize = DailyStream.count() - 10;
         if (skipSize < 0) skipSize = 0;
 
         return dailyWearables.stream()
@@ -365,7 +365,7 @@ public class WearableImpl implements Wearable {
                 .filter(data -> data.getDailyWearableWeight() != 0
                         && data.getDailyWearableFat() != 0
                         && data.getDailyWearableMuscle() != 0);
-        long skipSize = DailyStream.count() - 20;
+        long skipSize = DailyStream.count() - 10;
         if (skipSize < 0) skipSize = 0;
 
         return dailyWearables.stream()
