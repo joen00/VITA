@@ -40,7 +40,7 @@ public class AuthController {
     // 로그인 페이지
     @GetMapping("/loginform")
     public String loginPage() {
-        return "redirect:/loginform";
+        return "redirect:https://j8b106.p.ssafy.io/loginform";
     }
 
     @PostMapping("/login")
