@@ -23,6 +23,7 @@ public class UserController {
     private final UserService userService;
     private final AuthTokenProvider authTokenProvider;
 
+    // 사용자 정보 가져오기
     @GetMapping
     public ApiResponse getUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -35,9 +36,7 @@ public class UserController {
     public ApiResponse extrainfo (@RequestBody ExtraInfoDto extraInfoDto, HttpServletRequest request) {
         // access token 확인
         String accessToken = HeaderUtil.getAccessToken(request);
-        System.out.println("accessToken = " + accessToken);
         String userId = authTokenProvider.getUserId(accessToken);
-        System.out.println("userId = " + userId);
         if (userId != null) {
             userService.putUserUpdate(extraInfoDto, userId);
         }

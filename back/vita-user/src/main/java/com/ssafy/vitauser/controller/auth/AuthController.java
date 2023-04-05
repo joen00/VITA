@@ -37,6 +37,12 @@ public class AuthController {
     private final static long THREE_DAYS_MSEC = 259200000;
     private final static String REFRESH_TOKEN = "refresh_token";
 
+    // 로그인 페이지
+    @GetMapping("/loginform")
+    public String loginPage() {
+        return "redirect:/loginform";
+    }
+
     @PostMapping("/login")
     public ApiResponse login(
             HttpServletRequest request,
