@@ -7,49 +7,87 @@
           :VueHeaderContent="VueHeaderContent"
         />
       </div>
+
+      <div class="wrapper">
+        <span v-show="!convertPhoneType" id="label-samsung-active">SAMSUNG</span>
+        <span v-show="convertPhoneType" id="label-samsung-inactive">SAMSUNG</span>
+        <div class="btn-switch">
+          <input type="checkbox" id="switch"  @click="convertType">
+          <label for="switch" class="switch_label">
+            <span class="onf_btn"></span>
+          </label>
+        </div>
+        <span v-show="convertPhoneType" id="label-apple-active">APPLE</span>
+        <span v-show="!convertPhoneType" id="label-apple-inactive">APPLE</span>
+      </div>
       <!-- 설명란 -->
       <div id="fileupload">
         <div id="fileuploadLeft">
-          <div>
             <hooper style="height: 50%">
-              <slide>
-                <div>
-                  <p style="font-size: 1rem; font-weight: 800; color: #4e8aff">
-                    Step 1.
-                  </p>
-                  <img
-                    width="80%"
-                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FccVdIO%2Fbtr41J0KddD%2Fir81Nks5a9nLkqLlkCYTKk%2Fimg.png"
-                  />
-                </div>
-              </slide>
-              <slide>
-                <div>
-                  <p style="font-size: 1rem; font-weight: 800; color: #4e8aff">
-                    Step 2.
-                  </p>
-                  <img
-                    width="80%"
-                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFVrAD%2Fbtr45lx4C4m%2FLKmrLEn0bWNwj0f3q9qDD1%2Fimg.png"
-                  />
-                </div>
-              </slide>
-              <slide>
-                <div>
-                  <p style="font-size: 1rem; font-weight: 800; color: #4e8aff">
-                    Step 3.
-                  </p>
-                  <img
-                    width="80%"
-                    src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FsW7IR%2Fbtr42z4Ewb9%2F8jZo4oAZ8BZQEDp5SqFfhk%2Fimg.png"
-                  />
-                </div>
-              </slide>
+              
+                <!-- SAMSUNG 가이드 -->
+                <slide v-if="convertPhoneType == false">
+                  <div>
+                    <p class="slide-step">
+                      [  Step 1  ] &nbsp; 삼성 'Samsung-Health' 앱 실행 후 개인 데이터 다운로드
+                    </p>
+                    <img
+                      width="80%"
+                      :src="require(`/public/upload-guide/samsung1.png`)"
+                    />
+                  </div>
+                </slide>
+                <slide v-if="convertPhoneType == false">
+                  <div>
+                    <p class="slide-step">
+                      [  Step 2  ] &nbsp; 내 파일의 'Samsung Health' 폴더에서 다운로드된 건강 데이터 확인
+                    </p>
+                    <img
+                      width="80%"
+                      :src="require(`/public/upload-guide/samsung2.png`)"
+                    />
+                  </div>
+                </slide>
+                <slide v-if="convertPhoneType == false">
+                  <div>
+                    <p class="slide-step">
+                      [  Step 3  ] &nbsp; 다운로드된 건강 데이터 Vita에 업로드
+                    </p>
+                    <img
+                      width="80%"
+                      :src="require(`/public/upload-guide/samsung3.png`)"
+                    />
+                  </div>
+                </slide>
 
-              <hooper-navigation slot="hooper-addons"></hooper-navigation>
-            </hooper>
+                <!-- APPLE 가이드 -->
+                <slide v-if="convertPhoneType == true">
+                  <div>
+                    <p class="slide-step">
+                      [  Step 1  ] &nbsp; 애플 '건강' 앱 실행 후 건강 데이터 내보내기
+                    </p>
+                    <img
+                      width="80%"
+                      :src="require(`/public/upload-guide/apple1.png`)"
+                    />
+                  </div>
+                </slide>
+                <slide v-if="convertPhoneType == true">
+                  <div>
+                    <p class="slide-step">
+                      [  Step 2  ] &nbsp; 저장된 건강 데이터 Vita에 업로드
+                    </p>
+                    <img
+                      width="80%"
+                      :src="require(`/public/upload-guide/apple2.png`)"
+                    />
+                  </div>
+                </slide>
+
+                <hooper-navigation slot="hooper-addons"></hooper-navigation>
+              </hooper>
           </div>
-        </div>
+
         <!-- 파일 업로드 -->
         <div id="fileuploadRight">
           <b-form-file
@@ -59,7 +97,7 @@
             placeholder="Choose a file or drop it here"
             drop-placeholder="Drop file here..."
           ></b-form-file>
-          <div class="mt-3">선택된 파일: {{ file1 }}</div>
+          <!-- <div class="mt-3">선택된 파일: {{ file1 }}</div> -->
           <!-- 파일 업로드 버튼(클릭 시 버튼에 processing 애니메이션이 적용됨) -->
           <b-button v-if="uploadBtnState == 'normal'" id="btn-fileuploads" @click="uploadFile(file1)">
             파일 업로드
@@ -102,6 +140,7 @@ export default {
     slide: 0,
     sliding: null,
     uploadBtnState: "normal",
+    convertPhoneType: false,
   }),
   computed: {
     ...mapGetters(["token", "user", "userPhoneType"]),
@@ -113,6 +152,9 @@ export default {
     },
   },
   methods: {
+    convertType() {
+      this.convertPhoneType = !this.convertPhoneType;
+    },
     onSlideStart(slide) {
       this.sliding = true;
     },
@@ -144,7 +186,7 @@ export default {
           const userId = response.data;
           axios
             .get(`https://j8b106.p.ssafy.io:5000/upload`, {
-              params: { userId: userId, device: this.userPhoneType },
+              params: { userId: userId, device: this.convertPhoneType ? "APPLE" : "SAMSUNG" },
             })
             .then((response) => {
               console.log(response);
@@ -236,5 +278,112 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
   margin-top: 1rem;
+}
+
+.slide-step {
+  font-size: 1.2rem; 
+  font-weight: 800; 
+  color: #4e8aff; 
+  margin-top: 2rem; 
+  text-align: start;
+  margin-left: 10%;
+}
+
+#fileupload {
+  margin-bottom: 5rem;
+}
+
+/* 스위치 버튼 */
+.wrapper {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  margin: 50px auto;
+  display: flex;
+  justify-content:  center;
+}
+#switch {
+  position: absolute;
+  /* hidden */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.switch_label {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  width: 58px;
+  height: 28px;
+  background: rgb(66, 99, 231);
+  border: 2px solid rgb(66, 99, 231);
+  /* background: #fff;
+  border: 2px solid #daa; */
+  border-radius: 20px;
+  transition: 0.2s;
+}
+.switch_label:hover {
+  background: #efefef;
+}
+.onf_btn {
+  position: absolute;
+  top: 2.5px;
+  left: 3px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #fff;
+  /* background: #daa; */
+  transition: 0.2s;
+}
+
+/* checking style */
+#switch:checked+.switch_label {
+  /* background: rgb(66, 99, 231);
+  border: 2px solid rgb(66, 99, 231); */
+  background: rgb(165, 196, 145);
+  border: 2px solid rgb(165, 196, 145);
+}
+
+#switch+.switch_label:hover {
+  background: rgb(44, 70, 175);
+}
+
+#switch:checked+.switch_label:hover {
+  background: rgb(142, 169, 125);
+}
+
+/* move */
+#switch:checked+.switch_label .onf_btn {
+  top: 2.5px;
+  left: 34px;
+  background: #fff;
+  box-shadow: 1px 2px 3px #00000020;
+}
+
+.btn-switch {
+  margin-inline: 15px;
+}
+
+#label-apple-active {
+  color: rgb(87, 124, 64);
+  font-size: 20px;
+}
+
+#label-samsung-active {
+  color: rgb(44, 70, 175);
+  font-size: 20px;
+}
+
+#label-apple-inactive {
+  color: rgb(199, 199, 199);
+  font-size: 20px;
+}
+
+#label-samsung-inactive {
+  color: rgb(199, 199, 199);
+  font-size: 20px;
 }
 </style>
