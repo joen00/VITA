@@ -67,8 +67,8 @@
             position: "top",
             horizontalAlign: "left",
           },
-          dataLabels: {
-            enabled: true,
+          tooltip: {
+            enabled: false,
           }
         },
   
