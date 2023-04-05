@@ -74,6 +74,12 @@ export default {
                 }
               },
             },
+            dataLabels: {
+              enabled: true,
+              formatter: function(val) {
+                return val + "분";
+              },
+            },
             xaxis: {
               type: 'datetime',
               categories: this.date,
