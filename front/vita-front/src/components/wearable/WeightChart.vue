@@ -85,6 +85,11 @@ export default {
           })
         );
 
+        series.fills.template.setAll({
+          fillOpacity: 0.5,
+          visible: true,
+        });
+
         series.data.setAll(data);
         series.appear(1000);
       }
