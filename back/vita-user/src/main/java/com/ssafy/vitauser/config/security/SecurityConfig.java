@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                    .antMatchers("/api/users/auth/**").permitAll()
+//                    .antMatchers("/api/users/auth/**").permitAll()
 //                    .antMatchers("/api/**").hasAnyAuthority(RoleType.USER.getCode()) // Security 허용 Url
 //                    .antMatchers("/api/**/admin/**").hasAnyAuthority(RoleType.ADMIN.getCode())
                     .anyRequest().authenticated() // 그 외엔 모두 인증 필요
@@ -80,7 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/api/users/auth/loginform") // 로그인 폼 사용
                     .defaultSuccessUrl("/") // 로그인 성공 후 이동 페이지
-                    .permitAll()
                 .and()
                     // 인가에 대한 요청 서비스
                     // "/oauth2/authorization"로 접근시 oauth 로그인 요청
