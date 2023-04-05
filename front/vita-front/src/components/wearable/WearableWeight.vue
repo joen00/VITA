@@ -139,7 +139,7 @@
           <div v-if="past.yearNowWearableWeight < past.yearPastWearableWeight">
             <p id="weight-middle-right-div-h">올해 평균 체중이 작년보다 감소했습니다</p>
           </div>
-          <div v-if="past.yearNowWearableWeight == past.yearPastWearableWeight">
+          <div v-else-if="past.yearNowWearableWeight == past.yearPastWearableWeight">
             <p id="weight-middle-right-div-h">올해 평균 체중은 작년과 동일합니다</p>
           </div>
           <div v-else>

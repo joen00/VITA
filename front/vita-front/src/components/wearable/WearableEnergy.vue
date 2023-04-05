@@ -169,7 +169,7 @@
               올해 평균 활동에너지가 작년보다 감소했습니다
             </p>
           </div>
-          <div v-if="past.yearNowWearableEnergy == past.yearPastWearableEnergy">
+          <div v-else-if="past.yearNowWearableEnergy == past.yearPastWearableEnergy">
             <p id="energy-middle-right-div-h">
               올해 평균 활동에너지는 작년과 동일합니다
             </p>

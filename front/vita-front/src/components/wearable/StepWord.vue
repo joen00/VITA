@@ -22,6 +22,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "StepWord",
@@ -31,6 +32,11 @@ export default {
   created() {
     this.getWord();
   },
+
+  computed: {
+    ...mapGetters(["token", "user"]),
+  },
+  
   methods: {
     async getWord() {
       await axios
