@@ -8,13 +8,13 @@
         <div id="sleep-middle-left-btn">
           <div id="sleep-middle-left-btn-up">
             <input type="radio" name="sleep-period" id="sleep-week" value="week" v-on:click="weekSleep" checked>
-            <label for="sleep-week">1주</label>
+            <label for="sleep-week">일별</label>
 
             <input type="radio" name="sleep-period" id="sleep-month" value="month" v-on:click="monthSleep">
-            <label for="sleep-month">1개월</label>
+            <label for="sleep-month">주별</label>
 
             <input type="radio" name="sleep-period" id="sleep-year" value="year" v-on:click="yearSleep">
-            <label for="sleep-year">1년</label>
+            <label for="sleep-year">월별</label>
             <div>
             <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
           </div>

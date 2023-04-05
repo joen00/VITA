@@ -8,13 +8,13 @@
       <div id="rhr-middle-left-btn">
         <div id="rhr-middle-left-btn-up">
           <input type="radio" name="rhr-period" id="rhr-week" value="week" v-on:click="weekRhr" checked>
-          <label for="rhr-week">1주</label>
+          <label for="rhr-week">일별</label>
 
           <input type="radio" name="rhr-period" id="rhr-month" value="month" v-on:click="monthRhr">
-          <label for="rhr-month">1개월</label>
+          <label for="rhr-month">주별</label>
 
           <input type="radio" name="rhr-period" id="rhr-year" value="year" v-on:click="yearRhr">
-          <label for="rhr-year">1년</label>
+          <label for="rhr-year">월별</label>
           <div>
             <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
           </div>

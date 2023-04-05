@@ -8,13 +8,13 @@
       <div id="stress-middle-left-btn">
         <div id="stress-middle-left-btn-up">
           <input type="radio" name="stress-period" id="stress-week" value="week" v-on:click="weekStress" checked>
-          <label for="stress-week">1주</label>
+          <label for="stress-week">일별</label>
 
           <input type="radio" name="stress-period" id="stress-month" value="month" v-on:click="monthStress">
-          <label for="stress-month">1개월</label>
+          <label for="stress-month">주별</label>
 
           <input type="radio" name="stress-period" id="stress-year" value="year" v-on:click="yearStress">
-          <label for="stress-year">1년</label>
+          <label for="stress-year">월별</label>
           <div>
             <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
           </div>

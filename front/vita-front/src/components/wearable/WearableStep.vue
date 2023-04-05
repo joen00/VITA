@@ -8,13 +8,13 @@
       <div id="step-middle-left-btn">
         <div id="step-middle-left-btn-up">
           <input type="radio" name="step-period" id="step-week" value="week" v-on:click="weekStep" checked>
-          <label for="step-week">1주</label>
+          <label for="step-week">일별</label>
 
           <input type="radio" name="step-period" id="step-month" value="month" v-on:click="monthStep">
-          <label for="step-month">1개월</label>
+          <label for="step-month">주별</label>
 
           <input type="radio" name="step-period" id="step-year" value="year" v-on:click="yearStep">
-          <label for="step-year">1년</label>
+          <label for="step-year">월별</label>
           <div>
             <img @click="info()" style="width: 18%" src="@/../public/wearable/question.png" />
           </div>
