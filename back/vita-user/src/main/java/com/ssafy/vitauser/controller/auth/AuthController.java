@@ -13,6 +13,9 @@ import com.ssafy.vitauser.util.CookieUtil;
 import com.ssafy.vitauser.util.HeaderUtil;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 import java.util.Date;
 
 @RestController
@@ -39,9 +43,10 @@ public class AuthController {
 
     // 로그인 페이지
     @GetMapping("/loginform")
-    public void loginPage(HttpServletResponse response) throws Exception{
-        String redirect_uri = "https://j8b106.p.ssafy.io/loginform";
-        response.sendRedirect(redirect_uri);
+    public ResponseEntity<?> loginPage(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/loginform"));
+        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
     }
 
     @PostMapping("/login")
