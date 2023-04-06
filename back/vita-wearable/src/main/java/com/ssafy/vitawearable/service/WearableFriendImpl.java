@@ -3,7 +3,6 @@ package com.ssafy.vitawearable.service;
 import com.ssafy.vitawearable.dto.FriendDto;
 import com.ssafy.vitawearable.entity.Friend;
 import com.ssafy.vitawearable.repo.FriendRepo;
-import com.ssafy.vitawearable.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @Service
 public class WearableFriendImpl implements WearableFriend {
     private final FriendRepo friendRepo;
-    private final UserRepo userRepo;
     private final ModelMapper mapper = new ModelMapper();
 
     @Override

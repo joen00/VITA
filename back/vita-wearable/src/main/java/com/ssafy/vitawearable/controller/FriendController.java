@@ -1,7 +1,7 @@
 package com.ssafy.vitawearable.controller;
 
 import com.ssafy.vitawearable.dto.*;
-import com.ssafy.vitawearable.repo.FriendRepo;
+import com.ssafy.vitawearable.dto.Rhr.RhrDailyDto;
 import com.ssafy.vitawearable.service.Score;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearableFriend;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @Slf4j

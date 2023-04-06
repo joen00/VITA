@@ -1,6 +1,9 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.*;
+import com.ssafy.vitawearable.dto.Weight.WeightDailyDto;
+import com.ssafy.vitawearable.dto.Weight.WeightMonthlyDto;
+import com.ssafy.vitawearable.dto.Weight.WeightPastAndNowDto;
+import com.ssafy.vitawearable.dto.Weight.WeightWeeklyDto;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
 import com.ssafy.vitawearable.util.HeaderUtil;

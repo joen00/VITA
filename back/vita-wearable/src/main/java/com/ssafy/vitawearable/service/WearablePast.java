@@ -1,6 +1,11 @@
 package com.ssafy.vitawearable.service;
 
-import com.ssafy.vitawearable.dto.*;
+import com.ssafy.vitawearable.dto.Energy.EnergyPastAndNowDto;
+import com.ssafy.vitawearable.dto.Rhr.RhrPastAndNowDto;
+import com.ssafy.vitawearable.dto.Sleep.SleepPastAndNowDto;
+import com.ssafy.vitawearable.dto.Step.StepPastAndNowDto;
+import com.ssafy.vitawearable.dto.Stress.StressPastAndNowDto;
+import com.ssafy.vitawearable.dto.Weight.WeightPastAndNowDto;
 
 // 이전 데이터랑 비교관련 서비스
 public interface WearablePast {

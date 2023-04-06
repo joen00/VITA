@@ -27,9 +27,5 @@ public class ApiAverage {
     private int apiAverageStressCnt;
     private Long apiAverageSleep;
     private int apiAverageSleepCnt;
-//    private int apiAverageLight;
-//    private int apiAverageRem;
-//    private int apiAverageAwake;
-//    private int apiAverageDeep;
 
 }

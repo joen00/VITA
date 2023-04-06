@@ -3,7 +3,6 @@ package com.ssafy.vitawearable.service;
 import com.ssafy.vitawearable.dto.*;
 import com.ssafy.vitawearable.entity.*;
 import com.ssafy.vitawearable.repo.*;
-import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -1,13 +1,11 @@
 package com.ssafy.vitawearable.service;
 
 import com.ssafy.vitawearable.dto.pdf.PdfDto;
-import com.ssafy.vitawearable.entity.UserHistory;
 import com.ssafy.vitawearable.repo.UserHistoryRepo;
 import com.ssafy.vitawearable.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.modelmapper.ModelMapper;
 
 import java.time.ZonedDateTime;
 
@@ -17,7 +15,6 @@ import java.time.ZonedDateTime;
 public class PdfServiceImpl implements PdfService {
 
     private final UserHistoryRepo userHistoryRepo;
-    private final ModelMapper mapper = new ModelMapper();
     private final UserRepo userRepo;
 
     @Override

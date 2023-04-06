@@ -34,15 +34,4 @@ public class UserAverageDto {
         this.userAverageAwake = 0;
         this.userAverageDeep = 0;
     }
-
-//    public UserAverageDto(UserAverage userAverage) {
-//        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageEnergy = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageRhr = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageStress = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageLight = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageRem = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//        userAverageStep = userAverage.getUserAverageStep() / userAverage.getUserAverageStepDay();
-//    }
 }

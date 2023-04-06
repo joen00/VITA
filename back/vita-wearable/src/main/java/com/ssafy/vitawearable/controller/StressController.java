@@ -1,6 +1,9 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.*;
+import com.ssafy.vitawearable.dto.Stress.StressDailyDto;
+import com.ssafy.vitawearable.dto.Stress.StressMonthlyDto;
+import com.ssafy.vitawearable.dto.Stress.StressPastAndNowDto;
+import com.ssafy.vitawearable.dto.Stress.StressWeeklyDto;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
 import com.ssafy.vitawearable.util.HeaderUtil;
@@ -12,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

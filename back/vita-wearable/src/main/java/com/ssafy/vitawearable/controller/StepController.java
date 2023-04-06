@@ -1,9 +1,9 @@
 package com.ssafy.vitawearable.controller;
 
-import com.ssafy.vitawearable.dto.StepDailyDto;
-import com.ssafy.vitawearable.dto.StepMonthlyDto;
-import com.ssafy.vitawearable.dto.StepPastAndNowDto;
-import com.ssafy.vitawearable.dto.StepWeeklyDto;
+import com.ssafy.vitawearable.dto.Step.StepDailyDto;
+import com.ssafy.vitawearable.dto.Step.StepMonthlyDto;
+import com.ssafy.vitawearable.dto.Step.StepPastAndNowDto;
+import com.ssafy.vitawearable.dto.Step.StepWeeklyDto;
 import com.ssafy.vitawearable.service.Wearable;
 import com.ssafy.vitawearable.service.WearablePast;
 import com.ssafy.vitawearable.util.HeaderUtil;
@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

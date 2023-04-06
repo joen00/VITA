@@ -60,12 +60,10 @@ public class User {
 
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-//    private ZonedDateTime createdDate;
     private ZonedDateTime createdDate;
 
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-//    private ZonedDateTime updatedDate;
     private ZonedDateTime updatedDate;
 
     private String userNickname;
@@ -84,8 +82,6 @@ public class User {
             @NotNull @Size(max = 500) String userImg,
             @NotNull ProviderType providerType,
             @NotNull RoleType roleType,
-//            @NotNull ZonedDateTime createdDate,
-//            @NotNull ZonedDateTime updatedDate,
             @NotNull ZonedDateTime createdDate,
             @NotNull ZonedDateTime updatedDate,
             String userNickname,

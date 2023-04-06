@@ -24,10 +24,8 @@ public class DailySleep {
     private User user;
     private String dailySleepStage;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    private ZonedDateTime dailySleepStart;
     private ZonedDateTime dailySleepStart;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    private ZonedDateTime dailySleepEnd;
     private ZonedDateTime dailySleepEnd;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private int dailySleepTotal;
