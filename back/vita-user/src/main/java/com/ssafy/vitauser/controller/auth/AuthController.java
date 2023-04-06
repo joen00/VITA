@@ -20,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.Date;
 
-@RestController
+@Controller
 @RequestMapping("/api/users/auth")
 @RequiredArgsConstructor
 public class AuthController {
@@ -40,14 +41,6 @@ public class AuthController {
 
     private final static long THREE_DAYS_MSEC = 259200000;
     private final static String REFRESH_TOKEN = "refresh_token";
-
-    // 로그인 페이지
-    @GetMapping("/loginform")
-    public ResponseEntity<?> loginPage(){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/loginform"));
-        return new ResponseEntity<>(headers, HttpStatus.MOVED_PERMANENTLY);
-    }
 
     @PostMapping("/login")
     public ApiResponse login(
