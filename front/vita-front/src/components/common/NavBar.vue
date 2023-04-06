@@ -63,8 +63,8 @@ export default {
 
     go (path) {
       this.close()
-      if (!this.isLoggedIn) this.$router.push("/loginform");
-      if (this.$route.path !== path) this.$router.push(path).then(() => window.scrollTo(0, 0))
+      if (!this.isLoggedIn) this.$router.push("/loginForm");
+      else this.$router.push(path).then(() => window.scrollTo(0, 0))
     },
     close () {
       this.isOpenAccountDropdown = false
