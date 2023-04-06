@@ -1,5 +1,6 @@
 import pandas as pd
-from datetime import timedelta
+from datetime import timedelta, datetime
+from numpy import NaN
 
 # csv 파일 읽기
 def read_csv(csv_name):
@@ -21,9 +22,15 @@ def samsung_day(df):
 
 # Apple 일-시간 데이터 처리
 def apple_day(data):
-    df = pd.DataFrame(data, columns=['daily_sleep_start', 'daily_sleep_end', 'daily_sleep_stage'])
-    df['daily_sleep_start'] = pd.to_datetime(df['daily_sleep_start'], format='%Y-%m-%d %H:%M:%S').dt.tz_convert(None)
-    df['daily_sleep_end'] = pd.to_datetime(df['daily_sleep_end'], format='%Y-%m-%d %H:%M:%S').dt.tz_convert(None)
+    if len(data) == 0:
+        data = [[datetime.now(), 
+                 datetime.now(), NaN]]
+        df = pd.DataFrame(data, columns=['daily_sleep_start', 'daily_sleep_end', 'daily_sleep_stage'])
+    else:
+        df = pd.DataFrame(data, columns=['daily_sleep_start', 'daily_sleep_end', 'daily_sleep_stage'])
+        df['daily_sleep_start'] = pd.to_datetime(df['daily_sleep_start'], format='%Y-%m-%d %H:%M:%S').dt.tz_convert(None) + timedelta(hours=9)
+        df['daily_sleep_end'] = pd.to_datetime(df['daily_sleep_end'], format='%Y-%m-%d %H:%M:%S').dt.tz_convert(None) + timedelta(hours=9)
+
     df['daily_sleep_total'] = df['daily_sleep_end'] - df['daily_sleep_start']
     df['daily_sleep_total'] = df['daily_sleep_total'].apply(timedelta.total_seconds) / 60
     df = df[(df.daily_sleep_stage != 'HKCategoryValueSleepAnalysisInBed') & (df.daily_sleep_stage != 'HKCategoryValueSleepAnalysisAsleepUnspecified')]

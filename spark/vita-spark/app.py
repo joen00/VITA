@@ -62,9 +62,9 @@ def apple_df(userId):
             zf.extract(info, './applehealth/')
 
     input = './applehealth/apple_health_export/내보내기.xml'
-    parser = ET.XMLParser(encoding='UTF-8')
 
     try:
+        parser = ET.XMLParser(encoding='UTF-8')
         tree = ET.parse(input, parser=parser)
         root = tree.getroot()
     except:
