@@ -62,7 +62,7 @@
                 height: 10%;
               "
             >
-              50살 대학생 이00
+              50살 주부 이00
             </div>
           </div>
           <div id="main-middle1-div-item" data-sal="slide-left" style="--sal-duration: 1s; " data-sal-repeat>
@@ -83,7 +83,7 @@
                 height: 10%;
               "
             >
-              30살 대학생 박00
+              30살 회사원 박00
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@
                 font-style: normal;
               "
             >
-삼성 헬스앱에서 건강정보
+웨어러블 앱에서 건강정보
 내보내기
             </pre>
             <pre
@@ -125,7 +125,7 @@
               "
             >
 가이드를 따라,
-삼성 헬스앱의 건강정보를 업로드하세요.
+웨어러블 건강정보를 업로드하세요.
             </pre>
           </div>
           <!-- div1 끝 -->
@@ -160,8 +160,8 @@ HealthReport를 통해
                 font-style: normal;
               "
             >
-그래프를 통해 쉽게 비교할 수 있고
-과거와 비교할 수 있습니다.
+그래프를 통해 한눈에 건강정보를 확인하고,
+과거의 데이터와 비교할 수 있습니다.
             </pre>
           </div>
           <!-- div2 끝 -->
