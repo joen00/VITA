@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5f1f2833-42c4-44f4-82bb-c7d204c1039d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearableImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearableImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearablePastImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/vitawearable/service/WearablePastImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +109,8 @@
       <workItem from="1680651286376" duration="2000" />
       <workItem from="1680651320117" duration="3360000" />
       <workItem from="1680669979712" duration="5922000" />
+      <workItem from="1680739891714" duration="3586000" />
+      <workItem from="1680761759677" duration="1831000" />
     </task>
     <servers />
   </component>

@@ -684,7 +684,8 @@ public class WearablePastImpl implements WearablePast {
                 .mapToDouble(num -> num)
                 .summaryStatistics()
                 .getAverage();
-        weightPastAndNowDto.setYearNowWearableWeight(nowYearAvg.floatValue());
+
+        weightPastAndNowDto.setYearNowWearableWeight((float)(Math.round(nowYearAvg*100)/100.0));
 
         // 저번 년도 값 평균 구해서 넣어주기
 
@@ -695,7 +696,7 @@ public class WearablePastImpl implements WearablePast {
                 .mapToDouble(num -> num)
                 .summaryStatistics()
                 .getAverage();
-        weightPastAndNowDto.setYearPastWearableWeight(pastYearAvg.floatValue());
+        weightPastAndNowDto.setYearPastWearableWeight((float)(Math.round(pastYearAvg*100)/100.0));
 
         // 저번 년도 값 평균 구해서 넣어주기
 //        weightPastAndNowDto.setYearPastWearableWeight(
