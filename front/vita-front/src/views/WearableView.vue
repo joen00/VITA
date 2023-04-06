@@ -310,116 +310,103 @@ export default {
       });
 
       // ----------- 히스토리 이미지 만드는 부분 ------------------------
-      // 유저의 종합 점수, 과거 점수 정보 추출      
-      const getUserInfoPDF = html2canvas(userInfo, { backgroundColor: "#E2F2FA", height: 380, y: -20 })
+      // 유저의 종합 점수, 과거 점수 정보 추출
+      await html2canvas(userInfo, { backgroundColor: "#E2F2FA", height: 380, y: -20 }).then((canvas) => {
+        document.querySelector("#history-score-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      })
 
       // 체중 차트 추출
-      const getWeightPDF = html2canvas(pdfWeight, {
+      await html2canvas(pdfWeight, {
         backgroundColor: "#E2F2FA",
         height: 700,
         y: -60,
-      })
+      }).then((dataUrl) => {
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
 
       // 걸음수 추출
-      const getStepPDF = html2canvas(pdfStep, { backgroundColor: "#E2F2FA", height: 700, y: -60 })
+      await html2canvas(pdfStep, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
+        document.querySelector("#history-step-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      })
 
       // 활동 에너지 추출
-      const getEnergyPDF = html2canvas(pdfEnergy, { backgroundColor: "#E2F2FA", height: 700, y: -60 })
+      await html2canvas(pdfEnergy, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
+        document.querySelector("#history-energy-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      })
 
       // 심박변이 추출
-      const getRhrPDF = html2canvas(pdfRhr, { backgroundColor: "#E2F2FA", height: 700, y: -60 })
+      await html2canvas(pdfRhr, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
+        document.querySelector("#history-rhr-chart").setAttribute("src", canvas.toDataURL());
+        doc.drawImage(canvas.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+        doc.addPage();
+      })
       
 
       // 스트레스 차트 추출
-      const getStressPDF = html2canvas(pdfStress, {
+      await html2canvas(pdfStress, {
         backgroundColor: "#E2F2FA",
         height: 700,
         y: -60,
-      })
+      }).then((dataUrl) => {
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
 
       // 수면 차트 추출
-      const getSleepPDF = html2canvas(pdfSleep, {
+      await html2canvas(pdfSleep, {
         backgroundColor: "#E2F2FA",
         height: 700,
         y: -60,
-      })
+      }).then((dataUrl) => {
+        doc.drawImage(dataUrl.toDataURL(), null, null, {
+          width: 480,
+        });
+        doc.moveDown();
+      });
 
       // 만들어진 히스토리 이미지를 DB에 저장
-      const saveHistoryImage = html2canvas(pdfScore)
+      await html2canvas(pdfScore).then((dataUrl) => {
+        console.log(dataUrl.toDataURL());
+        axios.post(
+          this.$store.state.serverBaseUrl + `/wearable/savehistory`,
+          { image: dataUrl.toDataURL() },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        ).then((response) => {
+        });
+      })
 
-      await Promise
-        .all([getUserInfoPDF, getWeightPDF, getStepPDF, getEnergyPDF, getRhrPDF, getStressPDF, getSleepPDF, saveHistoryImage])
-        .then(([userUrl, weightUrl, stepUrl, energyUrl, rhrUrl, stressUrl, sleepUrl, historyImageUrl]) => {
-
-          // 히스토리 이미지에 유저 종합 점수 차트 그리기
-          document.querySelector("#history-score-chart").setAttribute("src", userUrl.toDataURL());
-          // pdf에 유저 종합 점수 차트 그리기
-          doc.drawImage(userUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-
-          // pdf에 체중 차트 그리기
-          doc.drawImage(weightUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-
-          // 히스토리 이미지에 걸음수 차트 그리기
-          document.querySelector("#history-step-chart").setAttribute("src", stepUrl.toDataURL());
-          // pdf에 걸음수 차트 그리기
-          doc.drawImage(stepUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-          doc.addPage();
-
-          // pdf에 활동에너지 차트 그리기
-          document.querySelector("#history-energy-chart").setAttribute("src", energyUrl.toDataURL());
-          doc.drawImage(energyUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-
-          // 히스토리 이미지에 심박변이 차트 그리기
-          document.querySelector("#history-rhr-chart").setAttribute("src", rhrUrl.toDataURL());
-          // pdf에 심박변이 차트 그리기
-          doc.drawImage(rhrUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-          doc.addPage();
-
-          // pdf에 스트레스 차트 그리기
-          doc.drawImage(stressUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-
-          // pdf에 수면시간 차트 그리기
-          doc.drawImage(sleepUrl.toDataURL(), null, null, {
-            width: 480,
-          });
-          doc.moveDown();
-
-          // 히스토리 이미지 DB에 저장
-          axios.post(
-            this.$store.state.serverBaseUrl + `/wearable/savehistory`,
-            { image: historyImageUrl.toDataURL() },
-            {
-              headers: {
-                Authorization: `Bearer ${this.token}`,
-              },
-            }
-          )
-
-          doc.end();
-          // 버튼을 원래 상태로 복구
-          this.pdfBtnNormal;
-          // 히스토리 이미지 추출용 태그들을 모두 제거함
-          document.getElementById("history-img").remove();
-        })
+      doc.end();
+      // 버튼을 원래 상태로 복구
+      this.pdfBtnNormal;
+      // 히스토리 이미지 추출용 태그들을 모두 제거함
+      document.getElementById("history-img").remove();
     },
+
 
     getUserInfo() {
       axios
