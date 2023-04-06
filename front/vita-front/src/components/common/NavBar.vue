@@ -63,7 +63,12 @@ export default {
 
     go (path) {
       this.close()
-      if (!this.isLoggedIn) this.$router.push("/loginForm");
+      if (!this.isLoggedIn) {
+        if (!path.equals("/")) {
+          this.$emit("onOpenLoginModal");
+          // this.$router.push("/loginForm");
+        }
+      }
       else this.$router.push(path).then(() => window.scrollTo(0, 0))
     },
     close () {
