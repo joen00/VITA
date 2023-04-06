@@ -64,7 +64,8 @@ export default {
     go (path) {
       this.close()
       if (!this.isLoggedIn) {
-        if (!path.equals("/")) {
+        if (path != "/") {
+          console.log(path)
           this.$emit("onOpenLoginModal");
           // this.$router.push("/loginForm");
         }
