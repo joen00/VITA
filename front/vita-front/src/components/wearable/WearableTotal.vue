@@ -81,7 +81,6 @@ export default {
           } else { 
             this.infovalue = true;
           }
-          console.log(this.infovalue)
     },
       getTotalScore(year) {
         // axios.get(this.$store.state.url + 'score/' + year , {

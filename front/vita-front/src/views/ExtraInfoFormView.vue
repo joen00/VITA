@@ -309,9 +309,6 @@ export default {
         return false;
       }
 
-      // console.log(JSON.stringify(this.form));
-      // console.log(this.token);
-      // console.log(`${this.token}`);
       axios
         .put(
           SERVER_URL + `/extrainfo`,
@@ -332,7 +329,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
             this.setUserNickname(this.form.nickname);
             this.$router.replace("/fileupload");
@@ -341,11 +337,9 @@ export default {
     },
 
     duplicatedNicknameCheck() {
-      console.log(this.nickname);
       axios
         .get(SERVER_URL + `/search/nickname?nickname=` + this.form.nickname)
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
             if (response.data.body.isDupNickname == "true") {
               this.isDupNickname = true;
@@ -354,7 +348,6 @@ export default {
               this.isDupNickname = false;
               this.isCheckNickname = true;
             }
-            console.log(this.isDupNickname + " " + this.isCheckNickname);
           }
         });
     },

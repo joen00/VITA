@@ -76,7 +76,6 @@ export default {
         break;
       }
     }
-    console.log(this.franks)
 
     am5.ready(() => {
       // Create root element

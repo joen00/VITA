@@ -183,14 +183,12 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
           const userId = response.data;
           axios
             .get(`https://j8b106.p.ssafy.io:5000/upload`, {
               params: { userId: userId, device: this.convertPhoneType ? "APPLE" : "SAMSUNG" },
             })
             .then((response) => {
-              console.log(response);
               if (response.data.substr(0, 1) == "S") {
                 alert("파일 업로드가 완료되었습니다.")
               } else {
@@ -211,7 +209,6 @@ export default {
         ;
     },
     created() {
-      console.log(this.serverBaseUrl);
     },
   },
 };

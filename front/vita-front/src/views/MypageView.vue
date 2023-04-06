@@ -250,7 +250,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           (this.nickname = response.data.userNickname),
             (this.UserInfo[0].data = response.data.userWeight),
             (this.UserInfo[1].data = response.data.userGender == "female" ? "여자" : "남자"),
@@ -280,7 +279,6 @@ export default {
               dates: data.createdDate,
             });
           });
-          console.log(response);
         });
     },
     dayclick(day) {
@@ -315,7 +313,6 @@ export default {
             }
           )
           .then((response) => {
-            console.log(response);
             this.getUserInfo();
             this.setUserPhoneType(this.UserInfo[4].data);
           });

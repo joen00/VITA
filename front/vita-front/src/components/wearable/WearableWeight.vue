@@ -31,7 +31,7 @@
         <div v-else>
           <WeightChart :key="componentKey" :data="data" ></WeightChart>
         </div>
-        <div v-if="infovalue" id="weight-middle-left-child">웨어러블로 통해 입력된 체중, 근골격량, 체지방량에 대한 비율을 표시합니다.</div>
+        <div v-if="infovalue" id="weight-middle-left-child">웨어러블로 통해 입력된 체중, 근골격량, <br> 체지방량에 대한 비율을 표시합니다.</div>
 
       </div>
       <div id="weight-middle-right">
@@ -229,7 +229,6 @@ infovalue:false,
           } else { 
             this.infovalue = true;
           }
-          console.log(this.infovalue)
     },
     async weekWeight() {
       await axios
@@ -453,7 +452,7 @@ infovalue:false,
     left: 0;
     top: 0;
     z-index: 9;
-    opacity: 0.45;
+    opacity: 0.9;
     display: flex;
     justify-content: space-around;
     align-items: center;

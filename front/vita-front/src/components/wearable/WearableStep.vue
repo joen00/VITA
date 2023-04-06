@@ -47,7 +47,7 @@
           <StepChart :key="componentKey" :data="data" :timeUnit="timeUnit"/>
         </div>
         
-        <div v-if="infovalue" id="step-middle-left-child">스마트폰, 웨어러블을 통해 입력된 걸음수를 표시합니다</div>
+        <div v-if="infovalue" id="step-middle-left-child">스마트폰, 웨어러블을 통해 입력된 <br> 걸음수를 표시합니다</div>
       </div>
       <!-- 오른쪽 과거와의 비교 -->
       <div id="step-middle-right">
@@ -250,7 +250,6 @@ export default {
           } else { 
             this.infovalue = true;
           }
-          console.log(this.infovalue)
     },
     async weekStep() {
       await axios
@@ -448,7 +447,7 @@ export default {
     left: 0;
     top: 0;
     z-index: 9;
-    opacity: 0.45;
+    opacity: 0.9;
     display: flex;
     justify-content: space-around;
     align-items: center;

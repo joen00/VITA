@@ -50,7 +50,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           var i = 0;
           response.data.map((data) => {
             i++;

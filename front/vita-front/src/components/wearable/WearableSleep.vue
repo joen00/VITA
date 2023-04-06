@@ -267,7 +267,6 @@
           } else { 
             this.infovalue = true;
           }
-          console.log(this.infovalue)
     },
       async weekSleep() {
         await axios
@@ -485,7 +484,7 @@
     left: 0;
     top: 0;
     z-index: 9;
-    opacity: 0.45;
+    opacity: 0.9;
     display: flex;
     justify-content: space-around;
     align-items: center;

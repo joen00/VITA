@@ -253,7 +253,6 @@ infovalue:false,
           } else { 
             this.infovalue = true;
           }
-          console.log(this.infovalue)
     },
     async weekStress() {
       await axios
@@ -473,7 +472,7 @@ infovalue:false,
     left: 0;
     top: 0;
     z-index: 9;
-    opacity: 0.45;
+    opacity: 0.9;
     display: flex;
     justify-content: space-around;
     align-items: center;

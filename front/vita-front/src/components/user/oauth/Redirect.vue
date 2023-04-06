@@ -7,19 +7,14 @@ import { mapMutations, mapActions } from 'vuex'
 export default {
   created () {
     const token = this.$route.query.token
-    // console.log('token', token)
 
     const flag = this.$route.query.extraInfoFlag
-    // console.log('flag', flag)
 
     const userNickname = this.$route.query.userNickname
-    // console.log('userNickname', userNickname)
 
     const userProfileImg = this.$route.query.userProfileImg
-    // console.log('userProfileImg', userProfileImg)
 
     const userPhoneType = this.$route.query.userPhoneType
-    // console.log('userPhoneType', userPhoneType)
 
     if (token) {
       this.setToken(token)

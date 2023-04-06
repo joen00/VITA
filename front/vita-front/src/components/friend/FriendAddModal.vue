@@ -66,7 +66,6 @@ export default {
 
   methods: {
     getSearchFriendList(inputValue) {
-      console.log(inputValue);
       axios
         .get(this.$store.state.serverBaseUrl + `/friend/apply/${inputValue}`, {
           headers: {
@@ -74,7 +73,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           this.searchlist = [];
           response.data.map((data) => {
             this.searchlist.push(data);
@@ -94,7 +92,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
           if (response.data == "success") {
             alert(`${user_nickname}님에게 친구 신청을 보냈습니다.`)
           } else {

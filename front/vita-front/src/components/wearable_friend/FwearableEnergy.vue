@@ -68,20 +68,17 @@ export default {
     sortData.sort(function(a,b) {
       return b.value - a.value;
     })
-    console.log(sortData)
 
     // 5명만 뽑아내기
     let count = 0;
     this.franks = [];
     for (var data of sortData) {
-      console.log(data);
       count += 1;
       this.franks.push({id: count, name: data.name, img: data.bulletSettings.src})
       if (count >= 5) {
         break;
       }
     }
-    console.log(this.franks)
 
     am5.ready(() => {
       // Create root element

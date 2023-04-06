@@ -119,7 +119,6 @@ export default {
 
   methods: {
     getFriendList(inputValue) {
-      console.log(inputValue);
       axios
         .get(this.$store.state.serverBaseUrl + `/friend/${inputValue}`, {
           headers: {
@@ -127,7 +126,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
             this.friendlist = [];
             response.data.map((data) => {
@@ -146,7 +144,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
             this.friendpostlist = []
             response.data.map((data) => {
@@ -168,7 +165,6 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response);
           this.getFriendPostList();
           this.getFriendList("");
           if (response.data == "rejected") {
@@ -191,7 +187,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response);
           this.getFriendPostList();
           this.getFriendList("");
           this.inputValue = ""

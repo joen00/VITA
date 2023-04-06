@@ -176,7 +176,6 @@ export default {
             let str1 = str.substr(0, 4);
             let str2 = str.substr(4);
             let kakaoimgurl = str1 + "s" + str2;
-            console.log(kakaoimgurl);
 
           return {
             "name":e.userNickname,
@@ -188,7 +187,6 @@ export default {
             let str1 = str.substr(0, 4);
             let str2 = str.substr(4);
             let kakaoimgurl = str1 + "s" + str2;
-            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageRhr, 
@@ -199,7 +197,6 @@ export default {
             let str1 = str.substr(0, 4);
             let str2 = str.substr(4);
             let kakaoimgurl = str1 + "s" + str2;
-            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageSleep, 
@@ -210,7 +207,6 @@ export default {
             let str1 = str.substr(0, 4);
             let str2 = str.substr(4);
             let kakaoimgurl = str1 + "s" + str2;
-            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageStress, 
@@ -221,7 +217,6 @@ export default {
             let str1 = str.substr(0, 4);
             let str2 = str.substr(4);
             let kakaoimgurl = str1 + "s" + str2;
-            console.log(kakaoimgurl);
           return {
             "name":e.userNickname, 
             "value":e.userAverageStep, 

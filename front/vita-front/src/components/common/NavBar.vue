@@ -62,11 +62,12 @@ export default {
     ...mapActions(['fetchUser']),
 
     go (path) {
-      this.close()
-      if (!this.isLoggedIn && path != "/") {
-        this.$emit("onOpenLoginModal");
-      }
-      else this.$router.push(path).then(() => window.scrollTo(0, 0))
+      // this.close()
+      // if (!this.isLoggedIn && path != "/") {
+      //   this.$emit("onOpenLoginModal");
+      // }
+      // else this.$router.push(path).then(() => window.scrollTo(0, 0))
+      this.$router.push(path).then(() => window.scrollTo(0, 0))
     },
     close () {
       this.isOpenAccountDropdown = false

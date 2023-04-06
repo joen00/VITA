@@ -50,7 +50,7 @@
           <EnergyChart :key="componentKey" :data="data" />
         </div>
         
-        <div v-if="infovalue" id="energy-middle-left-child">각종 활동으로 인해 얻어진 활동에너지를 표시합니다</div>
+        <div v-if="infovalue" id="energy-middle-left-child">각종 활동으로 인해 얻어진 <br> 활동에너지를 표시합니다</div>
       </div>
       <div id="energy-middle-right">
         <div id="energy-middle-right-div">
@@ -264,7 +264,6 @@ infovalue:false,
           } else { 
             this.infovalue = true;
           }
-          console.log(this.infovalue)
     },
     async weekEnergy() {
       await axios
@@ -463,7 +462,7 @@ infovalue:false,
     left: 0;
     top: 0;
     z-index: 9;
-    opacity: 0.45;
+    opacity: 0.9;
     display: flex;
     justify-content: space-around;
     align-items: center;

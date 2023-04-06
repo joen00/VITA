@@ -352,7 +352,6 @@ export default {
 
       // 심박변이 추출
       await html2canvas(pdfRhr, { backgroundColor: "#E2F2FA", height: 700, y: -60 }).then((canvas) => {
-        // console.log(canvas)
         document.querySelector("#history-rhr-chart").setAttribute("src", canvas.toDataURL());
         doc.drawImage(canvas.toDataURL(), null, null, {
           width: 480,
@@ -388,7 +387,6 @@ export default {
 
       // 만들어진 히스토리 이미지를 DB에 저장
       await html2canvas(pdfScore).then((dataUrl) => {
-        // console.log(dataUrl.toDataURL());
         axios.post(
           this.$store.state.serverBaseUrl + `/wearable/savehistory`,
           { image: dataUrl.toDataURL() },
@@ -398,7 +396,6 @@ export default {
             },
           }
         ).then((response) => {
-          console.log(response)
         });
       })
 
@@ -418,7 +415,6 @@ export default {
           },
         })
         .then((response) => {
-          // console.log(response);
           this.nickname = response.data.userNickname;
           this.avatar = response.data.userAvatar;
         });
