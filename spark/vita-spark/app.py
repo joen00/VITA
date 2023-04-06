@@ -61,8 +61,29 @@ def apple_df(userId):
             info.filename = info.filename.encode('cp437').decode('utf-8')
             zf.extract(info, './applehealth/')
 
-    tree = ET.parse('./applehealth/apple_health_export/내보내기.xml')
-    root = tree.getroot()
+    input = './applehealth/apple_health_export/내보내기.xml'
+    parser = ET.XMLParser(encoding='UTF-8')
+
+    try:
+        tree = ET.parse(input, parser=parser)
+        root = tree.getroot()
+    except:
+        with open(input, 'rt', encoding='UTF-8') as data:
+            lines = data.readlines()
+
+        for i in range(2, 300):
+            if (']') in lines[2]:
+                break
+            del lines[2]
+
+        output = './applehealth/apple_health_export/내보내기2.xml'
+        f = open(output, "w", encoding='UTF-8')
+        f.writelines(lines)
+        f.close()
+
+        parser = ET.XMLParser(encoding='UTF-8')
+        tree = ET.parse(output, parser=parser)
+        root = tree.getroot()
 
     weight_list, step_daily_trend_list, heart_rate_list, calories_burned_list, stress_list, sleep_stage_list = [], [], [], [], [], []
 
