@@ -120,9 +120,9 @@ def totalScore(df, userId, db):
         user_badge.giveBagde(db, userId, id)
 
 def setScore(data, type, api_info):
-  if data != 0: result = 100 - abs(data - api_info[type][0]) / 100
-  else: result = 0
-  return result
+    if data != 0: result = 100 - abs(data - api_info[type][0]) / 100
+    else: result = 0
+    return result
 
 def calcScore(data, type, api_info):
     sc = SparkContext.getOrCreate()
