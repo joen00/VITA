@@ -1,0 +1,49 @@
+{
+  "name": "vita-front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --port 3000",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@amcharts/amcharts5": "^5.3.7",
+    "@grapecity/wijmo.vue2.all": "^5.20222.877",
+    "aos": "^3.0.0-beta.6",
+    "apexcharts": "^3.37.2",
+    "axios": "^1.3.4",
+    "bootstrap": "^5.2.3",
+    "bootstrap-vue": "^2.23.1",
+    "core-js": "^3.8.3",
+    "filepond": "^4.30.4",
+    "filepond-plugin-file-validate-type": "^1.2.8",
+    "hooper": "^0.3.4",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "sal.js": "^0.8.5",
+    "v-calendar": "^2.4.1",
+    "vue": "^2.7.14",
+    "vue-apexcharts": "^1.6.2",
+    "vue-carousel-3d": "^1.0.1",
+    "vue-router": "^3.5.1",
+    "vue-slick-carousel": "^1.0.6",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "vue-concise-slider": "^4.2.5",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
