@@ -4,7 +4,6 @@ from urllib import request as rq
 import xml.etree.ElementTree as ET
 from flask_cors import CORS
 import pandas as pd
-import time
 import zipfile
 import shutil
 import glob
@@ -154,7 +153,6 @@ def makeDay(db, userId, device):
 def upload():
     userId = request.args.get('userId')
     device = request.args.get('device')
-    start = time.time()
 
     try:
         db = common.connectDB()
@@ -187,8 +185,7 @@ def upload():
 
         return f'Success, {userId}!'
     
-    except Exception as e:
-        print(e)
+    except:
         return f'Fail, {userId}!'
     
     finally:
@@ -200,9 +197,6 @@ def upload():
                 shutil.rmtree(path)
             if 'applehealth' in path:
                 shutil.rmtree(path)
-
-        end = time.time()
-        print(f"{end - start:.2f} sec")
 
 @app.route('/')
 def main():
