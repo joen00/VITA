@@ -13,8 +13,6 @@ import config
 import api_average
 import user_badge
 
-sc = SparkContext.getOrCreate()
-
 # DB 연결
 def connectDB():
     db_connection_str = config.db_connection_str
@@ -127,6 +125,7 @@ def setScore(data, type, api_info):
   return result
 
 def calcScore(data, type, api_info):
+    sc = SparkContext.getOrCreate()
     lines = sc.parallelize(data)
     map = lines.map(lambda x: setScore(x, type, api_info))
     result = map.collect()
