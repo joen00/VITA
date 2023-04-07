@@ -4,6 +4,7 @@ from numpy import NaN
 
 import pymysql
 from sqlalchemy import create_engine
+from pyspark import SparkContext
 
 pymysql.install_as_MySQLdb()
 import MySQLdb
@@ -11,6 +12,8 @@ import MySQLdb
 import config
 import api_average
 import user_badge
+
+sc = SparkContext.getOrCreate()
 
 # DB 연결
 def connectDB():
@@ -117,3 +120,14 @@ def totalScore(df, userId, db):
     if (maxScore != -1) & ((step + energy + rhr + stress + sleep) >= maxScore + 50):
         id = user_badge.findId(db, 'upgrade')
         user_badge.giveBagde(db, userId, id)
+
+def setScore(data, type, api_info):
+  if data != 0: result = 100 - abs(data - api_info[type][0]) / 100
+  else: result = 0
+  return result
+
+def calcScore(data, type, api_info):
+    lines = sc.parallelize(data)
+    map = lines.map(lambda x: setScore(x, type, api_info))
+    result = map.collect()
+    return result
