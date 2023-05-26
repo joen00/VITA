@@ -154,7 +154,7 @@
 ## 🔧 기술 스택 🔧
 
 ```jsx
-**[ Backend ]**
+[ Backend ]
 - Java 11
 - MySQL `8.0.30`
 - SpringBoot `2.7.9`
@@ -167,7 +167,7 @@
 - Python `3.10.10`
 - Spark `3.2.1`
 
-**[ Frontend ]**
+[ Frontend ]
 - npm `9.5.0`
 - node `18.15.0`
 - vue `5.0.8`
@@ -181,29 +181,29 @@
 - vue-carousel-3d `1.0.1`
 - v-calendar `2.4.1`
 
-**[ DB ]**
+[ DB ]
 - MySQL `8.0.30`
 
-**[ BigData ]**
+[ BigData ]
 - Python `3.10.10`
 - Flask `2.2.3`
 - pyspark `3.3.2`
 
-**[ DevOpe ]**
+[ DevOps ]
 - Docker
 - Nginx
 - Jenkins
 - AWS EC2
 
-**[ Storage ]**
+[ Storage ]
 - S3 Bucket
 
-**[ IDE ]**
+[ IDE ]
 - IntelliJ
 - VSCode
 
-**[ Team Collaboration Tool ]
--** GitLab
+[ Team Collaboration Tool ]
+- GitLab
 - Notion
 - JIRA
 - MatterMost
